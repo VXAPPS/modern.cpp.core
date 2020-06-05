@@ -28,10 +28,6 @@
 # * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # */
 
-cmake_minimum_required(VERSION 3.10.0)
+project(examples)
 
-project(modern.cpp.core)
-include(cmake/env.cmake)
-
-add_subdirectory(source)
-add_subdirectory(examples)
+add_subdirectory(cpuinfo)

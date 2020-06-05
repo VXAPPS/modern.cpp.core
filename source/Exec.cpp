@@ -28,14 +28,34 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+/* stl header */
+#include <array>
+#include <iostream>
+#include <memory>
+#include <sstream>
 
-#ifdef BLUB
-#   ifdef CREATE_MODERNCPPCORE
-#      define MODERNCPPCORE_EXPORT    __declspec( dllexport )
-#   else
-#      define MODERNCPPCORE_EXPORT    __declspec( dllimport )
-#   endif
-#else
-#   define MODERNCPPCORE_EXPORT
-#endif
+/* local header */
+#include "Exec.h"
+
+namespace VX {
+
+  /** Buffer size to read stdout */
+  constexpr int bufferSize = 128;
+
+  std::string exec( const std::string &_command ) {
+
+    std::array<char, bufferSize> buffer {};
+    std::string result;
+    std::unique_ptr<FILE, decltype( &pclose )> pipe( popen( _command.c_str(), "r" ), pclose );
+    if ( !pipe ) {
+
+      std::cout << "popen() failed for " << _command << std::endl;
+      return {};
+    }
+    while ( fgets( buffer.data(), buffer.size(), pipe.get() ) != nullptr ) {
+
+      result += buffer.data();
+    }
+    return result;
+  }
+}

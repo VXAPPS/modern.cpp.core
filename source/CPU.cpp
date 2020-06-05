@@ -28,14 +28,41 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
-
-#ifdef BLUB
-#   ifdef CREATE_MODERNCPPCORE
-#      define MODERNCPPCORE_EXPORT    __declspec( dllexport )
-#   else
-#      define MODERNCPPCORE_EXPORT    __declspec( dllimport )
-#   endif
-#else
-#   define MODERNCPPCORE_EXPORT
+#ifdef _WIN32
+  #include <intrin.h>
+  using unsigned int = unsigned __int32;
 #endif
+
+/* local header */
+#include "CPU.h"
+
+namespace VX {
+
+  /** Leaf of extended information. */
+  constexpr unsigned int extendedLeaf = 7;
+
+  /** Leaf of sgx information. */
+  constexpr unsigned int sgxLeaf = 12;
+
+  CPU::CPU( unsigned int _leaf, unsigned int _subleaf ) {
+
+    updateNativeId( sgxLeaf, 0 );
+    m_sgxLeaf = m_currentLeaf;
+    updateNativeId( extendedLeaf, 0 );
+    m_extendedLeaf = m_currentLeaf;
+    updateNativeId( 1, 0 );
+    m_leaf = m_currentLeaf;
+    updateNativeId( _leaf, _subleaf );
+  }
+
+  void CPU::updateNativeId( unsigned int _leaf, unsigned int _subleaf ) {
+
+#ifdef _WIN32
+      __cpuid( m_currentLeaf.data(), _leaf, _subleaf );
+#else
+      asm volatile
+      ( "cpuid" : "=a"( m_currentLeaf[0] ), "=b"( m_currentLeaf[1] ), "=c"( m_currentLeaf[2] ), "=d"( m_currentLeaf[3] )
+        : "a"( _leaf ), "c"( _subleaf ) );
+#endif
+  }
+}

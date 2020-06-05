@@ -10,14 +10,15 @@ make -j`nproc`
 ```
 
 ## Classes
-- **CPUID** - Get CPUID.
-- **Double** - Less, Greater, Equal, Round.
+- **CPU** - Get CPU informations.
+- **Double** - Less, Greater, Equal, Between, Round.
+- **Exec** - Run command and return stdout.
 - **Serial** - Serial communication class.
 - **Timing** - Measering time, cpu and real time.
 
 ## Template classes
-- **CSVWriter** - write out comma seperated values.
-- **Timer** - timeout thread one time or interval.
+- **CSVWriter** - Write out comma seperated values.
+- **Timer** - Timeout thread on time or interval.
 
 ## Unixservice class
 - Main function to run as a unix daemon.

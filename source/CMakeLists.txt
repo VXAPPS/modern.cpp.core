@@ -32,9 +32,12 @@ project(modern.cpp.core)
 
 add_library(modern.cpp.core
   ../README.md
-  CPUID.h
+  CPU.cpp
+  CPU.h
   Double.cpp
   Double.h
+  Exec.cpp
+  Exec.h
   ModernCppCore.h
   Serial.cpp
   Serial.h

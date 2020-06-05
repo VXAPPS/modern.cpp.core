@@ -30,6 +30,9 @@
 
 #pragma once
 
+/* local header */
+#include "ModernCppCore.h"
+
 /**
  * @brief VX (VX Apps) Namespace.
  */
@@ -41,8 +44,8 @@ namespace VX {
    * @param _right   The second value.
    * @return True, if _left and _right are equal - otherwise false.
    */
-  bool doubleEquals( double _left,
-                     double _right );
+  bool MODERNCPPCORE_EXPORT doubleEquals( double _left,
+                                          double _right );
 
   /**
    * @brief Is _left less _right or _orEqual? Rounded by default to second places.
@@ -52,9 +55,9 @@ namespace VX {
    * @return True, if _left less _right or _left and _right are equal and
    * _orEqual is set to true - otherwise false.
    */
-  bool doubleLess( double _left,
-                   double _right,
-                   bool _orEqual = false );
+  bool MODERNCPPCORE_EXPORT doubleLess( double _left,
+                                        double _right,
+                                        bool _orEqual = false );
 
   /**
    * @brief Is _left greater _right or _orEqual? Rounded by default to second places.
@@ -64,9 +67,9 @@ namespace VX {
    * @return True, if _left greater _right or _left and _right are equal and
    * _orEqual is set to true - otherwise false.
    */
-  bool doubleGreater( double _left,
-                      double _right,
-                      bool _orEqual = false );
+  bool MODERNCPPCORE_EXPORT doubleGreater( double _left,
+                                           double _right,
+                                           bool _orEqual = false );
 
   /**
    * @brief Is _value between _min and _max or _orEqual.
@@ -76,10 +79,10 @@ namespace VX {
    * @param _orEqual  Is _value == _min or _value == _max
    * @return True, if _value is between _min and _max _orEqual - otherwise false.
    */
-  bool doubleBetween( double _value,
-                      double _min,
-                      double _max,
-                      bool _orEqual = false );
+  bool MODERNCPPCORE_EXPORT doubleBetween( double _value,
+                                           double _min,
+                                           double _max,
+                                           bool _orEqual = false );
 
   /**
    * @brief Round a double _value by _places.
@@ -87,6 +90,6 @@ namespace VX {
    * @param _places   Places to round.
    * @return The rounded value.
    */
-  double doubleRound( double _value,
-                      std::size_t _places = 2 );
+  double MODERNCPPCORE_EXPORT doubleRound( double _value,
+                                           std::size_t _places = 2 );
 }

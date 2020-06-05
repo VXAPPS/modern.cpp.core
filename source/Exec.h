@@ -30,13 +30,11 @@
 
 #pragma once
 
-#ifdef _WIN32
-  #include <climits>
-  #include <intrin.h>
-  using uint32_t = unsigned __int32;
-#else
-  #include <stdint.h>
-#endif
+/* stl header */
+#include <string>
+
+/* local header */
+#include "ModernCppCore.h"
 
 /**
  * @brief VX (VX Apps) Namespace.
@@ -44,59 +42,9 @@
 namespace VX {
 
   /**
-   * @brief The CPUID class for receiving CPU id.
-   * @author Florian Becker <fb\@vxapps.com> (VX Apps)
+   * @brief Execute external application and return the stdout output.
+   * @param _command   Command to run.
+   * @return Return the stdout output.
    */
-  class CPUID {
-
-  public:
-    /**
-     * @brief Default constructor for CPUID.
-     * @param _i   Core id.
-     */
-    explicit CPUID( int _i ) {
-
-#ifdef _WIN32
-      __cpuid( ( int * )regs, _i );
-
-#else
-      asm volatile
-      ( "cpuid" : "=a"( regs[0] ), "=b"( regs[1] ), "=c"( regs[2] ), "=d"( regs[3] )
-        : "a"( _i ), "c"( 0 ) );
-      /* ECX is set to zero for CPUID function 4 */
-#endif
-    }
-
-    /**
-     * @brief Return EAX id.
-     * @return The EAX id.
-     */
-    uint32_t EAX() const { return regs[0]; }
-
-    /**
-     * @brief Return EBX id.
-     * @return The EBX id.
-     */
-    uint32_t EBX() const { return regs[1]; }
-
-    /**
-     * @brief Return ECX id.
-     * @return The ECX id.
-     */
-    uint32_t ECX() const { return regs[2]; }
-
-    /**
-     * @brief Return EDX id.
-     * @return The EDX id.
-     */
-    uint32_t EDX() const { return regs[3]; }
-
-  private:
-//    std::vector<uint32_t> m_regs;
-    /**
-     * @brief Reg parts.
-     * @todo: Convert to vector<int>.
-     */
-    uint32_t regs[4] = {};
-  };
+  std::string MODERNCPPCORE_EXPORT exec( const std::string &_command );
 }
