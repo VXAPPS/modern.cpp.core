@@ -38,7 +38,6 @@ add_library(modern.cpp.core
   Double.h
   Exec.cpp
   Exec.h
-  ModernCppCore.h
   Serial.cpp
   Serial.h
   Timing.cpp

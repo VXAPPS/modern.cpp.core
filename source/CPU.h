@@ -33,9 +33,6 @@
 /* stl header */
 #include <array>
 
-/* local header */
-#include "ModernCppCore.h"
-
 /**
  * @brief VX (VX Apps) Namespace.
  */
@@ -45,7 +42,7 @@ namespace VX {
    * @brief The CPU class for receiving information about the CPU.
    * @author Florian Becker <fb\@vxapps.com> (VX Apps)
    */
-  class MODERNCPPCORE_EXPORT CPU {
+  class CPU {
 
   public:
     /**

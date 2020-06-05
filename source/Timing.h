@@ -37,9 +37,6 @@
 #include <chrono>
 #include <string>
 
-/* local header */
-#include "ModernCppCore.h"
-
 /**
  * @brief VX (VX Apps) Namespace.
  */
@@ -49,7 +46,7 @@ namespace VX {
    * @brief Print CPU and System Time on called block.
    * @author Florian Becker <fb\@vxapps.com> (VX Apps)
    */
-  class MODERNCPPCORE_EXPORT Timing {
+  class Timing {
 
   public:
     /**

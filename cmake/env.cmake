@@ -84,6 +84,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MCC_WARNING_FLAGS_SPACED}")
 endif()
 
+if(MSVC)
+  # Force to always compile with W4
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX")
+  if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+    string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+  endif()
+endif()
+
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)

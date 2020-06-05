@@ -33,9 +33,6 @@
 /* stl header */
 #include <string>
 
-/* local header */
-#include "ModernCppCore.h"
-
 /**
  * @brief VX (VX Apps) Namespace.
  */
@@ -46,5 +43,5 @@ namespace VX {
    * @param _command   Command to run.
    * @return Return the stdout output.
    */
-  std::string MODERNCPPCORE_EXPORT exec( const std::string &_command );
+  std::string exec( const std::string &_command );
 }
