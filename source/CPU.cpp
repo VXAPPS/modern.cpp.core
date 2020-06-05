@@ -30,7 +30,6 @@
 
 #ifdef _WIN32
   #include <intrin.h>
-  using unsigned int = unsigned __int32;
 #endif
 
 /* local header */
@@ -58,7 +57,12 @@ namespace VX {
   void CPU::updateNativeId( unsigned int _leaf, unsigned int _subleaf ) {
 
 #ifdef _WIN32
-      __cpuid( m_currentLeaf.data(), _leaf, _subleaf );
+     std::array<int, 4> currentLeaf;
+      __cpuidex( currentLeaf.data(), _leaf, _subleaf );
+      m_currentLeaf[0] = currentLeaf[0];
+      m_currentLeaf[1] = currentLeaf[1];
+      m_currentLeaf[2] = currentLeaf[2];
+      m_currentLeaf[3] = currentLeaf[3];
 #else
       asm volatile
       ( "cpuid" : "=a"( m_currentLeaf[0] ), "=b"( m_currentLeaf[1] ), "=c"( m_currentLeaf[2] ), "=d"( m_currentLeaf[3] )

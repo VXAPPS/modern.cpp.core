@@ -45,5 +45,4 @@ add_library(modern.cpp.core
   Timing.h
   templates/CSVWriter.h
   templates/Timer.h
-  unixservice/main.cpp
 )

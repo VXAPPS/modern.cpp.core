@@ -35,8 +35,12 @@
 
 /* system header */
 #include <fcntl.h> // open
+#ifdef _WIN32
+#include <io.h> // write, read, close
+#else
 #include <termios.h>
 #include <unistd.h> // write, read, close
+#endif
 
 /* stl header */
 #include <chrono>
@@ -57,13 +61,18 @@ namespace VX {
   Serial::Serial( const std::string &_path, Baudrate _baudrate ) {
 
     /* Open port, checking for errors */
+#ifdef _WIN32
+    m_descriptor = _open( _path.c_str(), ( O_RDWR | O_NOCTTY | O_NDELAY ) );
+#else
     m_descriptor = ::open( _path.c_str(), ( O_RDWR | O_NOCTTY | O_NDELAY ) );
+#endif
     if ( m_descriptor == -1 ) {
 
       std::cout << "Unable to open serial port: " << _path << " at baud rate: " << static_cast<int>( _baudrate ) << std::endl;
       return;
     }
 
+    /* TODO: Rework for windows */
     /* Configure i/o baud rate settings */
     struct termios options = {};
     tcgetattr( m_descriptor, &options );
@@ -144,7 +153,11 @@ namespace VX {
 
   bool Serial::write( const std::string &_data ) const {
 
+#ifdef _WIN32
+    int numBytesWritten = _write( m_descriptor, _data.c_str(), _data.size() );
+#else
     ssize_t numBytesWritten = ::write( m_descriptor, _data.c_str(), _data.size() );
+#endif
     if ( numBytesWritten < 0 ) {
 
 #ifdef DEBUG
@@ -158,7 +171,11 @@ namespace VX {
   std::string Serial::read() const {
 
     std::vector<char> buffer( bufferSize );
+#ifdef _WIN32
+    int numBytesRead = _read( m_descriptor, buffer.data(), buffer.size() );
+#else
     ssize_t numBytesRead = ::read( m_descriptor, buffer.data(), buffer.size() );
+#endif
     if ( numBytesRead < 0 ) {
 
 #ifdef DEBUG
@@ -173,7 +190,11 @@ namespace VX {
 
     if ( m_isOpen ) {
 
+#ifdef _WIN32
+      _close( m_descriptor );
+#else
       ::close( m_descriptor );
+#endif
       m_descriptor = -1;
     }
   }

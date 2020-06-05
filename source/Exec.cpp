@@ -46,13 +46,17 @@ namespace VX {
 
     std::array<char, bufferSize> buffer {};
     std::string result;
+#ifdef _WIN32
+    std::unique_ptr<FILE, decltype( &_pclose )> pipe( _popen( _command.c_str(), "r" ), _pclose );
+#else
     std::unique_ptr<FILE, decltype( &pclose )> pipe( popen( _command.c_str(), "r" ), pclose );
+#endif
     if ( !pipe ) {
 
       std::cout << "popen() failed for " << _command << std::endl;
       return {};
     }
-    while ( fgets( buffer.data(), buffer.size(), pipe.get() ) != nullptr ) {
+    while ( fgets( buffer.data(), static_cast<int>( buffer.size() ), pipe.get() ) != nullptr ) {
 
       result += buffer.data();
     }
