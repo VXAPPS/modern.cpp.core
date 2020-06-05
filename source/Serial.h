@@ -33,9 +33,6 @@
 /* stl header */
 #include <string>
 
-/* local header */
-#include "ModernCppCore.h"
-
 /**
  * @brief VX (VX Apps) Namespace.
  */
@@ -56,7 +53,7 @@ namespace VX {
    * @brief Serial communication class.
    * @author Florian Becker <fb\@vxapps.com> (VX Apps)
    */
-  class MODERNCPPCORE_EXPORT Serial {
+  class Serial {
 
   public:
     /**
