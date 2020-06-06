@@ -105,16 +105,23 @@ int main() {
 
   std::ifstream fileCheck( pidfile );
   /* Try to lock file - or even check if its available on c++ */
-  if ( fileCheck.good() ) {
+  if ( !fileCheck.good() ) {
 
     /* Couldn't get lock on lock file */
     /* NOTE: In c++ it is not (yet) possible to lock a file */
-//        syslog(LOG_INFO, "Could not lock PID lock file %s, exiting", pidfile.c_str());
-//        exit(EXIT_FAILURE);
+    std::ofstream fileCreate;
+    fileCreate.open( pidfile );
+    if ( !fileCreate.is_open() ) {
+
+      /* Couldn't create lock file */
+      syslog( LOG_INFO, "Could not create PID lock file %s, exiting", pidfile.c_str() );
+      exit( EXIT_FAILURE );
+    }
+    fileCreate.close();
   }
 
-  std::fstream file;
-  file.open( pidfile );
+  std::ofstream file;
+  file.open( pidfile, std::ofstream::out | std::ofstream::in );
   if ( !file.is_open() ) {
 
     /* Couldn't open lock file */
@@ -129,7 +136,7 @@ int main() {
 
   /* Get and format PID */
   std::string str = std::to_string( getpid() );
-  if ( !currentPid.empty() && currentPid == str ) {
+  if ( !currentPid.empty() && currentPid != str ) {
 
     /* Couldn't open lock file */
     syslog( LOG_INFO, "Service allready running as PID %s, exiting", currentPid.c_str() );
@@ -138,6 +145,7 @@ int main() {
 
   /* write pid to lockfile */
   file << str;
+  file.close();
   // DAEMONIZE END
 
   // SERVICE START
@@ -149,9 +157,6 @@ int main() {
   /* Close system logs for the child process */
   syslog( LOG_NOTICE, "Stopping %s", DAEMON_NAME );
   closelog();
-
-  /* Close pid information file */
-  file.close();
 
   /* Remove content of file */
   std::ofstream ofs;
