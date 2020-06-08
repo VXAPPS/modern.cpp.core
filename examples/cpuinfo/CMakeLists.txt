@@ -30,10 +30,8 @@
 
 project(cpuinfo)
 
-include_directories(../../source)
-
-add_executable(cpuinfo
+add_executable(${PROJECT_NAME}
   main.cpp
 )
 
-target_link_libraries(cpuinfo PRIVATE modern.cpp.core)
+target_link_libraries(${PROJECT_NAME} PRIVATE modern.cpp.core)

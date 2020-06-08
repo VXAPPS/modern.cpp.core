@@ -30,7 +30,7 @@
 
 project(modern.cpp.core)
 
-add_library(modern.cpp.core
+add_library(${PROJECT_NAME}
   ../README.md
   CPU.cpp
   CPU.h
@@ -45,3 +45,5 @@ add_library(modern.cpp.core
   templates/CSVWriter.h
   templates/Timer.h
 )
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/templates)
