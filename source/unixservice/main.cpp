@@ -34,6 +34,9 @@
 #include <unistd.h>
 
 /* stl header */
+#if __has_include(<filesystem>)
+  #include <filesystem>
+#endif
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -44,11 +47,8 @@ constexpr auto DAEMON_NAME = "Demo";
 int main() {
 
   // DAEMONIZE START
-  /* Define variables */
-  pid_t pid, sid;
-
   /* Fork the current process */
-  pid = fork();
+  pid_t pid = fork();
   /* The parent process continues with a process ID greater than 0 */
   if ( pid > 0 ) {
 
@@ -70,7 +70,7 @@ int main() {
   syslog( LOG_NOTICE, "Successfully started %s", DAEMON_NAME );
 
   // Generate a session ID for the child process
-  sid = setsid();
+  pid_t sid = setsid();
   /* Ensure a valid SID for the child process */
   if ( sid < 0 ) {
 
@@ -103,31 +103,19 @@ int main() {
   ss << "/var/run/" << DAEMON_NAME << ".pid";
   std::string pidfile = ss.str();
 
-  std::ifstream fileCheck( pidfile );
-  /* Try to lock file - or even check if its available on c++ */
-  if ( !fileCheck.good() ) {
-
-    /* Couldn't get lock on lock file */
-    /* NOTE: In c++ it is not (yet) possible to lock a file */
-    std::ofstream fileCreate;
-    fileCreate.open( pidfile );
-    if ( !fileCreate.is_open() ) {
-
-      /* Couldn't create lock file */
-      syslog( LOG_INFO, "Could not create PID lock file %s, exiting", pidfile.c_str() );
-      exit( EXIT_FAILURE );
-    }
-    fileCreate.close();
-  }
-
   std::ofstream file;
-  file.open( pidfile, std::ofstream::out | std::ofstream::in );
-  if ( !file.is_open() ) {
+  file.exceptions( std::ofstream::failbit | std::ofstream::badbit );
+  try {
 
-    /* Couldn't open lock file */
-    syslog( LOG_INFO, "Could not open PID lock file %s, exiting", pidfile.c_str() );
+    file.open( pidfile, std::ofstream::out | std::ofstream::in );
+  }
+  catch ( const std::ofstream::failure &_exception ) {
+
+    /* Couldn't open pid lock file */
+    syslog( LOG_INFO, "Could not open or create PID lock file %s: %s, exiting", pidfile.c_str(), _exception.what() );
     exit( EXIT_FAILURE );
   }
+  file.exceptions( 0 );
 
   /* Read pid from file, if there is any, find if the process is running - EXIT */
   std::stringstream buffer;
@@ -145,7 +133,16 @@ int main() {
 
   /* write pid to lockfile */
   file << str;
-  file.close();
+  try {
+
+    file.close();
+  }
+  catch ( ... ) {
+
+    /* Couldn't close pid lock file */
+    syslog( LOG_INFO, "Could not close PID lock file %s, exiting", pidfile.c_str() );
+    exit( EXIT_FAILURE );
+  }
   // DAEMONIZE END
 
   // SERVICE START
@@ -159,9 +156,12 @@ int main() {
   closelog();
 
   /* Remove content of file */
+#if __has_include(<filesystem>)
+  std::filesystem::remove( pidfile );
+#else
   std::ofstream ofs;
   ofs.open( pidfile, std::ofstream::out | std::ofstream::trunc );
-  ofs.close();
+#endif
   // CLEANUP END
 
   /* Terminate the child process when the daemon completes */
