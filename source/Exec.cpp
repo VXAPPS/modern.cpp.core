@@ -39,17 +39,34 @@
 
 namespace VX {
 
+  static int m_resultCode = 0;
+
   /** Buffer size to read stdout */
   constexpr int bufferSize = 128;
+
+  void close( std::FILE *_file ) {
+
+#ifdef _WIN32
+    m_resultCode = _pclose( _file );
+#else
+    m_resultCode = pclose( _file );
+#endif
+    if ( WIFEXITED( m_resultCode ) ) {
+
+      m_resultCode = WEXITSTATUS( m_resultCode );
+    }
+  }
+
+  int result() { return m_resultCode; }
 
   std::string exec( const std::string &_command ) {
 
     std::array<char, bufferSize> buffer {};
     std::string result;
 #ifdef _WIN32
-    std::unique_ptr<FILE, decltype( &_pclose )> pipe( _popen( _command.c_str(), "r" ), _pclose );
+    std::unique_ptr<FILE, decltype( &close )> pipe( _popen( _command.c_str(), "r" ), close );
 #else
-    std::unique_ptr<FILE, decltype( &pclose )> pipe( popen( _command.c_str(), "r" ), pclose );
+    std::unique_ptr<std::FILE, decltype( &close )> pipe( popen( _command.c_str(), "r" ), close );
 #endif
     if ( !pipe ) {
 

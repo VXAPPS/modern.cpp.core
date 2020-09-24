@@ -11,8 +11,8 @@ make -j`nproc`
 
 ## Classes
 - **CPU** - Get CPU informations.
-- **Double** - Less, Greater, Equal, Between, Round.
-- **Exec** - Run command and return stdout.
+- **Double** - Less, Greater, Equal, Between, Round, Split.
+- **Exec** - Run command and return stdout or mixed (stdout and stderr) and result code.
 - **Serial** - Serial communication class.
 - **Timing** - Measering time, cpu and real time.
 

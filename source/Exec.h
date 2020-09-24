@@ -44,4 +44,16 @@ namespace VX {
    * @return Return the stdout output.
    */
   std::string exec( const std::string &_command );
+
+  /**
+   * @brief result   Exit code of command.
+   * @return The result code.
+   */
+  int result();
+
+  /**
+   * @brief Overload for pclose.
+   * @param _file   File handle to close.
+   */
+  void close( std::FILE *_file );
 }

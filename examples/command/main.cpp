@@ -36,24 +36,49 @@
 
 int main() {
 
+  int code = 0;
+  std::string result = "EXIT_SUCCESS";
+  std::string pipe = {};
+
   std::cout << "----- Result: EXIT_SUCCESS stdout" << std::endl;
-  std::string test = VX::exec( "../pipe/pipe 0 2>/dev/null" );
-  std::cout << "'" << test << "'" << std::endl;
-  std::cout << std::endl;
+  pipe = VX::exec( "../pipe/pipe 0 2>/dev/null" );
+  code = VX::result();
+  if ( code != EXIT_SUCCESS ) {
+
+    result = "EXIT_FAILURE";
+  }
+  std::cout << "'" << pipe << "'" << std::endl;
+  std::cout << "Result: " << result << std::endl;
 
   std::cout << "----- Result: EXIT_SUCCESS mixed stdout and stderr" << std::endl;
-  std::string test2 = VX::exec( "../pipe/pipe 0 2>&1" );
-  std::cout << "'" << test2 << "'" << std::endl;
-  std::cout << std::endl;
+  pipe = VX::exec( "../pipe/pipe 0 2>&1" );
+  code = VX::result();
+  if ( code != EXIT_SUCCESS ) {
+
+    result = "EXIT_FAILURE";
+  }
+  std::cout << "'" << pipe << "'" << std::endl;
+  std::cout << "Result: " << result << std::endl;
 
   std::cout << "----- Result: EXIT_FAILURE stdout" << std::endl;
-  std::string test3 = VX::exec( "../pipe/pipe 1 2>/dev/null" );
-  std::cout << "'" << test3 << "'" << std::endl;
-  std::cout << std::endl;
+  pipe = VX::exec( "../pipe/pipe 1 2>/dev/null" );
+  code = VX::result();
+  if ( code != EXIT_SUCCESS ) {
+
+    result = "EXIT_FAILURE";
+  }
+  std::cout << "'" << pipe << "'" << std::endl;
+  std::cout << "Result: " << result << std::endl;
 
   std::cout << "----- Result: EXIT_FAILURE mixed stdout and stderr" << std::endl;
-  std::string test4 = VX::exec( "../pipe/pipe 1 2>&1" );
-  std::cout << "'" << test4 << "'" << std::endl;
+  pipe = VX::exec( "../pipe/pipe 1 2>&1" );
+  code = VX::result();
+  if ( code != EXIT_SUCCESS ) {
+
+    result = "EXIT_FAILURE";
+  }
+  std::cout << "'" << pipe << "'" << std::endl;
+  std::cout << "Result: " << result << std::endl;
 
   return EXIT_SUCCESS;
 }
