@@ -28,9 +28,8 @@
 # * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # */
 
-project(examples)
+project(pipe)
 
-add_subdirectory(command)
-add_subdirectory(cpuinfo)
-add_subdirectory(double)
-add_subdirectory(pipe)
+add_executable(${PROJECT_NAME}
+  main.cpp
+)
