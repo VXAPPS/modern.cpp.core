@@ -29,7 +29,7 @@
  */
 
 /* c header */
-#include <cmath>
+#include <cmath> // std::fabs, std::floor, std::modf
 
 /* stl header */
 #include <limits>
@@ -40,8 +40,8 @@
 
 namespace VX {
 
-  bool doubleEquals( double _left,
-                     double _right ) {
+  bool doubleEqual( double _left,
+                    double _right ) {
 
     return ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() );
   }
@@ -73,9 +73,16 @@ namespace VX {
   }
 
   double doubleRound( double _value,
-                      std::size_t _places ) {
+                      std::size_t _precision ) {
 
     std::vector<double> v = { 1, 10, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8 };
-    return std::floor( _value * v[ _places ] + 0.5 ) / v[ _places ];
+    return std::floor( _value * v[ _precision ] + 0.5 ) / v[ _precision ];
+  }
+
+  std::pair<double, double> doubleSplit( double _value ) {
+
+    double integral = 0.0;
+    double fraction = std::modf( _value, &integral );
+    return std::make_pair( integral, fraction );
   }
 }

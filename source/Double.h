@@ -30,22 +30,25 @@
 
 #pragma once
 
+/* stl header */
+#include <cstddef> // std::size_t
+
 /**
  * @brief VX (VX Apps) Namespace.
  */
 namespace VX {
 
   /**
-   * @brief Is _left and _right equal? Rounded by default to second places.
+   * @brief Is _left and _right equal?
    * @param _left   The first value.
    * @param _right   The second value.
    * @return True, if _left and _right are equal - otherwise false.
    */
-  bool doubleEquals( double _left,
-                     double _right );
+  bool doubleEqual( double _left,
+                    double _right );
 
   /**
-   * @brief Is _left less _right or _orEqual? Rounded by default to second places.
+   * @brief Is _left less _right or _orEqual?
    * @param _left   The first value.
    * @param _right   The second value.
    * @param _orEqual   Check if _left and _right are equal - default false.
@@ -57,7 +60,7 @@ namespace VX {
                    bool _orEqual = false );
 
   /**
-   * @brief Is _left greater _right or _orEqual? Rounded by default to second places.
+   * @brief Is _left greater _right or _orEqual?
    * @param _left   The first value.
    * @param _right   The second value.
    * @param _orEqual   Check if _left and _right are equal - default false.
@@ -82,11 +85,18 @@ namespace VX {
                       bool _orEqual = false );
 
   /**
-   * @brief Round a double _value by _places.
+   * @brief Round a double _value by _precision. Rounded by default to second places.
    * @param _value   Value to round.
-   * @param _places   Places to round.
+   * @param _precision   Places to round.
    * @return The rounded value.
    */
   double doubleRound( double _value,
-                      std::size_t _places = 2 );
+                      std::size_t _precision = 2 );
+
+  /**
+   * @brief Split a double _value to its integral and fraction parts.
+   * @param _value   Value to split.
+   * @return The integral and fraction part.
+   */
+  std::pair<double, double> doubleSplit( double _value );
 }
