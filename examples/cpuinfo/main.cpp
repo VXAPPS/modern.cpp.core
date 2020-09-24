@@ -72,5 +72,5 @@ int main() {
     cpu.updateNativeId( sgxLeaf, i );
     std::cout << std::hex << cpu.eax() << " " << cpu.ebx() << " " << cpu.ecx() << " " << cpu.edx() << " " << std::endl;
   }
-  return 0;
+  return EXIT_SUCCESS;
 }
