@@ -50,8 +50,10 @@ namespace VX {
                    double _right,
                    bool _orEqual ) {
 
-    if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() )
+    if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() ) {
+
       return ( _orEqual );
+    }
     return ( _left < _right );
   }
 
@@ -59,8 +61,10 @@ namespace VX {
                       double _right,
                       bool _orEqual ) {
 
-    if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() )
+    if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() ) {
+
       return ( _orEqual );
+    }
     return ( _left > _right );
   }
 
