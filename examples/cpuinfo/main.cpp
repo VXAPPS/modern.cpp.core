@@ -42,7 +42,7 @@ constexpr unsigned int maximumSubLeafs = 10;
 
 int main() {
 
-  VX::CPU cpu;
+  vx::CPU cpu;
   std::cout << std::hex << cpu.eax() << " " << cpu.ebx() << " " << cpu.ecx() << " " << cpu.edx() << " " << std::dec <<  std::endl;
 
   std::cout << "Stepping: " << cpu.stepping() << std::endl;

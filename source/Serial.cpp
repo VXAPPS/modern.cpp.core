@@ -50,7 +50,7 @@
 /* local haeder */
 #include "Serial.h"
 
-namespace VX {
+namespace vx {
 
   /** Flush duration in milliseconds */
   constexpr int flushDurationMs = 150;

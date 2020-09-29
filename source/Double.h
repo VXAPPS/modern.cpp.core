@@ -34,9 +34,9 @@
 #include <cstddef> // std::size_t
 
 /**
- * @brief VX (VX Apps) Namespace.
+ * @brief vx (VX Apps) namespace.
  */
-namespace VX {
+namespace vx {
 
   /**
    * @brief Is _left and _right equal?

@@ -37,5 +37,6 @@ set(WARNING_FLAGS
 
   # Own parameter
   -Wno-c++98-compat # C++11
+  -Wno-c++98-compat-pedantic # C++11
   -Wno-padded
 )

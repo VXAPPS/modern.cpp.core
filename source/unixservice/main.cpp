@@ -52,12 +52,12 @@ int main() {
   /* The parent process continues with a process ID greater than 0 */
   if ( pid > 0 ) {
 
-    exit( EXIT_SUCCESS );
+    std::exit( EXIT_SUCCESS );
   }
   /* A process ID lower than 0 indicates a failure in either process */
   else if ( pid < 0 ) {
 
-    exit( EXIT_FAILURE );
+    std::exit( EXIT_FAILURE );
   }
   /* The parent process has now terminated, and the forked child process will continue */
   /* (the pid of the child process was 0) */
@@ -79,7 +79,7 @@ int main() {
 
     /* If a new session ID could not be generated, we must terminate the child process */
     /* or it will be orphaned */
-    exit( EXIT_FAILURE );
+    std::exit( EXIT_FAILURE );
   }
 
   /* Change the current working directory to a directory guaranteed to exist */
@@ -90,7 +90,7 @@ int main() {
 
     /* If our guaranteed directory does not exist, terminate the child process to ensure */
     /* the daemon has not been hijacked */
-    exit( EXIT_FAILURE );
+    std::exit( EXIT_FAILURE );
   }
 
   /* A daemon cannot use the terminal, so close standard file descriptors for security reasons */
@@ -113,7 +113,7 @@ int main() {
 
     /* Couldn't open pid lock file */
     syslog( LOG_INFO, "Could not open or create PID lock file %s: %s, exiting", pidfile.c_str(), _exception.what() );
-    exit( EXIT_FAILURE );
+    std::exit( EXIT_FAILURE );
   }
   file.exceptions( 0 );
 
@@ -128,7 +128,7 @@ int main() {
 
     /* Couldn't open lock file */
     syslog( LOG_INFO, "Service allready running as PID %s, exiting", currentPid.c_str() );
-    exit( EXIT_FAILURE );
+    std::exit( EXIT_FAILURE );
   }
 
   /* write pid to lockfile */
@@ -137,12 +137,17 @@ int main() {
 
     file.close();
   }
-  catch ( ... ) {
+  catch ( const std::ofstream::failure &_exception ) {
 
-    /* Couldn't close pid lock file */
-    syslog( LOG_INFO, "Could not close PID lock file %s, exiting", pidfile.c_str() );
-    exit( EXIT_FAILURE );
+    syslog( LOG_INFO, "Could not close PID lock file %s, exiting with: %s", pidfile.c_str(), _exception.what() );
+    std::exit( EXIT_FAILURE );
   }
+  /* bugprone solution */
+  /* catch ( ... ) {
+
+    syslog( LOG_INFO, "Could not close PID lock file %s, exiting", pidfile.c_str() );
+    std::exit( EXIT_FAILURE );
+  } */
   // DAEMONIZE END
 
   // SERVICE START
@@ -165,5 +170,5 @@ int main() {
   // CLEANUP END
 
   /* Terminate the child process when the daemon completes */
-  exit( EXIT_SUCCESS );
+  std::exit( EXIT_SUCCESS );
 }

@@ -44,6 +44,7 @@ add_library(${PROJECT_NAME}
   Timing.h
   templates/CSVWriter.h
   templates/Timer.h
+  unixservice/main.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/templates)

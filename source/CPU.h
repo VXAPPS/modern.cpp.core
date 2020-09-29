@@ -34,9 +34,9 @@
 #include <array>
 
 /**
- * @brief VX (VX Apps) Namespace.
+ * @brief vx (VX Apps) namespace.
  */
-namespace VX {
+namespace vx {
 
   /**
    * @brief The CPU class for receiving information about the CPU.

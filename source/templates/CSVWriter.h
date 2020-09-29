@@ -35,9 +35,9 @@
 #include <string>
 
 /**
- * @brief VX (VX Apps) Namespace.
+ * @brief vx (VX Apps) namespace.
  */
-namespace VX {
+namespace vx {
 
   /**
    * @brief A class to create and write data in a csv file.
@@ -53,7 +53,7 @@ namespace VX {
      * @param _linePrefix   Prefix for every line.
      * @param _lineSuffix   Suffix for every line.
      */
-    explicit CSVWriter( const std::string &_filename, const std::string &_delimeter = ",", const std::string &_linePrefix = "", const std::string &_lineSuffix = "" ) :
+    explicit CSVWriter( const std::string &_filename, const std::string &_delimeter = ",", const std::string &_linePrefix = {}, const std::string &_lineSuffix = {} ) :
       m_filename( _filename ), m_delimeter( _delimeter ), m_linePrefix( _linePrefix ), m_lineSuffix( _lineSuffix ) {}
 
     /**
@@ -88,21 +88,21 @@ namespace VX {
     /**
      * @brief Csv filename.
      */
-    std::string m_filename = "";
+    std::string m_filename = {};
 
     /**
      * @brief Delimeter for values.
      */
-    std::string m_delimeter = ",";
+    std::string m_delimeter = {};
 
     /**
      * @brief Prefix for every line.
      */
-    std::string m_linePrefix = "";
+    std::string m_linePrefix = {};
 
     /**
      * @brief Suffix for every line.
      */
-    std::string m_lineSuffix = "";
+    std::string m_lineSuffix = {};
   };
 }

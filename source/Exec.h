@@ -34,9 +34,9 @@
 #include <string>
 
 /**
- * @brief VX (VX Apps) Namespace.
+ * @brief vx (VX Apps) namespace.
  */
-namespace VX {
+namespace vx {
 
   /**
    * @brief Execute external application and return the stdout output.

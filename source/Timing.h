@@ -38,9 +38,9 @@
 #include <string>
 
 /**
- * @brief VX (VX Apps) Namespace.
+ * @brief vx (VX Apps) namespace.
  */
-namespace VX {
+namespace vx {
 
   /**
    * @brief Print CPU and System Time on called block.
@@ -62,7 +62,7 @@ namespace VX {
     /**
      * @brief Stop the internal timer and output to stdout.
      */
-    void stop();
+    void stop() const;
 
     /**
      * @brief The name of timed action for the output display.
@@ -80,7 +80,7 @@ namespace VX {
     /**
      * @brief Name for the current action.
      */
-    std::string m_action = "";
+    std::string m_action = {};
 
     /**
      * @brief Clock to calculate system time elapsed.

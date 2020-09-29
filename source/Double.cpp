@@ -38,7 +38,7 @@
 /* local header */
 #include "Double.h"
 
-namespace VX {
+namespace vx {
 
   bool doubleEqual( double _left,
                     double _right ) {

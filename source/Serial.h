@@ -34,9 +34,9 @@
 #include <string>
 
 /**
- * @brief VX (VX Apps) Namespace.
+ * @brief vx (VX Apps) namespace.
  */
-namespace VX {
+namespace vx {
 
   /**
    * @brief The Baudrate speed enum.
@@ -88,7 +88,7 @@ namespace VX {
     /**
      * @brief Default destructor for Serial.
      */
-    ~Serial();
+    virtual ~Serial();
 
     /**
      * @brief Is the serial device open.

@@ -35,10 +35,10 @@
 /* local header */
 #include "Timing.h"
 
-namespace VX {
+namespace vx {
 
   /** Multiplier from nanoseconds to milliseconds to seconds and vice versa. */
-  constexpr double multiplier = 1000.0;
+  constexpr long long multiplier = 1000.0;
 
   void Timing::start() {
 
@@ -46,11 +46,11 @@ namespace VX {
     m_cpu = std::clock();
   }
 
-  void Timing::stop() {
+  void Timing::stop() const {
 
     auto end = std::chrono::high_resolution_clock::now();
     std::cout << "------ " << m_action << std::endl;
     std::cout << "Real Time: " << std::setprecision( std::numeric_limits<double>::digits10 + 1 ) << std::chrono::duration_cast<std::chrono::nanoseconds>( end - m_start ).count() / multiplier / multiplier << " ms" << std::endl;
-    std::cout << "CPU Time: " << std::setprecision( std::numeric_limits<double>::digits10 + 1 ) << multiplier * static_cast<double>( std::clock() - m_cpu ) / CLOCKS_PER_SEC << " ms" << std::endl;
+    std::cout << "CPU Time: " << std::setprecision( std::numeric_limits<double>::digits10 + 1 ) << multiplier * std::clock() - m_cpu / CLOCKS_PER_SEC << " ms" << std::endl;
   }
 }

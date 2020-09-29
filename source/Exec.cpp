@@ -37,7 +37,7 @@
 /* local header */
 #include "Exec.h"
 
-namespace VX {
+namespace vx {
 
   static int m_resultCode = 0;
 
@@ -64,9 +64,9 @@ namespace VX {
     std::array<char, bufferSize> buffer {};
     std::string result;
 #ifdef _WIN32
-    std::unique_ptr<FILE, decltype( &close )> pipe( _popen( _command.c_str(), "r" ), close );
+    std::unique_ptr<FILE, decltype( &close )> pipe( _popen( _command.c_str(), "r" ), &close );
 #else
-    std::unique_ptr<std::FILE, decltype( &close )> pipe( popen( _command.c_str(), "r" ), close );
+    std::unique_ptr<std::FILE, decltype( &close )> pipe( popen( _command.c_str(), "r" ), &close );
 #endif
     if ( !pipe ) {
 

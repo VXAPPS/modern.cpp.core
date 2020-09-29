@@ -35,7 +35,7 @@
 /* local header */
 #include "CPU.h"
 
-namespace VX {
+namespace vx {
 
   /** Leaf of extended information. */
   constexpr unsigned int extendedLeaf = 7;
