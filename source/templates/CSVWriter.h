@@ -53,7 +53,10 @@ namespace vx {
      * @param _linePrefix   Prefix for every line.
      * @param _lineSuffix   Suffix for every line.
      */
-    explicit CSVWriter( const std::string &_filename, const std::string &_delimeter = ",", const std::string &_linePrefix = {}, const std::string &_lineSuffix = {} ) :
+    explicit CSVWriter( const std::string &_filename,
+                        const std::string &_delimeter = ",",
+                        const std::string &_linePrefix = {},
+                        const std::string &_lineSuffix = {} ) :
       m_filename( _filename ), m_delimeter( _delimeter ), m_linePrefix( _linePrefix ), m_lineSuffix( _lineSuffix ) {}
 
     /**
@@ -62,14 +65,14 @@ namespace vx {
      * @param _last   Last value.
      */
     template<typename T>
-    void addRowData( T _first, T _last ) {
+    void addRowData( T _first, T _last ) const {
 
       std::ofstream file;
       file.open( m_filename, std::ios::app );
 
       file << m_linePrefix;
       /* Iterate over the range and add each lement to file seperated by delimeter. */
-      for ( ; _first != _last; ) {
+      while ( _first != _last ) {
 
         file << *_first;
         if ( ++_first != _last ) {

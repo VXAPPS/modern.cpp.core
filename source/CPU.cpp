@@ -43,7 +43,8 @@ namespace vx {
   /** Leaf of sgx information. */
   constexpr unsigned int sgxLeaf = 12;
 
-  CPU::CPU( unsigned int _leaf, unsigned int _subleaf ) {
+  CPU::CPU( unsigned int _leaf,
+            unsigned int _subleaf ) {
 
     updateNativeId( sgxLeaf, 0 );
     m_sgxLeaf = m_currentLeaf;
@@ -54,7 +55,8 @@ namespace vx {
     updateNativeId( _leaf, _subleaf );
   }
 
-  void CPU::updateNativeId( unsigned int _leaf, unsigned int _subleaf ) {
+  void CPU::updateNativeId( unsigned int _leaf,
+                            unsigned int _subleaf ) {
 
 #ifdef _WIN32
      std::array<int, 4> currentLeaf;

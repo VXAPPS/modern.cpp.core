@@ -50,7 +50,8 @@ namespace vx {
      * @param _leaf   Leaf register.
      * @param _subleaf   Subleaf of register.
      */
-    explicit CPU( unsigned int _leaf = 1, unsigned int _subleaf = 0 );
+    explicit CPU( unsigned int _leaf = 1,
+                  unsigned int _subleaf = 0 );
 
     /**
      * @brief Return stepping of cpu.
@@ -159,7 +160,8 @@ namespace vx {
      * @param _leaf   Leaf register.
      * @param _subleaf   Subleaf of register.
      */
-    void updateNativeId( unsigned int _leaf = 1, unsigned int _subleaf = 0 );
+    void updateNativeId( unsigned int _leaf = 1,
+                         unsigned int _subleaf = 0 );
 
   private:
     /**

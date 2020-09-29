@@ -61,7 +61,8 @@ namespace vx {
      * @param _path   Device path.
      * @param _baudrate   Baudrate speed.
      */
-    explicit Serial( const std::string &_path, Baudrate _baudrate = Baudrate::Speed9600 );
+    explicit Serial( const std::string &_path,
+                     Baudrate _baudrate = Baudrate::Speed9600 );
 
     /**
      * @brief Delete copy assign.

@@ -58,7 +58,8 @@ namespace vx {
   /** Buffer size to read std out */
   constexpr int bufferSize = 1024;
 
-  Serial::Serial( const std::string &_path, Baudrate _baudrate ) {
+  Serial::Serial( const std::string &_path,
+                  Baudrate _baudrate ) {
 
     /* Open port, checking for errors */
 #ifdef _WIN32
