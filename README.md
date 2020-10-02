@@ -11,9 +11,11 @@ make -j`nproc`
 
 ## Classes
 - **CPU** - Get CPU informations.
-- **Double** - Less, Greater, Equal, Between, Round, Split.
+- **DoubleExtras** - Less, Greater, Equal, Between, Round, Split.
 - **Exec** - Run command and return stdout or mixed (stdout and stderr) and result code.
+- **KeyState** - Check for caps lock state.
 - **Serial** - Serial communication class.
+- **StringExtras** - LeftTrim, RightTrim, Trim.
 - **Timing** - Measering time, cpu and real time.
 
 ## Template classes

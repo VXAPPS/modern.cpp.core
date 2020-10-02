@@ -36,7 +36,7 @@
 #include <vector>
 
 /* local header */
-#include "Double.h"
+#include "DoubleExtras.h"
 
 namespace vx {
 

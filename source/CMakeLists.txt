@@ -34,12 +34,16 @@ add_library(${PROJECT_NAME}
   ../README.md
   CPU.cpp
   CPU.h
-  Double.cpp
-  Double.h
+  DoubleExtras.cpp
+  DoubleExtras.h
   Exec.cpp
   Exec.h
+  KeyState.cpp
+  KeyState.h
   Serial.cpp
   Serial.h
+  StringExtras.cpp
+  StringExtras.h
   Timing.cpp
   Timing.h
   templates/CSVWriter.h
