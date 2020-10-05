@@ -49,7 +49,7 @@ namespace vx {
     /**
      * @brief Call a function after timeout.
      * @param _function   Call back function.
-     * @param _delay   Delay after the function is valled in milliseconds.
+     * @param _delay   Delay in milliseconds after the function is called.
      */
     template<typename Function>
     void setTimeout( Function _function, int _delay ) {
@@ -74,7 +74,7 @@ namespace vx {
     /**
      * @brief Call a function after interval.
      * @param _function   Call back function.
-     * @param _interval   Intervall after the function is called in milliseconds.
+     * @param _interval   Interval in milliseconds after the function is called.
      */
     template<typename Function>
     void setInterval( Function _function, int _interval ) {
@@ -100,7 +100,7 @@ namespace vx {
     }
 
     /**
-     * @brief Stoping the current timer to not exeecute the call back function.
+     * @brief Stopping the current timer to not execute the call back function.
      */
     inline void stop() { this->m_clear = true; }
 

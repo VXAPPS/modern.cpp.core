@@ -50,7 +50,7 @@ namespace vx {
 
   public:
     /**
-     * @brief Default constuctor for Timing.
+     * @brief Default constructor for Timing.
      */
     Timing() = default;
 
@@ -83,12 +83,12 @@ namespace vx {
     std::string m_action = {};
 
     /**
-     * @brief Clock to calculate system time elapsed.
+     * @brief Clock to calculate the elapsed system time.
      */
     std::chrono::time_point<std::chrono::high_resolution_clock> m_start = {};
 
     /**
-     * @brief Clock to calculate the cpu time elasped.
+     * @brief Clock to calculate the elapsed cpu time.
      */
     std::clock_t m_cpu = 0;
   };

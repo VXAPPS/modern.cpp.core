@@ -10,16 +10,16 @@ make -j`nproc`
 ```
 
 ## Classes
-- **CPU** - Get CPU informations.
+- **CPU** - Get CPU information.
 - **DoubleExtras** - Less, Greater, Equal, Between, Round, Split.
 - **Exec** - Run command and return stdout or mixed (stdout and stderr) and result code.
 - **KeyState** - Check for caps lock state.
 - **Serial** - Serial communication class.
 - **StringExtras** - LeftTrim, RightTrim, Trim.
-- **Timing** - Measering time, cpu and real time.
+- **Timing** - Measuring time, cpu and real time.
 
 ## Template classes
-- **CSVWriter** - Write out comma seperated values.
+- **CSVWriter** - Write out comma-separated values.
 - **Timer** - Timeout thread on time or interval.
 
 ## Unixservice class

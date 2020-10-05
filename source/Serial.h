@@ -43,10 +43,10 @@ namespace vx {
    */
   enum class Baudrate {
 
-    Speed9600 = 9000, /**< Baudrate speed of 9600. */
-    Speed19200 = 19200, /**< Baudrate speed of 19200. */
-    Speed38400 = 38400, /**< Baudrate speed of 38400. */
-    Speed57600 = 57600 /**< Baudrate speed of 57600. */
+    Speed9600 = 9000, /**< Baudrate of 9600. */
+    Speed19200 = 19200, /**< Baudrate of 19200. */
+    Speed38400 = 38400, /**< Baudrate of 38400. */
+    Speed57600 = 57600 /**< Baudrate of 57600. */
   };
 
   /**
@@ -59,7 +59,7 @@ namespace vx {
     /**
      * @brief Default constructor for Serial.
      * @param _path   Device path.
-     * @param _baudrate   Baudrate speed.
+     * @param _baudrate   Baudrate.
      */
     explicit Serial( const std::string &_path,
                      Baudrate _baudrate = Baudrate::Speed9600 );
@@ -92,21 +92,21 @@ namespace vx {
     virtual ~Serial();
 
     /**
-     * @brief Is the serial device open.
+     * @brief Is the serial device open?
      * @return True, if open - otherwise false.
      */
     inline bool isOpen() const { return m_isOpen; }
 
     /**
      * @brief Flush the serial port.
-     * @return True, if fushing is successded - otherwise false.
+     * @return True, if fushing is successful - otherwise false.
      */
     bool flush() const;
 
     /**
      * @brief Write data to the serial device.
      * @param _data   Date written to the device.
-     * @return True, if the data written was successfull - otherwise false.
+     * @return True, if the data writing was successful - otherwise false.
      */
     bool write( const std::string &_data ) const;
 
@@ -118,7 +118,7 @@ namespace vx {
 
     /**
      * @brief Descriptor of current device.
-     * @return The descriptor of the serial device - -1 is not valid descriptor.
+     * @return The descriptor of the serial device - -1 is not a valid descriptor.
      */
     inline int descriptor() const { return m_descriptor; }
 
@@ -134,7 +134,7 @@ namespace vx {
     bool m_isOpen = false;
 
     /**
-     * @brief Membber for descriptor.
+     * @brief Member for descriptor.
      */
     int m_descriptor = -1;
   };

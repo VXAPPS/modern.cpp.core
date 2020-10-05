@@ -48,11 +48,11 @@ namespace vx {
                     double _right );
 
   /**
-   * @brief Is _left less _right or _orEqual?
+   * @brief Is _left less than _right or _orEqual?
    * @param _left   The first value.
    * @param _right   The second value.
    * @param _orEqual   Check if _left and _right are equal - default false.
-   * @return True, if _left less _right or _left and _right are equal and
+   * @return True, if _left is less than _right or _left and _right are equal and
    * _orEqual is set to true - otherwise false.
    */
   bool doubleLess( double _left,
@@ -60,11 +60,11 @@ namespace vx {
                    bool _orEqual = false );
 
   /**
-   * @brief Is _left greater _right or _orEqual?
+   * @brief Is _left greater than _right or _orEqual?
    * @param _left   The first value.
    * @param _right   The second value.
    * @param _orEqual   Check if _left and _right are equal - default false.
-   * @return True, if _left greater _right or _left and _right are equal and
+   * @return True, if _left is greater than _right or _left and _right are equal and
    * _orEqual is set to true - otherwise false.
    */
   bool doubleGreater( double _left,
@@ -85,18 +85,18 @@ namespace vx {
                       bool _orEqual = false );
 
   /**
-   * @brief Round a double _value by _precision. Rounded by default to second places.
+   * @brief Round a double _value by _precision. Rounded by default to two decimal places.
    * @param _value   Value to round.
-   * @param _precision   Places to round.
+   * @param _precision   Decimal places to round.
    * @return The rounded value.
    */
   double doubleRound( double _value,
                       std::size_t _precision = 2 );
 
   /**
-   * @brief Split a double _value to its integral and fraction parts.
+   * @brief Split a double _value to its integer and decimal places.
    * @param _value   Value to split.
-   * @return The integral and fraction part.
+   * @return The integer and decimal places.
    */
   std::pair<double, double> doubleSplit( double _value );
 }
