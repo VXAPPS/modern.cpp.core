@@ -36,10 +36,10 @@
 /* system header */
 #include <fcntl.h> // open
 #ifdef _WIN32
-#include <io.h> // write, read, close
+  #include <io.h> // write, read, close
 #else
-#include <termios.h>
-#include <unistd.h> // write, read, close
+  #include <termios.h>
+  #include <unistd.h> // write, read, close
 #endif
 
 /* stl header */

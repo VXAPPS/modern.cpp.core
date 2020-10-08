@@ -30,15 +30,23 @@
 
 /* stl header */
 #include <iostream>
-#include <vector>
+#if __cplusplus > 201703L
+  #include <span>
+#endif
 
 /* gsl header */
-#include <gsl/gsl>
-#include <gsl/span>
+#if __cplusplus <= 201703L
+  #include <gsl/gsl>
+  #include <gsl/span>
+#endif
 
 int main( int argc, char **argv ) {
 
+#if __cplusplus > 201703L
+  std::span<char *> args = { argv, static_cast<std::size_t>( argc ) };
+#else
   gsl::span<char *> args = { argv, static_cast<std::size_t>( argc ) };
+#endif
 
   /* Usage: pipe RESULTCODE */
   if ( args.size() != 2 ) {
@@ -52,5 +60,9 @@ int main( int argc, char **argv ) {
   fprintf( stderr, "This is fprintf( stderr ) text.\n" );
   printf( "This is printf text.\n" );
 
+#if __cplusplus > 201703L
+  return std::stoi( args[1] );
+#else
   return std::stoi( gsl::at( args, 1 ) );
+#endif
 }

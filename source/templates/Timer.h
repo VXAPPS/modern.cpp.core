@@ -51,8 +51,12 @@ namespace vx {
      * @param _function   Call back function.
      * @param _delay   Delay in milliseconds after the function is called.
      */
+#if __cplusplus > 201703L
+    void setTimeout( auto _function, int _delay ) {
+#else
     template<typename Function>
     void setTimeout( Function _function, int _delay ) {
+#endif
 
       this->m_clear = false;
       std::thread t( [ = ]() {
@@ -76,8 +80,12 @@ namespace vx {
      * @param _function   Call back function.
      * @param _interval   Interval in milliseconds after the function is called.
      */
+#if __cplusplus > 201703L
+    void setInterval( auto _function, int _interval ) {
+#else
     template<typename Function>
     void setInterval( Function _function, int _interval ) {
+#endif
 
       this->m_clear = false;
       std::thread t( [ = ]() {
