@@ -30,7 +30,7 @@
 
 #ifdef _WIN32
   #include <Windows.h>
-#elif defined(__APPLE__)
+#elif __APPLE__
   #include <Carbon/Carbon.h>
 #endif
 

@@ -30,11 +30,6 @@
 
 set(WARNING_FLAGS
 
-  # From Xcode default project
-#  -Wno-sign-conversion
-#  -Wno-exit-time-destructors
-#  -Wno-conversion
-
   # Own parameter
   -Wno-c++98-compat # C++11
   -Wno-c++98-compat-pedantic # C++11
