@@ -28,6 +28,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* apple header */
+#ifdef __APPLE__
+  #include <CoreFoundation/CoreFoundation.h>
+#endif
+
 /* stl header */
 #include <string>
 
@@ -44,4 +49,8 @@ namespace vx {
   // trim from both ends of string (right then left)
   std::string &stringTrim( std::string &_string,
                            const std::string &_trim = {} );
+
+#ifdef __APPLE__
+  std::string fromCFStringRef( CFStringRef _stringRef );
+#endif
 }

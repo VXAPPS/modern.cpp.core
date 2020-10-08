@@ -54,4 +54,22 @@ namespace vx {
 
     return stringLeftTrim( stringRightTrim( _string, _trim.empty() ? trimmed : _trim ), _trim.empty() ? trimmed : _trim );
   }
+
+#ifdef __APPLE__
+  std::string fromCFStringRef( CFStringRef _stringRef ) {
+
+    if ( auto fastCString = CFStringGetCStringPtr( _stringRef, kCFStringEncodingUTF8 ) ) {
+
+      return std::string( fastCString );
+    }
+
+    auto utf16length = CFStringGetLength( _stringRef );
+    auto maxUtf8len = CFStringGetMaximumSizeForEncoding( utf16length, kCFStringEncodingUTF8 );
+
+    std::string converted( static_cast<std::size_t>( maxUtf8len ), '\0' );
+    CFStringGetCString( _stringRef, converted.data(), maxUtf8len, kCFStringEncodingUTF8 );
+    converted.resize( std::strlen( converted.data() ) );
+    return converted;
+  }
+#endif
 }
