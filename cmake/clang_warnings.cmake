@@ -39,4 +39,7 @@ set(WARNING_FLAGS
   -Wno-c++98-compat # C++11
   -Wno-c++98-compat-pedantic # C++11
   -Wno-padded
+
+  # brew install microsoft gsl
+  -Wno-poison-system-directories
 )

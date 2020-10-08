@@ -32,10 +32,16 @@
 #include <iostream>
 #include <vector>
 
+/* gsl header */
+#include <gsl/gsl>
+#include <gsl/span>
+
 int main( int argc, char **argv ) {
 
+  gsl::span<char *> args = { argv, static_cast<std::size_t>( argc ) };
+
   /* Usage: pipe RESULTCODE */
-  if ( argc != 2 ) {
+  if ( args.size() != 2 ) {
 
     return EXIT_FAILURE;
   }
@@ -46,5 +52,5 @@ int main( int argc, char **argv ) {
   fprintf( stderr, "This is fprintf( stderr ) text.\n" );
   printf( "This is printf text.\n" );
 
-  return std::stoi( argv[ 1 ] );
+  return std::stoi( gsl::at( args, 1 ) );
 }
