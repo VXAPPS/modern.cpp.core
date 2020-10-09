@@ -51,10 +51,12 @@ namespace vx {
 #else
     m_resultCode = pclose( _file );
 #endif
+#ifndef _WIN32
     if ( WIFEXITED( m_resultCode ) ) {
 
       m_resultCode = WEXITSTATUS( m_resultCode );
     }
+#endif
   }
 
   int result() { return m_resultCode; }

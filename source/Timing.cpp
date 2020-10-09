@@ -38,7 +38,11 @@
 namespace vx {
 
   /** Multiplier from nanoseconds to milliseconds to seconds and vice versa. */
+#ifdef _WIN32
+  constexpr double multiplier = 1000.0;
+#else
   constexpr long long multiplier = 1000.0;
+#endif
 
   void Timing::start() {
 

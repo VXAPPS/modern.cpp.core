@@ -31,7 +31,7 @@
 project(modern.cpp.core)
 
 if(UNIX)
-  set(${PROJECT_NAME}_os_src unixservice/main.cpp)
+  set(${PROJECT_NAME}_os_src Serial.cpp Serial.h unixservice/main.cpp)
 endif()
 
 add_library(${PROJECT_NAME}
@@ -44,8 +44,6 @@ add_library(${PROJECT_NAME}
   Exec.h
   KeyState.cpp
   KeyState.h
-  Serial.cpp
-  Serial.h
   StringExtras.cpp
   StringExtras.h
   Timing.cpp
