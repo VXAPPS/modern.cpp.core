@@ -49,15 +49,15 @@ namespace vx {
     /**
      * @brief Default constructor for CsvWriter.
      * @param _filename   Filename for the csv file.
-     * @param _delimeter   Delimeter of values.
+     * @param _delimiter   Delimiter of values.
      * @param _linePrefix   Prefix for every line.
      * @param _lineSuffix   Suffix for every line.
      */
     explicit CSVWriter( const std::string &_filename,
-                        const std::string &_delimeter = ",",
+                        const std::string &_delimiter = ",",
                         const std::string &_linePrefix = {},
                         const std::string &_lineSuffix = {} ) :
-      m_filename( _filename ), m_delimeter( _delimeter ), m_linePrefix( _linePrefix ), m_lineSuffix( _lineSuffix ) {}
+      m_filename( _filename ), m_delimiter( _delimiter ), m_linePrefix( _linePrefix ), m_lineSuffix( _lineSuffix ) {}
 
     /**
      * @brief Write out the values.
@@ -71,13 +71,13 @@ namespace vx {
       file.open( m_filename, std::ios::app );
 
       file << m_linePrefix;
-      /* Iterate over the range and add each lement to file seperated by delimeter. */
+      /* Iterate over the range and add each element to file separated by delimiter. */
       while ( _first != _last ) {
 
         file << *_first;
         if ( ++_first != _last ) {
 
-          file << m_delimeter;
+          file << m_delimiter;
         }
       }
       file << m_lineSuffix;
@@ -94,9 +94,9 @@ namespace vx {
     std::string m_filename = {};
 
     /**
-     * @brief Delimeter for values.
+     * @brief Delimiter for values.
      */
-    std::string m_delimeter = {};
+    std::string m_delimiter = {};
 
     /**
      * @brief Prefix for every line.

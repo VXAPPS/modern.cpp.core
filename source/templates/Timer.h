@@ -59,7 +59,7 @@ namespace vx {
 #endif
 
       this->m_clear = false;
-      std::thread t( [ = ]() {
+      std::thread t( [ this, &_function, &_delay ]() {
 
         if ( this->m_clear ) {
 
@@ -88,7 +88,7 @@ namespace vx {
 #endif
 
       this->m_clear = false;
-      std::thread t( [ = ]() {
+      std::thread t( [ this, &_function, &_interval ]() {
 
         while ( true ) {
 
@@ -108,7 +108,7 @@ namespace vx {
     }
 
     /**
-     * @brief Stopping the current timer to not execute the call back function.
+     * @brief Stopping the current timer not to execute the call back function.
      */
     inline void stop() { this->m_clear = true; }
 

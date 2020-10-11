@@ -39,15 +39,15 @@
 namespace vx {
 
   /**
-   * @brief Execute external application and return the stdout output.
+   * @brief Execute the external application and return the stdout output.
    * @param _command   Command to run.
    * @return Return the stdout output.
    */
   std::string exec( const std::string &_command );
 
   /**
-   * @brief result   Exit code of command.
-   * @return The result code.
+   * @brief result   Exit code of the command.
+   * @return The resultint code.
    */
   int result();
 

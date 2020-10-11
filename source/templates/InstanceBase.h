@@ -30,66 +30,79 @@
 
 #pragma once
 
-/* c header */
-#include <ctime>
-
-/* stl header */
-#include <chrono>
-#include <string>
-
-/**
- * @brief vx (VX Apps) namespace.
- */
 namespace vx {
 
   /**
-   * @brief Print CPU and System Time on called block.
+   * @brief Template instance class.
    * @author Florian Becker <fb\@vxapps.com> (VX Apps)
    */
-  class Timing {
+  template<class T>
+  class InstanceBase {
 
   public:
     /**
-     * @brief Default constructor for Timing.
+     * @~english
+     * @brief C++11 Singleton thread-safe.
+     * @return Singleton of T.
+     *
+     * @~german
+     * @brief C++11 Singleton thread-safe.
+     * @return Einzige Instanz von T.
      */
-    Timing() = default;
+    static T &instance() {
+
+      static T instance;
+      return instance;
+    }
 
     /**
-     * @brief Start the internal timer or reset.
+     * @~english
+     * @brief Delete move constructor.
+     *
+     * @~german
+     * @brief Entfernt den verschobenen Konstruktor.
      */
-    void start();
+    InstanceBase( InstanceBase && ) = delete;
 
     /**
-     * @brief Stop the internal timer and output to stdout.
+     * @~english
+     * @brief Delete copy assign.
+     * @return Nothing.
+     *
+     * @~german
+     * @brief Entfernt die kopierte Zuweisung.
+     * @return Keine Rückgabe.
      */
-    void stop() const;
+    InstanceBase &operator=( InstanceBase const & ) = delete;
 
     /**
-     * @brief The name of timed action for the output display.
-     * @param _action   The name of the action.
+     * @~english
+     * @brief Delete move assign.
+     * @return Nothing.
+     *
+     * @~german
+     * @brief Entfernt die verschobene Zuweisung.
+     * @return Keine Rückgabe.
      */
-    inline void setAction( const std::string &_action ) { m_action = _action; }
+    InstanceBase &operator=( InstanceBase && ) = delete;
+
+  protected:
+    /**
+     * @~english
+     * @brief Default constructor for InstanceBase.
+     *
+     * @~german
+     * @brief Standardkonstruktur für InstanceBase.
+     */
+    InstanceBase() = default;
 
     /**
-     * @brief The name of timed action for the output display.
-     * @return The name of the action.
+     * @~english
+     * @brief Default destructor for InstanceBase.
+     *
+     * @~german
+     * @brief Standarddestruktor für InstanceBase.
      */
-    inline std::string action() const { return m_action; }
-
-  private:
-    /**
-     * @brief Name for the current action.
-     */
-    std::string m_action = {};
-
-    /**
-     * @brief Clock to calculate the elapsed system time.
-     */
-    std::chrono::time_point<std::chrono::high_resolution_clock> m_start = {};
-
-    /**
-     * @brief Clock to calculate the elapsed CPU time.
-     */
-    std::clock_t m_cpu = 0;
+    virtual ~InstanceBase() = default;
   };
 }

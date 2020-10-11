@@ -29,3 +29,4 @@
 #
 
 find_package(Microsoft.GSL CONFIG)
+find_package(Threads REQUIRED)

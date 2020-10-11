@@ -54,68 +54,68 @@ namespace vx {
                   unsigned int _subleaf = 0 );
 
     /**
-     * @brief Return stepping of cpu.
-     * @return Stepping of cpu.
+     * @brief Return stepping of CPU.
+     * @return Stepping of CPU.
      */
     inline unsigned int stepping() const { return m_leaf[0] & 0xF; }
 
     /**
-     * @brief Return model of cpu.
-     * @return Model of cpu.
+     * @brief Return model of CPU.
+     * @return Model of CPU.
      */
     inline unsigned int model() const { return ( m_leaf[0] >> 4 ) & 0xF; }
 
     /**
-     * @brief Return family of cpu.
-     * @return Family of cpu.
+     * @brief Return family of CPU.
+     * @return Family of CPU.
      */
     inline unsigned int family() const { return ( m_leaf[0] >> 8 ) & 0xF; }
 
     /**
-     * @brief Return type of cpu.
-     * @return Type of cpu.
+     * @brief Return type of CPU.
+     * @return Type of CPU.
      */
     inline unsigned int type() const { return ( m_leaf[0] >> 12 ) & 0x3; }
 
     /**
-     * @brief Return extended model of cpu.
-     * @return Extended model of cpu.
+     * @brief Return extended model of CPU.
+     * @return Extended model of CPU.
      */
     inline unsigned int extendedModel() const { return ( m_leaf[0] >> 16 ) & 0xF; }
 
     /**
-     * @brief Return extended family of cpu.
-     * @return Extended family of cpu.
+     * @brief Return extended family of CPU.
+     * @return Extended family of CPU.
      */
     inline unsigned int extendedFamily() const { return ( m_leaf[0] >> 20 ) & 0xFF; }
 
     /**
-     * @brief Does cpu support smx?
-     * @return True, if the cpu supports smx - otherwise false.
+     * @brief Does CPU support SMX?
+     * @return True, if the CPU supports SMX - otherwise false.
      */
     inline bool smxSupport() const { return ( m_leaf[2] >> 6 ) & 1; }
 
     /**
-     * @brief Does cpu support sgx?
-     * @return True, if the cpu supports sgx - otherwise false.
+     * @brief Does CPU support SGX?
+     * @return True, if the CPU supports SGX - otherwise false.
      */
     inline bool sgxSupport() const { return ( m_extendedLeaf[1] >> 2 ) & 0x1; }
 
     /**
-     * @brief Does cpu support sgx launch control?
-     * @return True, if the cpu supports sgx launch control - otherwise false.
+     * @brief Does CPU support SGX launch control?
+     * @return True, if the CPU supports SGX launch control - otherwise false.
      */
     inline bool sgxLaunchControlSupport() const { return ( m_extendedLeaf[2] >> 30 ) & 0x01; }
 
     /**
-     * @brief Does cpu support sgx version 1?
-     * @return True, if the cpu supports sgx version 1 - otherwise false.
+     * @brief Does CPU support SGX version 1?
+     * @return True, if the CPU supports SGX version 1 - otherwise false.
      */
     inline bool sgxVersion1Support() const { return m_sgxLeaf[0] & 0x1; }
 
     /**
-     * @brief Does cpu support sgx version 2?
-     * @return True, if the cpu supports sgx version 2 - otherwise false.
+     * @brief Does CPU support SGX version 2?
+     * @return True, if the CPU supports SGX version 2 - otherwise false.
      */
     inline bool sgxVersion2Support() const { return ( m_sgxLeaf[0] >> 1 ) & 0x1; }
 

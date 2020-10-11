@@ -99,7 +99,7 @@ namespace vx {
 
     /**
      * @brief Flush the serial port.
-     * @return True, if fushing is successful - otherwise false.
+     * @return True, if flushing is successful - otherwise false.
      */
     bool flush() const;
 
@@ -117,7 +117,7 @@ namespace vx {
     std::string read() const;
 
     /**
-     * @brief Descriptor of current device.
+     * @brief Descriptor of the current device.
      * @return The descriptor of the serial device - -1 is not a valid descriptor.
      */
     inline int descriptor() const { return m_descriptor; }

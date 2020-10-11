@@ -49,6 +49,7 @@ add_library(${PROJECT_NAME}
   Timing.cpp
   Timing.h
   templates/CSVWriter.h
+  templates/InstanceBase.h
   templates/Timer.h
   ${${PROJECT_NAME}_os_src}
 )

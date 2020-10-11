@@ -28,68 +28,37 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
-
-/* c header */
-#include <ctime>
-
 /* stl header */
-#include <chrono>
-#include <string>
+#include <iostream>
 
-/**
- * @brief vx (VX Apps) namespace.
- */
-namespace vx {
+/* modern.cpp.core header */
+#include <Timer.h>
 
-  /**
-   * @brief Print CPU and System Time on called block.
-   * @author Florian Becker <fb\@vxapps.com> (VX Apps)
-   */
-  class Timing {
+constexpr int intervallSeconds = 1;
+constexpr int secondsToMilliseconds = 1000;
+constexpr int exitSeconds = 15;
 
-  public:
-    /**
-     * @brief Default constructor for Timing.
-     */
-    Timing() = default;
+int main() {
 
-    /**
-     * @brief Start the internal timer or reset.
-     */
-    void start();
+  int intervall = 1;
+  bool stop = false;
+  vx::Timer intervallTimer = vx::Timer();
+  intervallTimer.setInterval( [&intervall, &stop]() {
 
-    /**
-     * @brief Stop the internal timer and output to stdout.
-     */
-    void stop() const;
+    std::cout << "Intervall: " << intervall << std::endl;
+    intervall++;
+    if ( intervall == exitSeconds ) {
 
-    /**
-     * @brief The name of timed action for the output display.
-     * @param _action   The name of the action.
-     */
-    inline void setAction( const std::string &_action ) { m_action = _action; }
+      stop = true;
+    }
+  }, intervallSeconds * secondsToMilliseconds );
 
-    /**
-     * @brief The name of timed action for the output display.
-     * @return The name of the action.
-     */
-    inline std::string action() const { return m_action; }
+  while ( true ) {
 
-  private:
-    /**
-     * @brief Name for the current action.
-     */
-    std::string m_action = {};
+    /* Leave the app run infinity */
+    if ( stop ) {
 
-    /**
-     * @brief Clock to calculate the elapsed system time.
-     */
-    std::chrono::time_point<std::chrono::high_resolution_clock> m_start = {};
-
-    /**
-     * @brief Clock to calculate the elapsed CPU time.
-     */
-    std::clock_t m_cpu = 0;
-  };
+      break;
+    }
+  }
 }
