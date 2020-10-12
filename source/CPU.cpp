@@ -40,7 +40,7 @@ namespace vx {
   /** Leaf of extended information. */
   constexpr unsigned int extendedLeaf = 7;
 
-  /** Leaf of sgx information. */
+  /** Leaf of SGX information. */
   constexpr unsigned int sgxLeaf = 12;
 
   CPU::CPU( unsigned int _leaf,
