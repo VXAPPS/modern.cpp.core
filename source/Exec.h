@@ -39,6 +39,12 @@
 namespace vx {
 
   /**
+   * @brief Overload for close.
+   * @param _file   File handle to close.
+   */
+  void close( std::FILE *_file );
+
+  /**
    * @brief Execute the external application and return the stdout output.
    * @param _command   Command to run.
    * @return Return the stdout output.
@@ -46,14 +52,8 @@ namespace vx {
   std::string exec( const std::string &_command );
 
   /**
-   * @brief result   Exit code of the command.
-   * @return The resultint code.
+   * @brief Result   Exit code of the command.
+   * @return The result code.
    */
   int result();
-
-  /**
-   * @brief Overload for pclose.
-   * @param _file   File handle to close.
-   */
-  void close( std::FILE *_file );
 }

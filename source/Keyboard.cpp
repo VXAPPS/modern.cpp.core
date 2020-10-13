@@ -28,13 +28,43 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#ifdef _WIN32
+  #include <Windows.h>
+#elif __APPLE__
+  #include <Carbon/Carbon.h>
+#endif
+
+/* local header */
+#include "Keyboard.h"
 
 namespace vx {
 
-  class KeyState {
+  bool isCapsLockActive() {
 
-  public:
-    static bool isCapsLockActive();
-  };
+    bool isActive = false;
+
+#ifdef _WIN32
+    if ( GetKeyState( VK_CAPITAL ) & 0x0001 ) {
+
+      isActive = true;
+    }
+#elif __APPLE__
+
+#if 1
+    /* Variant 1 Carbon.framework */
+    KeyMap keyMap;
+    GetKeys( keyMap );
+
+    int index = kVK_CapsLock >> 5;
+    int shift = kVK_CapsLock & 31;
+
+    isActive = ( ( keyMap[ index ].bigEndianValue >> shift ) & 1 ) != 0;
+#else
+    /* Variant 2 CoreGraphics.framework */
+    isActive = CGEventSourceKeyState( kCGEventSourceStateHIDSystemState, kVK_CapsLock );
+#endif
+
+#endif
+    return isActive;
+  }
 }

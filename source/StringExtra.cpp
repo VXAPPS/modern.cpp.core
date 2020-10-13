@@ -29,30 +29,30 @@
  */
 
 /* local header */
-#include "StringExtras.h"
+#include "StringExtra.h"
 
 namespace vx {
 
   constexpr auto trimmed = " \t\n\r\f\v";
 
-  std::string &stringRightTrim( std::string &_string,
-                                const std::string &_trim ) {
+  std::string &rightTrim( std::string &_string,
+                          const std::string &_trim ) {
 
     _string.erase( _string.find_last_not_of( _trim.empty() ? trimmed : _trim ) + 1 );
     return _string;
   }
 
-  std::string &stringLeftTrim( std::string &_string,
-                               const std::string &_trim ) {
+  std::string &leftTrim( std::string &_string,
+                         const std::string &_trim ) {
 
     _string.erase( 0, _string.find_first_not_of( _trim.empty() ? trimmed : _trim ) );
     return _string;
   }
 
-  std::string &stringTrim( std::string &_string,
-                           const std::string &_trim ) {
+  std::string &trim( std::string &_string,
+                     const std::string &_trim ) {
 
-    return stringLeftTrim( stringRightTrim( _string, _trim.empty() ? trimmed : _trim ), _trim.empty() ? trimmed : _trim );
+    return leftTrim( rightTrim( _string, _trim.empty() ? trimmed : _trim ), _trim.empty() ? trimmed : _trim );
   }
 
 #ifdef __APPLE__

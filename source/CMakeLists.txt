@@ -38,18 +38,18 @@ add_library(${PROJECT_NAME}
   ../README.md
   CPU.cpp
   CPU.h
-  DoubleExtras.cpp
-  DoubleExtras.h
+  Double.cpp
+  Double.h
   Exec.cpp
   Exec.h
-  KeyState.cpp
-  KeyState.h
-  StringExtras.cpp
-  StringExtras.h
+  Keyboard.cpp
+  Keyboard.h
+  StringExtra.cpp
+  StringExtra.h
   Timing.cpp
   Timing.h
   templates/CSVWriter.h
-  templates/SingletonBase.h
+  templates/Singleton.h
   templates/Timer.h
   ${${PROJECT_NAME}_os_src}
 )

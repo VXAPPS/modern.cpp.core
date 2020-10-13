@@ -59,8 +59,6 @@ namespace vx {
 #endif
   }
 
-  int result() { return m_resultCode; }
-
   std::string exec( const std::string &_command ) {
 
     std::array<char, bufferSize> buffer {};
@@ -81,4 +79,6 @@ namespace vx {
     }
     return result;
   }
+
+  int result() { return m_resultCode; }
 }

@@ -44,8 +44,8 @@ namespace vx {
    * @param _right   The second value.
    * @return True, if _left and _right are equal - otherwise false.
    */
-  bool doubleEqual( double _left,
-                    double _right );
+  bool equal( double _left,
+              double _right );
 
   /**
    * @brief Is _left less than _right or _orEqual?
@@ -55,9 +55,9 @@ namespace vx {
    * @return True, if _left is less than _right or _left and _right are equal and
    * _orEqual is set to true - otherwise false.
    */
-  bool doubleLess( double _left,
-                   double _right,
-                   bool _orEqual = false );
+  bool less( double _left,
+             double _right,
+             bool _orEqual = false );
 
   /**
    * @brief Is _left greater than _right or _orEqual?
@@ -67,9 +67,9 @@ namespace vx {
    * @return True, if _left is greater than _right or _left and _right are equal and
    * _orEqual is set to true - otherwise false.
    */
-  bool doubleGreater( double _left,
-                      double _right,
-                      bool _orEqual = false );
+  bool greater( double _left,
+                double _right,
+                bool _orEqual = false );
 
   /**
    * @brief Is _value between _min and _max or _orEqual.
@@ -79,10 +79,10 @@ namespace vx {
    * @param _orEqual  Is _value == _min or _value == _max
    * @return True, if _value is between _min and _max _orEqual - otherwise false.
    */
-  bool doubleBetween( double _value,
-                      double _min,
-                      double _max,
-                      bool _orEqual = false );
+  bool between( double _value,
+                double _min,
+                double _max,
+                bool _orEqual = false );
 
   /**
    * @brief Round a double _value by _precision. Rounded by default to two decimal places.
@@ -90,13 +90,13 @@ namespace vx {
    * @param _precision   Decimal places to round.
    * @return The rounded value.
    */
-  double doubleRound( double _value,
-                      std::size_t _precision = 2 );
+  double round( double _value,
+                std::size_t _precision = 2 );
 
   /**
    * @brief Split a double _value to its integer and decimal places.
    * @param _value   Value to split.
    * @return The integer and decimal places.
    */
-  std::pair<double, double> doubleSplit( double _value );
+  std::pair<double, double> split( double _value );
 }

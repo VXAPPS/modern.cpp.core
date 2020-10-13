@@ -28,29 +28,65 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* apple header */
-#ifdef __APPLE__
-  #include <CoreFoundation/CoreFoundation.h>
-#endif
+/* c header */
+#include <cmath> // std::fabs, std::floor, std::modf
 
 /* stl header */
-#include <string>
+#include <limits>
+#include <vector>
+
+/* local header */
+#include "Double.h"
 
 namespace vx {
 
-  // trim from end of string (right)
-  std::string &stringRightTrim( std::string &_string,
-                                const std::string &_trim = {} );
+  bool equal( double _left,
+              double _right ) {
 
-  // trim from beginning of string (left)
-  std::string &stringLeftTrim( std::string &_string,
-                               const std::string &_trim = {} );
+    return ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() );
+  }
 
-  // trim from both ends of string (right then left)
-  std::string &stringTrim( std::string &_string,
-                           const std::string &_trim = {} );
+  bool less( double _left,
+             double _right,
+             bool _orEqual ) {
 
-#ifdef __APPLE__
-  std::string fromCFStringRef( CFStringRef _stringRef );
-#endif
+    if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() ) {
+
+      return ( _orEqual );
+    }
+    return ( _left < _right );
+  }
+
+  bool greater( double _left,
+                double _right,
+                bool _orEqual ) {
+
+    if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() ) {
+
+      return ( _orEqual );
+    }
+    return ( _left > _right );
+  }
+
+  bool between( double _value,
+                double _min,
+                double _max,
+                bool _orEqual ) {
+
+    return ( greater( _value, _min, _orEqual ) && less( _value, _max, _orEqual ) );
+  }
+
+  double round( double _value,
+                std::size_t _precision ) {
+
+    std::vector<double> v = { 1, 10, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8 };
+    return std::floor( _value * v[ _precision ] + 0.5 ) / v[ _precision ];
+  }
+
+  std::pair<double, double> split( double _value ) {
+
+    double integral = 0.0;
+    double fraction = std::modf( _value, &integral );
+    return std::make_pair( integral, fraction );
+  }
 }

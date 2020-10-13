@@ -28,65 +28,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* c header */
-#include <cmath> // std::fabs, std::floor, std::modf
+#pragma once
 
-/* stl header */
-#include <limits>
-#include <vector>
-
-/* local header */
-#include "DoubleExtras.h"
-
+/**
+ * @brief vx (VX Apps) namespace.
+ */
 namespace vx {
 
-  bool doubleEqual( double _left,
-                    double _right ) {
-
-    return ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() );
-  }
-
-  bool doubleLess( double _left,
-                   double _right,
-                   bool _orEqual ) {
-
-    if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() ) {
-
-      return ( _orEqual );
-    }
-    return ( _left < _right );
-  }
-
-  bool doubleGreater( double _left,
-                      double _right,
-                      bool _orEqual ) {
-
-    if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() ) {
-
-      return ( _orEqual );
-    }
-    return ( _left > _right );
-  }
-
-  bool doubleBetween( double _value,
-                      double _min,
-                      double _max,
-                      bool _orEqual ) {
-
-    return ( doubleGreater( _value, _min, _orEqual ) && doubleLess( _value, _max, _orEqual ) );
-  }
-
-  double doubleRound( double _value,
-                      std::size_t _precision ) {
-
-    std::vector<double> v = { 1, 10, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8 };
-    return std::floor( _value * v[ _precision ] + 0.5 ) / v[ _precision ];
-  }
-
-  std::pair<double, double> doubleSplit( double _value ) {
-
-    double integral = 0.0;
-    double fraction = std::modf( _value, &integral );
-    return std::make_pair( integral, fraction );
-  }
+  bool isCapsLockActive();
 }

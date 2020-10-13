@@ -28,43 +28,32 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _WIN32
-  #include <Windows.h>
-#elif __APPLE__
-  #include <Carbon/Carbon.h>
+/* apple header */
+#ifdef __APPLE__
+  #include <CoreFoundation/CoreFoundation.h>
 #endif
 
-/* local header */
-#include "KeyState.h"
+/* stl header */
+#include <string>
 
+/**
+ * @brief vx (VX Apps) namespace.
+ */
 namespace vx {
 
-  bool KeyState::isCapsLockActive() {
+  // trim from end of string (right)
+  std::string &rightTrim( std::string &_string,
+                          const std::string &_trim = {} );
 
-    bool isActive = false;
+  // trim from beginning of string (left)
+  std::string &leftTrim( std::string &_string,
+                         const std::string &_trim = {} );
 
-#ifdef _WIN32
-    if ( GetKeyState( VK_CAPITAL ) & 0x0001 ) {
+  // trim from both ends of string (right then left)
+  std::string &trim( std::string &_string,
+                     const std::string &_trim = {} );
 
-      isActive = true;
-    }
-#elif __APPLE__
-
-#if 1
-    /* Variant 1 Carbon.framework */
-    KeyMap keyMap;
-    GetKeys( keyMap );
-
-    int index = kVK_CapsLock >> 5;
-    int shift = kVK_CapsLock & 31;
-
-    isActive = ( ( keyMap[ index ].bigEndianValue >> shift ) & 1 ) != 0;
-#else
-    /* Variant 2 CoreGraphics.framework */
-    isActive = CGEventSourceKeyState( kCGEventSourceStateHIDSystemState, kVK_CapsLock );
+#ifdef __APPLE__
+  std::string fromCFStringRef( CFStringRef _stringRef );
 #endif
-
-#endif
-    return isActive;
-  }
 }

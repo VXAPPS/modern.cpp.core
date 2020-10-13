@@ -37,7 +37,7 @@ namespace vx {
    * @author Florian Becker <fb\@vxapps.com> (VX Apps)
    */
   template<class T>
-  class SingletonBase {
+  class Singleton {
 
   public:
     /**
@@ -62,7 +62,7 @@ namespace vx {
      * @~german
      * @brief Entfernt den verschobenen Konstruktor.
      */
-    SingletonBase( SingletonBase && ) = delete;
+    Singleton( Singleton && ) = delete;
 
     /**
      * @~english
@@ -73,7 +73,7 @@ namespace vx {
      * @brief Entfernt die kopierte Zuweisung.
      * @return Keine Rückgabe.
      */
-    SingletonBase &operator=( SingletonBase const & ) = delete;
+    Singleton &operator=( Singleton const & ) = delete;
 
     /**
      * @~english
@@ -84,25 +84,25 @@ namespace vx {
      * @brief Entfernt die verschobene Zuweisung.
      * @return Keine Rückgabe.
      */
-    SingletonBase &operator=( SingletonBase && ) = delete;
+    Singleton &operator=( Singleton && ) = delete;
 
   protected:
     /**
      * @~english
-     * @brief Default constructor for InstanceBase.
+     * @brief Default constructor for Singleton.
      *
      * @~german
-     * @brief Standardkonstruktur für InstanceBase.
+     * @brief Standardkonstruktur für Singleton.
      */
-    SingletonBase() = default;
+    Singleton() = default;
 
     /**
      * @~english
-     * @brief Default destructor for InstanceBase.
+     * @brief Default destructor for Singleton.
      *
      * @~german
-     * @brief Standarddestruktor für InstanceBase.
+     * @brief Standarddestruktor für Singleton.
      */
-    virtual ~SingletonBase() = default;
+    virtual ~Singleton() = default;
   };
 }
