@@ -30,6 +30,9 @@
 
 #pragma once
 
+/**
+ * @brief vx (VX Apps) namespace.
+ */
 namespace vx {
 
   /**
@@ -103,6 +106,6 @@ namespace vx {
      * @~german
      * @brief Standarddestruktor für Singleton.
      */
-    virtual ~Singleton() = default;
+    ~Singleton() = default;
   };
 }

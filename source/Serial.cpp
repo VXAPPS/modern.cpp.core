@@ -95,6 +95,10 @@ namespace vx {
         cfsetispeed( &options, B57600 );
         cfsetospeed( &options, B57600 );
         break;
+      case Baudrate::Speed115200:
+        cfsetispeed( &options, B115200 );
+        cfsetospeed( &options, B115200 );
+        break;
     }
 
     /* Configure other settings */

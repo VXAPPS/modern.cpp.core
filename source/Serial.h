@@ -46,7 +46,8 @@ namespace vx {
     Speed9600 = 9000, /**< Baudrate of 9600. */
     Speed19200 = 19200, /**< Baudrate of 19200. */
     Speed38400 = 38400, /**< Baudrate of 38400. */
-    Speed57600 = 57600 /**< Baudrate of 57600. */
+    Speed57600 = 57600, /**< Baudrate of 57600. */
+    Speed115200 = 115200 /**< Baudrate of 115200 */
   };
 
   /**
