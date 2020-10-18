@@ -30,7 +30,7 @@
 
 cmake_minimum_required(VERSION 3.10.0)
 
-project(modern.cpp.core)
+project(modern.cpp.core LANGUAGES CXX)
 include(cmake/env.cmake)
 
 add_subdirectory(source)

@@ -63,7 +63,7 @@ int main() {
   /* (the pid of the child process was 0) */
 
   /* Since the child process is a daemon, the umask needs to be set so files and logs can be written */
-  umask( 0 );
+  umask( S_IRWXO );
 
   /* Open system logs for the child process */
   openlog( DAEMON_NAME, LOG_NOWAIT | LOG_PID, LOG_USER );

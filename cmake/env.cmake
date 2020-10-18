@@ -28,7 +28,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-#for debugging of build steps
+# for debugging of build steps
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 # Pathes

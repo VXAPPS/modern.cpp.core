@@ -35,6 +35,10 @@ set(WARNING_FLAGS
   -Wno-c++98-compat-pedantic # C++11
   -Wno-padded
 
+  # Singleton or also multilanguage doxygen
+  -Wno-exit-time-destructors
+  -Wno-documentation
+
   # brew install microsoft gsl
   -Wno-poison-system-directories
 )
