@@ -14,7 +14,7 @@ make -j`nproc`
 - **Double** - Less, Greater, Equal, Between, Round, Split.
 - **Exec** - Run command and return stdout or mixed (stdout and stderr) and result code.
 - **Keyboard** - Check for caps lock state.
-- **Serial** - Serial communication class.
+- **Serial** - Serial communication class (Not for Windows).
 - **StringExtra** - LeftTrim, RightTrim, Trim.
 - **Timing** - Measuring time, cpu and real time.
 
@@ -24,7 +24,7 @@ make -j`nproc`
 - **Timer** - Timeout thread on time or interval.
 
 ## Unixservice class
-- Main function to run as a unix daemon.
+- Main function to run as a unix daemon (Not for Windows).
 
 ## Dependencies
 Because no major compiler supports `std::span` yet the [Microsoft Guidelines Support Library](https://github.com/Microsoft/GSL) (aka GSL) is used for its span implementation (from which the standard version was defined).
