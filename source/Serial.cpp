@@ -43,6 +43,11 @@
 #include <iostream>
 #include <vector>
 
+/* modern.cpp.logger */
+#if __has_include(<LoggerFactory.h>)
+#include <LoggerFactory.h>
+#endif
+
 /* local haeder */
 #include "Serial.h"
 
@@ -61,11 +66,14 @@ namespace vx {
     m_descriptor = ::open( _path.c_str(), ( O_RDWR | O_NOCTTY | O_NDELAY ) );
     if ( m_descriptor == -1 ) {
 
+#if __has_include(<LoggerFactory.h>)
+      LogInfo( "Unable to open serial port: " + _path + " at baud rate: " + std::to_string( static_cast<int>( _baudrate ) ) );
+#else
       std::cout << "Unable to open serial port: " << _path << " at baud rate: " << static_cast<int>( _baudrate ) << std::endl;
+#endif
       return;
     }
 
-    /* TODO: Rework for windows */
     /* Configure i/o baud rate settings */
     struct termios options = {};
     tcgetattr( m_descriptor, &options );
@@ -87,10 +95,6 @@ namespace vx {
         cfsetispeed( &options, B57600 );
         cfsetospeed( &options, B57600 );
         break;
-      case Baudrate::Speed115200:
-        cfsetispeed( &options, B115200 );
-        cfsetospeed( &options, B115200 );
-        break;
     }
 
     /* Configure other settings */
@@ -109,7 +113,9 @@ namespace vx {
     /* TCSANOW vs TCSAFLUSH? Was using TCSAFLUSH; settings source above uses TCSANOW. */
     if ( tcsetattr( m_descriptor, TCSANOW, &options ) < 0 ) {
 
-#ifdef DEBUG
+#if __has_include(<LoggerFactory.h>)
+      LogError( "Error setting serial port attributes." );
+#else
       std::cout << "Error setting serial port attributes." << std::endl;
 #endif
       close();
@@ -139,7 +145,9 @@ namespace vx {
       std::string result = read();
       if ( result.empty() ) {
 
-#ifdef DEBUG
+#if __has_include(<LoggerFactory.h>)
+        LogError( "readSerialData() failed. Error: " + std::string( std::strerror( errno ) ) );
+#else
         std::cout << "readSerialData() failed. Error: " << std::strerror( errno ) << std::endl;
 #endif
         return false;
@@ -153,7 +161,9 @@ namespace vx {
     ssize_t numBytesWritten = ::write( m_descriptor, _data.c_str(), _data.size() );
     if ( numBytesWritten < 0 ) {
 
-#ifdef DEBUG
+#if __has_include(<LoggerFactory.h>)
+      LogError( "Serial port write() failed. Error: "  + std::string( std::strerror( errno ) ) );
+#else
       std::cout << "Serial port write() failed. Error: " << std::strerror( errno ) << std::endl;
 #endif
       return false;
@@ -167,7 +177,9 @@ namespace vx {
     ssize_t numBytesRead = ::read( m_descriptor, buffer.data(), buffer.size() );
     if ( numBytesRead < 0 ) {
 
-#ifdef DEBUG
+#if __has_include(<LoggerFactory.h>)
+      LogError( "Serial port read() failed. Error: "  + std::string( std::strerror( errno ) ) );
+#else
       std::cout << "Serial port read() failed. Error: " << std::strerror( errno ) << std::endl;
 #endif
       return {};
