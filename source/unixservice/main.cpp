@@ -104,6 +104,7 @@ int main() {
   std::string pidfile = ss.str();
 
   std::ofstream file;
+  std::ios_base::iostate state = file.exceptions();
   file.exceptions( std::ofstream::failbit | std::ofstream::badbit );
   try {
 
@@ -115,7 +116,7 @@ int main() {
     syslog( LOG_INFO, "Could not open or create PID lock file %s: %s, exiting", pidfile.c_str(), _exception.what() );
     std::exit( EXIT_FAILURE );
   }
-  file.exceptions( 0 );
+  file.exceptions( state );
 
   /* Read pid from file, if there is any, find if the process is running - EXIT */
   std::stringstream buffer;
