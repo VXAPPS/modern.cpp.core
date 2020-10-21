@@ -30,7 +30,7 @@
 
 #ifdef _WIN32
   #include <Windows.h>
-#elif __APPLE__
+#elif defined __APPLE__
   #include <Carbon/Carbon.h>
 #endif
 
@@ -48,7 +48,7 @@ namespace vx {
 
       isActive = true;
     }
-#elif __APPLE__
+#elif defined __APPLE__
 
 #if 1
     /* Variant 1 Carbon.framework */
