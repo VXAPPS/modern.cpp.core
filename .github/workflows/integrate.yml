@@ -140,44 +140,37 @@ jobs:
 
       - name: Dependencies (Windows)
         if: runner.os == 'Windows'
-        shell: powershell
         run: |
-            Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
-            scoop install ninja --global
-            if ("${{matrix.compiler}}".StartsWith("clang")) {
-              scoop install llvm --global
-            }
-            if ("${{matrix.compiler}}" -eq "gcc") {
-              # Chocolatey GCC is broken on the windows-2019 image.
-              # See: https://github.com/DaanDeMeyer/doctest/runs/231595515
-              # See: https://github.community/t5/GitHub-Actions/Something-is-wrong-with-the-chocolatey-installed-version-of-gcc/td-p/32413
+            if [ "${{matrix.compiler}}" = "gcc" ]; then
               scoop install gcc --global
               echo "CC=gcc" >> $GITHUB_ENV
               echo "CXX=g++" >> $GITHUB_ENV
-            } elseif ("${{matrix.compiler}}" -eq "clang") {
+            fi
+            if [ "${{matrix.compiler}}" = "clang" ]; then
+              scoop install llvm --global
               echo "CC=clang" >> $GITHUB_ENV
               echo "CXX=clang++" >> $GITHUB_ENV
-            } else {
-              echo "CC=${{matrix.compiler}}" >> $GITHUB_ENV
-              echo "CXX=${{matrix.compiler}}" >> $GITHUB_ENV
-            }
-            # Scoop modifies the PATH so we make the modified PATH global.
-            echo "PATH=$env:PATH" >> $GITHUB_ENV
+            fi
+            if [ "${{matrix.compiler}}" = "clang-cl" ]; then
+              echo "CC=clang" >> $GITHUB_ENV
+              echo "CXX=clang++" >> $GITHUB_ENV
+            fi
+            if [ "${{matrix.compiler}}" = "cl" ]; then
+              echo "CC=cl" >> $GITHUB_ENV
+              echo "CXX=cl" >> $GITHUB_ENV
+            fi
 
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
 
       - name: Configure CMake
-        shell: bash
         working-directory: ${{runner.workspace}}/build
         run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=${{matrix.config}}
 
       - name: Build
-        shell: bash
         working-directory: ${{runner.workspace}}/build
         run: cmake --build . --config ${{matrix.config}}
 
       - name: Test
-        shell: bash
         working-directory: ${{runner.workspace}}/build
         run: ctest -C ${{matrix.config}}
