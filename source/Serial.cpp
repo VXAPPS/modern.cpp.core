@@ -63,7 +63,7 @@ namespace vx {
                   Baudrate _baudrate ) {
 
     /* Open port, checking for errors */
-    m_descriptor = ::open( _path.c_str(), ( O_RDWR | O_NOCTTY | O_NDELAY ) );
+    m_descriptor = ::open( _path.c_str(), ( O_RDWR | O_NOCTTY | O_NONBLOCK ) );
     if ( m_descriptor == -1 ) {
 
 #if __has_include(<LoggerFactory.h>)
