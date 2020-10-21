@@ -150,25 +150,31 @@ jobs:
             choco install ninja --global
             if ( "${{matrix.compiler}}" -eq "gcc" ) {
               choco install gcc --global
-              echo "CC=gcc" >> $GITHUB_ENV
-              echo "CXX=g++" >> $GITHUB_ENV
+              echo "CC=gcc" >> $Env:GITHUB_ENV
+              echo "CXX=g++" >> $Env:GITHUB_ENV
             }
             elseif ( "${{matrix.compiler}}".StartsWith( "clang" ) ) {
               choco install llvm --global
-              echo "CC=clang" >> $GITHUB_ENV
-              echo "CXX=clang++" >> $GITHUB_ENV
+              echo "CC=clang" >> $Env:GITHUB_ENV
+              echo "CXX=clang++" >> $Env:GITHUB_ENV
             }
             else {
-              echo "CC=cl" >> $GITHUB_ENV
-              echo "CXX=cl" >> $GITHUB_ENV
+              echo "CC=cl" >> $Env:GITHUB_ENV
+              echo "CXX=cl" >> $Env:GITHUB_ENV
             }
 
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
 
-      - name: Configure CMake
+      - name: Configure CMake (Unix)
+        if: runner.os == 'macOS' || runner.os == 'Linux'
         working-directory: ${{runner.workspace}}/build
         run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=${{matrix.config}}
+
+        name: Configure CMake (Windows)
+        if: runner.os == 'Windows'
+        working-directory: ${{runner.workspace}}/build
+        run: cmake $Env:GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=${{matrix.config}}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
