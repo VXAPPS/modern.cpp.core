@@ -35,6 +35,7 @@ if(UNIX)
 endif()
 
 add_library(${PROJECT_NAME}
+  ../.github/workflows/integrate.yml
   ../README.md
   CPU.cpp
   CPU.h

@@ -25,6 +25,3 @@ make -j`nproc`
 
 ## Unixservice class
 - Main function to run as a unix daemon (Not for Windows).
-
-## Dependencies
-Because no major compiler supports `std::span` yet the [Microsoft Guidelines Support Library](https://github.com/Microsoft/GSL) (aka GSL) is used for its span implementation (from which the standard version was defined).
