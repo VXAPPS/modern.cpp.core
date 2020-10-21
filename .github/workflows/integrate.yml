@@ -22,7 +22,8 @@ jobs:
           ubuntu-20.04-clang-9,
           ubuntu-20.04-clang-10,
           ubuntu-20.04-clang-11,
-          windows-2019-cl,
+          windows-2016-cl-msvc2017,
+          windows-2019-cl-msvc2019,
           windows-2019-clang-cl,
           windows-2019-clang,
           windows-2019-gcc,
@@ -68,10 +69,13 @@ jobs:
             compiler: clang
             version: "11"
 
-          - name: windows-2019-cl
+            name: windows-2019-cl-msvc2017
+            os: windows-2016
+            compiler: cl
+
+          - name: windows-2019-cl-msvc2019
             os: windows-2019
             compiler: cl
-            version: "10"
 
           - name: windows-2019-clang-cl
             os: windows-2019
@@ -157,10 +161,6 @@ jobs:
               choco install llvm --global
               echo "CC=clang" >> $Env:GITHUB_ENV
               echo "CXX=clang++" >> $Env:GITHUB_ENV
-            }
-            else {
-              echo "CC=cl" >> $Env:GITHUB_ENV
-              echo "CXX=cl" >> $Env:GITHUB_ENV
             }
 
       - name: Create Build Environment
