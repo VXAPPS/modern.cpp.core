@@ -8,6 +8,9 @@ jobs:
     name: ${{matrix.name}} (${{matrix.config}})
     runs-on: ${{matrix.os}}
 
+    env:
+      CMAKE_GENERATOR: Ninja
+
     strategy:
       fail-fast: false
       matrix:
@@ -113,6 +116,8 @@ jobs:
               sudo apt-get update
             fi
 
+            sudo apt-get install -y ninja-build
+
             if [ "${{matrix.compiler}}" = "gcc" ]; then
               sudo apt-get install -y g++-${{matrix.version}}
               echo "CC=gcc-${{matrix.version}}" >> $GITHUB_ENV
@@ -126,6 +131,7 @@ jobs:
       - name: Dependencies (macOS)
         if: runner.os == 'macOS'
         run: |
+            brew install ninja
             if [ "${{matrix.compiler}}" = "gcc" ]; then
               brew install gcc@${{matrix.version}}
               echo "CC=gcc-${{matrix.version}}" >> $GITHUB_ENV
@@ -141,24 +147,21 @@ jobs:
       - name: Dependencies (Windows)
         if: runner.os == 'Windows'
         run: |
-            if [ "${{matrix.compiler}}" = "gcc" ]; then
-              scoop install gcc --global
+            choco install ninja --global
+            if ( "${{matrix.compiler}}" -eq "gcc" ) {
+              choco install gcc --global
               echo "CC=gcc" >> $GITHUB_ENV
               echo "CXX=g++" >> $GITHUB_ENV
-            fi
-            if [ "${{matrix.compiler}}" = "clang" ]; then
-              scoop install llvm --global
+            }
+            elseif ( "${{matrix.compiler}}".StartsWith( "clang" ) ) {
+              choco install llvm --global
               echo "CC=clang" >> $GITHUB_ENV
               echo "CXX=clang++" >> $GITHUB_ENV
-            fi
-            if [ "${{matrix.compiler}}" = "clang-cl" ]; then
-              echo "CC=clang" >> $GITHUB_ENV
-              echo "CXX=clang++" >> $GITHUB_ENV
-            fi
-            if [ "${{matrix.compiler}}" = "cl" ]; then
+            }
+            else {
               echo "CC=cl" >> $GITHUB_ENV
               echo "CXX=cl" >> $GITHUB_ENV
-            fi
+            }
 
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
