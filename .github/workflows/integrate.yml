@@ -69,10 +69,12 @@ jobs:
           - name: windows-2016-msvc2017
             os: windows-2016
             compiler: cl
+            version: "Visual Studio 15 2017 Win64"
 
           - name: windows-2019-msvc2019
             os: windows-2019
             compiler: cl
+            version: "Visual Studio 16 2019"
 
           - name: macOS-10.15-xcode-11
             os: macOS-10.15
@@ -136,7 +138,6 @@ jobs:
       - name: Dependencies (Windows)
         if: runner.os == 'Windows'
         run: |
-            choco install ninja --global
             if ( "${{matrix.compiler}}" -eq "gcc" ) {
               choco install gcc --global
               echo "CC=gcc" >> $Env:GITHUB_ENV
@@ -147,7 +148,6 @@ jobs:
               echo "CC=clang" >> $Env:GITHUB_ENV
               echo "CXX=clang++" >> $Env:GITHUB_ENV
             }
-            echo "PATH=$Env:PATH" >> $Env:GITHUB_ENV
 
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
@@ -160,7 +160,7 @@ jobs:
       - name: Configure CMake (Windows)
         if: runner.os == 'Windows'
         working-directory: ${{runner.workspace}}/build
-        run: cmake $Env:GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=${{matrix.config}}
+        run: cmake $Env:GITHUB_WORKSPACE -G"${{matrix.version}}" -DCMAKE_BUILD_TYPE=${{matrix.config}}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
