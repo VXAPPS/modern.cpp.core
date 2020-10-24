@@ -55,8 +55,8 @@ namespace vx {
     updateNativeId( _leaf, _subleaf );
   }
 
-  void CPU::updateNativeId( unsigned int _leaf,
-                            unsigned int _subleaf ) {
+  void CPU::updateNativeId( [[maybe_unused]] unsigned int _leaf,
+                            [[maybe_unused]] unsigned int _subleaf ) {
 
 #ifdef _WIN32
     std::array<int, 4> currentLeaf;
@@ -68,8 +68,6 @@ namespace vx {
 #else
 #ifdef __aarch64__
     /* Not available */
-    [[maybe_unused]] _leaf;
-    [[maybe_unused]] _subleaf;
 #else
     asm volatile
     ( "cpuid" : "=a"( m_currentLeaf[0] ), "=b"( m_currentLeaf[1] ), "=c"( m_currentLeaf[2] ), "=d"( m_currentLeaf[3] )
