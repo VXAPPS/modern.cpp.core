@@ -90,13 +90,12 @@ jobs:
             os: macOS-10.15
             compiler: xcode
             version: "12"
-            cmake: "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
 
           - name: macos-11.0
             os: macos-11.0
             compiler: xcode
             version: "12.2"
-            cmake: "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
+            cmake: "-DCMAKE_OSX_ARCHITECTURES=arm64"
 
     steps:
       - uses: actions/checkout@v2
