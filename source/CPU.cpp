@@ -59,16 +59,20 @@ namespace vx {
                             unsigned int _subleaf ) {
 
 #ifdef _WIN32
-     std::array<int, 4> currentLeaf;
-      __cpuidex( currentLeaf.data(), _leaf, _subleaf );
-      m_currentLeaf[0] = currentLeaf[0];
-      m_currentLeaf[1] = currentLeaf[1];
-      m_currentLeaf[2] = currentLeaf[2];
-      m_currentLeaf[3] = currentLeaf[3];
+    std::array<int, 4> currentLeaf;
+    __cpuidex( currentLeaf.data(), _leaf, _subleaf );
+    m_currentLeaf[0] = currentLeaf[0];
+    m_currentLeaf[1] = currentLeaf[1];
+    m_currentLeaf[2] = currentLeaf[2];
+    m_currentLeaf[3] = currentLeaf[3];
 #else
-      asm volatile
-      ( "cpuid" : "=a"( m_currentLeaf[0] ), "=b"( m_currentLeaf[1] ), "=c"( m_currentLeaf[2] ), "=d"( m_currentLeaf[3] )
-        : "a"( _leaf ), "c"( _subleaf ) );
+#ifdef __aarch64__
+    /* Not available */
+#else
+    asm volatile
+    ( "cpuid" : "=a"( m_currentLeaf[0] ), "=b"( m_currentLeaf[1] ), "=c"( m_currentLeaf[2] ), "=d"( m_currentLeaf[3] )
+      : "a"( _leaf ), "c"( _subleaf ) );
+#endif
 #endif
   }
 }
