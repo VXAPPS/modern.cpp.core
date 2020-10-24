@@ -68,6 +68,8 @@ namespace vx {
 #else
 #ifdef __aarch64__
     /* Not available */
+    [[maybe_unused]] _leaf;
+    [[maybe_unused]] _subleaf;
 #else
     asm volatile
     ( "cpuid" : "=a"( m_currentLeaf[0] ), "=b"( m_currentLeaf[1] ), "=c"( m_currentLeaf[2] ), "=d"( m_currentLeaf[3] )
