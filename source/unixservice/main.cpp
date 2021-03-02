@@ -94,9 +94,14 @@ int main() {
   }
 
   /* A daemon cannot use the terminal, so close standard file descriptors for security reasons */
-  close( STDIN_FILENO );
-  close( STDOUT_FILENO );
-  close( STDERR_FILENO );
+  for ( int x = static_cast<int>( sysconf( _SC_OPEN_MAX ) ); x >= 0; x-- ) {
+
+    close( x );
+  }
+  /* Alternative, some times it is needed not to close all file descriptors */
+  // close( STDIN_FILENO );
+  // close( STDOUT_FILENO );
+  // close( STDERR_FILENO );
 
   /* Ensure only one copy */
   std::stringstream ss;

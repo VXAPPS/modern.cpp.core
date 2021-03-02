@@ -132,23 +132,23 @@ namespace vx {
     }
   }
 
-  static std::chrono::milliseconds getSteadyClockTimestampMs() {
+  static std::chrono::milliseconds timestampMs() {
 
     return std::chrono::duration_cast<std::chrono::milliseconds>( std::chrono::steady_clock::now().time_since_epoch() );
   }
 
   bool Serial::flush() const {
 
-    std::chrono::milliseconds startTimestampMs = getSteadyClockTimestampMs();
-    while ( getSteadyClockTimestampMs().count() - startTimestampMs.count() < flushDurationMs ) {
+    std::chrono::milliseconds startTimestampMs = timestampMs();
+    while ( timestampMs().count() - startTimestampMs.count() < flushDurationMs ) {
 
       std::string result = read();
       if ( result.empty() ) {
 
 #if __has_include(<LoggerFactory.h>)
-        LogError( "readSerialData() failed. Error: " + std::string( std::strerror( errno ) ) );
+        LogError( "Serial port read() failed. Error: " + std::string( std::strerror( errno ) ) );
 #else
-        std::cout << "readSerialData() failed. Error: " << std::strerror( errno ) << std::endl;
+        std::cout << "Serial port read() failed. Error: " << std::strerror( errno ) << std::endl;
 #endif
         return false;
       }
