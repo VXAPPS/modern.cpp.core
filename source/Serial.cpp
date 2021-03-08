@@ -40,12 +40,13 @@
 
 /* stl header */
 #include <chrono>
-#include <iostream>
 #include <vector>
 
 /* modern.cpp.logger */
 #if __has_include(<LoggerFactory.h>)
 #include <LoggerFactory.h>
+#else
+#include <iostream>
 #endif
 
 /* local haeder */

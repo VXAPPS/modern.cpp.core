@@ -30,7 +30,14 @@
 
 /* stl header */
 #include <iomanip>
+#include <sstream>
+
+/* modern.cpp.logger */
+#if __has_include(<LoggerFactory.h>)
+#include <LoggerFactory.h>
+#else
 #include <iostream>
+#endif
 
 /* local header */
 #include "Timing.h"
@@ -53,8 +60,21 @@ namespace vx {
   void Timing::stop() const {
 
     auto end = std::chrono::high_resolution_clock::now();
+
+    std::stringstream realTime;
+    realTime << std::setprecision( std::numeric_limits<double>::digits10 + 1 ) << std::chrono::duration_cast<std::chrono::nanoseconds>( end - m_start ).count() / multiplier / multiplier;
+
+    std::stringstream cpuTime;
+    cpuTime << std::setprecision( std::numeric_limits<double>::digits10 + 1 ) << multiplier * std::clock() - m_cpu / CLOCKS_PER_SEC;
+
+#if __has_include(<LoggerFactory.h>)
+    LogVerbose( "------ " );
+    LogVerbose( "Real Time: " + realTime.str() + " ms" );
+    LogVerbose( "CPU Time: " + cpuTime.str() + " ms" );
+#else
     std::cout << "------ " << m_action << std::endl;
-    std::cout << "Real Time: " << std::setprecision( std::numeric_limits<double>::digits10 + 1 ) << std::chrono::duration_cast<std::chrono::nanoseconds>( end - m_start ).count() / multiplier / multiplier << " ms" << std::endl;
-    std::cout << "CPU Time: " << std::setprecision( std::numeric_limits<double>::digits10 + 1 ) << multiplier * std::clock() - m_cpu / CLOCKS_PER_SEC << " ms" << std::endl;
+    std::cout << "Real Time: " << realTime.str() << " ms" << std::endl;
+    std::cout << "CPU Time: " << cpuTime.str() << " ms" << std::endl;
+#endif
   }
 }
