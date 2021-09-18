@@ -1,11 +1,11 @@
 # modern.cpp.core
-Modern C++ core classes for specific functions in most native and modern C++17.
+Modern C++ core classes for specific functions in most native and modern C++20.
 
 ## Build
 ```bash
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Debug|Release ../modern.cpp.core
+cmake -DCMAKE_BUILD_TYPE:STRING=Debug|Release ../modern.cpp.core
 make -j`nproc`
 ```
 

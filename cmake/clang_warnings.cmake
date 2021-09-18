@@ -37,5 +37,4 @@ set(WARNING_FLAGS
 
   # Singleton or also multilanguage doxygen
   -Wno-exit-time-destructors
-  -Wno-documentation
 )

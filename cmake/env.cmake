@@ -29,7 +29,7 @@
 #
 
 # for debugging of build steps
-set(CMAKE_VERBOSE_MAKEFILE OFF)
+option(CMAKE_VERBOSE_MAKEFILE "Show the complete build commands" OFF)
 
 # Pathes
 if(NOT DEV)
@@ -39,7 +39,7 @@ endif()
 set(CMAKE ${DEV}/cmake)
 
 # Force C++17
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
