@@ -25,10 +25,12 @@ jobs:
           ubuntu-20.04-clang-12,
           windows-2016-msvc2017,
           windows-2019-msvc2019,
+          windows-2022-msvc2022,
           macos-10.15-xcode-11.4,
           macos-10.15-xcode-12,
           macos-10.15-xcode-12.4,
-          macos-11.0-x86_64
+          macos-11.0-x86_64,
+          macos-11.0-arm64
         ]
         config: [Debug, Release]
         include:
@@ -82,6 +84,11 @@ jobs:
             compiler: cl
             version: Visual Studio 16 2019
 
+          - name: windows-2022-msvc2022
+            os: windows-2022
+            compiler: cl
+            version: Visual Studio 17 2022
+
           - name: macOS-10.15-xcode-11.4
             os: macOS-10.15
             compiler: xcode
@@ -98,16 +105,16 @@ jobs:
             version: 12.4
 
           - name: macos-11.0-x86_64
-            os: macos-latest
+            os: macos-11.0
             compiler: xcode
             version: 12.5
-            cmake: -DCMAKE_OSX_ARCHITECTURES=x86_64
+            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING="x86_64"
 
-#          - name: macos-11.0-arm64
-#            os: macos-11.0
-#            compiler: xcode
-#            version: 12.5
-#            cmake: -DCMAKE_OSX_ARCHITECTURES=arm64
+          - name: macos-11.0-arm64
+            os: macos-11.0
+            compiler: xcode
+            version: 12.5
+            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING="arm64"
 
     steps:
       - uses: actions/checkout@v2
@@ -179,12 +186,12 @@ jobs:
       - name: Configure CMake (Unix)
         if: runner.os == 'macOS' || runner.os == 'Linux'
         working-directory: ${{runner.workspace}}/build
-        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=${{matrix.config}} ${{matrix.cmake}}
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING="${{matrix.config}}" ${{matrix.cmake}}
 
       - name: Configure CMake (Windows)
         if: runner.os == 'Windows'
         working-directory: ${{runner.workspace}}/build
-        run: cmake $Env:GITHUB_WORKSPACE -G"${{matrix.version}}" -DCMAKE_BUILD_TYPE=${{matrix.config}}
+        run: cmake $Env:GITHUB_WORKSPACE -G"${{matrix.version}}" -DCMAKE_BUILD_TYPE:STRING="${{matrix.config}}"
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
@@ -195,4 +202,5 @@ jobs:
         run: ctest -C ${{matrix.config}}
 
       - name: Perform CodeQL Analysis
+        if: runner.os != 'Windows'
         uses: github/codeql-action/analyze@v1
