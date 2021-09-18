@@ -31,9 +31,13 @@
 #pragma once
 
 /**
- * @brief vx (VX Apps) namespace.
+ * @brief vx (VX APPS) namespace.
  */
 namespace vx {
 
+  /**
+   * @brief Check the caps lock state.
+   * @return True, if caps lock is active - otherwise false.
+   */
   bool isCapsLockActive();
 }

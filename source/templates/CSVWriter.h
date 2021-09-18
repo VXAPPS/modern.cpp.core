@@ -35,13 +35,13 @@
 #include <string>
 
 /**
- * @brief vx (VX Apps) namespace.
+ * @brief vx (VX APPS) namespace.
  */
 namespace vx {
 
   /**
    * @brief A class to create and write data in a csv file.
-   * @author Florian Becker <fb\@vxapps.com> (VX Apps)
+   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
    */
   class CSVWriter {
 

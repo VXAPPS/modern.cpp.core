@@ -35,13 +35,13 @@
 #include <thread>
 
 /**
- * @brief vx (VX Apps) namespace.
+ * @brief vx (VX APPS) namespace.
  */
 namespace vx {
 
   /**
    * @brief Timing class for timeouts.
-   * @author Florian Becker <fb\@vxapps.com> (VX Apps)
+   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
    */
   class Timer {
 

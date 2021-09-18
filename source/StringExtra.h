@@ -37,23 +37,45 @@
 #include <string>
 
 /**
- * @brief vx (VX Apps) namespace.
+ * @brief vx (VX APPS) namespace.
  */
 namespace vx {
 
-  // trim from end of string (right)
+  /**
+   * @brief Trim from end of string (right).
+   * @param _string   String to trim.
+   * @param _trim   What signs to trim
+   * Default: Space, tabs, return, new line and form feed.
+   * @return Right trimmed string.
+   */
   std::string &rightTrim( std::string &_string,
                           const std::string &_trim = {} );
 
-  // trim from beginning of string (left)
+  /**
+   * @brief Trim from beginning of string (left).
+   * @param _string   String to trim.
+   * @param _trim   What signs to trim
+   * Default: Space, tabs, return, new line and form feed.
+   * @return Left trimmed string.
+   */
   std::string &leftTrim( std::string &_string,
                          const std::string &_trim = {} );
 
-  // trim from both ends of string (right then left)
+  /**
+   * @brief Trim from both ends of string (right then left).
+   * @param _string   String to trim.
+   * @param _trim   What signs to trim
+   * Default: Space, tabs, return, new line and form feed.
+   * @return Both ends trimmed string.
+   */
   std::string &trim( std::string &_string,
                      const std::string &_trim = {} );
 
 #ifdef __APPLE__
+  /**
+   * @brief Returns standard string from CFStringRef.
+   * @return Standard string from CFStringRef.
+   */
   std::string fromCFStringRef( CFStringRef _stringRef );
 #endif
 }

@@ -139,8 +139,7 @@ int main() {
   /* split */
   std::cout << "----- Split" << std::endl;
 
-  std::pair<double, double> splited = {};
-  splited = vx::split( first );
+  std::pair<double, double> splited = vx::split( first );
   std::cout << "split " << first << " result: " << splited.first << " " << splited.second << std::endl;
 
   splited = vx::split( second );

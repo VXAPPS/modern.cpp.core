@@ -34,7 +34,7 @@
 #include <string>
 
 /**
- * @brief vx (VX Apps) namespace.
+ * @brief vx (VX APPS) namespace.
  */
 namespace vx {
 
@@ -51,7 +51,7 @@ namespace vx {
 
   /**
    * @brief Serial communication class.
-   * @author Florian Becker <fb\@vxapps.com> (VX Apps)
+   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
    */
   class Serial {
 

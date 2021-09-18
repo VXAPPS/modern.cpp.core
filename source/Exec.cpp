@@ -80,5 +80,5 @@ namespace vx {
     return result;
   }
 
-  int result() { return m_resultCode; }
+  int resultCode() { return m_resultCode; }
 }

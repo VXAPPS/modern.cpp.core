@@ -38,13 +38,13 @@
 #include <string>
 
 /**
- * @brief vx (VX Apps) namespace.
+ * @brief vx (VX APPS) namespace.
  */
 namespace vx {
 
   /**
    * @brief Print CPU and System Time on called block.
-   * @author Florian Becker <fb\@vxapps.com> (VX Apps)
+   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
    */
   class Timing {
 

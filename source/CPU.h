@@ -34,13 +34,13 @@
 #include <array>
 
 /**
- * @brief vx (VX Apps) namespace.
+ * @brief vx (VX APPS) namespace.
  */
 namespace vx {
 
   /**
    * @brief The CPU class to receive information about the CPU.
-   * @author Florian Becker <fb\@vxapps.com> (VX Apps)
+   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
    */
   class CPU {
 

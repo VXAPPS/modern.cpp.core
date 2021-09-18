@@ -32,9 +32,10 @@
 
 /* stl header */
 #include <cstddef> // std::size_t
+#include <utility>
 
 /**
- * @brief vx (VX Apps) namespace.
+ * @brief vx (VX APPS) namespace.
  */
 namespace vx {
 

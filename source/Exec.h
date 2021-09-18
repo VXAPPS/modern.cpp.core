@@ -34,7 +34,7 @@
 #include <string>
 
 /**
- * @brief vx (VX Apps) namespace.
+ * @brief vx (VX APPS) namespace.
  */
 namespace vx {
 
@@ -55,5 +55,5 @@ namespace vx {
    * @brief Result   Exit code of the command.
    * @return The result code.
    */
-  int result();
+  int resultCode();
 }
