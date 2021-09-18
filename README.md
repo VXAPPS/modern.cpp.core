@@ -1,5 +1,5 @@
 # modern.cpp.core
-Modern C++ core classes for specific functions in most native and modern C++20.
+Modern C++ core classes for specific functions in most native and modern C++17 and C++20.
 
 ## Build
 ```bash
