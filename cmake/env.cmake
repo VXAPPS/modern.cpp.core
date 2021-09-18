@@ -29,7 +29,7 @@
 #
 
 # for debugging of build steps
-set(CMAKE_VERBOSE_MAKEFILE OFF)
+option(CMAKE_VERBOSE_MAKEFILE "Show the complete build commands" OFF)
 
 # Pathes
 if(NOT DEV)
