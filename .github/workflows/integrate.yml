@@ -100,13 +100,13 @@ jobs:
           - name: macos-11.0-x86_64
             os: macos-latest
             compiler: xcode
-            version: 12.2
+            version: 12.5
             cmake: -DCMAKE_OSX_ARCHITECTURES=x86_64
 
 #          - name: macos-11.0-arm64
 #            os: macos-11.0
 #            compiler: xcode
-#            version: 12.2
+#            version: 12.5
 #            cmake: -DCMAKE_OSX_ARCHITECTURES=arm64
 
     steps:
