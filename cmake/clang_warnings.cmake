@@ -37,4 +37,5 @@ set(WARNING_FLAGS
 
   # Singleton
   -Wno-exit-time-destructors
+  -Wno-documentation # DO NOT REMOVE - Templates which are not used, uses multi language documentation - and this will break the compiling.
 )
