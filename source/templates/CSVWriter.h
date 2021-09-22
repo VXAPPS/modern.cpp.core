@@ -57,7 +57,10 @@ namespace vx {
                         const std::string &_delimiter = ",",
                         const std::string &_linePrefix = {},
                         const std::string &_lineSuffix = {} ) :
-      m_filename( _filename ), m_delimiter( _delimiter ), m_linePrefix( _linePrefix ), m_lineSuffix( _lineSuffix ) {}
+      m_filename( _filename ),
+      m_delimiter( _delimiter ),
+      m_linePrefix( _linePrefix ),
+      m_lineSuffix( _lineSuffix ) {}
 
     /**
      * @brief Write out the values.
@@ -91,21 +94,21 @@ namespace vx {
     /**
      * @brief Csv filename.
      */
-    std::string m_filename = {};
+    std::string m_filename;
 
     /**
      * @brief Delimiter for values.
      */
-    std::string m_delimiter = {};
+    std::string m_delimiter;
 
     /**
      * @brief Prefix for every line.
      */
-    std::string m_linePrefix = {};
+    std::string m_linePrefix;
 
     /**
      * @brief Suffix for every line.
      */
-    std::string m_lineSuffix = {};
+    std::string m_lineSuffix;
   };
 }

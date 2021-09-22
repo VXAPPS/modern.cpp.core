@@ -30,8 +30,10 @@
 
 #pragma once
 
-/* stl header */
+/* c header */
 #include <cstddef> // std::size_t
+
+/* stl header */
 #include <utility>
 
 /**

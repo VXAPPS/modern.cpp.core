@@ -80,7 +80,7 @@ namespace vx {
     /**
      * @brief Name for the current action.
      */
-    std::string m_action = {};
+    std::string m_action;
 
     /**
      * @brief Clock to calculate the elapsed system time.

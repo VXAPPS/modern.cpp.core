@@ -35,6 +35,7 @@
 
 /* stl header */
 #include <string>
+#include <vector>
 
 /**
  * @brief vx (VX APPS) namespace.
@@ -70,6 +71,33 @@ namespace vx {
    */
   std::string &trim( std::string &_string,
                      const std::string &_trim = {} );
+
+  /**
+   * @brief Check if string starts with start.
+   * @param _string   String to check.
+   * @param _start   Start check.
+   * @return True, if string starts with start - otherwise false.
+   */
+  bool startsWith( const std::string &_string,
+                   const std::string &_start );
+
+  /**
+   * @brief Check if string ends with start.
+   * @param _string   String to check.
+   * @param _end   End check.
+   * @return True, if string ends with end - otherwise false.
+   */
+  bool endsWith( const std::string &_string,
+                 const std::string &_end );
+
+  /**
+   * @brief Tokenize string by separator.
+   * @param _string   String to split.
+   * @param _separator   Separator for the splitting.
+   * @return Splitted list of splits.
+   */
+  std::vector<std::string> tokenize( const std::string &_string,
+                                     const std::string &_separator );
 
 #ifdef __APPLE__
   /**

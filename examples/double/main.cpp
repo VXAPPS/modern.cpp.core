@@ -38,12 +38,16 @@ int main() {
 
   bool result = false;
 
-  double first = 1.23;
-  double second = 2.2345678;
-  double third = 2.2345678;
-  double fourth = 2.2335678;
+  constexpr std::size_t precisionTwo = 2;
+  constexpr std::size_t precisionFive = 5;
+  constexpr std::size_t precisionTen = 10;
 
-  std::cout.precision( 10 );
+  constexpr double first = 1.23;
+  constexpr double second = 2.2345678;
+  constexpr double third = 2.2345678;
+  constexpr double fourth = 2.2335678;
+
+  std::cout.precision( precisionTen );
 
   /* equals */
   std::cout << "----- Equal" << std::endl;
@@ -123,17 +127,16 @@ int main() {
   /* round */
   std::cout << "----- Round" << std::endl;
 
-  double rounded = 0.0;
-  rounded = vx::round( first, 2 );
+  double rounded = vx::round( first, precisionTwo );
   std::cout << "round(2) " << first << " result: " << rounded << std::endl;
 
-  rounded = vx::round( second, 2 );
+  rounded = vx::round( second, precisionTwo );
   std::cout << "round(2) " << second << " result: " << rounded << std::endl;
 
-  rounded = vx::round( third, 5 );
+  rounded = vx::round( third, precisionFive );
   std::cout << "round(5) " << third << " result: " << rounded << std::endl;
 
-  rounded = vx::round( fourth, 5 );
+  rounded = vx::round( fourth, precisionFive );
   std::cout << "round(5) " << fourth << " result: " << rounded << std::endl;
 
   /* split */

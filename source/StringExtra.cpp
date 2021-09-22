@@ -55,6 +55,40 @@ namespace vx {
     return leftTrim( rightTrim( _string, _trim.empty() ? trimmed : _trim ), _trim.empty() ? trimmed : _trim );
   }
 
+  bool startsWith( const std::string &_string,
+                   const std::string &_start ) {
+
+    return ( _string.rfind( _start, 0 ) == 0 );
+  }
+
+  bool endsWith( const std::string &_string,
+                 const std::string &_end ) {
+
+    if ( _string.length() >= _end.length() ) {
+
+      return _string.compare( _string.length() - _end.length(), _end.length(), _end ) == 0;
+    }
+    return false;
+  }
+
+  std::vector<std::string> tokenize( const std::string &_string,
+                                     const std::string &_separator ) {
+
+    std::vector<std::string> result;
+    std::string split = _string;
+    std::size_t startPos = 0;
+    std::size_t endPos = split.find( _separator );
+    while ( endPos != std::string::npos ) {
+
+      std::string word = split.substr( startPos, endPos - startPos );
+      result.push_back( word );
+      split = split.substr( endPos + _separator.length() );
+      endPos = split.find( _separator );
+    }
+    result.push_back( split );
+    return result;
+  }
+
 #ifdef __APPLE__
   std::string fromCFStringRef( CFStringRef _stringRef ) {
 

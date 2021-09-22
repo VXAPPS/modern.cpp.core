@@ -69,8 +69,9 @@ int main() {
   openlog( DAEMON_NAME, LOG_NOWAIT | LOG_PID, LOG_USER );
   syslog( LOG_NOTICE, "Successfully started %s", DAEMON_NAME );
 
-  // Generate a session ID for the child process
+  /* Generate a session ID for the child process */
   pid_t sid = setsid();
+
   /* Ensure a valid SID for the child process */
   if ( sid < 0 ) {
 

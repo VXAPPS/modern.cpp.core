@@ -29,7 +29,7 @@
  */
 
 /* c header */
-#include <cmath> // std::fabs, std::floor, std::modf
+#include <cmath> // std::fabs, std::floor, std::modf, std::pow
 
 /* stl header */
 #include <limits>
@@ -40,10 +40,16 @@
 
 namespace vx {
 
+  /** Base for default precision factor. */
+  constexpr double precisionBase = 10;
+
+  /** Base for rounding. */
+  constexpr double roundBase = 0.5;
+
   bool equal( double _left,
               double _right ) {
 
-    return ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() );
+    return std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon();
   }
 
   bool less( double _left,
@@ -52,9 +58,9 @@ namespace vx {
 
     if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() ) {
 
-      return ( _orEqual );
+      return _orEqual;
     }
-    return ( _left < _right );
+    return _left < _right;
   }
 
   bool greater( double _left,
@@ -63,9 +69,9 @@ namespace vx {
 
     if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() ) {
 
-      return ( _orEqual );
+      return _orEqual;
     }
-    return ( _left > _right );
+    return _left > _right;
   }
 
   bool between( double _value,
@@ -73,20 +79,20 @@ namespace vx {
                 double _max,
                 bool _orEqual ) {
 
-    return ( greater( _value, _min, _orEqual ) && less( _value, _max, _orEqual ) );
+    return greater( _value, _min, _orEqual ) && less( _value, _max, _orEqual );
   }
 
   double round( double _value,
                 std::size_t _precision ) {
 
-    std::vector<double> v = { 1, 10, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8 };
-    return std::floor( _value * v[ _precision ] + 0.5 ) / v[ _precision ];
+    const double factor = _precision ? std::pow( precisionBase, _precision ) : 1;
+    return std::floor( _value * factor + roundBase ) / factor;
   }
 
   std::pair<double, double> split( double _value ) {
 
     double integral = 0.0;
-    double fraction = std::modf( _value, &integral );
+    const double fraction = std::modf( _value, &integral );
     return std::make_pair( integral, fraction );
   }
 }

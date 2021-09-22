@@ -44,67 +44,47 @@ namespace vx {
 
   public:
     /**
-     * @~english
-     * @brief C++11 Singleton thread-safe.
-     * @return Singleton of T.
-     *
-     * @~german
-     * @brief C++11 Singleton thread-safe.
-     * @return Einzige Instanz von T.
+     * @brief @~english C++11 Singleton thread-safe. @~german C++11 Singleton thread-safe.
+     * @return @~english Singleton of T. @~german Einzige Instanz von T.
      */
     static T &instance() {
 
+#if defined(__clang__)
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wexit-time-destructors"
+#endif
       static T instance;
       return instance;
+#if defined(__clang__)
+  #pragma clang diagnostic pop
+#endif
     }
 
     /**
-     * @~english
-     * @brief Delete move constructor.
-     *
-     * @~german
-     * @brief Entfernt den verschobenen Konstruktor.
+     * @brief @~english Delete move constructor. @~german Entfernt den verschobenen Konstruktor.
      */
     Singleton( Singleton && ) = delete;
 
     /**
-     * @~english
-     * @brief Delete copy assign.
-     * @return Nothing.
-     *
-     * @~german
-     * @brief Entfernt die kopierte Zuweisung.
-     * @return Keine Rückgabe.
+     * @brief @~english Delete copy assign. @~german Entfernt die kopierte Zuweisung.
+     * @return @~english Nothing. @~german Keine Rückgabe.
      */
     Singleton &operator=( Singleton const & ) = delete;
 
     /**
-     * @~english
-     * @brief Delete move assign.
-     * @return Nothing.
-     *
-     * @~german
-     * @brief Entfernt die verschobene Zuweisung.
-     * @return Keine Rückgabe.
+     * @brief @~english Delete move assign. @~german Entfernt die verschobene Zuweisung.
+     * @return @~english Nothing. @~german Keine Rückgabe.
      */
     Singleton &operator=( Singleton && ) = delete;
 
   protected:
     /**
-     * @~english
-     * @brief Default constructor for Singleton.
-     *
-     * @~german
-     * @brief Standardkonstruktur für Singleton.
+     * @brief @~english Default constructor for Singleton. @~german Standardkonstruktur für Singleton.
      */
     Singleton() = default;
 
     /**
-     * @~english
-     * @brief Default destructor for Singleton.
-     *
-     * @~german
-     * @brief Standarddestruktor für Singleton.
+     * @brief @~english Default destructor for Singleton. @~german Standarddestruktor für Singleton.
      */
     ~Singleton() = default;
   };
