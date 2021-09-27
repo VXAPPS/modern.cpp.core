@@ -176,6 +176,7 @@ namespace vx {
 
     std::vector<char> buffer( bufferSize );
     ssize_t numBytesRead = ::read( m_descriptor, buffer.data(), buffer.size() );
+    buffer.resize( numBytesRead );
     if ( numBytesRead < 0 ) {
 
 #if __has_include(<LoggerFactory.h>)
