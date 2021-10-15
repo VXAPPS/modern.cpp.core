@@ -47,7 +47,7 @@ namespace vx {
   /** Multiplier from nanoseconds to milliseconds to seconds and vice versa. */
   constexpr double multiplier = 1000.0;
 
-#if not __has_include(<LoggerFactory.h>)
+#if !__has_include(<LoggerFactory.h>)
   constexpr int timestampPrecision = 6;
 #endif
 

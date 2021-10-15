@@ -70,7 +70,7 @@ int main() {
 
   /* Generate a session ID for the child process */
   /* Ensure a valid SID for the child process */
-  if ( pid_t sid = setsid() < 0 ) {
+  if ( setsid() < 0 ) {
 
     /* Log failure and exit */
     syslog( LOG_ERR, "Could not generate session ID for child process" );
