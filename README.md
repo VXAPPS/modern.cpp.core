@@ -15,7 +15,7 @@ make -j`nproc`
 - **Exec** - Run command and return stdout or mixed (stdout and stderr) and result code.
 - **Keyboard** - Check for caps lock state.
 - **Serial** - Serial communication class (Not for Windows).
-- **StringExtra** - LeftTrim, RightTrim, Trim.
+- **StringExtra** - LeftTrim, RightTrim, Trim, StartsWith, EndWith, Tokenize.
 - **Timing** - Measuring time, cpu and real time.
 
 ## Template classes

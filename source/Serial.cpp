@@ -159,8 +159,7 @@ namespace vx {
 
   bool Serial::write( const std::string &_data ) const {
 
-    ssize_t numBytesWritten = ::write( m_descriptor, _data.c_str(), _data.size() );
-    if ( numBytesWritten < 0 ) {
+    if ( ::write( m_descriptor, _data.c_str(), _data.size() ) < 0 ) {
 
 #if __has_include(<LoggerFactory.h>)
       LogError( "Serial port write() failed. Error: "  + std::string( std::strerror( errno ) ) );

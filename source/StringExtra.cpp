@@ -36,33 +36,33 @@ namespace vx {
   constexpr auto trimmed = " \t\n\r\f\v";
 
   std::string &rightTrim( std::string &_string,
-                          const std::string &_trim ) {
+                          std::string_view _trim ) {
 
     _string.erase( _string.find_last_not_of( _trim.empty() ? trimmed : _trim ) + 1 );
     return _string;
   }
 
   std::string &leftTrim( std::string &_string,
-                         const std::string &_trim ) {
+                         std::string_view _trim ) {
 
     _string.erase( 0, _string.find_first_not_of( _trim.empty() ? trimmed : _trim ) );
     return _string;
   }
 
   std::string &trim( std::string &_string,
-                     const std::string &_trim ) {
+                     std::string_view _trim ) {
 
     return leftTrim( rightTrim( _string, _trim.empty() ? trimmed : _trim ), _trim.empty() ? trimmed : _trim );
   }
 
   bool startsWith( const std::string &_string,
-                   const std::string &_start ) {
+                   std::string_view _start ) {
 
     return ( _string.rfind( _start, 0 ) == 0 );
   }
 
   bool endsWith( const std::string &_string,
-                 const std::string &_end ) {
+                 std::string_view _end ) {
 
     if ( _string.length() >= _end.length() ) {
 
@@ -72,7 +72,7 @@ namespace vx {
   }
 
   std::vector<std::string> tokenize( const std::string &_string,
-                                     const std::string &_separator ) {
+                                     std::string_view _separator ) {
 
     std::vector<std::string> result;
     std::string split = _string;
@@ -102,7 +102,6 @@ namespace vx {
 
     std::string converted( static_cast<std::size_t>( maxUtf8len ), '\0' );
     CFStringGetCString( _stringRef, converted.data(), maxUtf8len, kCFStringEncodingUTF8 );
-    converted.resize( std::strlen( converted.data() ) );
     return converted;
   }
 #endif
