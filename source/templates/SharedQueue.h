@@ -55,10 +55,10 @@ namespace vx {
     bool empty();
 
   private:
-    std::deque<T> m_queue;
-    mutable std::mutex m_mutex;
-//    mutable std::shared_mutex m_mutex;
-    std::condition_variable m_condition;
+    std::deque<T> m_queue {};
+    mutable std::mutex m_mutex {};
+//    mutable std::shared_mutex m_mutex {};
+    std::condition_variable m_condition {};
   };
 
   template <typename T>
