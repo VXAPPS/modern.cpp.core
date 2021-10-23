@@ -48,9 +48,9 @@ static void process( vx::SharedQueue<std::unique_ptr<Item>> &_queue, int _thread
   while ( true ) {
 
     std::unique_ptr<Item> item = std::move( _queue.front() );
+    _queue.pop();
     if ( item ) {
 
-      _queue.pop();
       if ( item->getMessage() == "STOP" ) {
 
         break;
@@ -99,9 +99,9 @@ int main() {
   }
 
   /* Send STOP to finish all threads */
-  for ( [[maybe_unused]] auto &thread : threads ) {
+  for ( unsigned int x = 0; x < threads.size() * 2; ++x ) {
 
-    queue.push( std::make_unique<Item>( "STOP", intervall ) );
+    queue.push( std::make_unique<Item>( "STOP", 0 ) );
   }
 
   /* Wait for threads to be finished */
