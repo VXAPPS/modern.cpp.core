@@ -28,11 +28,11 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-project(examples)
+project(threadqueue)
 
-add_subdirectory(command)
-add_subdirectory(cpuinfo)
-add_subdirectory(double)
-add_subdirectory(pipe)
-add_subdirectory(threadqueue)
-add_subdirectory(timer)
+add_executable(${PROJECT_NAME}
+  main.cpp
+  Item.h
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE modern.cpp.core Threads::Threads)

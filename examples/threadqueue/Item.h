@@ -28,68 +28,19 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
-
-/* c header */
-#include <ctime>
-
 /* stl header */
-#include <chrono>
-#include <string_view>
+#include <string>
 
-/**
- * @brief vx (VX APPS) namespace.
- */
-namespace vx {
+class Item {
 
-  /**
-   * @brief Print CPU and System Time on called block.
-   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
-   */
-  class Timing {
+  std::string m_message {};
+  int    m_number {};
 
-  public:
-    /**
-     * @brief Default constructor for Timing.
-     */
-    Timing() = default;
+public:
+  Item( const std::string &message, int number )
+    : m_message( message ), m_number( number ) {}
+//  ~Item() {}
 
-    /**
-     * @brief Start the internal timer or reset.
-     */
-    void start();
-
-    /**
-     * @brief Stop the internal timer and output to stdout.
-     */
-    void stop() const;
-
-    /**
-     * @brief The name of timed action for the output display.
-     * @param _action   The name of the action.
-     */
-    inline void setAction( std::string_view _action ) { m_action = _action; }
-
-    /**
-     * @brief The name of timed action for the output display.
-     * @return The name of the action.
-     */
-    inline std::string_view action() const { return m_action; }
-
-  private:
-    /**
-     * @brief Name for the current action.
-     */
-    std::string_view m_action {};
-
-    /**
-     * @brief Clock to calculate the elapsed system time.
-     */
-    std::chrono::time_point<std::chrono::high_resolution_clock> m_start {};
-
-    /**
-     * @brief Clock to calculate the elapsed CPU time.
-     */
-    std::clock_t m_cpu {};
-  };
-}
+  std::string getMessage() const { return m_message; }
+  int getNumber() const { return m_number; }
+};

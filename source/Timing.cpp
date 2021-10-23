@@ -78,7 +78,7 @@ namespace vx {
     const auto nowAsTimeT = std::chrono::system_clock::to_time_t( now );
     const auto nowMs = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch() ) % 1000000;
 
-#ifdef _WIN32
+#ifdef _MSC_VER
     localtime_s( &currentLocalTime, &nowAsTimeT );
 #else
     localtime_r( &nowAsTimeT, &currentLocalTime );

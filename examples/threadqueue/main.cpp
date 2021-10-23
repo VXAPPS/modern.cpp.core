@@ -28,68 +28,75 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
-
-/* c header */
-#include <ctime>
-
 /* stl header */
-#include <chrono>
-#include <string_view>
+#include <iostream>
 
-/**
- * @brief vx (VX APPS) namespace.
- */
-namespace vx {
+/* modern.cpp.core header */
+#include <SharedQueue.h>
+#include <Timer.h>
 
-  /**
-   * @brief Print CPU and System Time on called block.
-   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
-   */
-  class Timing {
+/* local header */
+#include "Item.h"
 
-  public:
-    /**
-     * @brief Default constructor for Timing.
-     */
-    Timing() = default;
+constexpr int intervallSeconds = 1;
+constexpr int secondsToMilliseconds = 1000;
+constexpr int exitSeconds = 30;
 
-    /**
-     * @brief Start the internal timer or reset.
-     */
-    void start();
+[[noreturn]] static void process( vx::SharedQueue<Item *> &_queue ) {
 
-    /**
-     * @brief Stop the internal timer and output to stdout.
-     */
-    void stop() const;
+  while ( true ) {
 
-    /**
-     * @brief The name of timed action for the output display.
-     * @param _action   The name of the action.
-     */
-    inline void setAction( std::string_view _action ) { m_action = _action; }
+    Item *item = _queue.front();
+    if ( item ) {
 
-    /**
-     * @brief The name of timed action for the output display.
-     * @return The name of the action.
-     */
-    inline std::string_view action() const { return m_action; }
+      _queue.pop_front();
+      std::cout << std::this_thread::get_id() << ": received item: " << item->getMessage() << " " << item->getNumber() << std::endl;
+      delete item;
+    }
+  }
+}
 
-  private:
-    /**
-     * @brief Name for the current action.
-     */
-    std::string_view m_action {};
+int main() {
 
-    /**
-     * @brief Clock to calculate the elapsed system time.
-     */
-    std::chrono::time_point<std::chrono::high_resolution_clock> m_start {};
+  vx::SharedQueue<Item *> queue {};
 
-    /**
-     * @brief Clock to calculate the elapsed CPU time.
-     */
-    std::clock_t m_cpu {};
-  };
+  unsigned int threadCount = std::max<unsigned int>( 1, std::thread::hardware_concurrency() );
+  std::vector<std::thread> threads {};
+  threads.reserve( threadCount );
+  for ( unsigned int i = 0; i < threadCount; ++i ) {
+
+    threads.emplace_back( std::thread( process, std::ref( queue ) ) );
+  }
+
+  int intervall = 1;
+  bool stop = false;
+  vx::Timer intervallTimer = vx::Timer();
+  intervallTimer.setInterval( [&intervall, &stop, &queue]() {
+
+    std::cout << "Intervall: " << intervall << std::endl;
+    queue.push_back( new Item( "Item", intervall ) );
+    intervall++;
+    if ( intervall == exitSeconds ) {
+
+      stop = true;
+    }
+  }, intervallSeconds * secondsToMilliseconds );
+
+  while ( true ) {
+
+    /* Leave the app run infinity */
+    if ( stop ) {
+
+      break;
+    }
+  }
+
+  /* Wait for threads to be finished */
+  for ( auto &thread : threads ) {
+
+    thread.join();
+  }
+  threads.clear();
+
+  return EXIT_SUCCESS;
 }

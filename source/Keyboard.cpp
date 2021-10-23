@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _WIN32
+#ifdef _MSC_VER
   #include <Windows.h>
 #elif defined __APPLE__
   #include <Carbon/Carbon.h>
@@ -43,7 +43,7 @@ namespace vx {
 
     bool isActive = false;
 
-#ifdef _WIN32
+#ifdef _MSC_VER
     if ( GetKeyState( VK_CAPITAL ) & 0x0001 ) {
 
       isActive = true;

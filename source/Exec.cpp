@@ -46,12 +46,12 @@ namespace vx {
 
   void close( std::FILE *_file ) {
 
-#ifdef _WIN32
+#ifdef _MSC_VER
     m_resultCode = _pclose( _file );
 #else
     m_resultCode = pclose( _file );
 #endif
-#ifndef _WIN32
+#ifndef _MSC_VER
     if ( WIFEXITED( m_resultCode ) ) {
 
       m_resultCode = WEXITSTATUS( m_resultCode );
@@ -63,7 +63,7 @@ namespace vx {
 
     std::array<char, bufferSize> buffer {};
     std::string result;
-#ifdef _WIN32
+#ifdef _MSC_VER
     std::unique_ptr<FILE, decltype( &close )> pipe( _popen( _command.c_str(), "r" ), &close );
 #else
     std::unique_ptr<std::FILE, decltype( &close )> pipe( popen( _command.c_str(), "r" ), &close );
