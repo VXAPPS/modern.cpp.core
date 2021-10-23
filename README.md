@@ -21,6 +21,7 @@ make -j`nproc`
 ## Template classes
 - **CSVWriter** - Write out comma-separated values.
 - **Singleton** - Singleton templace class.
+- **SharedQueue** - Queue, which is thread-safe.
 - **Timer** - Timeout thread on time or interval.
 
 ## Unixservice class

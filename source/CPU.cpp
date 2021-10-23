@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _WIN32
+#ifdef _MSC_VER
   #include <intrin.h>
 #endif
 
@@ -58,7 +58,7 @@ namespace vx {
   void CPU::updateNativeId( [[maybe_unused]] unsigned int _leaf,
                             [[maybe_unused]] unsigned int _subleaf ) {
 
-#ifdef _WIN32
+#ifdef _MSC_VER
     std::array<int, 4> currentLeaf;
     __cpuidex( currentLeaf.data(), _leaf, _subleaf );
     m_currentLeaf[0] = currentLeaf[0];

@@ -167,21 +167,21 @@ namespace vx {
     /**
      * @brief Currently asked leaf.
      */
-    std::array<unsigned int, 4> m_currentLeaf = {};
+    std::array<unsigned int, 4> m_currentLeaf {};
 
     /**
      * @brief Information leaf - #1.
      */
-    std::array<unsigned int, 4> m_leaf = {};
+    std::array<unsigned int, 4> m_leaf {};
 
     /**
      * @brief Extended information leaf - #7.
      */
-    std::array<unsigned int, 4> m_extendedLeaf = {};
+    std::array<unsigned int, 4> m_extendedLeaf {};
 
     /**
      * @brief SGX information leaf -#12.
      */
-    std::array<unsigned int, 4> m_sgxLeaf = {};
+    std::array<unsigned int, 4> m_sgxLeaf {};
   };
 }

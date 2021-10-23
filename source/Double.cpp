@@ -85,7 +85,7 @@ namespace vx {
   double round( double _value,
                 std::size_t _precision ) {
 
-    const double factor = _precision ? std::pow( precisionBase, _precision ) : 1;
+    const double factor = _precision != 0 ? std::pow( precisionBase, _precision ) : 1;
     return std::floor( _value * factor + roundBase ) / factor;
   }
 
