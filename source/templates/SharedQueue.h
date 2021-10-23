@@ -32,18 +32,31 @@
 
 /* stl header */
 #include <condition_variable>
-//#include <mutex>
+#include <mutex>
 #include <queue>
-#include <shared_mutex>
 
+/**
+ * @brief vx (VX APPS) namespace.
+ */
 namespace vx {
 
+  /**
+   * @brief Template for shared queue class.
+   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
+   */
   template <class T>
   class SharedQueue {
 
   public:
-    SharedQueue();
-    ~SharedQueue();
+    /**
+     * @brief Default constructor for SharedQueue.
+     */
+    SharedQueue() = default;
+
+    /**
+     * @brief Default destructor for SharedQueue.
+     */
+    ~SharedQueue() = default;
 
     T &front() noexcept;
     void pop() noexcept;
@@ -59,12 +72,6 @@ namespace vx {
     mutable std::mutex m_mutex {};
     std::condition_variable m_condition {};
   };
-
-  template <typename T>
-  SharedQueue<T>::SharedQueue() = default;
-
-  template <typename T>
-  SharedQueue<T>::~SharedQueue() = default;
 
   template <typename T>
   T &SharedQueue<T>::front() noexcept {

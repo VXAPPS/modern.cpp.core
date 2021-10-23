@@ -82,7 +82,18 @@ int main() {
 
     ++intervall;
     std::cout << "Intervall: " << intervall << std::endl;
-    queue.push( std::make_unique<Item>( "Attached", intervall ) );
+    try {
+
+      queue.push( std::make_unique<Item>( "Attached", intervall ) );
+    }
+    catch ( const std::bad_alloc &_exception ) {
+
+      std::cout << "bad_alloc: " << _exception.what() << std::endl;
+    }
+    catch ( const std::exception &_exception ) {
+
+      std::cout << _exception.what() << std::endl;
+    }
     if ( intervall >= exitIntervall ) {
 
       stop = true;
@@ -101,7 +112,18 @@ int main() {
   /* Send STOP to finish all threads */
   for ( unsigned int x = 0; x < threads.size() * 2; ++x ) {
 
-    queue.push( std::make_unique<Item>( "STOP", 0 ) );
+    try {
+
+      queue.push( std::make_unique<Item>( "STOP", 0 ) );
+    }
+    catch ( const std::bad_alloc &_exception ) {
+
+      std::cout << "bad_alloc: " << _exception.what() << std::endl;
+    }
+    catch ( const std::exception &_exception ) {
+
+      std::cout << _exception.what() << std::endl;
+    }
   }
 
   /* Wait for threads to be finished */
