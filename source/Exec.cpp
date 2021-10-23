@@ -73,7 +73,7 @@ namespace vx {
       std::cout << "popen() failed for " << _command << std::endl;
       return {};
     }
-    while ( fgets( buffer.data(), static_cast<int>( buffer.size() ), pipe.get() ) != nullptr ) {
+    while ( std::fgets( buffer.data(), static_cast<int>( buffer.size() ), pipe.get() ) != nullptr ) {
 
       result += buffer.data();
     }
