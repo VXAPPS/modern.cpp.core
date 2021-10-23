@@ -42,7 +42,7 @@ int main() {
 
   int intervall = 1;
   bool stop = false;
-  vx::Timer intervallTimer = vx::Timer();
+  auto intervallTimer = vx::Timer();
   intervallTimer.setInterval( [&intervall, &stop]() {
 
     std::cout << "Intervall: " << intervall << std::endl;

@@ -55,13 +55,13 @@ namespace vx {
     return leftTrim( rightTrim( _string, _trim.empty() ? trimmed : _trim ), _trim.empty() ? trimmed : _trim );
   }
 
-  bool startsWith( const std::string &_string,
+  bool startsWith( std::string_view _string,
                    std::string_view _start ) {
 
     return ( _string.rfind( _start, 0 ) == 0 );
   }
 
-  bool endsWith( const std::string &_string,
+  bool endsWith( std::string_view _string,
                  std::string_view _end ) {
 
     if ( _string.length() >= _end.length() ) {

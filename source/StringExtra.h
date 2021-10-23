@@ -78,7 +78,7 @@ namespace vx {
    * @param _start   Start check.
    * @return True, if string starts with start - otherwise false.
    */
-  bool startsWith( const std::string &_string,
+  bool startsWith( std::string_view _string,
                    std::string_view _start );
 
   /**
@@ -87,7 +87,7 @@ namespace vx {
    * @param _end   End check.
    * @return True, if string ends with end - otherwise false.
    */
-  bool endsWith( const std::string &_string,
+  bool endsWith( std::string_view _string,
                  std::string_view _end );
 
   /**

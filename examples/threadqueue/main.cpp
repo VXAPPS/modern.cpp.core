@@ -77,7 +77,7 @@ int main() {
     threads.emplace_back( std::thread( process, std::ref( queue ), i ) );
   }
 
-  vx::Timer intervallTimer = vx::Timer();
+  auto intervallTimer = vx::Timer();
   intervallTimer.setInterval( [&intervall, &stop, &queue]() {
 
     ++intervall;

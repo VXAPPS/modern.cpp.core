@@ -57,7 +57,6 @@ namespace vx {
   private:
     std::queue<T> m_queue {};
     mutable std::mutex m_mutex {};
-//    mutable std::shared_mutex m_mutex {};
     std::condition_variable m_condition {};
   };
 
@@ -71,10 +70,7 @@ namespace vx {
   T &SharedQueue<T>::front() noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
-    while ( m_queue.empty() ) {
-
-      m_condition.wait( lock );
-    }
+    m_condition.wait( lock, [this]{ return !m_queue.empty(); } );
     return m_queue.front();
   }
 
@@ -82,10 +78,7 @@ namespace vx {
   void SharedQueue<T>::pop() noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
-    while ( m_queue.empty() ) {
-
-      m_condition.wait( lock );
-    }
+    m_condition.wait( lock, [this]{ return !m_queue.empty(); } );
     m_queue.pop();
   }
 
