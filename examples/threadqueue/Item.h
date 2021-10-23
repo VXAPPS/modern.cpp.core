@@ -33,14 +33,16 @@
 
 class Item {
 
-  std::string m_message {};
-  int    m_number {};
-
 public:
-  Item( const std::string &message, int number )
-    : m_message( message ), m_number( number ) {}
-//  ~Item() {}
+  Item( const std::string &_message,
+        int _number )
+    : m_message( _message )
+    , m_number( _number ) {}
 
-  std::string getMessage() const { return m_message; }
-  int getNumber() const { return m_number; }
+  inline std::string getMessage() const { return m_message; }
+  inline int getNumber() const { return m_number; }
+
+private:
+  std::string m_message {};
+  int m_number {};
 };

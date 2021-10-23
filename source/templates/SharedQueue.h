@@ -45,30 +45,30 @@ namespace vx {
     SharedQueue();
     ~SharedQueue();
 
-    T &front();
-    void pop_front();
+    T &front() noexcept;
+    void pop() noexcept;
 
-    void push_back( const T &item );
-    void push_back( T &&item );
+    void push( const T &item ) noexcept;
+    void push( T &&item ) noexcept;
 
-    int size();
-    bool empty();
+    std::size_t size() noexcept;
+    bool empty() noexcept;
 
   private:
-    std::deque<T> m_queue {};
+    std::queue<T> m_queue {};
     mutable std::mutex m_mutex {};
 //    mutable std::shared_mutex m_mutex {};
     std::condition_variable m_condition {};
   };
 
   template <typename T>
-  SharedQueue<T>::SharedQueue() {}
+  SharedQueue<T>::SharedQueue() = default;
 
   template <typename T>
-  SharedQueue<T>::~SharedQueue() {}
+  SharedQueue<T>::~SharedQueue() = default;
 
   template <typename T>
-  T &SharedQueue<T>::front() {
+  T &SharedQueue<T>::front() noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
     while ( m_queue.empty() ) {
@@ -79,39 +79,39 @@ namespace vx {
   }
 
   template <typename T>
-  void SharedQueue<T>::pop_front() {
+  void SharedQueue<T>::pop() noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
     while ( m_queue.empty() ) {
 
       m_condition.wait( lock );
     }
-    m_queue.pop_front();
+    m_queue.pop();
   }
 
   template <typename T>
-  void SharedQueue<T>::push_back( const T &item ) {
+  void SharedQueue<T>::push( const T &item ) noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
-    m_queue.push_back( item );
+    m_queue.push( item );
     lock.unlock();     // unlock before notificiation to minimize mutex context
     m_condition.notify_one(); // notify one waiting thread
   }
 
   template <typename T>
-  void SharedQueue<T>::push_back( T &&item ) {
+  void SharedQueue<T>::push( T &&item ) noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
-    m_queue.push_back( std::move( item ) );
+    m_queue.push( std::move( item ) );
     lock.unlock();     // unlock before notificiation to minimize mutex context
     m_condition.notify_one(); // notify one waiting thread
   }
 
   template <typename T>
-  int SharedQueue<T>::size() {
+  std::size_t SharedQueue<T>::size() noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
-    int size = m_queue.size();
+    std::size_t size = m_queue.size();
     lock.unlock();
     return size;
   }

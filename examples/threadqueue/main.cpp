@@ -39,44 +39,51 @@
 #include "Item.h"
 
 constexpr int intervallSeconds = 1;
-constexpr int secondsToMilliseconds = 1000;
-constexpr int exitSeconds = 30;
+constexpr int secondsToMilliseconds = 100;
+constexpr int exitIntervall = 30;
 
-[[noreturn]] static void process( vx::SharedQueue<Item *> &_queue ) {
+static void process( vx::SharedQueue<std::unique_ptr<Item>> &_queue, int _threadId ) {
 
+  std::cout << "Start Thread: " << _threadId << std::endl;
   while ( true ) {
 
-    Item *item = _queue.front();
+    std::unique_ptr<Item> item = std::move( _queue.front() );
     if ( item ) {
 
-      _queue.pop_front();
-      std::cout << std::this_thread::get_id() << ": received item: " << item->getMessage() << " " << item->getNumber() << std::endl;
-      delete item;
+      _queue.pop();
+      if ( item->getMessage() == "STOP" ) {
+
+        break;
+      }
+      std::cout << _threadId << ": received item: " << item->getMessage() << " " << item->getNumber() << std::endl;
     }
   }
+  std::cout << "Ended Thread: " << _threadId << std::endl;
 }
 
 int main() {
 
-  vx::SharedQueue<Item *> queue {};
+  int intervall {};
+  bool stop = false;
+
+  vx::SharedQueue<std::unique_ptr<Item>> queue {};
 
   unsigned int threadCount = std::max<unsigned int>( 1, std::thread::hardware_concurrency() );
   std::vector<std::thread> threads {};
   threads.reserve( threadCount );
+
   for ( unsigned int i = 0; i < threadCount; ++i ) {
 
-    threads.emplace_back( std::thread( process, std::ref( queue ) ) );
+    threads.emplace_back( std::thread( process, std::ref( queue ), i ) );
   }
 
-  int intervall = 1;
-  bool stop = false;
   vx::Timer intervallTimer = vx::Timer();
   intervallTimer.setInterval( [&intervall, &stop, &queue]() {
 
+    ++intervall;
     std::cout << "Intervall: " << intervall << std::endl;
-    queue.push_back( new Item( "Item", intervall ) );
-    intervall++;
-    if ( intervall == exitSeconds ) {
+    queue.push( std::make_unique<Item>( "Attached", intervall ) );
+    if ( intervall >= exitIntervall ) {
 
       stop = true;
     }
@@ -89,6 +96,12 @@ int main() {
 
       break;
     }
+  }
+
+  /* Send STOP to finish all threads */
+  for ( [[maybe_unused]] auto &thread : threads ) {
+
+    queue.push( std::make_unique<Item>( "STOP", intervall ) );
   }
 
   /* Wait for threads to be finished */
