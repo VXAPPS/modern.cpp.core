@@ -185,7 +185,7 @@ namespace vx {
 #endif
       return {};
     }
-    return { buffer.begin(), buffer.end() };
+    return { std::begin( buffer ), std::end( buffer ) };
   }
 
   void Serial::close() {

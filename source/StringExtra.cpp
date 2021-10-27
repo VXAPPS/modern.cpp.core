@@ -74,7 +74,7 @@ namespace vx {
   std::vector<std::string> tokenize( const std::string &_string,
                                      std::string_view _separator ) {
 
-    std::vector<std::string> result;
+    std::vector<std::string> result {};
     std::string split = _string;
     std::size_t startPos = 0;
     std::size_t endPos = split.find( _separator );
@@ -92,7 +92,7 @@ namespace vx {
 #ifdef __APPLE__
   std::string fromCFStringRef( CFStringRef _stringRef ) {
 
-    if ( auto fastCString = CFStringGetCStringPtr( _stringRef, kCFStringEncodingUTF8 ) ) {
+    if ( const auto *fastCString = CFStringGetCStringPtr( _stringRef, kCFStringEncodingUTF8 ) ) {
 
       return std::string( fastCString );
     }
