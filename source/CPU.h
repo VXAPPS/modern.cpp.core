@@ -57,103 +57,103 @@ namespace vx {
      * @brief Return stepping of CPU.
      * @return Stepping of CPU.
      */
-    inline unsigned int stepping() const { return m_leaf[0] & 0xF; }
+    [[nodiscard]] inline unsigned int stepping() const { return m_leaf[0] & 0xF; }
 
     /**
      * @brief Return model of CPU.
      * @return Model of CPU.
      */
-    inline unsigned int model() const { return ( m_leaf[0] >> 4 ) & 0xF; }
+    [[nodiscard]] inline unsigned int model() const { return ( m_leaf[0] >> 4 ) & 0xF; }
 
     /**
      * @brief Return family of CPU.
      * @return Family of CPU.
      */
-    inline unsigned int family() const { return ( m_leaf[0] >> 8 ) & 0xF; }
+    [[nodiscard]] inline unsigned int family() const { return ( m_leaf[0] >> 8 ) & 0xF; }
 
     /**
      * @brief Return type of CPU.
      * @return Type of CPU.
      */
-    inline unsigned int type() const { return ( m_leaf[0] >> 12 ) & 0x3; }
+    [[nodiscard]] inline unsigned int type() const { return ( m_leaf[0] >> 12 ) & 0x3; }
 
     /**
      * @brief Return extended model of CPU.
      * @return Extended model of CPU.
      */
-    inline unsigned int extendedModel() const { return ( m_leaf[0] >> 16 ) & 0xF; }
+    [[nodiscard]] inline unsigned int extendedModel() const { return ( m_leaf[0] >> 16 ) & 0xF; }
 
     /**
      * @brief Return extended family of CPU.
      * @return Extended family of CPU.
      */
-    inline unsigned int extendedFamily() const { return ( m_leaf[0] >> 20 ) & 0xFF; }
+    [[nodiscard]] inline unsigned int extendedFamily() const { return ( m_leaf[0] >> 20 ) & 0xFF; }
 
     /**
      * @brief Does CPU support SMX?
      * @return True, if the CPU supports SMX - otherwise false.
      */
-    inline bool smxSupport() const { return ( m_leaf[2] >> 6 ) & 1; }
+    [[nodiscard]] inline bool smxSupport() const { return ( m_leaf[2] >> 6 ) & 1; }
 
     /**
      * @brief Does CPU support SGX?
      * @return True, if the CPU supports SGX - otherwise false.
      */
-    inline bool sgxSupport() const { return ( m_extendedLeaf[1] >> 2 ) & 0x1; }
+    [[nodiscard]] inline bool sgxSupport() const { return ( m_extendedLeaf[1] >> 2 ) & 0x1; }
 
     /**
      * @brief Does CPU support SGX launch control?
      * @return True, if the CPU supports SGX launch control - otherwise false.
      */
-    inline bool sgxLaunchControlSupport() const { return ( m_extendedLeaf[2] >> 30 ) & 0x01; }
+    [[nodiscard]] inline bool sgxLaunchControlSupport() const { return ( m_extendedLeaf[2] >> 30 ) & 0x01; }
 
     /**
      * @brief Does CPU support SGX version 1?
      * @return True, if the CPU supports SGX version 1 - otherwise false.
      */
-    inline bool sgxVersion1Support() const { return m_sgxLeaf[0] & 0x1; }
+    [[nodiscard]] inline bool sgxVersion1Support() const { return m_sgxLeaf[0] & 0x1; }
 
     /**
      * @brief Does CPU support SGX version 2?
      * @return True, if the CPU supports SGX version 2 - otherwise false.
      */
-    inline bool sgxVersion2Support() const { return ( m_sgxLeaf[0] >> 1 ) & 0x1; }
+    [[nodiscard]] inline bool sgxVersion2Support() const { return ( m_sgxLeaf[0] >> 1 ) & 0x1; }
 
     /**
      * @brief Returns maximum size of enclave.
      * @return Maximum enclave size.
      */
-    inline unsigned int maximumEnclaveSize() const { return m_sgxLeaf[2] & 0xFF; }
+    [[nodiscard]] inline unsigned int maximumEnclaveSize() const { return m_sgxLeaf[2] & 0xFF; }
 
     /**
      * @brief Returns maximum size of enclave.
      * @return Maximum enclave size.
      */
-    inline unsigned int maximumEnclaveSize64() const { return ( m_sgxLeaf[2] >> 8 ) & 0xFF; }
+    [[nodiscard]] inline unsigned int maximumEnclaveSize64() const { return ( m_sgxLeaf[2] >> 8 ) & 0xFF; }
 
     /**
      * @brief Return EAX id.
      * @return The EAX id.
      */
-    inline unsigned int eax() const { return m_currentLeaf[0]; }
+    [[nodiscard]] inline unsigned int eax() const { return m_currentLeaf[0]; }
 
     /**
      * @brief Return EBX id.
      * @return The EBX id.
      */
-    inline unsigned int ebx() const { return m_currentLeaf[1]; }
+    [[nodiscard]] inline unsigned int ebx() const { return m_currentLeaf[1]; }
 
     /**
      * @brief Return ECX id.
      * @return The ECX id.
      */
-    inline unsigned int ecx() const { return m_currentLeaf[2]; }
+    [[nodiscard]] inline unsigned int ecx() const { return m_currentLeaf[2]; }
 
     /**
      * @brief Return EDX id.
      * @return The EDX id.
      */
-    inline unsigned int edx() const { return m_currentLeaf[3]; }
+    [[nodiscard]] inline unsigned int edx() const { return m_currentLeaf[3]; }
 
     /**
      * @brief Request a special register.

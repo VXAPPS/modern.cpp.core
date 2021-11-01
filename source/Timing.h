@@ -74,7 +74,7 @@ namespace vx {
      * @brief The name of timed action for the output display.
      * @return The name of the action.
      */
-    inline std::string_view action() const { return m_action; }
+    [[nodiscard]] inline std::string_view action() const { return m_action; }
 
   private:
     /**

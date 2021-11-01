@@ -70,7 +70,7 @@ namespace vx {
     template<typename T>
     void addRowData( T _first, T _last ) const {
 
-      std::ofstream file;
+      std::ofstream file {};
       file.open( m_filename, std::ios::app );
 
       file << m_linePrefix;
@@ -94,21 +94,21 @@ namespace vx {
     /**
      * @brief Csv filename.
      */
-    std::string m_filename;
+    std::string m_filename {};
 
     /**
      * @brief Delimiter for values.
      */
-    std::string m_delimiter;
+    std::string m_delimiter {};
 
     /**
      * @brief Prefix for every line.
      */
-    std::string m_linePrefix;
+    std::string m_linePrefix {};
 
     /**
      * @brief Suffix for every line.
      */
-    std::string m_lineSuffix;
+    std::string m_lineSuffix {};
   };
 }

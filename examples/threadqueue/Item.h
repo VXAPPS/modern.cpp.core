@@ -28,19 +28,21 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#pragma once
+
 /* stl header */
 #include <string>
 
 class Item {
 
 public:
-  Item( const std::string &_message,
+  Item( std::string _message,
         int _number )
-    : m_message( _message )
+    : m_message( std::move( _message ) )
     , m_number( _number ) {}
 
-  inline std::string getMessage() const { return m_message; }
-  inline int getNumber() const { return m_number; }
+  [[nodiscard]] inline std::string getMessage() const { return m_message; }
+  [[nodiscard]] inline int getNumber() const { return m_number; }
 
 private:
   std::string m_message {};
