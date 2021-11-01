@@ -30,12 +30,20 @@
 
 /* stl header */
 #include <iostream>
+#if __cplusplus > 201703L
+#include <span>
+#endif
 #include <string>
 
 int main( int argc, char **argv ) {
 
   /* Usage: pipe RESULTCODE */
+#if __cplusplus > 201703L
+  std::span args( argv, static_cast<std::size_t>( argc ) );
+  if ( args.size() != 2  ) {
+#else
   if ( argc != 2 ) {
+#endif
 
     return EXIT_FAILURE;
   }
@@ -46,5 +54,9 @@ int main( int argc, char **argv ) {
   fprintf( stderr, "This is fprintf( stderr ) text.\n" );
   printf( "This is printf text.\n" );
 
+#if __cplusplus > 201703L
+  return std::stoi( args[1] );
+#else
   return std::stoi( argv[1] );
+#endif
 }

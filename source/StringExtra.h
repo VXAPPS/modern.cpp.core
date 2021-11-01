@@ -78,8 +78,8 @@ namespace vx {
    * @param _start   Start check.
    * @return True, if string starts with start - otherwise false.
    */
-  bool startsWith( std::string_view _string,
-                   std::string_view _start );
+  [[nodiscard]] bool startsWith( std::string_view _string,
+                                 std::string_view _start );
 
   /**
    * @brief Check if string ends with start.
@@ -87,8 +87,8 @@ namespace vx {
    * @param _end   End check.
    * @return True, if string ends with end - otherwise false.
    */
-  bool endsWith( std::string_view _string,
-                 std::string_view _end );
+  [[nodiscard]] bool endsWith( std::string_view _string,
+                               std::string_view _end );
 
   /**
    * @brief Tokenize string by separator.

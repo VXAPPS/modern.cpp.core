@@ -58,18 +58,77 @@ namespace vx {
      */
     ~SharedQueue() = default;
 
+    /**
+     * @brief Delete copy assign.
+     */
+    SharedQueue( const SharedQueue & ) = delete;
+
+    /**
+     * @brief Delete move assign.
+     */
+    SharedQueue( SharedQueue && ) = delete;
+
+    /**
+     * @brief Delete copy assign.
+     * @return Nothing.
+     */
+    SharedQueue &operator=( const SharedQueue & ) = delete;
+
+    /**
+     * @brief Delete move assign.
+     * @return Nothing.
+     */
+    SharedQueue &operator=( SharedQueue && ) = delete;
+
+    /**
+     * @brief Return the item in front.
+     * @return The item in front.
+     */
     T &front() noexcept;
+
+    /**
+     * @brief Clean from front item.
+     */
     void pop() noexcept;
 
+    /**
+     * @brief Push an item to the queue.
+     * @param item   Item to add.
+     */
     void push( const T &item ) noexcept;
+
+    /**
+     * @brief Push an item to the queue.
+     * @param item   Item to add.
+     */
     void push( T &&item ) noexcept;
 
+    /**
+     * @brief Return the size queue size.
+     * @return The queue size.
+     */
     std::size_t size() noexcept;
+
+    /**
+     * @brief Check if the queue is empty.
+     * @return True, it the queue is empty - otherwise false.
+     */
     bool empty() noexcept;
 
   private:
+    /**
+     * @brief Member the queue.
+     */
     std::queue<T> m_queue {};
+
+    /**
+     * @brief Member for shared mutex.
+     */
     mutable std::mutex m_mutex {};
+
+    /**
+     * @brief Condition member.
+     */
     std::condition_variable m_condition {};
   };
 
@@ -77,6 +136,7 @@ namespace vx {
   T &SharedQueue<T>::front() noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
+
     m_condition.wait( lock, [this]{ return !m_queue.empty(); } );
     return m_queue.front();
   }
@@ -85,6 +145,7 @@ namespace vx {
   void SharedQueue<T>::pop() noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
+
     m_condition.wait( lock, [this]{ return !m_queue.empty(); } );
     m_queue.pop();
   }
@@ -93,25 +154,37 @@ namespace vx {
   void SharedQueue<T>::push( const T &item ) noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
+
     m_queue.push( item );
-    lock.unlock();     // unlock before notificiation to minimize mutex context
-    m_condition.notify_one(); // notify one waiting thread
+
+    /* unlock before notificiation to minimize mutex context */
+    lock.unlock();
+
+    /* notify one waiting thread */
+    m_condition.notify_one();
   }
 
   template <typename T>
   void SharedQueue<T>::push( T &&item ) noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
+
     m_queue.push( std::move( item ) );
-    lock.unlock();     // unlock before notificiation to minimize mutex context
-    m_condition.notify_one(); // notify one waiting thread
+
+    /* unlock before notificiation to minimize mutex context */
+    lock.unlock();
+
+    /* notify one waiting thread */
+    m_condition.notify_one();
   }
 
   template <typename T>
   std::size_t SharedQueue<T>::size() noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
+
     std::size_t size = m_queue.size();
+
     lock.unlock();
     return size;
   }

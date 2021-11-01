@@ -63,7 +63,7 @@ namespace vx {
     /**
      * @brief @~english Delete copy constructor. @~german Entfernt den kopierenden Konstruktor.
      */
-    Singleton( Singleton & ) = delete;
+    Singleton( const Singleton & ) = delete;
 
     /**
      * @brief @~english Delete move constructor. @~german Entfernt den verschobenen Konstruktor.
@@ -74,7 +74,7 @@ namespace vx {
      * @brief @~english Delete copy assign. @~german Entfernt die kopierte Zuweisung.
      * @return @~english Nothing. @~german Keine Rückgabe.
      */
-    Singleton &operator=( Singleton const & ) = delete;
+    Singleton &operator=( const Singleton & ) = delete;
 
     /**
      * @brief @~english Delete move assign. @~german Entfernt die verschobene Zuweisung.

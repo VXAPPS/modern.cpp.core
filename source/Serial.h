@@ -67,7 +67,7 @@ namespace vx {
     /**
      * @brief Delete copy assign.
      */
-    Serial( Serial const & ) = delete;
+    Serial( const Serial & ) = delete;
 
     /**
      * @brief Delete move assign.
@@ -78,7 +78,7 @@ namespace vx {
      * @brief Delete copy assign.
      * @return Nothing.
      */
-    Serial &operator=( Serial const & ) = delete;
+    Serial &operator=( const Serial & ) = delete;
 
     /**
      * @brief Delete move assign.

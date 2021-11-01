@@ -55,5 +55,5 @@ namespace vx {
    * @brief Result   Exit code of the command.
    * @return The result code.
    */
-  int resultCode();
+  [[nodiscard]] int resultCode();
 }

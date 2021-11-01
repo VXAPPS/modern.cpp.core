@@ -39,10 +39,38 @@ add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 # CMake
 set(CMAKE ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-# Force C++17
+# Force C++17 or C++20 if available
+include(CheckCXXCompilerFlag)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  check_cxx_compiler_flag(/std:c++20 HAVE_FLAG_STD_CXX20)
+else()
+  check_cxx_compiler_flag(-std=c++20 HAVE_FLAG_STD_CXX20)
+  check_cxx_compiler_flag(-std=c++2a HAVE_FLAG_STD_CXX2A)
+endif()
+
+# Clang-8 have some issues, that are not repairable
+if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9")
+  set(HAVE_FLAG_STD_CXX20 0)
+  set(HAVE_FLAG_STD_CXX2A 0)
+endif()
+
+if(HAVE_FLAG_STD_CXX20 OR HAVE_FLAG_STD_CXX2A)
+  set(CMAKE_CXX_STANDARD 20)
+else()
 set(CMAKE_CXX_STANDARD 17)
+endif()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+
+# IPO/LTO
+include(CheckIPOSupported)
+check_ipo_supported(RESULT result OUTPUT output)
+if(result)
+  # It's available, set it for all following items
+  set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
+else()
+  message(WARNING "IPO is not supported: ${output}")
+endif()
 
 # Warning flags
 # Case insensitive match
@@ -54,7 +82,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
     set(WARNING_FLAGS_SPACED "${WARNING_FLAGS_SPACED} ${WARNING_FLAG}")
   endforeach()
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything -Werror")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything -Werror -Weffc++")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS_SPACED}")
 
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
