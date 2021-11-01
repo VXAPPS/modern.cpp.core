@@ -15,6 +15,8 @@ jobs:
       fail-fast: false
       matrix:
         name: [
+          ubuntu-18.04-gcc-9,
+          ubuntu-20.04-gcc-9,
           ubuntu-20.04-gcc-10,
           ubuntu-20.04-gcc-11,
           ubuntu-20.04-clang-8,
@@ -34,10 +36,20 @@ jobs:
           macos-11.0-xcode-12-x86_64,
           macos-11.0-xcode-12-arm64,
           macos-11.0-xcode-13-x86_64,
-          macos-11.0-xcode-13-arm6
+          macos-11.0-xcode-13-arm64
         ]
         config: [Debug, Release]
         include:
+          - name: ubuntu-18.04-gcc-9
+            os: ubuntu-18.04
+            compiler: gcc
+            version: 9
+
+          - name: ubuntu-20.04-gcc-9
+            os: ubuntu-20.04
+            compiler: gcc
+            version: 9
+
           - name: ubuntu-20.04-gcc-10
             os: ubuntu-20.04
             compiler: gcc
@@ -50,8 +62,13 @@ jobs:
 
           - name: ubuntu-20.04-clang-8
             os: ubuntu-20.04
-            compiler: gcc
-            version: 11
+            compiler: clang
+            version: 8
+
+          - name: ubuntu-20.04-clang-9
+            os: ubuntu-20.04
+            compiler: clang
+            version: 9
 
           - name: ubuntu-20.04-clang-10
             os: ubuntu-20.04
