@@ -51,7 +51,7 @@ namespace vx {
      * @param _function   Call back function.
      * @param _delay   Delay in milliseconds after the function is called.
      */
-#if __cplusplus > 201703L
+#if 0
     void setTimeout( auto _function, int _delay ) {
 #else
     template<typename Function>
@@ -80,7 +80,7 @@ namespace vx {
      * @param _function   Call back function.
      * @param _interval   Interval in milliseconds after the function is called.
      */
-#if __cplusplus > 201703L
+#if 0
     void setInterval( auto _function, int _interval ) {
 #else
     template<typename Function>

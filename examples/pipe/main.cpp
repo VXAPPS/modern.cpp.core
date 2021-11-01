@@ -30,7 +30,7 @@
 
 /* stl header */
 #include <iostream>
-#if __cplusplus > 201703L
+#if __cplusplus > 201703L && ( defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1926 || defined __clang__ && __clang_major__ >= 10 )
 #include <span>
 #endif
 #include <string>
@@ -38,7 +38,7 @@
 int main( int argc, char **argv ) {
 
   /* Usage: pipe RESULTCODE */
-#if __cplusplus > 201703L
+#if __cplusplus > 201703L && ( defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1926 || defined __clang__ && __clang_major__ >= 10 )
   std::span args( argv, static_cast<std::size_t>( argc ) );
   if ( args.size() != 2  ) {
 #else
@@ -54,7 +54,7 @@ int main( int argc, char **argv ) {
   fprintf( stderr, "This is fprintf( stderr ) text.\n" );
   printf( "This is printf text.\n" );
 
-#if __cplusplus > 201703L
+#if __cplusplus > 201703L && ( defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1926 || defined __clang__ && __clang_major__ >= 10 )
   return std::stoi( args[1] );
 #else
   return std::stoi( argv[1] );
