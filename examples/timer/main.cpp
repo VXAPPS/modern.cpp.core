@@ -41,22 +41,21 @@ constexpr int exitSeconds = 15;
 int main() {
 
   int intervall = 1;
-  bool stop = false;
   auto intervallTimer = vx::Timer();
-  intervallTimer.setInterval( [&intervall, &stop]() {
+  intervallTimer.setInterval( [&intervallTimer, &intervall]() {
 
     std::cout << "Intervall: " << intervall << std::endl;
     intervall++;
-    if ( intervall == exitSeconds ) {
+    if ( intervall >= exitSeconds ) {
 
-      stop = true;
+      intervallTimer.stop();
     }
   }, intervallSeconds * secondsToMilliseconds );
 
   while ( true ) {
 
     /* Leave the app run infinity */
-    if ( stop ) {
+    if ( !intervallTimer.isRunning() ) {
 
       break;
     }

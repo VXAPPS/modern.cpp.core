@@ -64,7 +64,6 @@ static void process( vx::SharedQueue<std::unique_ptr<Item>> &_queue, int _thread
 int main() {
 
   int intervall {};
-  bool stop = false;
 
   vx::SharedQueue<std::unique_ptr<Item>> queue {};
 
@@ -78,7 +77,7 @@ int main() {
   }
 
   auto intervallTimer = vx::Timer();
-  intervallTimer.setInterval( [&intervall, &stop, &queue]() {
+  intervallTimer.setInterval( [&intervallTimer, &intervall, &queue]() {
 
     ++intervall;
     std::cout << "Intervall: " << intervall << std::endl;
@@ -94,16 +93,17 @@ int main() {
 
       std::cout << _exception.what() << std::endl;
     }
+
     if ( intervall >= exitIntervall ) {
 
-      stop = true;
+      intervallTimer.stop();
     }
   }, intervallSeconds * secondsToMilliseconds );
 
   while ( true ) {
 
     /* Leave the app run infinity */
-    if ( stop ) {
+    if ( !intervallTimer.isRunning() ) {
 
       break;
     }
