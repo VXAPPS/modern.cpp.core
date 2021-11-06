@@ -159,8 +159,7 @@ namespace vx {
 
   bool Serial::write( const std::string &_data ) const {
 
-    ssize_t numBytesWritten = ::write( m_descriptor, _data.c_str(), _data.size() );
-    if ( numBytesWritten < 0 ) {
+    if ( ::write( m_descriptor, _data.c_str(), _data.size() ) < 0 ) {
 
 #if __has_include(<LoggerFactory.h>)
       LogError( "Serial port write() failed. Error: "  + std::string( std::strerror( errno ) ) );
@@ -176,7 +175,7 @@ namespace vx {
 
     std::vector<char> buffer( bufferSize );
     ssize_t numBytesRead = ::read( m_descriptor, buffer.data(), buffer.size() );
-    buffer.resize( static_cast<size_t>( numBytesRead ) );
+    buffer.resize( static_cast<std::size_t>( numBytesRead ) );
     if ( numBytesRead < 0 ) {
 
 #if __has_include(<LoggerFactory.h>)
@@ -186,7 +185,7 @@ namespace vx {
 #endif
       return {};
     }
-    return { buffer.begin(), buffer.end() };
+    return { std::begin( buffer ), std::end( buffer ) };
   }
 
   void Serial::close() {

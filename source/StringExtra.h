@@ -50,7 +50,7 @@ namespace vx {
    * @return Right trimmed string.
    */
   std::string &rightTrim( std::string &_string,
-                          const std::string &_trim = {} );
+                          std::string_view _trim = {} );
 
   /**
    * @brief Trim from beginning of string (left).
@@ -60,7 +60,7 @@ namespace vx {
    * @return Left trimmed string.
    */
   std::string &leftTrim( std::string &_string,
-                         const std::string &_trim = {} );
+                         std::string_view _trim = {} );
 
   /**
    * @brief Trim from both ends of string (right then left).
@@ -70,7 +70,7 @@ namespace vx {
    * @return Both ends trimmed string.
    */
   std::string &trim( std::string &_string,
-                     const std::string &_trim = {} );
+                     std::string_view _trim = {} );
 
   /**
    * @brief Check if string starts with start.
@@ -78,8 +78,8 @@ namespace vx {
    * @param _start   Start check.
    * @return True, if string starts with start - otherwise false.
    */
-  bool startsWith( const std::string &_string,
-                   const std::string &_start );
+  [[nodiscard]] bool startsWith( std::string_view _string,
+                                 std::string_view _start );
 
   /**
    * @brief Check if string ends with start.
@@ -87,8 +87,8 @@ namespace vx {
    * @param _end   End check.
    * @return True, if string ends with end - otherwise false.
    */
-  bool endsWith( const std::string &_string,
-                 const std::string &_end );
+  [[nodiscard]] bool endsWith( std::string_view _string,
+                               std::string_view _end );
 
   /**
    * @brief Tokenize string by separator.
@@ -97,7 +97,7 @@ namespace vx {
    * @return Splitted list of splits.
    */
   std::vector<std::string> tokenize( const std::string &_string,
-                                     const std::string &_separator );
+                                     std::string_view _separator );
 
 #ifdef __APPLE__
   /**

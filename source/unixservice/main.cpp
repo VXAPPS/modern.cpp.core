@@ -48,9 +48,8 @@ int main() {
 
   // DAEMONIZE START
   /* Fork the current process */
-  pid_t pid = fork();
   /* The parent process continues with a process ID greater than 0 */
-  if ( pid > 0 ) {
+  if ( pid_t pid = fork() > 0 ) {
 
     std::exit( EXIT_SUCCESS );
   }
@@ -70,10 +69,8 @@ int main() {
   syslog( LOG_NOTICE, "Successfully started %s", DAEMON_NAME );
 
   /* Generate a session ID for the child process */
-  pid_t sid = setsid();
-
   /* Ensure a valid SID for the child process */
-  if ( sid < 0 ) {
+  if ( setsid() < 0 ) {
 
     /* Log failure and exit */
     syslog( LOG_ERR, "Could not generate session ID for child process" );
@@ -95,7 +92,7 @@ int main() {
   }
 
   /* A daemon cannot use the terminal, so close standard file descriptors for security reasons */
-  for ( int x = static_cast<int>( sysconf( _SC_OPEN_MAX ) ); x >= 0; x-- ) {
+  for ( auto x = static_cast<int>( sysconf( _SC_OPEN_MAX ) ); x >= 0; x-- ) {
 
     close( x );
   }

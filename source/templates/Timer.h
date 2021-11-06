@@ -32,6 +32,8 @@
 
 /* stl header */
 #include <chrono>
+#include <mutex>
+#include <shared_mutex>
 #include <thread>
 
 /**
@@ -51,15 +53,15 @@ namespace vx {
      * @param _function   Call back function.
      * @param _delay   Delay in milliseconds after the function is called.
      */
-#if __cplusplus > 201703L
+#if 0
     void setTimeout( auto _function, int _delay ) {
 #else
     template<typename Function>
     void setTimeout( Function _function, int _delay ) {
 #endif
 
-      this->m_clear = false;
-      std::thread t( [ this, &_function, &_delay ]() {
+      m_clear = false;
+      std::thread t( [ &, _function, _delay ]() {
 
         if ( this->m_clear ) {
 
@@ -80,15 +82,15 @@ namespace vx {
      * @param _function   Call back function.
      * @param _interval   Interval in milliseconds after the function is called.
      */
-#if __cplusplus > 201703L
+#if 0
     void setInterval( auto _function, int _interval ) {
 #else
     template<typename Function>
     void setInterval( Function _function, int _interval ) {
 #endif
 
-      this->m_clear = false;
-      std::thread t( [ this, &_function, &_interval ]() {
+      m_clear = false;
+      std::thread t( [ &, _function, _interval ]() {
 
         while ( true ) {
 
@@ -110,12 +112,31 @@ namespace vx {
     /**
      * @brief Stopping the current timer not to execute the call back function.
      */
-    inline void stop() { this->m_clear = true; }
+    inline void stop() {
+
+      std::unique_lock<std::shared_mutex> lock( m_mutex );
+      m_clear = true;
+    }
+
+    /**
+     * @brief Is the timer running?
+     * @return True, if the timer is running - otherwise false.
+     */
+    [[nodiscard]] inline bool isRunning() const {
+
+      std::shared_lock<std::shared_mutex> lock( m_mutex );
+      return !m_clear;
+    }
 
   private:
     /**
      * @brief Clear the timer.
      */
     bool m_clear = false;
+
+    /**
+     * @brief Member for shared mutex.
+     */
+    mutable std::shared_mutex m_mutex {};
   };
 }

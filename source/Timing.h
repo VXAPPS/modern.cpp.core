@@ -35,7 +35,7 @@
 
 /* stl header */
 #include <chrono>
-#include <string>
+#include <string_view>
 
 /**
  * @brief vx (VX APPS) namespace.
@@ -68,28 +68,28 @@ namespace vx {
      * @brief The name of timed action for the output display.
      * @param _action   The name of the action.
      */
-    inline void setAction( const std::string &_action ) { m_action = _action; }
+    inline void setAction( std::string_view _action ) { m_action = _action; }
 
     /**
      * @brief The name of timed action for the output display.
      * @return The name of the action.
      */
-    inline std::string action() const { return m_action; }
+    [[nodiscard]] inline std::string_view action() const { return m_action; }
 
   private:
     /**
      * @brief Name for the current action.
      */
-    std::string m_action;
+    std::string_view m_action {};
 
     /**
      * @brief Clock to calculate the elapsed system time.
      */
-    std::chrono::time_point<std::chrono::high_resolution_clock> m_start = {};
+    std::chrono::time_point<std::chrono::high_resolution_clock> m_start {};
 
     /**
      * @brief Clock to calculate the elapsed CPU time.
      */
-    std::clock_t m_cpu = 0;
+    std::clock_t m_cpu {};
   };
 }

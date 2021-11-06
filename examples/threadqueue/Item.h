@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Florian Becker <fb@vxapps.com> (VX APPS).
+ * Copyright (c) 2021 Florian Becker <fb@vxapps.com> (VX APPS).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,51 +28,23 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _MSC_VER
-  #include <intrin.h>
-#endif
+#pragma once
 
-/* local header */
-#include "CPU.h"
+/* stl header */
+#include <string>
 
-namespace vx {
+class Item {
 
-  /** Leaf of extended information. */
-  constexpr unsigned int extendedLeaf = 7;
+public:
+  Item( std::string _message,
+        int _number )
+    : m_message( std::move( _message ) )
+    , m_number( _number ) {}
 
-  /** Leaf of SGX information. */
-  constexpr unsigned int sgxLeaf = 12;
+  [[nodiscard]] inline std::string getMessage() const { return m_message; }
+  [[nodiscard]] inline int getNumber() const { return m_number; }
 
-  CPU::CPU( unsigned int _leaf,
-            unsigned int _subleaf ) {
-
-    updateNativeId( sgxLeaf, 0 );
-    m_sgxLeaf = m_currentLeaf;
-    updateNativeId( extendedLeaf, 0 );
-    m_extendedLeaf = m_currentLeaf;
-    updateNativeId( 1, 0 );
-    m_leaf = m_currentLeaf;
-    updateNativeId( _leaf, _subleaf );
-  }
-
-  void CPU::updateNativeId( [[maybe_unused]] unsigned int _leaf,
-                            [[maybe_unused]] unsigned int _subleaf ) {
-
-#ifdef _MSC_VER
-    std::array<int, 4> currentLeaf;
-    __cpuidex( currentLeaf.data(), _leaf, _subleaf );
-    m_currentLeaf[0] = currentLeaf[0];
-    m_currentLeaf[1] = currentLeaf[1];
-    m_currentLeaf[2] = currentLeaf[2];
-    m_currentLeaf[3] = currentLeaf[3];
-#else
-#ifdef __aarch64__
-    /* Not available */
-#else
-    asm volatile
-    ( "cpuid" : "=a"( m_currentLeaf[0] ), "=b"( m_currentLeaf[1] ), "=c"( m_currentLeaf[2] ), "=d"( m_currentLeaf[3] )
-      : "a"( _leaf ), "c"( _subleaf ) );
-#endif
-#endif
-  }
-}
+private:
+  std::string m_message {};
+  int m_number {};
+};

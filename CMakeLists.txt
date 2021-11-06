@@ -28,9 +28,9 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-cmake_minimum_required(VERSION 3.10.0)
+cmake_minimum_required(VERSION 3.18)
 
-project(modern.cpp.core LANGUAGES CXX)
+project(modern.cpp.core VERSION 0.5 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES CXX)
 include(cmake/env.cmake)
 
 add_subdirectory(source)

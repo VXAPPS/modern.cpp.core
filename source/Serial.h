@@ -67,7 +67,7 @@ namespace vx {
     /**
      * @brief Delete copy assign.
      */
-    Serial( Serial const & ) = delete;
+    Serial( const Serial & ) = delete;
 
     /**
      * @brief Delete move assign.
@@ -78,7 +78,7 @@ namespace vx {
      * @brief Delete copy assign.
      * @return Nothing.
      */
-    Serial &operator=( Serial const & ) = delete;
+    Serial &operator=( const Serial & ) = delete;
 
     /**
      * @brief Delete move assign.
@@ -95,32 +95,32 @@ namespace vx {
      * @brief Is the serial device open?
      * @return True, if open - otherwise false.
      */
-    inline bool isOpen() const { return m_isOpen; }
+    [[nodiscard]] inline bool isOpen() const { return m_isOpen; }
 
     /**
      * @brief Flush the serial port.
      * @return True, if flushing is successful - otherwise false.
      */
-    bool flush() const;
+    [[nodiscard]] bool flush() const;
 
     /**
      * @brief Write data to the serial device.
      * @param _data   Date written to the device.
      * @return True, if the data writing was successful - otherwise false.
      */
-    bool write( const std::string &_data ) const;
+    [[nodiscard]] bool write( const std::string &_data ) const;
 
     /**
      * @brief Read data from the serial device.
      * @return Data read from the serial device.
      */
-    std::string read() const;
+    [[nodiscard]] std::string read() const;
 
     /**
      * @brief Descriptor of the current device.
      * @return The descriptor of the serial device - -1 is not a valid descriptor.
      */
-    inline int descriptor() const { return m_descriptor; }
+    [[nodiscard]] inline int descriptor() const { return m_descriptor; }
 
     /**
      * @brief Close connection to serial device.

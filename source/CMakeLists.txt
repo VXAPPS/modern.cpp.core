@@ -50,6 +50,7 @@ add_library(${PROJECT_NAME}
   Timing.cpp
   Timing.h
   templates/CSVWriter.h
+  templates/SharedQueue.h
   templates/Singleton.h
   templates/Timer.h
   ${${PROJECT_NAME}_os_src}

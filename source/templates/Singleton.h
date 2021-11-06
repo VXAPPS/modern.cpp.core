@@ -47,18 +47,23 @@ namespace vx {
      * @brief @~english C++11 Singleton thread-safe. @~german C++11 Singleton thread-safe.
      * @return @~english Singleton of T. @~german Einzige Instanz von T.
      */
-    static T &instance() {
+    static T &instance() noexcept {
 
-#if defined(__clang__)
+#ifdef __clang__
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wexit-time-destructors"
 #endif
       static T instance;
       return instance;
-#if defined(__clang__)
+#ifdef __clang__
   #pragma clang diagnostic pop
 #endif
     }
+
+    /**
+     * @brief @~english Delete copy constructor. @~german Entfernt den kopierenden Konstruktor.
+     */
+    Singleton( const Singleton & ) = delete;
 
     /**
      * @brief @~english Delete move constructor. @~german Entfernt den verschobenen Konstruktor.
@@ -69,7 +74,7 @@ namespace vx {
      * @brief @~english Delete copy assign. @~german Entfernt die kopierte Zuweisung.
      * @return @~english Nothing. @~german Keine Rückgabe.
      */
-    Singleton &operator=( Singleton const & ) = delete;
+    Singleton &operator=( const Singleton & ) = delete;
 
     /**
      * @brief @~english Delete move assign. @~german Entfernt die verschobene Zuweisung.

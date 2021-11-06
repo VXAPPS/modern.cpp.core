@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2020 Florian Becker <fb@vxapps.com> (VX APPS).
+# Copyright (c) 2021 Florian Becker <fb@vxapps.com> (VX APPS).
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,11 +28,23 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-project(examples)
+# General
+set(CPACK_PACKAGE_NAME ${CMAKE_PROJECT_NAME})
+set(CPACK_PACKAGE_VENDOR "VX APPS")
+set(CPACK_PACKAGE_VERSION ${CMAKE_PROJECT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION ${CMAKE_PROJECT_DESCRIPTION})
+set(CPACK_PACKAGE_CONTACT "VX APPS <support@vxapps.com>")
+set(CPACK_PACKAGE_HOMEPAGE_URL PROJECT_HOMEPAGE_URL)
+set(CPACK_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${CMAKE_SYSTEM_PROCESSOR})
+set(CPACK_STRIP_FILES ON)
+set(CPACK_VERBATIM_VARIABLES ON)
 
-add_subdirectory(command)
-add_subdirectory(cpuinfo)
-add_subdirectory(double)
-add_subdirectory(pipe)
-add_subdirectory(threadqueue)
-add_subdirectory(timer)
+# DMG
+set(CPACK_DMG_VOLUME_NAME ${CMAKE_PROJECT_NAME})
+set(CPACK_DMG_FORMAT UDZO)
+#set(CPACK_DMG_DS_STORE "${CMAKE_CURRENT_SOURCE_DIR}/packages/dmg/DS_STORE")
+#set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_CURRENT_SOURCE_DIR}/packages/dmg/background.png")
+#set(CPACK_DMG_SLA_DIR "${CMAKE_CURRENT_SOURCE_DIR}/packages/dmg/sla")
+#set(CPACK_DMG_SLA_LANGUAGES English German)
+
+include(CPack)
