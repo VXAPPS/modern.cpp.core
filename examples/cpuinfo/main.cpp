@@ -63,8 +63,8 @@ int main() {
 
   std::cout << "SGX version 1 support: " << cpu.sgxVersion1Support() << std::endl;
   std::cout << "SGX version 2 support: " << cpu.sgxVersion2Support() << std::endl;
-  std::cout << "Maximum enclave size: " << cpu.maximumEnclaveSize() << std::endl;
-  std::cout << "Maximum enclave size 64: " << cpu.maximumEnclaveSize64() << std::endl;
+  std::cout << "Maximum enclave size: " << std::hex << cpu.maximumEnclaveSize() << std::endl;
+  std::cout << "Maximum enclave size 64: " << std::hex << cpu.maximumEnclaveSize64() << std::endl;
 
   for ( unsigned int i = 1; i < maximumSubLeafs; i++ ) {
 

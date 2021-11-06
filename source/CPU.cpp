@@ -41,7 +41,7 @@ namespace vx {
   constexpr unsigned int extendedLeaf = 7;
 
   /** Leaf of SGX information. */
-  constexpr unsigned int sgxLeaf = 12;
+  constexpr unsigned int sgxLeaf = 18; // 0x12
 
   CPU::CPU( unsigned int _leaf,
             unsigned int _subleaf ) {
@@ -59,18 +59,22 @@ namespace vx {
                             [[maybe_unused]] unsigned int _subleaf ) {
 
 #ifdef _MSC_VER
-    std::array<int, 4> currentLeaf;
+    std::array<int, 4> currentLeaf {};
     __cpuidex( currentLeaf.data(), _leaf, _subleaf );
-    m_currentLeaf[0] = currentLeaf[0];
-    m_currentLeaf[1] = currentLeaf[1];
-    m_currentLeaf[2] = currentLeaf[2];
-    m_currentLeaf[3] = currentLeaf[3];
+    m_currentLeaf[ magic_enum::enum_integer( Register::EAX ) ] = currentLeaf[ magic_enum::enum_integer( Register::EAX ) ];
+    m_currentLeaf[ magic_enum::enum_integer( Register::EBX ) ] = currentLeaf[ magic_enum::enum_integer( Register::EBX ) ];
+    m_currentLeaf[ magic_enum::enum_integer( Register::ECX ) ] = currentLeaf[ magic_enum::enum_integer( Register::ECX ) ];
+    m_currentLeaf[ magic_enum::enum_integer( Register::EDX ) ] = currentLeaf[ magic_enum::enum_integer( Register::EDX ) ];
 #else
 #ifdef __aarch64__
     /* Not available */
 #else
     asm volatile
-    ( "cpuid" : "=a"( m_currentLeaf[0] ), "=b"( m_currentLeaf[1] ), "=c"( m_currentLeaf[2] ), "=d"( m_currentLeaf[3] )
+    ( "cpuid" :
+      "=a"( m_currentLeaf[ magic_enum::enum_integer( Register::EAX ) ] ),
+      "=b"( m_currentLeaf[ magic_enum::enum_integer( Register::EBX ) ] ),
+      "=c"( m_currentLeaf[ magic_enum::enum_integer( Register::ECX ) ] ),
+      "=d"( m_currentLeaf[ magic_enum::enum_integer( Register::EDX ) ] )
       : "a"( _leaf ), "c"( _subleaf ) );
 #endif
 #endif

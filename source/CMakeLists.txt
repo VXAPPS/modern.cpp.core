@@ -37,6 +37,7 @@ endif()
 add_library(${PROJECT_NAME}
   ../.github/workflows/integrate.yml
   ../README.md
+  ${3RDPARTY_DIR}/magic_enum.hpp
   CPU.cpp
   CPU.h
   Double.cpp
@@ -56,4 +57,4 @@ add_library(${PROJECT_NAME}
   ${${PROJECT_NAME}_os_src}
 )
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/templates)
+target_include_directories(${PROJECT_NAME} PUBLIC ${SOURCE_DIR} ${SOURCE_DIR}/templates ${3RDPARTY_DIR})

@@ -39,6 +39,10 @@ add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
 # CMake
 set(CMAKE ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
+# Project
+set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/source)
+set(3RDPARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
+
 # Force C++17 or C++20 if available
 include(CheckCXXCompilerFlag)
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
