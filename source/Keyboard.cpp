@@ -32,6 +32,15 @@
   #include <Windows.h>
 #elif defined __APPLE__
   #include <Carbon/Carbon.h>
+#else
+  #if 1
+    #include <X11/Xlib.h>
+    #include <X11/keysym.h>
+  #else
+    #include <fcntl.h>
+    #include <unistd.h>
+    #include <sys/ioctl.h>
+  #endif
 #endif
 
 /* local header */
@@ -44,7 +53,7 @@ namespace vx {
     bool isActive = false;
 
 #ifdef _MSC_VER
-    if ( GetKeyState( VK_CAPITAL ) & 0x0001 ) {
+    if ( GetAsyncKeyState( VK_CAPITAL ) & 0x0001 ) {
 
       isActive = true;
     }
@@ -62,6 +71,26 @@ namespace vx {
 #else
     /* Variant 2 CoreGraphics.framework */
     isActive = CGEventSourceKeyState( kCGEventSourceStateHIDSystemState, kVK_CapsLock );
+#endif
+
+#else
+
+#if 1
+    /* Variant 1 X11 */
+    Display *display = XOpenDisplay( nullptr );
+    XKeyboardState keyboardState {};
+    XGetKeyboardControl( display, &keyboardState );
+    isActive = keyboardState.led_mask & 1U;
+    XCloseDisplay( display );
+#else
+    /* Variant 2 ioctl */
+//    int fd = open( "/dev/console", O_RDONLY );
+//    if ( fd == -1 ) {
+
+      //
+//    }
+//    ioctl( fd, 0x4B32, 0x04 );
+//    close( fd );
 #endif
 
 #endif

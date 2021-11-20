@@ -28,6 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstring>
+
 /* local header */
 #include "StringExtra.h"
 
@@ -87,6 +90,17 @@ namespace vx {
     }
     result.push_back( split );
     return result;
+  }
+
+  std::string fromUnsignedChar( const unsigned char *_uchr,
+                                std::size_t _size ) {
+
+    std::size_t size = _size;
+    if ( !size ) {
+
+      size = strlen( reinterpret_cast<const char*>( _uchr ) );
+    }
+    return { _uchr, _uchr + size };
   }
 
 #ifdef __APPLE__

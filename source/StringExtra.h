@@ -99,9 +99,19 @@ namespace vx {
   std::vector<std::string> tokenize( const std::string &_string,
                                      std::string_view _separator );
 
+  /**
+   * @brief Returns standard string from unsigned char.
+   * @param _uchr   Unsigned char pointer.
+   * @param _size   Size of unsigned char - will autodetect if empty.
+   * @return Standard string from unsigned char.
+   */
+  [[nodiscard]] std::string fromUnsignedChar( const unsigned char *_uchr,
+                                              std::size_t _size );
+
 #ifdef __APPLE__
   /**
    * @brief Returns standard string from CFStringRef.
+   * @param _stringRef   CFStringRef input.
    * @return Standard string from CFStringRef.
    */
   std::string fromCFStringRef( CFStringRef _stringRef );

@@ -29,3 +29,6 @@
 #
 
 find_package(Threads REQUIRED)
+if(UNIX AND NOT APPLE)
+  find_package(X11)
+endif()
