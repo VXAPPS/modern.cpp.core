@@ -32,9 +32,9 @@
 #include <cstring>
 
 /* local header */
-#include "StringExtra.h"
+#include "StringUtils.h"
 
-namespace vx {
+namespace vx::string_utils {
 
   constexpr auto trimmed = " \t\n\r\f\v";
 

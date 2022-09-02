@@ -32,7 +32,7 @@
 #include <iostream>
 
 /* modern.cpp.core header */
-#include <Double.h>
+#include <DoubleUtils.h>
 
 int main() {
 
@@ -52,106 +52,106 @@ int main() {
   /* equals */
   std::cout << "----- Equal" << std::endl;
 
-  result = vx::equal( first, second );
+  result = vx::double_utils::equal( first, second );
   std::cout << first << " == " << second << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::equal( second, third );
+  result = vx::double_utils::equal( second, third );
   std::cout << second << " == " << third << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::equal( third, fourth );
+  result = vx::double_utils::equal( third, fourth );
   std::cout << third << " == " << fourth << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
   /* less */
   std::cout << "----- Less" << std::endl;
 
-  result = vx::less( first, second );
+  result = vx::double_utils::less( first, second );
   std::cout << first << " < " << second << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::less( second, third );
+  result = vx::double_utils::less( second, third );
   std::cout << second << " < " << third << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::less( third, fourth );
+  result = vx::double_utils::less( third, fourth );
   std::cout << third << " < " << fourth << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::less( first, second, true );
+  result = vx::double_utils::less( first, second, true );
   std::cout << first << " <= " << second << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::less( second, third, true );
+  result = vx::double_utils::less( second, third, true );
   std::cout << second << " <= " << third << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::less( third, fourth, true );
+  result = vx::double_utils::less( third, fourth, true );
   std::cout << third << " <= " << fourth << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
   /* greater */
   std::cout << "----- Greater" << std::endl;
 
-  result = vx::greater( first, second );
+  result = vx::double_utils::greater( first, second );
   std::cout << first << " > " << second << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::greater( second, third );
+  result = vx::double_utils::greater( second, third );
   std::cout << second << " > " << third << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::greater( third, fourth );
+  result = vx::double_utils::greater( third, fourth );
   std::cout << third << " > " << fourth << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::greater( first, second, true );
+  result = vx::double_utils::greater( first, second, true );
   std::cout << first << " >= " << second << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::greater( second, third, true );
+  result = vx::double_utils::greater( second, third, true );
   std::cout << second << " >= " << third << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::greater( third, fourth, true );
+  result = vx::double_utils::greater( third, fourth, true );
   std::cout << third << " >= " << fourth << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
   /* between */
   std::cout << "----- Between" << std::endl;
 
-  result = vx::between( first, first, second );
+  result = vx::double_utils::between( first, first, second );
   std::cout << first << " > " << first << " && " << first << " < " << second << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::between( second, first, second );
+  result = vx::double_utils::between( second, first, second );
   std::cout << second << " > " << first << " && " << second << " < " << second << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::between( fourth, first, second );
+  result = vx::double_utils::between( fourth, first, second );
   std::cout << fourth << " > " << first << " && " << fourth << " < " << second << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::between( first, first, second, true );
+  result = vx::double_utils::between( first, first, second, true );
   std::cout << first << " >= " << first << " && " << first << " <= " << second << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::between( second, first, second, true );
+  result = vx::double_utils::between( second, first, second, true );
   std::cout << second << " >= " << first << " && " << second << " <= " << second << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
-  result = vx::between( fourth, first, second, true );
+  result = vx::double_utils::between( fourth, first, second, true );
   std::cout << fourth << " >= " << first << " && " << fourth << " <= " << second << " result: " << std::boolalpha << result << std::noboolalpha << std::endl;
 
   /* round */
   std::cout << "----- Round" << std::endl;
 
-  double rounded = vx::round( first, precisionTwo );
+  double rounded = vx::double_utils::round( first, precisionTwo );
   std::cout << "round(2) " << first << " result: " << rounded << std::endl;
 
-  rounded = vx::round( second, precisionTwo );
+  rounded = vx::double_utils::round( second, precisionTwo );
   std::cout << "round(2) " << second << " result: " << rounded << std::endl;
 
-  rounded = vx::round( third, precisionFive );
+  rounded = vx::double_utils::round( third, precisionFive );
   std::cout << "round(5) " << third << " result: " << rounded << std::endl;
 
-  rounded = vx::round( fourth, precisionFive );
+  rounded = vx::double_utils::round( fourth, precisionFive );
   std::cout << "round(5) " << fourth << " result: " << rounded << std::endl;
 
   /* split */
   std::cout << "----- Split" << std::endl;
 
-  std::pair<double, double> splited = vx::split( first );
+  std::pair<double, double> splited = vx::double_utils::split( first );
   std::cout << "split " << first << " result: " << splited.first << " " << splited.second << std::endl;
 
-  splited = vx::split( second );
+  splited = vx::double_utils::split( second );
   std::cout << "split " << second << " result: " << splited.first << " " << splited.second << std::endl;
 
-  splited = vx::split( third );
+  splited = vx::double_utils::split( third );
   std::cout << "split " << third << " result: " << splited.first << " " << splited.second << std::endl;
 
-  splited = vx::split( fourth );
+  splited = vx::double_utils::split( fourth );
   std::cout << "split " << fourth << " result: " << splited.first << " " << splited.second << std::endl;
 
   return EXIT_SUCCESS;
