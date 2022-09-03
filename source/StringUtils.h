@@ -40,7 +40,7 @@
 /**
  * @brief vx (VX APPS) namespace.
  */
-namespace vx {
+namespace vx::string_utils {
 
   /**
    * @brief Trim from end of string (right).

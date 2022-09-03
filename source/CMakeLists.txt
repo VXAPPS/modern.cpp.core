@@ -40,14 +40,14 @@ add_library(${PROJECT_NAME}
   ${3RDPARTY_DIR}/magic_enum.hpp
   CPU.cpp
   CPU.h
-  Double.cpp
-  Double.h
+  DoubleUtils.cpp
+  DoubleUtils.h
   Exec.cpp
   Exec.h
   Keyboard.cpp
   Keyboard.h
-  StringExtra.cpp
-  StringExtra.h
+  StringUtils.cpp
+  StringUtils.h
   Timing.cpp
   Timing.h
   templates/CSVWriter.h

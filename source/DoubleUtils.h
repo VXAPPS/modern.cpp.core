@@ -39,7 +39,7 @@
 /**
  * @brief vx (VX APPS) namespace.
  */
-namespace vx {
+namespace vx::double_utils {
 
   /**
    * @brief Is _left and _right equal?

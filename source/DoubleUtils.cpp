@@ -36,9 +36,9 @@
 #include <vector>
 
 /* local header */
-#include "Double.h"
+#include "DoubleUtils.h"
 
-namespace vx {
+namespace vx::double_utils {
 
   /** Base for default precision factor. */
   constexpr double precisionBase = 10;

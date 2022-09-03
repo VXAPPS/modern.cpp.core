@@ -25,7 +25,7 @@ jobs:
           ubuntu-20.04-clang-11,
           ubuntu-20.04-clang-12,
           ubuntu-20.04-clang-13,
-          windows-2016-msvc2017,
+#          windows-2016-msvc2017,
           windows-2019-msvc2019,
 #          windows-2019-clang,
 #          windows-2019-gcc,
@@ -90,10 +90,10 @@ jobs:
             compiler: clang
             version: 13
 
-          - name: windows-2016-msvc2017
-            os: windows-2016
-            compiler: cl
-            version: Visual Studio 15 2017 Win64
+#          - name: windows-2016-msvc2017
+#            os: windows-2016
+#            compiler: cl
+#            version: Visual Studio 15 2017 Win64
 
           - name: windows-2019-msvc2019
             os: windows-2019
@@ -158,7 +158,7 @@ jobs:
             cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=arm64
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Dependencies (Linux)
         if: runner.os == 'Linux'
@@ -228,7 +228,7 @@ jobs:
             }
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
+        uses: github/codeql-action/init@v2
         with:
           languages: 'cpp'
 
@@ -255,4 +255,4 @@ jobs:
 
       - name: Perform CodeQL Analysis
         if: runner.os != 'Windows'
-        uses: github/codeql-action/analyze@v1
+        uses: github/codeql-action/analyze@v2
