@@ -31,6 +31,9 @@
 /* c header */
 #include <cstring>
 
+/* stl header */
+#include <algorithm>
+
 /* local header */
 #include "StringUtils.h"
 
