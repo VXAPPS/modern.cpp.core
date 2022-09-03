@@ -91,6 +91,14 @@ namespace vx::string_utils {
                                std::string_view _end );
 
   /**
+   * @brief Simplify a string.
+   * @param _string   String to simplify.
+   * Default: Space, tabs, return, new line and form feed.
+   * @return Simplified string.
+   */
+  std::string simplified( std::string &_string );
+
+  /**
    * @brief Tokenize string by separator.
    * @param _string   String to split.
    * @param _separator   Separator for the splitting.
