@@ -31,6 +31,9 @@
 /* c header */
 #include <cstring>
 
+/* stl header */
+#include <algorithm>
+
 /* local header */
 #include "StringUtils.h"
 
@@ -72,6 +75,27 @@ namespace vx::string_utils {
       return _string.compare( _string.length() - _end.length(), _end.length(), _end ) == 0;
     }
     return false;
+  }
+
+  constexpr bool BothAreSpaces( char lhs, char rhs ) { return ( lhs == rhs ) && ( lhs == ' ' ); }
+
+  std::string simplified( std::string &_string ) {
+
+    /* Replace every control with a space */
+    std::replace( std::begin( _string ), std::end( _string ), '\t', ' ');
+    std::replace( std::begin( _string ), std::end( _string ), '\n', ' ');
+    std::replace( std::begin( _string ), std::end( _string ), '\r', ' ');
+    std::replace( std::begin( _string ), std::end( _string ), '\f', ' ');
+    std::replace( std::begin( _string ), std::end( _string ), '\v', ' ');
+
+    /* Normalize spaces to just one */
+    std::string::iterator new_end = std::unique( std::begin( _string ), std::end( _string ), BothAreSpaces);
+    _string.erase( new_end, std::end( _string ) );
+
+    /* Trim */
+    trim( _string );
+
+    return _string;
   }
 
   std::vector<std::string> tokenize( const std::string &_string,
