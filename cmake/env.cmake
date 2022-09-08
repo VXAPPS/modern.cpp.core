@@ -32,8 +32,8 @@
 option(CMAKE_VERBOSE_MAKEFILE "Show the complete build commands" OFF)
 
 # possibility to disable build steps
-option(BUILD_EXAMPLES "Build examples" ON)
-option(BUILD_TESTS "Build tests" ON)
+option(CORE_BUILD_EXAMPLES "Build examples for modern.cpp.core" ON)
+option(CORE_BUILD_TESTS "Build tests for modern.cpp.core" ON)
 
 # General
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

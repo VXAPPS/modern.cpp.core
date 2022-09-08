@@ -34,11 +34,11 @@ project(modern.cpp.core VERSION 0.6 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "
 include(cmake/env.cmake)
 
 add_subdirectory(source)
-if(BUILD_EXAMPLES)
+if(CORE_BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
-if(BUILD_TESTS AND CPPUNIT_FOUND)
+if(CORE_BUILD_TESTS AND CPPUNIT_FOUND)
   enable_testing()
   add_subdirectory(tests)
 endif()
