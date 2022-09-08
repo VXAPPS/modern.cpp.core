@@ -30,8 +30,15 @@
 
 cmake_minimum_required(VERSION 3.18)
 
-project(modern.cpp.core VERSION 0.5 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES CXX)
+project(modern.cpp.core VERSION 0.6 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES CXX)
 include(cmake/env.cmake)
 
 add_subdirectory(source)
-add_subdirectory(examples)
+if(BUILD_EXAMPLES)
+  add_subdirectory(examples)
+endif()
+
+if(BUILD_TESTS AND CPPUNIT_FOUND)
+  enable_testing()
+  add_subdirectory(tests)
+endif()

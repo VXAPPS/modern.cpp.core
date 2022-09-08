@@ -31,6 +31,10 @@
 # for debugging of build steps
 option(CMAKE_VERBOSE_MAKEFILE "Show the complete build commands" OFF)
 
+# possibility to disable build steps
+option(BUILD_EXAMPLES "Build examples" ON)
+option(BUILD_TESTS "Build tests" ON)
+
 # General
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
