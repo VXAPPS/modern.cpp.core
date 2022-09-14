@@ -31,7 +31,7 @@
 project(modern.cpp.core)
 
 if(UNIX)
-  set(${PROJECT_NAME}_os_src Serial.cpp Serial.h unixservice/main.cpp)
+  set(${PROJECT_NAME}_os_src Serial.cpp Serial.h) # unixservice/main.cpp)
 endif()
 
 add_library(${PROJECT_NAME}
