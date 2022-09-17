@@ -45,6 +45,7 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp.core
   ${GOOGLETEST_LIBRARY}
+  Threads::Threads
 )
 
 add_test(${PROJECT_NAME} ${PROJECT_NAME})
