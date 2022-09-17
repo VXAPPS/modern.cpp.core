@@ -118,7 +118,7 @@ namespace vx {
 
     std::string source = "The answer is 42.";
     std::vector<std::string> tokenized = string_utils::tokenize( source, " " );
-    EXPECT_EQ( tokenized.size(), 4 );
+    EXPECT_EQ( tokenized.size(), 4U );
     EXPECT_EQ( tokenized[ 0 ], "The" );
     EXPECT_EQ( tokenized[ 1 ], "answer" );
     EXPECT_EQ( tokenized[ 2 ], "is" );
@@ -126,14 +126,14 @@ namespace vx {
 
     source = " The answer is 42. ";
     tokenized = string_utils::tokenize( source, " ", string_utils::Split::SkipEmpty );
-    EXPECT_EQ( tokenized.size(), 4 );
+    EXPECT_EQ( tokenized.size(), 4U );
     EXPECT_EQ( tokenized[ 0 ], "The" );
     EXPECT_EQ( tokenized[ 1 ], "answer" );
     EXPECT_EQ( tokenized[ 2 ], "is" );
     EXPECT_EQ( tokenized[ 3 ], "42." );
 
     tokenized = string_utils::tokenize( source, " ", string_utils::Split::KeepEmpty );
-    EXPECT_EQ( tokenized.size(), 6 );
+    EXPECT_EQ( tokenized.size(), 6U );
     EXPECT_EQ( tokenized[ 0 ], "" );
     EXPECT_EQ( tokenized[ 1 ], "The" );
     EXPECT_EQ( tokenized[ 2 ], "answer" );
