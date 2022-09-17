@@ -30,6 +30,7 @@
 
 /* stl header */
 #include <iostream>
+#include <limits>
 
 /* modern.cpp.core header */
 #include <DoubleUtils.h>
@@ -40,14 +41,16 @@ int main() {
 
   constexpr std::size_t precisionTwo = 2;
   constexpr std::size_t precisionFive = 5;
-  constexpr std::size_t precisionTen = 10;
+  constexpr std::size_t precisionMax = std::numeric_limits<double>::digits10;
 
   constexpr double first = 1.23;
   constexpr double second = 2.2345678;
   constexpr double third = 2.2345678;
   constexpr double fourth = 2.2335678;
 
-  std::cout.precision( precisionTen );
+  std::cout.precision( precisionMax );
+
+  std::cout << precisionMax << std::endl;
 
   /* equals */
   std::cout << "----- Equal" << std::endl;
@@ -142,17 +145,17 @@ int main() {
   /* split */
   std::cout << "----- Split" << std::endl;
 
-  std::pair<double, double> splited = vx::double_utils::split( first );
-  std::cout << "split " << first << " result: " << splited.first << " " << splited.second << std::endl;
+  std::pair<double, double> splitted = vx::double_utils::split( first );
+  std::cout << "split " << first << " result: " << splitted.first << " " << splitted.second << std::endl;
 
-  splited = vx::double_utils::split( second );
-  std::cout << "split " << second << " result: " << splited.first << " " << splited.second << std::endl;
+  splitted = vx::double_utils::split( second );
+  std::cout << "split " << second << " result: " << splitted.first << " " << splitted.second << std::endl;
 
-  splited = vx::double_utils::split( third );
-  std::cout << "split " << third << " result: " << splited.first << " " << splited.second << std::endl;
+  splitted = vx::double_utils::split( third );
+  std::cout << "split " << third << " result: " << splitted.first << " " << splitted.second << std::endl;
 
-  splited = vx::double_utils::split( fourth );
-  std::cout << "split " << fourth << " result: " << splited.first << " " << splited.second << std::endl;
+  splitted = vx::double_utils::split( fourth );
+  std::cout << "split " << fourth << " result: " << splitted.first << " " << splitted.second << std::endl;
 
   return EXIT_SUCCESS;
 }

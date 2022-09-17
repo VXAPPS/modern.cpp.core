@@ -43,13 +43,22 @@
 namespace vx::string_utils {
 
   /**
+   * @brief The Split enum.
+   */
+  enum class Split {
+
+    KeepEmpty, /**< Keep all empty token. */
+    SkipEmpty /**< Skip all empty token. */
+  };
+
+  /**
    * @brief Trim from end of string (right).
    * @param _string   String to trim.
    * @param _trim   What signs to trim
    * Default: Space, tabs, return, new line and form feed.
    * @return Right trimmed string.
    */
-  std::string &rightTrim( std::string &_string,
+  std::string &trimRight( std::string &_string,
                           std::string_view _trim = {} );
 
   /**
@@ -59,7 +68,7 @@ namespace vx::string_utils {
    * Default: Space, tabs, return, new line and form feed.
    * @return Left trimmed string.
    */
-  std::string &leftTrim( std::string &_string,
+  std::string &trimLeft( std::string &_string,
                          std::string_view _trim = {} );
 
   /**
@@ -96,22 +105,32 @@ namespace vx::string_utils {
    * Default: Space, tabs, return, new line and form feed.
    * @return Simplified string.
    */
-  std::string simplified( std::string &_string );
+  std::string &simplified( std::string &_string );
 
   /**
    * @brief Tokenize string by separator.
    * @param _string   String to split.
    * @param _separator   Separator for the splitting.
+   * @param _split   Split type, default is do not add empty token.
    * @return Splitted list of splits.
    */
   std::vector<std::string> tokenize( const std::string &_string,
-                                     std::string_view _separator );
+                                     std::string_view _separator,
+                                     Split _split = Split::SkipEmpty );
+
+  /**
+   * @brief Returns standard string from unsigned char.
+   * @param _uchr   Unsigned char pointer.
+   * @return Standard string from unsigned char.
+   */
+  [[nodiscard]] std::string fromUnsignedChar( const unsigned char *_uchr );
 
   /**
    * @brief Returns standard string from unsigned char.
    * @param _uchr   Unsigned char pointer.
    * @param _size   Size of unsigned char - will autodetect if empty.
    * @return Standard string from unsigned char.
+   * @note This function will use reinterpret_cast if _size is empty.
    */
   [[nodiscard]] std::string fromUnsignedChar( const unsigned char *_uchr,
                                               std::size_t _size );

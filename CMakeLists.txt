@@ -38,7 +38,7 @@ if(CORE_BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
-if(CORE_BUILD_TESTS AND CPPUNIT_FOUND)
+if(CORE_BUILD_TESTS)
   enable_testing()
   add_subdirectory(tests)
 endif()

@@ -33,6 +33,7 @@
 
 /* stl header */
 #include <algorithm>
+#include <iostream>
 
 /* local header */
 #include "StringUtils.h"
@@ -41,14 +42,14 @@ namespace vx::string_utils {
 
   constexpr auto trimmed = " \t\n\r\f\v";
 
-  std::string &rightTrim( std::string &_string,
+  std::string &trimRight( std::string &_string,
                           std::string_view _trim ) {
 
     _string.erase( _string.find_last_not_of( _trim.empty() ? trimmed : _trim ) + 1 );
     return _string;
   }
 
-  std::string &leftTrim( std::string &_string,
+  std::string &trimLeft( std::string &_string,
                          std::string_view _trim ) {
 
     _string.erase( 0, _string.find_first_not_of( _trim.empty() ? trimmed : _trim ) );
@@ -58,7 +59,7 @@ namespace vx::string_utils {
   std::string &trim( std::string &_string,
                      std::string_view _trim ) {
 
-    return leftTrim( rightTrim( _string, _trim.empty() ? trimmed : _trim ), _trim.empty() ? trimmed : _trim );
+    return trimLeft( trimRight( _string, _trim.empty() ? trimmed : _trim ), _trim.empty() ? trimmed : _trim );
   }
 
   bool startsWith( std::string_view _string,
@@ -79,7 +80,7 @@ namespace vx::string_utils {
 
   constexpr bool BothAreSpaces( char lhs, char rhs ) { return ( lhs == rhs ) && ( lhs == ' ' ); }
 
-  std::string simplified( std::string &_string ) {
+  std::string &simplified( std::string &_string ) {
 
     /* Replace every control with a space */
     std::replace( std::begin( _string ), std::end( _string ), '\t', ' ');
@@ -99,7 +100,8 @@ namespace vx::string_utils {
   }
 
   std::vector<std::string> tokenize( const std::string &_string,
-                                     std::string_view _separator ) {
+                                     std::string_view _separator,
+                                     Split _split ) {
 
     std::vector<std::string> result {};
     std::string split = _string;
@@ -108,12 +110,33 @@ namespace vx::string_utils {
     while ( endPos != std::string::npos ) {
 
       std::string word = split.substr( startPos, endPos - startPos );
-      result.push_back( word );
+      if ( _split == Split::SkipEmpty && word.empty() ) {
+
+        /* Nothing to do here */
+      }
+      else {
+
+        result.push_back( word );
+      }
       split = split.substr( endPos + _separator.length() );
       endPos = split.find( _separator );
     }
-    result.push_back( split );
+
+    if ( _split == Split::SkipEmpty && split.empty() ) {
+
+      /* Nothing to do here */
+    }
+    else {
+
+      result.push_back( split );
+    }
     return result;
+  }
+
+  std::string fromUnsignedChar( const unsigned char *_uchr ) {
+
+    std::basic_string<unsigned char> result = _uchr;
+    return { std::begin( result ), std::end( result ) };
   }
 
   std::string fromUnsignedChar( const unsigned char *_uchr,

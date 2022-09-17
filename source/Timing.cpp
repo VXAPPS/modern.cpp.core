@@ -62,10 +62,10 @@ namespace vx {
     auto end = std::chrono::high_resolution_clock::now();
 
     std::stringstream realTime;
-    realTime << std::setprecision( std::numeric_limits<double>::digits10 + 1 ) << static_cast<double>( std::chrono::duration_cast<std::chrono::nanoseconds>( end - m_start ).count() ) / multiplier / multiplier;
+    realTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::chrono::duration_cast<std::chrono::nanoseconds>( end - m_start ).count() ) / multiplier / multiplier;
 
     std::stringstream cpuTime;
-    cpuTime << std::setprecision( std::numeric_limits<double>::digits10 + 1 ) << static_cast<double>( std::clock() - m_cpu ) / static_cast<double>( CLOCKS_PER_SEC ) * multiplier;
+    cpuTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::clock() - m_cpu ) / static_cast<double>( CLOCKS_PER_SEC ) * multiplier;
 
 #if __has_include(<LoggerFactory.h>)
     LogVerbose( "------ " +  m_action );

@@ -36,6 +36,7 @@ option(CORE_BUILD_EXAMPLES "Build examples for modern.cpp.core" ON)
 option(CORE_BUILD_TESTS "Build tests for modern.cpp.core" ON)
 
 # General
+set(CMAKE_TLS_VERIFY TRUE)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
@@ -128,3 +129,11 @@ set(CMAKE_MODULE_PATH ${CMAKE}/modules)
 include(${CMAKE}/create_package.cmake)
 include(${CMAKE}/doxygen.cmake)
 include(${CMAKE}/find_package.cmake)
+
+# Fetch Content Dependencies
+include(${CMAKE}/fetch/magic_enum.cmake)
+
+# External Project Dependencies
+if(CORE_BUILD_TESTS)
+  include(${CMAKE}/external/googletest.cmake)
+endif()

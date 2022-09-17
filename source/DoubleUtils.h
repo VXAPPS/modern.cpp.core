@@ -41,38 +41,51 @@
  */
 namespace vx::double_utils {
 
+  enum class Equal {
+
+    Absolute,
+    Relative,
+    Combined
+  };
+
   /**
    * @brief Is _left and _right equal?
    * @param _left   The first value.
    * @param _right   The second value.
+   * @param _equal   Absolute or relative to input or combined.
    * @return True, if _left and _right are equal - otherwise false.
    */
   [[nodiscard]] bool equal( double _left,
-                            double _right );
+                            double _right,
+                            Equal _equal = Equal::Absolute );
 
   /**
    * @brief Is _left less than _right or _orEqual?
    * @param _left   The first value.
    * @param _right   The second value.
    * @param _orEqual   Check if _left and _right are equal - default false.
+   * @param _equal   Absolute or relative to input or combined.
    * @return True, if _left is less than _right or _left and _right are equal and
    * _orEqual is set to true - otherwise false.
    */
   [[nodiscard]] bool less( double _left,
                            double _right,
-                           bool _orEqual = false );
+                           bool _orEqual = false,
+                           Equal _equal = Equal::Absolute );
 
   /**
    * @brief Is _left greater than _right or _orEqual?
    * @param _left   The first value.
    * @param _right   The second value.
    * @param _orEqual   Check if _left and _right are equal - default false.
+   * @param _equal   Absolute or relative to input or combined.
    * @return True, if _left is greater than _right or _left and _right are equal and
    * _orEqual is set to true - otherwise false.
    */
   [[nodiscard]] bool greater( double _left,
                               double _right,
-                              bool _orEqual = false );
+                              bool _orEqual = false,
+                              Equal _equal = Equal::Absolute );
 
   /**
    * @brief Is _value between _min and _max or _orEqual.
@@ -80,12 +93,14 @@ namespace vx::double_utils {
    * @param _min   Is _value greater?
    * @param _max   Is _value less?
    * @param _orEqual  Is _value == _min or _value == _max
+   * @param _equal   Absolute or relative to input or combined.
    * @return True, if _value is between _min and _max _orEqual - otherwise false.
    */
   [[nodiscard]] bool between( double _value,
                               double _min,
                               double _max,
-                              bool _orEqual = false );
+                              bool _orEqual = false,
+                              Equal _equal = Equal::Absolute );
 
   /**
    * @brief Round a double _value by _precision. Rounded by default to two decimal places.

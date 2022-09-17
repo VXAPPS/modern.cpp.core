@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2020 Florian Becker <fb@vxapps.com> (VX APPS).
+# Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,41 +28,23 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-project(modern.cpp.core)
+project(Test_StringUtils)
 
-if(UNIX)
-  set(${PROJECT_NAME}_os_src Serial.cpp Serial.h) # unixservice/main.cpp)
-endif()
-
-add_library(${PROJECT_NAME}
-  ../.github/workflows/integrate.yml
-  ../README.md
-  CPU.cpp
-  CPU.h
-  DoubleUtils.cpp
-  DoubleUtils.h
-  Exec.cpp
-  Exec.h
-  Keyboard.cpp
-  Keyboard.h
-  StringUtils.cpp
-  StringUtils.h
-  Timing.cpp
-  Timing.h
-  templates/CSVWriter.h
-  templates/SharedQueue.h
-  templates/Singleton.h
-  templates/Timer.h
-  ${${PROJECT_NAME}_os_src}
+add_executable(${PROJECT_NAME}
+  ${PROJECT_NAME}.cpp
 )
 
+add_dependencies(${PROJECT_NAME} googletest)
+
 target_include_directories(${PROJECT_NAME}
-  PUBLIC
-  ${SOURCE_DIR}
-  ${SOURCE_DIR}/templates
+  PRIVATE
+  ${GOOGLETEST_INCLUDE_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}
-  PUBLIC
-  magic_enum
+  PRIVATE
+  modern.cpp.core
+  ${GOOGLETEST_LIBRARY}
 )
+
+add_test(${PROJECT_NAME} ${PROJECT_NAME})

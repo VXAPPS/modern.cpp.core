@@ -32,8 +32,7 @@
 #include <cmath> // std::fabs, std::floor, std::modf, std::pow
 
 /* stl header */
-#include <limits>
-#include <vector>
+#include <algorithm>
 
 /* local header */
 #include "DoubleUtils.h"
@@ -47,16 +46,28 @@ namespace vx::double_utils {
   constexpr double roundBase = 0.5;
 
   bool equal( double _left,
-              double _right ) {
+              double _right,
+              Equal _equal ) {
 
-    return std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon();
+    /* Absolute */
+    double factor = 1.0;
+    if ( _equal == Equal::Relative ) {
+
+      factor = std::max( std::fabs( _left ) , std::fabs( _right ) ) ;
+    }
+    else if ( _equal == Equal::Combined ) {
+
+      factor = std::max( { 1.0, std::fabs( _left ) , std::fabs( _right ) } ) ;
+    }
+    return std::fabs( _left - _right ) <= std::numeric_limits<double>::epsilon() * factor;
   }
 
   bool less( double _left,
              double _right,
-             bool _orEqual ) {
+             bool _orEqual,
+             Equal _equal ) {
 
-    if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() ) {
+    if ( equal( _left, _right, _equal ) ) {
 
       return _orEqual;
     }
@@ -65,9 +76,10 @@ namespace vx::double_utils {
 
   bool greater( double _left,
                 double _right,
-                bool _orEqual ) {
+                bool _orEqual,
+                Equal _equal ) {
 
-    if ( std::fabs( _left - _right ) < std::numeric_limits<double>::epsilon() ) {
+    if ( equal( _left, _right, _equal ) ) {
 
       return _orEqual;
     }
@@ -77,9 +89,10 @@ namespace vx::double_utils {
   bool between( double _value,
                 double _min,
                 double _max,
-                bool _orEqual ) {
+                bool _orEqual,
+                Equal _equal ) {
 
-    return greater( _value, _min, _orEqual ) && less( _value, _max, _orEqual );
+    return greater( _value, _min, _orEqual, _equal ) && less( _value, _max, _orEqual, _equal );
   }
 
   double round( double _value,
