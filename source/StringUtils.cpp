@@ -99,17 +99,18 @@ namespace vx::string_utils {
     return _string;
   }
 
-  std::vector<std::string> tokenize( const std::string &_string,
+  std::vector<std::string_view> tokenize( std::string_view _string,
                                      std::string_view _separator,
                                      Split _split ) {
 
-    std::vector<std::string> result {};
-    std::string split = _string;
+    std::vector<std::string_view> result {};
+//    std::string split( _string );
+    std::string_view split = _string;
     std::size_t startPos = 0;
     std::size_t endPos = split.find( _separator );
     while ( endPos != std::string::npos ) {
 
-      std::string word = split.substr( startPos, endPos - startPos );
+      std::string_view word = split.substr( startPos, endPos - startPos );
       if ( _split == Split::SkipEmpty && word.empty() ) {
 
         /* Nothing to do here */

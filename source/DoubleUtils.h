@@ -41,11 +41,14 @@
  */
 namespace vx::double_utils {
 
+  /**
+   * @brief The Equal enum.
+   */
   enum class Equal {
 
-    Absolute,
-    Relative,
-    Combined
+    Absolute, /**< Absolute value. */
+    Relative, /**< Relative value. */
+    Combined /**< Absolute and relative value. */
   };
 
   /**

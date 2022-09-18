@@ -46,7 +46,7 @@
 /* local header */
 #include "Keyboard.h"
 
-namespace vx {
+namespace vx::keyboard {
 
   bool isCapsLockActive() {
 

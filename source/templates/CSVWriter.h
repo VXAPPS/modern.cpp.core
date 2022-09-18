@@ -33,6 +33,7 @@
 /* stl header */
 #include <fstream>
 #include <string>
+#include <string_view>
 
 /**
  * @brief vx (VX APPS) namespace.
@@ -53,10 +54,10 @@ namespace vx {
      * @param _linePrefix   Prefix for every line.
      * @param _lineSuffix   Suffix for every line.
      */
-    explicit CSVWriter( const std::string &_filename,
-                        const std::string &_delimiter = ",",
-                        const std::string &_linePrefix = {},
-                        const std::string &_lineSuffix = {} ) :
+    explicit CSVWriter( std::string_view &_filename,
+                        std::string_view _delimiter = ",",
+                        std::string_view _linePrefix = {},
+                        std::string_view _lineSuffix = {} ) :
       m_filename( _filename ),
       m_delimiter( _delimiter ),
       m_linePrefix( _linePrefix ),
@@ -68,7 +69,8 @@ namespace vx {
      * @param _last   Last value.
      */
     template<typename T>
-    void addRowData( T _first, T _last ) const {
+    void addRowData( T _first,
+                     T _last ) const {
 
       std::ofstream file {};
       file.open( m_filename, std::ios::app );
@@ -99,16 +101,16 @@ namespace vx {
     /**
      * @brief Delimiter for values.
      */
-    std::string m_delimiter {};
+    std::string_view m_delimiter {};
 
     /**
      * @brief Prefix for every line.
      */
-    std::string m_linePrefix {};
+    std::string_view m_linePrefix {};
 
     /**
      * @brief Suffix for every line.
      */
-    std::string m_lineSuffix {};
+    std::string_view m_lineSuffix {};
   };
 }

@@ -117,7 +117,7 @@ namespace vx {
   TEST( StringUtils, Tokenize ) {
 
     std::string source = "The answer is 42.";
-    std::vector<std::string> tokenized = string_utils::tokenize( source, " " );
+    std::vector<std::string_view> tokenized = string_utils::tokenize( source, " " );
     EXPECT_EQ( tokenized.size(), 4U );
     EXPECT_EQ( tokenized[ 0 ], "The" );
     EXPECT_EQ( tokenized[ 1 ], "answer" );

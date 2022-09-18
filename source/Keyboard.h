@@ -33,7 +33,7 @@
 /**
  * @brief vx (VX APPS) namespace.
  */
-namespace vx {
+namespace vx::keyboard {
 
   /**
    * @brief Check the caps lock state.

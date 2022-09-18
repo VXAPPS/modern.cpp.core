@@ -35,6 +35,7 @@
 
 /* stl header */
 #include <string>
+#include <string_view>
 #include <vector>
 
 /**
@@ -114,9 +115,9 @@ namespace vx::string_utils {
    * @param _split   Split type, default is do not add empty token.
    * @return Splitted list of splits.
    */
-  std::vector<std::string> tokenize( const std::string &_string,
-                                     std::string_view _separator,
-                                     Split _split = Split::SkipEmpty );
+  std::vector<std::string_view> tokenize( std::string_view _string,
+                                          std::string_view _separator,
+                                          Split _split = Split::SkipEmpty );
 
   /**
    * @brief Returns standard string from unsigned char.

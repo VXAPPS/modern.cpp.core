@@ -54,10 +54,12 @@ namespace vx {
      * @param _delay   Delay in milliseconds after the function is called.
      */
 #if 0
-    void setTimeout( auto _function, int _delay ) {
+    void setTimeout( auto _function,
+                     int _delay ) {
 #else
     template<typename Function>
-    void setTimeout( Function _function, int _delay ) {
+    void setTimeout( Function _function,
+                     int _delay ) {
 #endif
 
       m_clear = false;
@@ -83,10 +85,12 @@ namespace vx {
      * @param _interval   Interval in milliseconds after the function is called.
      */
 #if 0
-    void setInterval( auto _function, int _interval ) {
+    void setInterval( auto _function,
+                      int _interval ) {
 #else
     template<typename Function>
-    void setInterval( Function _function, int _interval ) {
+    void setInterval( Function _function,
+                      int _interval ) {
 #endif
 
       m_clear = false;
