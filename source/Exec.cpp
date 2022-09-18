@@ -37,14 +37,14 @@
 /* local header */
 #include "Exec.h"
 
-namespace vx {
+namespace vx::exec {
 
   static int m_resultCode = 0;
 
   /** Buffer size to read stdout */
   constexpr int bufferSize = 128;
 
-  void close( std::FILE *_file ) {
+  void close( std::FILE *_file ) noexcept {
 
 #ifdef _MSC_VER
     m_resultCode = _pclose( _file );
@@ -59,7 +59,7 @@ namespace vx {
 #endif
   }
 
-  std::string exec( const std::string &_command ) {
+  std::string run( const std::string &_command ) noexcept {
 
     std::array<char, bufferSize> buffer {};
     std::string result;
@@ -80,5 +80,5 @@ namespace vx {
     return result;
   }
 
-  int resultCode() { return m_resultCode; }
+  int resultCode() noexcept { return m_resultCode; }
 }

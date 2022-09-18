@@ -40,8 +40,8 @@ int main() {
   std::string result = "EXIT_SUCCESS";
 
   std::cout << "----- Result: EXIT_SUCCESS stdout" << std::endl;
-  std::string pipe = vx::exec( "../pipe/pipe 0 2>/dev/null" );
-  code = vx::resultCode();
+  std::string pipe = vx::exec::run( "../pipe/pipe 0 2>/dev/null" );
+  code = vx::exec::resultCode();
   if ( code != EXIT_SUCCESS ) {
 
     result = "EXIT_FAILURE";
@@ -50,8 +50,8 @@ int main() {
   std::cout << "Result: " << result << std::endl;
 
   std::cout << "----- Result: EXIT_SUCCESS mixed stdout and stderr" << std::endl;
-  pipe = vx::exec( "../pipe/pipe 0 2>&1" );
-  code = vx::resultCode();
+  pipe = vx::exec::run( "../pipe/pipe 0 2>&1" );
+  code = vx::exec::resultCode();
   if ( code != EXIT_SUCCESS ) {
 
     result = "EXIT_FAILURE";
@@ -60,8 +60,8 @@ int main() {
   std::cout << "Result: " << result << std::endl;
 
   std::cout << "----- Result: EXIT_FAILURE stdout" << std::endl;
-  pipe = vx::exec( "../pipe/pipe 1 2>/dev/null" );
-  code = vx::resultCode();
+  pipe = vx::exec::run( "../pipe/pipe 1 2>/dev/null" );
+  code = vx::exec::resultCode();
   if ( code != EXIT_SUCCESS ) {
 
     result = "EXIT_FAILURE";
@@ -70,8 +70,8 @@ int main() {
   std::cout << "Result: " << result << std::endl;
 
   std::cout << "----- Result: EXIT_FAILURE mixed stdout and stderr" << std::endl;
-  pipe = vx::exec( "../pipe/pipe 1 2>&1" );
-  code = vx::resultCode();
+  pipe = vx::exec::run( "../pipe/pipe 1 2>&1" );
+  code = vx::exec::resultCode();
   if ( code != EXIT_SUCCESS ) {
 
     result = "EXIT_FAILURE";

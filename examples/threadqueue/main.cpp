@@ -110,7 +110,7 @@ int main() {
   }
 
   /* Send STOP to finish all threads */
-  for ( unsigned int x = 0; x < threads.size() * 2; ++x ) {
+  for ( unsigned int thread = 0; thread < threads.size() * 2; ++thread ) {
 
     try {
 

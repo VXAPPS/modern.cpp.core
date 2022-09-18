@@ -59,11 +59,11 @@ namespace vx {
 #else
     template<typename Function>
     void setTimeout( Function _function,
-                     int _delay ) {
+                     int _delay ) noexcept {
 #endif
 
       m_clear = false;
-      std::thread t( [ &, _function, _delay ]() {
+      std::thread thread( [ &, _function, _delay ]() {
 
         if ( this->m_clear ) {
 
@@ -76,7 +76,7 @@ namespace vx {
         }
         _function();
       } );
-      t.detach();
+      thread.detach();
     }
 
     /**
@@ -90,11 +90,11 @@ namespace vx {
 #else
     template<typename Function>
     void setInterval( Function _function,
-                      int _interval ) {
+                      int _interval ) noexcept {
 #endif
 
       m_clear = false;
-      std::thread t( [ &, _function, _interval ]() {
+      std::thread thread( [ &, _function, _interval ]() {
 
         while ( true ) {
 
@@ -110,13 +110,13 @@ namespace vx {
           _function();
         }
       } );
-      t.detach();
+      thread.detach();
     }
 
     /**
      * @brief Stopping the current timer not to execute the call back function.
      */
-    inline void stop() {
+    inline void stop() noexcept {
 
       std::unique_lock<std::shared_mutex> lock( m_mutex );
       m_clear = true;
@@ -126,7 +126,7 @@ namespace vx {
      * @brief Is the timer running?
      * @return True, if the timer is running - otherwise false.
      */
-    [[nodiscard]] inline bool isRunning() const {
+    [[nodiscard]] inline bool isRunning() const noexcept {
 
       std::shared_lock<std::shared_mutex> lock( m_mutex );
       return !m_clear;

@@ -36,24 +36,24 @@
 /**
  * @brief vx (VX APPS) namespace.
  */
-namespace vx {
+namespace vx::exec {
 
   /**
    * @brief Overload for close.
    * @param _file   File handle to close.
    */
-  void close( std::FILE *_file );
+  void close( std::FILE *_file ) noexcept;
 
   /**
    * @brief Execute the external application and return the stdout output.
    * @param _command   Command to run.
    * @return Return the stdout output.
    */
-  std::string exec( const std::string &_command );
+  std::string run( const std::string &_command ) noexcept;
 
   /**
    * @brief Result   Exit code of the command.
    * @return The result code.
    */
-  [[nodiscard]] int resultCode();
+  [[nodiscard]] int resultCode() noexcept;
 }

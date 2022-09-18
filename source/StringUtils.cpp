@@ -43,33 +43,33 @@ namespace vx::string_utils {
   constexpr auto trimmed = " \t\n\r\f\v";
 
   std::string &trimRight( std::string &_string,
-                          std::string_view _trim ) {
+                          std::string_view _trim ) noexcept {
 
     _string.erase( _string.find_last_not_of( _trim.empty() ? trimmed : _trim ) + 1 );
     return _string;
   }
 
   std::string &trimLeft( std::string &_string,
-                         std::string_view _trim ) {
+                         std::string_view _trim ) noexcept {
 
     _string.erase( 0, _string.find_first_not_of( _trim.empty() ? trimmed : _trim ) );
     return _string;
   }
 
   std::string &trim( std::string &_string,
-                     std::string_view _trim ) {
+                     std::string_view _trim ) noexcept {
 
     return trimLeft( trimRight( _string, _trim.empty() ? trimmed : _trim ), _trim.empty() ? trimmed : _trim );
   }
 
   bool startsWith( std::string_view _string,
-                   std::string_view _start ) {
+                   std::string_view _start ) noexcept {
 
     return ( _string.rfind( _start, 0 ) == 0 );
   }
 
   bool endsWith( std::string_view _string,
-                 std::string_view _end ) {
+                 std::string_view _end ) noexcept {
 
     if ( _string.length() >= _end.length() ) {
 
@@ -78,9 +78,9 @@ namespace vx::string_utils {
     return false;
   }
 
-  constexpr bool BothAreSpaces( char lhs, char rhs ) { return ( lhs == rhs ) && ( lhs == ' ' ); }
+  constexpr bool BothAreSpaces( char lhs, char rhs ) noexcept { return ( lhs == rhs ) && ( lhs == ' ' ); }
 
-  std::string &simplified( std::string &_string ) {
+  std::string &simplified( std::string &_string ) noexcept {
 
     /* Replace every control with a space */
     std::replace( std::begin( _string ), std::end( _string ), '\t', ' ');
@@ -100,8 +100,8 @@ namespace vx::string_utils {
   }
 
   std::vector<std::string_view> tokenize( std::string_view _string,
-                                     std::string_view _separator,
-                                     Split _split ) {
+                                          std::string_view _separator,
+                                          Split _split ) noexcept {
 
     std::vector<std::string_view> result {};
 //    std::string split( _string );
@@ -134,14 +134,14 @@ namespace vx::string_utils {
     return result;
   }
 
-  std::string fromUnsignedChar( const unsigned char *_uchr ) {
+  std::string fromUnsignedChar( const unsigned char *_uchr ) noexcept {
 
     std::basic_string<unsigned char> result = _uchr;
     return { std::begin( result ), std::end( result ) };
   }
 
   std::string fromUnsignedChar( const unsigned char *_uchr,
-                                std::size_t _size ) {
+                                std::size_t _size ) noexcept {
 
     std::size_t size = _size;
     if ( !size ) {
@@ -152,7 +152,7 @@ namespace vx::string_utils {
   }
 
 #ifdef __APPLE__
-  std::string fromCFStringRef( CFStringRef _stringRef ) {
+  std::string fromCFStringRef( CFStringRef _stringRef ) noexcept {
 
     if ( const auto *fastCString = CFStringGetCStringPtr( _stringRef, kCFStringEncodingUTF8 ) ) {
 

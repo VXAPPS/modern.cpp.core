@@ -51,7 +51,11 @@ int main( int argc, char **argv ) {
   std::cout << "This is std::cout text." << std::endl;
   std::cerr << "This is std::cerr text." << std::endl;
 
-  fprintf( stderr, "This is fprintf( stderr ) text.\n" );
+  int result = fprintf( stderr, "This is fprintf( stderr ) text.\n" );
+  if ( !result ) {
+
+    std::cout << "Error writing to stderr with fprintf." << std::endl;
+  }
   printf( "This is printf text.\n" );
 
 #if __cplusplus > 201703L && ( defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1926 || defined __clang__ && __clang_major__ >= 10 )

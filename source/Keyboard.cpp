@@ -48,7 +48,7 @@
 
 namespace vx::keyboard {
 
-  bool isCapsLockActive() {
+  bool isCapsLockActive() noexcept {
 
     bool isActive = false;
 

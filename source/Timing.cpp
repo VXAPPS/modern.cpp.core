@@ -51,13 +51,13 @@ namespace vx {
   constexpr int timestampPrecision = 6;
 #endif
 
-  void Timing::start() {
+  void Timing::start() noexcept {
 
     m_start = std::chrono::high_resolution_clock::now();
     m_cpu = std::clock();
   }
 
-  void Timing::stop() const {
+  void Timing::stop() const noexcept {
 
     auto end = std::chrono::high_resolution_clock::now();
 

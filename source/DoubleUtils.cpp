@@ -47,7 +47,7 @@ namespace vx::double_utils {
 
   bool equal( double _left,
               double _right,
-              Equal _equal ) {
+              Equal _equal ) noexcept {
 
     /* Absolute */
     double factor = 1.0;
@@ -65,7 +65,7 @@ namespace vx::double_utils {
   bool less( double _left,
              double _right,
              bool _orEqual,
-             Equal _equal ) {
+             Equal _equal ) noexcept {
 
     if ( equal( _left, _right, _equal ) ) {
 
@@ -77,7 +77,7 @@ namespace vx::double_utils {
   bool greater( double _left,
                 double _right,
                 bool _orEqual,
-                Equal _equal ) {
+                Equal _equal ) noexcept {
 
     if ( equal( _left, _right, _equal ) ) {
 
@@ -90,19 +90,19 @@ namespace vx::double_utils {
                 double _min,
                 double _max,
                 bool _orEqual,
-                Equal _equal ) {
+                Equal _equal ) noexcept {
 
     return greater( _value, _min, _orEqual, _equal ) && less( _value, _max, _orEqual, _equal );
   }
 
   double round( double _value,
-                std::size_t _precision ) {
+                std::size_t _precision ) noexcept {
 
     const double factor = _precision != 0 ? std::pow( precisionBase, _precision ) : 1;
     return std::floor( _value * factor + roundBase ) / factor;
   }
 
-  std::pair<double, double> split( double _value ) {
+  std::pair<double, double> split( double _value ) noexcept {
 
     double integral = 0.0;
     const double fraction = std::modf( _value, &integral );

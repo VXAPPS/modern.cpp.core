@@ -60,7 +60,7 @@ namespace vx::double_utils {
    */
   [[nodiscard]] bool equal( double _left,
                             double _right,
-                            Equal _equal = Equal::Absolute );
+                            Equal _equal = Equal::Absolute ) noexcept;
 
   /**
    * @brief Is _left less than _right or _orEqual?
@@ -74,7 +74,7 @@ namespace vx::double_utils {
   [[nodiscard]] bool less( double _left,
                            double _right,
                            bool _orEqual = false,
-                           Equal _equal = Equal::Absolute );
+                           Equal _equal = Equal::Absolute ) noexcept;
 
   /**
    * @brief Is _left greater than _right or _orEqual?
@@ -88,7 +88,7 @@ namespace vx::double_utils {
   [[nodiscard]] bool greater( double _left,
                               double _right,
                               bool _orEqual = false,
-                              Equal _equal = Equal::Absolute );
+                              Equal _equal = Equal::Absolute ) noexcept;
 
   /**
    * @brief Is _value between _min and _max or _orEqual.
@@ -103,7 +103,7 @@ namespace vx::double_utils {
                               double _min,
                               double _max,
                               bool _orEqual = false,
-                              Equal _equal = Equal::Absolute );
+                              Equal _equal = Equal::Absolute ) noexcept;
 
   /**
    * @brief Round a double _value by _precision. Rounded by default to two decimal places.
@@ -112,12 +112,12 @@ namespace vx::double_utils {
    * @return The rounded value.
    */
   [[nodiscard]] double round( double _value,
-                              std::size_t _precision = 2 );
+                              std::size_t _precision = 2 ) noexcept;
 
   /**
    * @brief Split a double _value to its integer and decimal places.
    * @param _value   Value to split.
    * @return The integer and decimal places.
    */
-  [[nodiscard]] std::pair<double, double> split( double _value );
+  [[nodiscard]] std::pair<double, double> split( double _value ) noexcept;
 }

@@ -44,7 +44,7 @@ namespace vx {
   constexpr unsigned int sgxLeaf = 18; // 0x12
 
   CPU::CPU( unsigned int _leaf,
-            unsigned int _subleaf ) {
+            unsigned int _subleaf ) noexcept {
 
     updateNativeId( sgxLeaf, 0 );
     m_sgxLeaf = m_currentLeaf;
@@ -56,7 +56,7 @@ namespace vx {
   }
 
   void CPU::updateNativeId( [[maybe_unused]] unsigned int _leaf,
-                            [[maybe_unused]] unsigned int _subleaf ) {
+                            [[maybe_unused]] unsigned int _subleaf ) noexcept {
 
 #ifdef _MSC_VER
     std::array<int, 4> currentLeaf {};

@@ -39,5 +39,5 @@ namespace vx::keyboard {
    * @brief Check the caps lock state.
    * @return True, if caps lock is active - otherwise false.
    */
-  [[nodiscard]] bool isCapsLockActive();
+  [[nodiscard]] bool isCapsLockActive() noexcept;
 }

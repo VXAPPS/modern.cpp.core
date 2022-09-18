@@ -60,7 +60,7 @@ namespace vx::string_utils {
    * @return Right trimmed string.
    */
   std::string &trimRight( std::string &_string,
-                          std::string_view _trim = {} );
+                          std::string_view _trim = {} ) noexcept;
 
   /**
    * @brief Trim from beginning of string (left).
@@ -70,7 +70,7 @@ namespace vx::string_utils {
    * @return Left trimmed string.
    */
   std::string &trimLeft( std::string &_string,
-                         std::string_view _trim = {} );
+                         std::string_view _trim = {} ) noexcept;
 
   /**
    * @brief Trim from both ends of string (right then left).
@@ -80,7 +80,7 @@ namespace vx::string_utils {
    * @return Both ends trimmed string.
    */
   std::string &trim( std::string &_string,
-                     std::string_view _trim = {} );
+                     std::string_view _trim = {} ) noexcept;
 
   /**
    * @brief Check if string starts with start.
@@ -89,7 +89,7 @@ namespace vx::string_utils {
    * @return True, if string starts with start - otherwise false.
    */
   [[nodiscard]] bool startsWith( std::string_view _string,
-                                 std::string_view _start );
+                                 std::string_view _start ) noexcept;
 
   /**
    * @brief Check if string ends with start.
@@ -98,7 +98,7 @@ namespace vx::string_utils {
    * @return True, if string ends with end - otherwise false.
    */
   [[nodiscard]] bool endsWith( std::string_view _string,
-                               std::string_view _end );
+                               std::string_view _end ) noexcept;
 
   /**
    * @brief Simplify a string.
@@ -106,7 +106,7 @@ namespace vx::string_utils {
    * Default: Space, tabs, return, new line and form feed.
    * @return Simplified string.
    */
-  std::string &simplified( std::string &_string );
+  std::string &simplified( std::string &_string ) noexcept;
 
   /**
    * @brief Tokenize string by separator.
@@ -117,14 +117,14 @@ namespace vx::string_utils {
    */
   std::vector<std::string_view> tokenize( std::string_view _string,
                                           std::string_view _separator,
-                                          Split _split = Split::SkipEmpty );
+                                          Split _split = Split::SkipEmpty ) noexcept;
 
   /**
    * @brief Returns standard string from unsigned char.
    * @param _uchr   Unsigned char pointer.
    * @return Standard string from unsigned char.
    */
-  [[nodiscard]] std::string fromUnsignedChar( const unsigned char *_uchr );
+  [[nodiscard]] std::string fromUnsignedChar( const unsigned char *_uchr ) noexcept;
 
   /**
    * @brief Returns standard string from unsigned char.
@@ -134,7 +134,7 @@ namespace vx::string_utils {
    * @note This function will use reinterpret_cast if _size is empty.
    */
   [[nodiscard]] std::string fromUnsignedChar( const unsigned char *_uchr,
-                                              std::size_t _size );
+                                              std::size_t _size ) noexcept;
 
 #ifdef __APPLE__
   /**
@@ -142,6 +142,6 @@ namespace vx::string_utils {
    * @param _stringRef   CFStringRef input.
    * @return Standard string from CFStringRef.
    */
-  std::string fromCFStringRef( CFStringRef _stringRef );
+  std::string fromCFStringRef( CFStringRef _stringRef ) noexcept;
 #endif
 }

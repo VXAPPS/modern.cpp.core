@@ -70,7 +70,7 @@ namespace vx {
      */
     template<typename T>
     void addRowData( T _first,
-                     T _last ) const {
+                     T _last ) const noexcept {
 
       std::ofstream file {};
       file.open( m_filename, std::ios::app );

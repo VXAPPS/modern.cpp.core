@@ -57,24 +57,24 @@ namespace vx {
     /**
      * @brief Start the internal timer or reset.
      */
-    void start();
+    void start() noexcept;
 
     /**
      * @brief Stop the internal timer and output to stdout.
      */
-    void stop() const;
+    void stop() const noexcept;
 
     /**
      * @brief The name of timed action for the output display.
      * @param _action   The name of the action.
      */
-    inline void setAction( std::string_view _action ) { m_action = _action; }
+    inline void setAction( std::string_view _action ) noexcept { m_action = _action; }
 
     /**
      * @brief The name of timed action for the output display.
      * @return The name of the action.
      */
-    [[nodiscard]] inline std::string_view action() const { return m_action; }
+    [[nodiscard]] inline std::string_view action() const noexcept { return m_action; }
 
   private:
     /**
