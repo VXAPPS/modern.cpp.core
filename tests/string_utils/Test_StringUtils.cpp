@@ -44,11 +44,12 @@
 #ifdef __clang__
   #pragma clang diagnostic pop
 #endif
-using ::testing::InitGoogleTest;
-using ::testing::Test;
 
 /* modern.cpp.core */
 #include <StringUtils.h>
+
+using ::testing::InitGoogleTest;
+using ::testing::Test;
 
 #ifdef __clang__
   #pragma clang diagnostic push

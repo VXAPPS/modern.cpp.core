@@ -104,7 +104,6 @@ namespace vx::string_utils {
                                           Split _split ) noexcept {
 
     std::vector<std::string_view> result {};
-//    std::string split( _string );
     std::string_view split = _string;
     std::size_t startPos = 0;
     std::size_t endPos = split.find( _separator );
@@ -146,7 +145,12 @@ namespace vx::string_utils {
     std::size_t size = _size;
     if ( !size ) {
 
-      size = strlen( reinterpret_cast<const char*>( _uchr ) );
+      std::basic_string<unsigned char> result = _uchr;
+#ifdef _MSC_VER
+      size = strnlen_s( reinterpret_cast<const char*>( _uchr ), result.size() );
+#else
+      size = strnlen( reinterpret_cast<const char*>( _uchr ), result.size() );
+#endif
     }
     return { _uchr, _uchr + size };
   }
