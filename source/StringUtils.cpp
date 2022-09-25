@@ -89,7 +89,7 @@ namespace vx::string_utils {
     std::replace( std::begin( _string ), std::end( _string ), '\v', ' ' );
 
     /* Normalize spaces to just one */
-    std::string::iterator new_end = std::unique( std::begin( _string ), std::end( _string ), BothAreSpaces );
+    const std::string::iterator new_end = std::unique( std::begin( _string ), std::end( _string ), BothAreSpaces );
     _string.erase( new_end, std::end( _string ) );
 
     /* Trim */
@@ -104,11 +104,11 @@ namespace vx::string_utils {
 
     std::vector<std::string_view> result {};
     std::string_view split = _string;
-    std::size_t startPos = 0;
+    const std::size_t startPos = 0;
     std::size_t endPos = split.find( _separator );
     while ( endPos != std::string::npos ) {
 
-      std::string_view word = split.substr( startPos, endPos - startPos );
+      const std::string_view word = split.substr( startPos, endPos - startPos );
       if ( _split == Split::SkipEmpty && word.empty() ) {
 
         /* Nothing to do here */
@@ -144,7 +144,7 @@ namespace vx::string_utils {
     std::size_t size = _size;
     if ( !size ) {
 
-      std::basic_string<unsigned char> result = _uchr;
+      const std::basic_string<unsigned char> result = _uchr;
 #ifdef _MSC_VER
       size = strnlen_s( reinterpret_cast<const char*>( _uchr ), result.size() );
 #else

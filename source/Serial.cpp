@@ -140,10 +140,10 @@ namespace vx {
 
   bool Serial::flush() const {
 
-    std::chrono::milliseconds startTimestampMs = timestampMs();
+    const std::chrono::milliseconds startTimestampMs = timestampMs();
     while ( timestampMs().count() - startTimestampMs.count() < flushDurationMs ) {
 
-      std::string result = read();
+      const std::string result = read();
       if ( result.empty() ) {
 
 #if __has_include(<LoggerFactory.h>)

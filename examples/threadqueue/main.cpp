@@ -67,13 +67,13 @@ int main() {
 
   vx::SharedQueue<std::unique_ptr<Item>> queue {};
 
-  unsigned int threadCount = std::max<unsigned int>( 1, std::thread::hardware_concurrency() );
+  const unsigned int threadCount = std::max<unsigned int>( 1, std::thread::hardware_concurrency() );
   std::vector<std::thread> threads {};
   threads.reserve( threadCount );
 
   for ( unsigned int i = 0; i < threadCount; ++i ) {
 
-    threads.emplace_back( std::thread( process, std::ref( queue ), i ) );
+    threads.emplace_back( process, std::ref( queue ), i );
   }
 
   auto intervallTimer = vx::Timer();

@@ -64,9 +64,9 @@ namespace vx::exec {
     std::array<char, bufferSize> buffer {};
     std::string result;
 #ifdef _MSC_VER
-    std::unique_ptr<FILE, decltype( &close )> pipe( _popen( _command.c_str(), "r" ), &close );
+    const std::unique_ptr<FILE, decltype( &close )> pipe( _popen( _command.c_str(), "r" ), &close );
 #else
-    std::unique_ptr<std::FILE, decltype( &close )> pipe( popen( _command.c_str(), "r" ), &close );
+    const std::unique_ptr<std::FILE, decltype( &close )> pipe( popen( _command.c_str(), "r" ), &close );
 #endif
     if ( !pipe ) {
 
