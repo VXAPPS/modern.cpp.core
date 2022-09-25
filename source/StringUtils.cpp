@@ -33,9 +33,20 @@
 
 /* stl header */
 #include <algorithm>
+#if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929  || defined __clang__ && __clang_major__ >= 15
+  #include <ranges>
+#endif
 
 /* local header */
 #include "StringUtils.h"
+
+#if defined _MSC_VER && _MSC_VER < 1920
+namespace std {
+
+  using ::tolower;
+  using ::toupper;
+}
+#endif
 
 namespace vx::string_utils {
 
@@ -61,6 +72,26 @@ namespace vx::string_utils {
     return trimLeft( trimRight( _string, _trim.empty() ? trimmed : _trim ), _trim.empty() ? trimmed : _trim );
   }
 
+  std::string &toLower( std::string &_string ) noexcept {
+
+#if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
+    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return std::tolower( chr ); } );
+#else
+    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return std::tolower( chr ); } );
+#endif
+    return _string;
+  }
+
+  std::string &toUpper( std::string &_string ) noexcept {
+
+#if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
+    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return std::toupper( chr ); } );
+#else
+    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return std::toupper( chr ); } );
+#endif
+    return _string;
+  }
+
   bool startsWith( std::string_view _string,
                    std::string_view _start ) noexcept {
 
@@ -77,7 +108,8 @@ namespace vx::string_utils {
     return false;
   }
 
-  constexpr bool BothAreSpaces( char lhs, char rhs ) noexcept { return ( lhs == rhs ) && ( lhs == ' ' ); }
+  constexpr bool bothAreSpaces( char lhs,
+                                char rhs ) noexcept { return ( lhs == rhs ) && ( lhs == ' ' ); }
 
   std::string &simplified( std::string &_string ) noexcept {
 
@@ -89,8 +121,8 @@ namespace vx::string_utils {
     std::replace( std::begin( _string ), std::end( _string ), '\v', ' ' );
 
     /* Normalize spaces to just one */
-    const std::string::iterator new_end = std::unique( std::begin( _string ), std::end( _string ), BothAreSpaces );
-    _string.erase( new_end, std::end( _string ) );
+    const std::string::iterator newEnd = std::unique( std::begin( _string ), std::end( _string ), bothAreSpaces );
+    _string.erase( newEnd, std::end( _string ) );
 
     /* Trim */
     trim( _string );
@@ -106,7 +138,7 @@ namespace vx::string_utils {
     std::string_view split = _string;
     const std::size_t startPos = 0;
     std::size_t endPos = split.find( _separator );
-    while ( endPos != std::string::npos ) {
+    while ( endPos != std::string_view::npos ) {
 
       const std::string_view word = split.substr( startPos, endPos - startPos );
       if ( _split == Split::SkipEmpty && word.empty() ) {
@@ -145,7 +177,7 @@ namespace vx::string_utils {
     if ( !size ) {
 
       const std::basic_string<unsigned char> result = _uchr;
-#ifdef _MSC_VER
+#ifdef _WIN32
       size = strnlen_s( reinterpret_cast<const char*>( _uchr ), result.size() );
 #else
       size = strnlen( reinterpret_cast<const char*>( _uchr ), result.size() );

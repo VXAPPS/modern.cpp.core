@@ -78,6 +78,20 @@ namespace vx {
     EXPECT_EQ( source, "The answer is 42." );
   }
 
+  TEST( StringUtils, ToLower ) {
+
+    std::string source = "The answer is 42.";
+    EXPECT_EQ( string_utils::toLower( source ), "the answer is 42." );
+    EXPECT_EQ( source, "the answer is 42." );
+  }
+
+  TEST( StringUtils, ToUpper ) {
+
+    std::string source = "The answer is 42.";
+    EXPECT_EQ( string_utils::toUpper( source ), "THE ANSWER IS 42." );
+    EXPECT_EQ( source, "THE ANSWER IS 42." );
+  }
+
   TEST( StringUtils, StartsWith ) {
 
     std::string source = "The answer is 42.";

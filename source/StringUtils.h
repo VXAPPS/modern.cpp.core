@@ -83,6 +83,20 @@ namespace vx::string_utils {
                      std::string_view _trim = {} ) noexcept;
 
   /**
+   * @brief Lowercase the string.
+   * @param _string   String to lower.
+   * @return Lowercased string.
+   */
+  std::string &toLower( std::string &_string ) noexcept;
+
+  /**
+   * @brief Uppercase the string.
+   * @param _string   String to upper.
+   * @return Uppercased string.
+   */
+  std::string &toUpper( std::string &_string ) noexcept;
+
+  /**
    * @brief Check if string starts with start.
    * @param _string   String to check.
    * @param _start   Start check.
