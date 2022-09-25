@@ -76,9 +76,9 @@ namespace vx::string_utils {
   std::string &toLower( std::string &_string ) noexcept {
 
 #if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
-    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return std::tolower( static_cast<int>( chr ) ); } );
+    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return static_cast<char>( std::tolower( chr ) ); } );
 #else
-    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return std::tolower( static_cast<int>( chr ) ); } );
+    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return static_cast<char>( std::tolower( chr ) ); } );
 #endif
     return _string;
   }
@@ -86,9 +86,9 @@ namespace vx::string_utils {
   std::string &toUpper( std::string &_string ) noexcept {
 
 #if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
-    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return std::toupper( static_cast<int>( chr ) ); } );
+    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return static_cast<char>( std::toupper( chr ) ); } );
 #else
-    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return std::toupper( static_cast<int>( chr ) ); } );
+    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return static_cast<char>( std::toupper( chr ) ); } );
 #endif
     return _string;
   }
