@@ -134,6 +134,13 @@ namespace vx::string_utils {
                                           Split _split = Split::SkipEmpty ) noexcept;
 
   /**
+   * @brief Returns hex from string.
+   * @param _string   Input string.
+   * @return In hex converted string.
+   */
+  [[nodiscard]] std::string toHex( std::string_view _string ) noexcept;
+
+  /**
    * @brief Returns standard string from unsigned char.
    * @param _uchr   Unsigned char pointer.
    * @return Standard string from unsigned char.

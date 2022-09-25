@@ -36,6 +36,7 @@
 #if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929  || defined __clang__ && __clang_major__ >= 15
   #include <ranges>
 #endif
+#include <sstream>
 
 /* local header */
 #include "StringUtils.h"
@@ -75,9 +76,9 @@ namespace vx::string_utils {
   std::string &toLower( std::string &_string ) noexcept {
 
 #if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
-    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return std::tolower( chr ); } );
+    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return std::tolower( static_cast<int>( chr ) ); } );
 #else
-    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return std::tolower( chr ); } );
+    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return std::tolower( static_cast<int>( chr ) ); } );
 #endif
     return _string;
   }
@@ -85,9 +86,9 @@ namespace vx::string_utils {
   std::string &toUpper( std::string &_string ) noexcept {
 
 #if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
-    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return std::toupper( chr ); } );
+    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return std::toupper( static_cast<int>( chr ) ); } );
 #else
-    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return std::toupper( chr ); } );
+    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return std::toupper( static_cast<int>( chr ) ); } );
 #endif
     return _string;
   }
@@ -162,6 +163,16 @@ namespace vx::string_utils {
       result.push_back( split );
     }
     return result;
+  }
+
+  std::string toHex( std::string_view _string ) noexcept {
+
+    std::stringstream result;
+    for ( const auto &chr : _string ) {
+
+      result << std::hex << static_cast<int>( chr );
+    }
+    return result.str();
   }
 
   std::string fromUnsignedChar( const unsigned char *_uchr ) noexcept {
