@@ -28,15 +28,15 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* apple header */
-#ifdef __APPLE__
-  #include <CoreFoundation/CoreFoundation.h>
-#endif
-
 /* stl header */
 #include <string>
 #include <string_view>
 #include <vector>
+
+/* apple header */
+#ifdef __APPLE__
+  #include <CoreFoundation/CoreFoundation.h>
+#endif
 
 /**
  * @brief vx (VX APPS) namespace.

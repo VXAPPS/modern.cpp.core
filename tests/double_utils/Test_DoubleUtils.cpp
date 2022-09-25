@@ -44,12 +44,12 @@
 #ifdef __clang__
   #pragma clang diagnostic pop
 #endif
-using ::testing::InitGoogleTest;
-using ::testing::Test;
 
 /* modern.cpp.core */
 #include <DoubleUtils.h>
-#include <cmath>
+
+using ::testing::InitGoogleTest;
+using ::testing::Test;
 
 #ifdef __clang__
   #pragma clang diagnostic push
