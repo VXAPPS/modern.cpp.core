@@ -118,28 +118,19 @@ namespace vx {
 
     std::string source = "The answer is 42.";
     std::vector<std::string_view> tokenized = string_utils::tokenize( source, " " );
-    EXPECT_EQ( tokenized.size(), 4U );
-    EXPECT_EQ( tokenized[ 0 ], "The" );
-    EXPECT_EQ( tokenized[ 1 ], "answer" );
-    EXPECT_EQ( tokenized[ 2 ], "is" );
-    EXPECT_EQ( tokenized[ 3 ], "42." );
+    std::vector<std::string_view> expected = { "The", "answer", "is", "42." };
+    EXPECT_EQ( tokenized.size(), expected.size() );
+    EXPECT_EQ( tokenized, expected );
 
     source = " The answer is 42. ";
     tokenized = string_utils::tokenize( source, " ", string_utils::Split::SkipEmpty );
-    EXPECT_EQ( tokenized.size(), 4U );
-    EXPECT_EQ( tokenized[ 0 ], "The" );
-    EXPECT_EQ( tokenized[ 1 ], "answer" );
-    EXPECT_EQ( tokenized[ 2 ], "is" );
-    EXPECT_EQ( tokenized[ 3 ], "42." );
+    EXPECT_EQ( tokenized.size(), expected.size() );
+    EXPECT_EQ( tokenized, expected );
 
     tokenized = string_utils::tokenize( source, " ", string_utils::Split::KeepEmpty );
-    EXPECT_EQ( tokenized.size(), 6U );
-    EXPECT_EQ( tokenized[ 0 ], "" );
-    EXPECT_EQ( tokenized[ 1 ], "The" );
-    EXPECT_EQ( tokenized[ 2 ], "answer" );
-    EXPECT_EQ( tokenized[ 3 ], "is" );
-    EXPECT_EQ( tokenized[ 4 ], "42." );
-    EXPECT_EQ( tokenized[ 5 ], "" );
+    expected = { "", "The", "answer", "is", "42.", "" };
+    EXPECT_EQ( tokenized.size(), expected.size() );
+    EXPECT_EQ( tokenized, expected );
   }
 
   TEST( StringUtils, FromUnsignedChar ) {

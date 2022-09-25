@@ -118,7 +118,7 @@ namespace vx {
      */
     inline void stop() noexcept {
 
-      std::unique_lock<std::shared_mutex> lock( m_mutex );
+      const std::unique_lock<std::shared_mutex> lock( m_mutex );
       m_clear = true;
     }
 
@@ -128,7 +128,7 @@ namespace vx {
      */
     [[nodiscard]] inline bool isRunning() const noexcept {
 
-      std::shared_lock<std::shared_mutex> lock( m_mutex );
+      const std::shared_lock<std::shared_mutex> lock( m_mutex );
       return !m_clear;
     }
 

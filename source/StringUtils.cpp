@@ -33,7 +33,6 @@
 
 /* stl header */
 #include <algorithm>
-#include <iostream>
 
 /* local header */
 #include "StringUtils.h"
@@ -83,14 +82,14 @@ namespace vx::string_utils {
   std::string &simplified( std::string &_string ) noexcept {
 
     /* Replace every control with a space */
-    std::replace( std::begin( _string ), std::end( _string ), '\t', ' ');
-    std::replace( std::begin( _string ), std::end( _string ), '\n', ' ');
-    std::replace( std::begin( _string ), std::end( _string ), '\r', ' ');
-    std::replace( std::begin( _string ), std::end( _string ), '\f', ' ');
-    std::replace( std::begin( _string ), std::end( _string ), '\v', ' ');
+    std::replace( std::begin( _string ), std::end( _string ), '\t', ' ' );
+    std::replace( std::begin( _string ), std::end( _string ), '\n', ' ' );
+    std::replace( std::begin( _string ), std::end( _string ), '\r', ' ' );
+    std::replace( std::begin( _string ), std::end( _string ), '\f', ' ' );
+    std::replace( std::begin( _string ), std::end( _string ), '\v', ' ' );
 
     /* Normalize spaces to just one */
-    std::string::iterator new_end = std::unique( std::begin( _string ), std::end( _string ), BothAreSpaces);
+    std::string::iterator new_end = std::unique( std::begin( _string ), std::end( _string ), BothAreSpaces );
     _string.erase( new_end, std::end( _string ) );
 
     /* Trim */
@@ -104,7 +103,6 @@ namespace vx::string_utils {
                                           Split _split ) noexcept {
 
     std::vector<std::string_view> result {};
-//    std::string split( _string );
     std::string_view split = _string;
     std::size_t startPos = 0;
     std::size_t endPos = split.find( _separator );
@@ -146,7 +144,7 @@ namespace vx::string_utils {
     std::size_t size = _size;
     if ( !size ) {
 
-      size = strlen( reinterpret_cast<const char*>( _uchr ) );
+      size = strlen( reinterpret_cast<const char *>( _uchr ) );
     }
     return { _uchr, _uchr + size };
   }
