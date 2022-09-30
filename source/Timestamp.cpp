@@ -29,50 +29,60 @@
  */
 
 /* stl header */
+#include <chrono>
 #include <iomanip>
+#include <iostream>
 #include <sstream>
-
-/* modern.cpp.logger */
-#if __has_include( <LoggerFactory.h>)
-  #include <LoggerFactory.h>
-#else
-  #include <iostream>
-#endif
 
 /* local header */
 #include "Timestamp.h"
-#include "Timing.h"
 
 namespace vx {
 
-  /** Multiplier from nanoseconds to milliseconds to seconds and vice versa. */
-  constexpr double multiplier = 1000.0;
+  std::string timestampIso8601( Precision _precision ) noexcept {
 
-  void Timing::start() noexcept {
+    (void)_precision;
 
-    m_start = std::chrono::high_resolution_clock::now();
-    m_cpu = std::clock();
-  }
+    /* get a precise timestamp as a string */
+    struct std::tm currentLocalTime {};
 
-  void Timing::stop() const noexcept {
+    const auto now = std::chrono::system_clock::now();
+    const auto nowAsTimeT = std::chrono::system_clock::to_time_t( now );
+    const auto nowMilli = std::chrono::duration_cast<std::chrono::milliseconds>( now.time_since_epoch() ) % 1000;
+    const auto nowMicro = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch() ) % 1000000;
+    const auto nowNano = std::chrono::duration_cast<std::chrono::nanoseconds>( now.time_since_epoch() ) % 1000000000;
 
-    auto end = std::chrono::high_resolution_clock::now();
-
-    std::stringstream realTime;
-    realTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::chrono::duration_cast<std::chrono::nanoseconds>( end - m_start ).count() ) / multiplier / multiplier;
-
-    std::stringstream cpuTime;
-    cpuTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::clock() - m_cpu ) / static_cast<double>( CLOCKS_PER_SEC ) * multiplier;
-
-#if __has_include( <LoggerFactory.h>)
-    LogVerbose( "------ " + m_action );
-    LogVerbose( "Real Time: " + realTime.str() + " ms" );
-    LogVerbose( "CPU Time: " + cpuTime.str() + " ms" );
+#ifdef _WIN32
+    localtime_s( &currentLocalTime, &nowAsTimeT );
 #else
-    std::cout << "------ " << m_action << std::endl;
-    std::cout << "Timestamp: " << timestampIso8601( Precision::MicroSeconds ) << std::endl;
-    std::cout << "Real Time: " << realTime.str() << " ms" << std::endl;
-    std::cout << "CPU Time: " << cpuTime.str() << " ms" << std::endl;
+    localtime_r( &nowAsTimeT, &currentLocalTime );
 #endif
+
+    std::ostringstream nowSs;
+    nowSs << std::put_time( &currentLocalTime, "%Y-%m-%dT%T" );
+    if ( _precision != Precision::Seconds ) {
+
+      nowSs << '.' << std::setfill( '0' ) << std::setw( static_cast<int>( _precision ) );
+      switch ( _precision ) {
+
+        case Precision::MilliSeconds:
+          nowSs << nowMilli.count();
+          break;
+        case Precision::MicroSeconds:
+          nowSs << nowMicro.count();
+          break;
+        case Precision::NanoSeconds:
+          nowSs << nowNano.count();
+          break;
+        case Precision::Seconds:
+          break;
+      }
+    }
+    nowSs << std::put_time( &currentLocalTime, "%z" );
+
+    std::string result = nowSs.str();
+    /* somewhat special - maybe see systemtimeformatter */
+    result.replace( result.end() - 2, result.end() - 2, ":" );
+    return result;
   }
 }

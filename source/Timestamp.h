@@ -28,51 +28,32 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#pragma once
+
 /* stl header */
-#include <iomanip>
-#include <sstream>
+#include <string>
 
-/* modern.cpp.logger */
-#if __has_include( <LoggerFactory.h>)
-  #include <LoggerFactory.h>
-#else
-  #include <iostream>
-#endif
-
-/* local header */
-#include "Timestamp.h"
-#include "Timing.h"
-
+/**
+ * @brief vx (VX APPS) namespace.
+ */
 namespace vx {
 
-  /** Multiplier from nanoseconds to milliseconds to seconds and vice versa. */
-  constexpr double multiplier = 1000.0;
+  /**
+   * @brief The Precision enum.
+   */
+  enum class Precision {
 
-  void Timing::start() noexcept {
+    Seconds = 0,      /**< std::chrono::seconds */
+    MilliSeconds = 3, /**< std::chrono::milliseconds */
+    MicroSeconds = 6, /**< std::chrono::microseconds */
+    NanoSeconds = 9   /**< std::chrono::nanoseconds */
+  };
 
-    m_start = std::chrono::high_resolution_clock::now();
-    m_cpu = std::clock();
-  }
-
-  void Timing::stop() const noexcept {
-
-    auto end = std::chrono::high_resolution_clock::now();
-
-    std::stringstream realTime;
-    realTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::chrono::duration_cast<std::chrono::nanoseconds>( end - m_start ).count() ) / multiplier / multiplier;
-
-    std::stringstream cpuTime;
-    cpuTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::clock() - m_cpu ) / static_cast<double>( CLOCKS_PER_SEC ) * multiplier;
-
-#if __has_include( <LoggerFactory.h>)
-    LogVerbose( "------ " + m_action );
-    LogVerbose( "Real Time: " + realTime.str() + " ms" );
-    LogVerbose( "CPU Time: " + cpuTime.str() + " ms" );
-#else
-    std::cout << "------ " << m_action << std::endl;
-    std::cout << "Timestamp: " << timestampIso8601( Precision::MicroSeconds ) << std::endl;
-    std::cout << "Real Time: " << realTime.str() << " ms" << std::endl;
-    std::cout << "CPU Time: " << cpuTime.str() << " ms" << std::endl;
-#endif
-  }
+  /**
+   * @brief Create thread-safe timestamp.
+   * @param _precision   Precision of decimal fraction of a second.
+   * @return Timestamp as 'Y-m-dThh:mm:ss.xxxxxx'
+   * @note https://www.w3.org/TR/NOTE-datetime
+   */
+  [[nodiscard]] std::string timestampIso8601( Precision _precision = Precision::Seconds ) noexcept;
 }

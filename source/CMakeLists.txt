@@ -47,6 +47,8 @@ add_library(${PROJECT_NAME}
   Keyboard.h
   StringUtils.cpp
   StringUtils.h
+  Timestamp.cpp
+  Timestamp.h
   Timing.cpp
   Timing.h
   templates/CSVWriter.h
