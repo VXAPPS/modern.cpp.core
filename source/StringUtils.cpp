@@ -177,12 +177,18 @@ namespace vx::string_utils {
 
   std::string fromUnsignedChar( const unsigned char *_uchr ) noexcept {
 
+    /* nullptr check is mandatory */
+    if ( !_uchr ) { return {}; }
+
     std::basic_string<unsigned char> result = _uchr;
     return { std::begin( result ), std::end( result ) };
   }
 
   std::string fromUnsignedChar( const unsigned char *_uchr,
                                 std::size_t _size ) noexcept {
+
+    /* nullptr check is mandatory */
+    if ( !_uchr ) { return {}; }
 
     std::size_t size = _size;
     if ( !size ) {

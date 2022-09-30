@@ -164,6 +164,14 @@ namespace vx {
     EXPECT_EQ( string_utils::fromUnsignedChar( chrPointer, 17 ), "The answer is 42." );
     EXPECT_EQ( string_utils::fromUnsignedChar( chrPointer, 10 ), "The answer" );
     EXPECT_NE( string_utils::fromUnsignedChar( chrPointer, 5 ), "The answer is 42." );
+
+    /* Wrong size check - more than expected. */
+    EXPECT_NE( string_utils::fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
+
+    /* nullptr unsigned char */
+    const unsigned char *chrPointerNull = nullptr;
+    EXPECT_EQ( string_utils::fromUnsignedChar( chrPointerNull ), "" );
+    EXPECT_EQ( string_utils::fromUnsignedChar( chrPointerNull, 0 ), "" );
   }
 }
 #ifdef __clang__
