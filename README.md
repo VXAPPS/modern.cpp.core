@@ -16,6 +16,7 @@ make -j`nproc`
 - **Keyboard** - Check for caps lock state.
 - **Serial** - Serial communication class (Not for Windows).
 - **StringUtils** - TrimLeft, TrimRight, Trim, StartsWith, EndsWith, Tokenize, Simplified.
+- **Timestamp** - ISO 8601 timestamp.
 - **Timing** - Measuring time, cpu and real time.
 
 ## Template classes

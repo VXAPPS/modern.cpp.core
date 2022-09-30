@@ -129,11 +129,3 @@ set(CMAKE_MODULE_PATH ${CMAKE}/modules)
 include(${CMAKE}/create_package.cmake)
 include(${CMAKE}/doxygen.cmake)
 include(${CMAKE}/find_package.cmake)
-
-# Fetch Content Dependencies
-include(${CMAKE}/fetch/magic_enum.cmake)
-
-# External Project Dependencies
-if(CORE_BUILD_TESTS)
-  include(${CMAKE}/external/googletest.cmake)
-endif()

@@ -62,7 +62,7 @@ namespace vx::exec {
   std::string run( const std::string &_command ) noexcept {
 
     std::array<char, bufferSize> buffer {};
-    std::string result;
+    std::string result {};
 #ifdef _MSC_VER
     const std::unique_ptr<FILE, decltype( &close )> pipe( _popen( _command.c_str(), "r" ), &close );
 #else
