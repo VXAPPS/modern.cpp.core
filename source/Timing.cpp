@@ -45,6 +45,8 @@
 
 namespace vx {
 
+  using timestamp::Precision;
+
   /** Multiplier from nanoseconds to milliseconds to seconds and vice versa. */
   constexpr double multiplier = 1000.0;
 
@@ -70,7 +72,7 @@ namespace vx {
     LogVerbose( "CPU Time: " + cpuTime.str() + " ms" );
 #else
     std::cout << "------ " << m_action << std::endl;
-    std::cout << "Timestamp: " << timestampIso8601( Precision::MicroSeconds ) << std::endl;
+    std::cout << "Timestamp: " << timestamp::iso8601( Precision::MicroSeconds ) << std::endl;
     std::cout << "Real Time: " << realTime.str() << " ms" << std::endl;
     std::cout << "CPU Time: " << cpuTime.str() << " ms" << std::endl;
 #endif

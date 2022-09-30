@@ -31,7 +31,7 @@
 /* stl header */
 #include <iostream>
 
-/* modern.cpp.core header */
+/* modern.cpp.core */
 #include <CPU.h>
 
 /** SGX information leaf. */
@@ -43,7 +43,7 @@ constexpr unsigned int maximumSubLeafs = 10;
 int main() {
 
   vx::CPU cpu;
-  std::cout << std::hex << cpu.eax() << " " << cpu.ebx() << " " << cpu.ecx() << " " << cpu.edx() << " " << std::dec <<  std::endl;
+  std::cout << std::hex << cpu.eax() << " " << cpu.ebx() << " " << cpu.ecx() << " " << cpu.edx() << " " << std::dec << std::endl;
 
   std::cout << "Stepping: " << cpu.stepping() << std::endl;
   std::cout << "Model: " << cpu.model() << std::endl;
@@ -54,12 +54,14 @@ int main() {
 
   std::cout << "SMX support: " << cpu.smxSupport() << std::endl;
 
-  std::cout << std::endl << "Extended features" << std::endl;
+  std::cout << std::endl
+            << "Extended features" << std::endl;
 
   std::cout << "SGX support: " << cpu.sgxSupport() << std::endl;
   std::cout << "SGX launch control support: " << cpu.sgxLaunchControlSupport() << std::endl;
 
-  std::cout << std::endl << "SGX features" << std::endl;
+  std::cout << std::endl
+            << "SGX features" << std::endl;
 
   std::cout << "SGX version 1 support: " << cpu.sgxVersion1Support() << std::endl;
   std::cout << "SGX version 2 support: " << cpu.sgxVersion2Support() << std::endl;
@@ -68,7 +70,8 @@ int main() {
 
   for ( unsigned int i = 1; i < maximumSubLeafs; i++ ) {
 
-    std::cout << std::endl << "SGX subleaf " << i << std::endl;
+    std::cout << std::endl
+              << "SGX subleaf " << i << std::endl;
     cpu.updateNativeId( sgxLeaf, i );
     std::cout << std::hex << cpu.eax() << " " << cpu.ebx() << " " << cpu.ecx() << " " << cpu.edx() << " " << std::endl;
   }

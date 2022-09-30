@@ -36,7 +36,7 @@
 /**
  * @brief vx (VX APPS) namespace.
  */
-namespace vx {
+namespace vx::timestamp {
 
   /**
    * @brief The Precision enum.
@@ -55,5 +55,5 @@ namespace vx {
    * @return Timestamp as 'Y-m-dThh:mm:ss.xxxxxx'
    * @note https://www.w3.org/TR/NOTE-datetime
    */
-  [[nodiscard]] std::string timestampIso8601( Precision _precision = Precision::Seconds ) noexcept;
+  [[nodiscard]] std::string iso8601( Precision _precision = Precision::Seconds ) noexcept;
 }

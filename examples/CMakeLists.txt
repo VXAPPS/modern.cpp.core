@@ -28,8 +28,6 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-project(examples)
-
 add_subdirectory(command)
 add_subdirectory(cpuinfo)
 add_subdirectory(double)

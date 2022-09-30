@@ -37,9 +37,9 @@
 /* local header */
 #include "Timestamp.h"
 
-namespace vx {
+namespace vx::timestamp {
 
-  std::string timestampIso8601( Precision _precision ) noexcept {
+  std::string iso8601( Precision _precision ) noexcept {
 
     (void)_precision;
 

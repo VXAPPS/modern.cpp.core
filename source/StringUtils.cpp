@@ -33,7 +33,7 @@
 
 /* stl header */
 #include <algorithm>
-#if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929  || defined __clang__ && __clang_major__ >= 15
+#if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
   #include <ranges>
 #endif
 #include <sstream>
@@ -175,17 +175,17 @@ namespace vx::string_utils {
     return result.str();
   }
 
-  std::string fromUnsignedChar( const unsigned char *_uchr ) noexcept {
+  std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr ) noexcept {
 
     /* nullptr check is mandatory */
     if ( !_uchr ) { return {}; }
 
     std::basic_string<unsigned char> result = _uchr;
-    return { std::begin( result ), std::end( result ) };
+    return std::make_optional( std::string( std::begin( result ), std::end( result ) ) );
   }
 
-  std::string fromUnsignedChar( const unsigned char *_uchr,
-                                std::size_t _size ) noexcept {
+  std::optional<std::string> MAYBE_BAD_fromUnsignedChar( const unsigned char *_uchr,
+                                                         std::size_t _size ) noexcept {
 
     /* nullptr check is mandatory */
     if ( !_uchr ) { return {}; }
@@ -195,12 +195,12 @@ namespace vx::string_utils {
 
       const std::basic_string<unsigned char> result = _uchr;
 #ifdef _WIN32
-      size = strnlen_s( reinterpret_cast<const char*>( _uchr ), result.size() );
+      size = strnlen_s( reinterpret_cast<const char *>( _uchr ), result.size() );
 #else
-      size = strnlen( reinterpret_cast<const char*>( _uchr ), result.size() );
+      size = strnlen( reinterpret_cast<const char *>( _uchr ), result.size() );
 #endif
     }
-    return { _uchr, _uchr + size };
+    return std::make_optional( std::string( _uchr, _uchr + size ) );
   }
 
 #ifdef __APPLE__

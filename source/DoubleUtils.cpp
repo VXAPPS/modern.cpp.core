@@ -53,11 +53,11 @@ namespace vx::double_utils {
     double factor = 1.0;
     if ( _equal == Equal::Relative ) {
 
-      factor = std::max( std::fabs( _left ) , std::fabs( _right ) ) ;
+      factor = std::max( std::fabs( _left ), std::fabs( _right ) );
     }
     else if ( _equal == Equal::Combined ) {
 
-      factor = std::max( { 1.0, std::fabs( _left ) , std::fabs( _right ) } ) ;
+      factor = std::max( { 1.0, std::fabs( _left ), std::fabs( _right ) } );
     }
     return std::fabs( _left - _right ) <= std::numeric_limits<double>::epsilon() * factor;
   }

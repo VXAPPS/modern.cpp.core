@@ -62,6 +62,10 @@ namespace vx {
     std::string source = "   The answer is 42.   ";
     EXPECT_EQ( string_utils::trimLeft( source ), "The answer is 42.   " );
     EXPECT_EQ( source, "The answer is 42.   " );
+
+    std::string noOtherSign = "     ";
+    EXPECT_EQ( string_utils::trimLeft( noOtherSign ), "" );
+    EXPECT_EQ( noOtherSign, "" );
   }
 
   TEST( StringUtils, TrimRight ) {
@@ -69,6 +73,10 @@ namespace vx {
     std::string source = "   The answer is 42.   ";
     EXPECT_EQ( string_utils::trimRight( source ), "   The answer is 42." );
     EXPECT_EQ( source, "   The answer is 42." );
+
+    std::string noOtherSign = "     ";
+    EXPECT_EQ( string_utils::trimRight( noOtherSign ), "" );
+    EXPECT_EQ( noOtherSign, "" );
   }
 
   TEST( StringUtils, Trim ) {
@@ -76,6 +84,10 @@ namespace vx {
     std::string source = "   The answer is 42.   ";
     EXPECT_EQ( string_utils::trim( source ), "The answer is 42." );
     EXPECT_EQ( source, "The answer is 42." );
+
+    std::string noOtherSign = "     ";
+    EXPECT_EQ( string_utils::trim( noOtherSign ), "" );
+    EXPECT_EQ( noOtherSign, "" );
   }
 
   TEST( StringUtils, ToLower ) {
@@ -160,18 +172,18 @@ namespace vx {
     unsigned char chrArray[] = "The answer is 42.";
     const unsigned char *chrPointer = chrArray;
     EXPECT_EQ( string_utils::fromUnsignedChar( chrPointer ), "The answer is 42." );
-    EXPECT_EQ( string_utils::fromUnsignedChar( chrPointer, 0 ), "The answer is 42." );
-    EXPECT_EQ( string_utils::fromUnsignedChar( chrPointer, 17 ), "The answer is 42." );
-    EXPECT_EQ( string_utils::fromUnsignedChar( chrPointer, 10 ), "The answer" );
-    EXPECT_NE( string_utils::fromUnsignedChar( chrPointer, 5 ), "The answer is 42." );
+    EXPECT_EQ( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 0 ), "The answer is 42." );
+    EXPECT_EQ( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 ), "The answer is 42." );
+    EXPECT_EQ( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 10 ), "The answer" );
+    EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 5 ), "The answer is 42." );
 
     /* Wrong size check - more than expected. */
-    EXPECT_NE( string_utils::fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
+    EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
 
     /* nullptr unsigned char */
     const unsigned char *chrPointerNull = nullptr;
-    EXPECT_EQ( string_utils::fromUnsignedChar( chrPointerNull ), "" );
-    EXPECT_EQ( string_utils::fromUnsignedChar( chrPointerNull, 0 ), "" );
+    EXPECT_EQ( string_utils::fromUnsignedChar( chrPointerNull ), std::nullopt );
+    EXPECT_EQ( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointerNull, 0 ), std::nullopt );
   }
 }
 #ifdef __clang__

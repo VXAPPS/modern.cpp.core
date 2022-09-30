@@ -38,8 +38,8 @@
     #include <X11/keysym.h>
   #else
     #include <fcntl.h>
-    #include <unistd.h>
     #include <sys/ioctl.h>
+    #include <unistd.h>
   #endif
 #endif
 
@@ -59,7 +59,7 @@ namespace vx::keyboard {
     }
 #elif defined __APPLE__
 
-#if 1
+  #if 1
     /* Variant 1 Carbon.framework */
     KeyMap keyMap;
     GetKeys( keyMap );
@@ -68,30 +68,30 @@ namespace vx::keyboard {
     int shift = kVK_CapsLock & 31;
 
     isActive = ( ( keyMap[ index ].bigEndianValue >> shift ) & 1 ) != 0;
-#else
+  #else
     /* Variant 2 CoreGraphics.framework */
     isActive = CGEventSourceKeyState( kCGEventSourceStateHIDSystemState, kVK_CapsLock );
-#endif
+  #endif
 
 #else
 
-#if 1
-    /* Variant 1 X11 */
+  #if 1
+    /* Variant 1 X11. */
     Display *display = XOpenDisplay( nullptr );
     XKeyboardState keyboardState {};
     XGetKeyboardControl( display, &keyboardState );
     isActive = keyboardState.led_mask & 1U;
     XCloseDisplay( display );
-#else
-    /* Variant 2 ioctl */
-//    int fd = open( "/dev/console", O_RDONLY );
-//    if ( fd == -1 ) {
+  #else
+      /* Variant 2 ioctl */
+      //    int fd = open( "/dev/console", O_RDONLY );
+      //    if ( fd == -1 ) {
 
       //
-//    }
-//    ioctl( fd, 0x4B32, 0x04 );
-//    close( fd );
-#endif
+  //    }
+  //    ioctl( fd, 0x4B32, 0x04 );
+  //    close( fd );
+  #endif
 
 #endif
     return isActive;

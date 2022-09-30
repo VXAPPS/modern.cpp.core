@@ -29,9 +29,10 @@
  */
 
 /* stl header */
+#include <functional>
 #include <iostream>
 
-/* modern.cpp.core header */
+/* modern.cpp.core */
 #include <SharedQueue.h>
 #include <Timer.h>
 
@@ -77,8 +78,9 @@ int main() {
   }
 
   auto intervallTimer = vx::Timer();
-  intervallTimer.setInterval( [&intervallTimer, &intervall, &queue]() {
 
+  using func = std::function<void( void )>;
+  const func runOnInterval = [ &intervallTimer, &intervall, &queue ]() {
     ++intervall;
     std::cout << "Intervall: " << intervall << std::endl;
     try {
@@ -98,7 +100,9 @@ int main() {
 
       intervallTimer.stop();
     }
-  }, intervallSeconds * secondsToMilliseconds );
+  };
+
+  intervallTimer.setInterval( runOnInterval, intervallSeconds * secondsToMilliseconds );
 
   while ( true ) {
 

@@ -48,7 +48,7 @@ namespace vx::double_utils {
 
     Absolute, /**< Absolute value. */
     Relative, /**< Relative value. */
-    Combined /**< Absolute and relative value. */
+    Combined  /**< Absolute and relative value. */
   };
 
   /**

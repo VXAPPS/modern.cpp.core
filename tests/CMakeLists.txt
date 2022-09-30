@@ -28,7 +28,5 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-project(tests)
-
 add_subdirectory(double_utils)
 add_subdirectory(string_utils)

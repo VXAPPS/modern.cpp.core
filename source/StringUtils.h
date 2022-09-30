@@ -29,6 +29,7 @@
  */
 
 /* stl header */
+#include <optional>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -49,7 +50,7 @@ namespace vx::string_utils {
   enum class Split {
 
     KeepEmpty, /**< Keep all empty token. */
-    SkipEmpty /**< Skip all empty token. */
+    SkipEmpty  /**< Skip all empty token. */
   };
 
   /**
@@ -145,7 +146,7 @@ namespace vx::string_utils {
    * @param _uchr   Unsigned char pointer.
    * @return Standard string from unsigned char.
    */
-  [[nodiscard]] std::string fromUnsignedChar( const unsigned char *_uchr ) noexcept;
+  [[nodiscard]] std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr ) noexcept;
 
   /**
    * @brief Returns standard string from unsigned char.
@@ -154,8 +155,8 @@ namespace vx::string_utils {
    * @return Standard string from unsigned char.
    * @note This function will use reinterpret_cast if _size is empty.
    */
-  [[nodiscard]] std::string fromUnsignedChar( const unsigned char *_uchr,
-                                              std::size_t _size ) noexcept;
+  [[nodiscard]] std::optional<std::string> MAYBE_BAD_fromUnsignedChar( const unsigned char *_uchr,
+                                                                       std::size_t _size ) noexcept;
 
 #ifdef __APPLE__
   /**

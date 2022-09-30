@@ -31,7 +31,7 @@
 /* stl header */
 #include <iostream>
 
-/* modern.cpp.core header */
+/* modern.cpp.core */
 #include <Exec.h>
 
 int main() {

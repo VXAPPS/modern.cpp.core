@@ -39,7 +39,7 @@ namespace vx {
    * @brief Template instance class.
    * @author Florian Becker <fb\@vxapps.com> (VX APPS)
    */
-  template<class T>
+  template <typename T>
   class Singleton {
 
   public:

@@ -53,18 +53,12 @@ namespace vx {
      * @param _function   Call back function.
      * @param _delay   Delay in milliseconds after the function is called.
      */
-#if 0
-    void setTimeout( auto _function,
-                     int _delay ) {
-#else
-    template<typename Function>
+    template <typename Function>
     void setTimeout( Function _function,
                      int _delay ) noexcept {
-#endif
 
       m_clear = false;
       std::thread thread( [ &, _function, _delay ]() {
-
         if ( this->m_clear ) {
 
           return;
@@ -84,18 +78,12 @@ namespace vx {
      * @param _function   Call back function.
      * @param _interval   Interval in milliseconds after the function is called.
      */
-#if 0
-    void setInterval( auto _function,
-                      int _interval ) {
-#else
-    template<typename Function>
+    template <typename Function>
     void setInterval( Function _function,
                       int _interval ) noexcept {
-#endif
 
       m_clear = false;
       std::thread thread( [ &, _function, _interval ]() {
-
         while ( true ) {
 
           if ( this->m_clear ) {

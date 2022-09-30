@@ -38,10 +38,11 @@ class Item {
 public:
   Item( std::string _message,
         int _number )
-    : m_message( std::move( _message ) )
-    , m_number( _number ) {}
+      : m_message( std::move( _message ) ),
+        m_number( _number ) {}
 
   [[nodiscard]] inline std::string getMessage() const { return m_message; }
+
   [[nodiscard]] inline int getNumber() const { return m_number; }
 
 private:

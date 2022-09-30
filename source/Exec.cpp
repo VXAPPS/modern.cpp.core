@@ -41,7 +41,7 @@ namespace vx::exec {
 
   static int m_resultCode = 0;
 
-  /** Buffer size to read stdout */
+  /** Buffer size to read stdout. */
   constexpr int bufferSize = 128;
 
   void close( std::FILE *_file ) noexcept {

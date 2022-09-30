@@ -66,17 +66,16 @@ namespace vx {
     m_currentLeaf[ magic_enum::enum_integer( Register::ECX ) ] = currentLeaf[ magic_enum::enum_integer( Register::ECX ) ];
     m_currentLeaf[ magic_enum::enum_integer( Register::EDX ) ] = currentLeaf[ magic_enum::enum_integer( Register::EDX ) ];
 #else
-#ifdef __aarch64__
-    /* Not available */
-#else
-    asm volatile
-    ( "cpuid" :
-      "=a"( m_currentLeaf[ magic_enum::enum_integer( Register::EAX ) ] ),
-      "=b"( m_currentLeaf[ magic_enum::enum_integer( Register::EBX ) ] ),
-      "=c"( m_currentLeaf[ magic_enum::enum_integer( Register::ECX ) ] ),
-      "=d"( m_currentLeaf[ magic_enum::enum_integer( Register::EDX ) ] )
-      : "a"( _leaf ), "c"( _subleaf ) );
-#endif
+  #ifdef __aarch64__
+      /* Not available */
+  #else
+    asm volatile( "cpuid"
+                  : "=a"( m_currentLeaf[magic_enum::enum_integer( Register::EAX )] ),
+                    "=b"( m_currentLeaf[magic_enum::enum_integer( Register::EBX )] ),
+                    "=c"( m_currentLeaf[magic_enum::enum_integer( Register::ECX )] ),
+                    "=d"( m_currentLeaf[magic_enum::enum_integer( Register::EDX )] )
+                  : "a"( _leaf ), "c"( _subleaf ) );
+  #endif
 #endif
   }
 }

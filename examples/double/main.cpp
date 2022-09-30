@@ -32,7 +32,7 @@
 #include <iostream>
 #include <limits>
 
-/* modern.cpp.core header */
+/* modern.cpp.core */
 #include <DoubleUtils.h>
 
 int main() {

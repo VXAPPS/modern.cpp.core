@@ -56,7 +56,7 @@ namespace vx {
       EAX, /** EAX register. */
       EBX, /** EBX register. */
       ECX, /** ECX register. */
-      EDX /** EDX register. */
+      EDX  /** EDX register. */
     };
 
     /**
