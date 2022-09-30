@@ -39,11 +39,9 @@
 
 namespace vx::timestamp {
 
+  /* get a precise timestamp as a string */
   std::string iso8601( Precision _precision ) noexcept {
 
-    (void)_precision;
-
-    /* get a precise timestamp as a string */
     struct std::tm currentLocalTime {};
 
     const auto now = std::chrono::system_clock::now();
