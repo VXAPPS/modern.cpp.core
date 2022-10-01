@@ -79,13 +79,13 @@ namespace vx {
 
 #if __has_include( <LoggerFactory.h> )
     LogVerbose( "------ " + m_action );
-    LogVerbose( "Real Time: " + realTime.view() + " ms" );
-    LogVerbose( "CPU Time: " + cpuTime.view() + " ms" );
+    LogVerbose( "Real Time: " + realTime.str() + " ms" );
+    LogVerbose( "CPU Time: " + cpuTime.str() + " ms" );
 #else
     std::cout << "------ " << m_action << std::endl;
     std::cout << "Timestamp: " << timestamp::iso8601( Precision::MicroSeconds ) << std::endl;
-    std::cout << "Real Time: " << realTime.view() << " ms" << std::endl;
-    std::cout << "CPU Time: " << cpuTime.view() << " ms" << std::endl;
+    std::cout << "Real Time: " << realTime.str() << " ms" << std::endl;
+    std::cout << "CPU Time: " << cpuTime.str() << " ms" << std::endl;
 #endif
   }
 }
