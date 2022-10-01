@@ -44,12 +44,28 @@ namespace std {
    * <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1682r3.html">https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1682r3.html</a>
    * @param _enum   Enumeration value.
    * @return The underlying value in its correct type of an enumeration.
-   * @note https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1682r3.html
    */
   template <typename E>
   constexpr typename std::underlying_type<E>::type to_underlying( E _enum ) noexcept {
 
     return static_cast<typename std::underlying_type<E>::type>( _enum );
+  }
+#endif
+
+#if !__has_cpp_attribute( __cpp_lib_unreachable )
+  /**
+   * @brief Unreachable section is reached.
+   */
+  [[noreturn]] inline void unreachable() {
+
+    // Uses compiler specific extensions if possible.
+    // Even if no extension is used, undefined behavior is still raised by
+    // an empty function body and the noreturn attribute.
+  #ifdef __GNUC__ // GCC, Clang, ICC
+    __builtin_unreachable();
+  #elifdef _MSC_VER // MSVC
+    __assume( false );
+  #endif
   }
 #endif
 }

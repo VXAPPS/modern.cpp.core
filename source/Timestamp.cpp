@@ -58,6 +58,8 @@ namespace vx::timestamp {
     nowSs << std::put_time( &currentLocalTime, "%Y-%m-%dT%T" );
     switch ( _precision ) {
 
+      case Precision::Seconds:
+        break;
       case Precision::MilliSeconds: {
 
         const auto nowMilli = std::chrono::duration_cast<std::chrono::milliseconds>( now.time_since_epoch() ) % std::milli::den;
@@ -79,8 +81,6 @@ namespace vx::timestamp {
         nowSs << nowNano.count();
         break;
       }
-      case Precision::Seconds:
-        break;
     }
     nowSs << std::put_time( &currentLocalTime, "%z" );
 
