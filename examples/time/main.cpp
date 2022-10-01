@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Florian Becker <fb@vxapps.com> (VX APPS).
+ * Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,41 +29,22 @@
  */
 
 /* stl header */
-#include <functional>
 #include <iostream>
 
 /* modern.cpp.core */
-#include <Timer.h>
-
-constexpr int intervallSeconds = 1;
-constexpr int secondsToMilliseconds = 1000;
-constexpr int exitSeconds = 15;
+#include <Timestamp.h>
+#include <Timing.h>
 
 int main() {
 
-  int intervall = 1;
-  auto intervallTimer = vx::Timer();
+  vx::Timing timing { "Just a test" };
 
-  using func = std::function<void( void )>;
-  const func runOnInterval = [ &intervallTimer, &intervall ]() {
-    std::cout << "Intervall: " << intervall << std::endl;
-    intervall++;
-    if ( intervall >= exitSeconds ) {
+  std::cout << vx::timestamp::iso8601( vx::timestamp::Precision::Seconds ) << std::endl;
+  std::cout << vx::timestamp::iso8601( vx::timestamp::Precision::MilliSeconds ) << std::endl;
+  std::cout << vx::timestamp::iso8601( vx::timestamp::Precision::MicroSeconds ) << std::endl;
+  std::cout << vx::timestamp::iso8601( vx::timestamp::Precision::NanoSeconds ) << std::endl;
 
-      intervallTimer.stop();
-    }
-  };
-
-  intervallTimer.setInterval( runOnInterval, intervallSeconds * secondsToMilliseconds );
-
-  while ( true ) {
-
-    /* Leave the app run infinity */
-    if ( !intervallTimer.isRunning() ) {
-
-      break;
-    }
-  }
+  timing.stop();
 
   return EXIT_SUCCESS;
 }

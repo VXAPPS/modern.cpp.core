@@ -50,7 +50,7 @@ int main() {
 
   std::cout.precision( precisionMax );
 
-  std::cout << precisionMax << std::endl;
+  std::cout << "Precision MAX: " << precisionMax << std::endl;
 
   /* equals */
   std::cout << "----- Equal" << std::endl;

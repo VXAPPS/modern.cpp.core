@@ -36,6 +36,9 @@
 /* magic enum */
 #include <magic_enum.hpp>
 
+/* local header */
+#include "Cpp23.h"
+
 /**
  * @brief vx (VX APPS) namespace.
  */
@@ -71,103 +74,103 @@ namespace vx {
      * @brief Return stepping of CPU.
      * @return Stepping of CPU.
      */
-    [[nodiscard]] inline unsigned int stepping() const noexcept { return m_leaf[ magic_enum::enum_integer( Register::EAX ) ] & 15U; }
+    [[nodiscard]] inline unsigned int stepping() const noexcept { return m_leaf[ std::to_underlying( Register::EAX ) ] & 15U; }
 
     /**
      * @brief Return model of CPU.
      * @return Model of CPU.
      */
-    [[nodiscard]] inline unsigned int model() const noexcept { return ( m_leaf[ magic_enum::enum_integer( Register::EAX ) ] >> 4U ) & 15U; }
+    [[nodiscard]] inline unsigned int model() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 4U ) & 15U; }
 
     /**
      * @brief Return family of CPU.
      * @return Family of CPU.
      */
-    [[nodiscard]] inline unsigned int family() const noexcept { return ( m_leaf[ magic_enum::enum_integer( Register::EAX ) ] >> 8U ) & 15U; }
+    [[nodiscard]] inline unsigned int family() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 8U ) & 15U; }
 
     /**
      * @brief Return type of CPU.
      * @return Type of CPU.
      */
-    [[nodiscard]] inline unsigned int type() const noexcept { return ( m_leaf[ magic_enum::enum_integer( Register::EAX ) ] >> 12U ) & 3U; }
+    [[nodiscard]] inline unsigned int type() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 12U ) & 3U; }
 
     /**
      * @brief Return extended model of CPU.
      * @return Extended model of CPU.
      */
-    [[nodiscard]] inline unsigned int extendedModel() const noexcept { return ( m_leaf[ magic_enum::enum_integer( Register::EAX ) ] >> 16U ) & 15U; }
+    [[nodiscard]] inline unsigned int extendedModel() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 16U ) & 15U; }
 
     /**
      * @brief Return extended family of CPU.
      * @return Extended family of CPU.
      */
-    [[nodiscard]] inline unsigned int extendedFamily() const noexcept { return ( m_leaf[ magic_enum::enum_integer( Register::EAX ) ] >> 20U ) & 255U; }
+    [[nodiscard]] inline unsigned int extendedFamily() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 20U ) & 255U; }
 
     /**
      * @brief Does CPU support SMX?
      * @return True, if the CPU supports SMX - otherwise false.
      */
-    [[nodiscard]] inline bool smxSupport() const noexcept { return ( m_leaf[ magic_enum::enum_integer( Register::ECX ) ] >> 6U ) & 1U; }
+    [[nodiscard]] inline bool smxSupport() const noexcept { return ( m_leaf[ std::to_underlying( Register::ECX ) ] >> 6U ) & 1U; }
 
     /**
      * @brief Does CPU support SGX?
      * @return True, if the CPU supports SGX - otherwise false.
      */
-    [[nodiscard]] inline bool sgxSupport() const noexcept { return ( m_extendedLeaf[ magic_enum::enum_integer( Register::EBX ) ] >> 2U ) & 1U; }
+    [[nodiscard]] inline bool sgxSupport() const noexcept { return ( m_extendedLeaf[ std::to_underlying( Register::EBX ) ] >> 2U ) & 1U; }
 
     /**
      * @brief Does CPU support SGX launch control?
      * @return True, if the CPU supports SGX launch control - otherwise false.
      */
-    [[nodiscard]] inline bool sgxLaunchControlSupport() const noexcept { return ( m_extendedLeaf[ magic_enum::enum_integer( Register::ECX ) ] >> 30U ) & 1U; }
+    [[nodiscard]] inline bool sgxLaunchControlSupport() const noexcept { return ( m_extendedLeaf[ std::to_underlying( Register::ECX ) ] >> 30U ) & 1U; }
 
     /**
      * @brief Does CPU support SGX version 1?
      * @return True, if the CPU supports SGX version 1 - otherwise false.
      */
-    [[nodiscard]] inline bool sgxVersion1Support() const noexcept { return m_sgxLeaf[ magic_enum::enum_integer( Register::EAX ) ] & 1U; }
+    [[nodiscard]] inline bool sgxVersion1Support() const noexcept { return m_sgxLeaf[ std::to_underlying( Register::EAX ) ] & 1U; }
 
     /**
      * @brief Does CPU support SGX version 2?
      * @return True, if the CPU supports SGX version 2 - otherwise false.
      */
-    [[nodiscard]] inline bool sgxVersion2Support() const noexcept { return ( m_sgxLeaf[ magic_enum::enum_integer( Register::EAX ) ] >> 1U ) & 1U; }
+    [[nodiscard]] inline bool sgxVersion2Support() const noexcept { return ( m_sgxLeaf[ std::to_underlying( Register::EAX ) ] >> 1U ) & 1U; }
 
     /**
      * @brief Returns maximum size of enclave.
      * @return Maximum enclave size.
      */
-    [[nodiscard]] inline unsigned int maximumEnclaveSize() const noexcept { return m_sgxLeaf[ magic_enum::enum_integer( Register::EDX ) ] & 255U; }
+    [[nodiscard]] inline unsigned int maximumEnclaveSize() const noexcept { return m_sgxLeaf[ std::to_underlying( Register::EDX ) ] & 255U; }
 
     /**
      * @brief Returns maximum size of enclave.
      * @return Maximum enclave size.
      */
-    [[nodiscard]] inline unsigned int maximumEnclaveSize64() const noexcept { return ( m_sgxLeaf[ magic_enum::enum_integer( Register::EDX ) ] >> 8U ) & 255U; }
+    [[nodiscard]] inline unsigned int maximumEnclaveSize64() const noexcept { return ( m_sgxLeaf[ std::to_underlying( Register::EDX ) ] >> 8U ) & 255U; }
 
     /**
      * @brief Return EAX id.
      * @return The EAX id.
      */
-    [[nodiscard]] inline unsigned int eax() const noexcept { return m_currentLeaf[ magic_enum::enum_integer( Register::EAX ) ]; }
+    [[nodiscard]] inline unsigned int eax() const noexcept { return m_currentLeaf[ std::to_underlying( Register::EAX ) ]; }
 
     /**
      * @brief Return EBX id.
      * @return The EBX id.
      */
-    [[nodiscard]] inline unsigned int ebx() const noexcept { return m_currentLeaf[ magic_enum::enum_integer( Register::EBX ) ]; }
+    [[nodiscard]] inline unsigned int ebx() const noexcept { return m_currentLeaf[ std::to_underlying( Register::EBX ) ]; }
 
     /**
      * @brief Return ECX id.
      * @return The ECX id.
      */
-    [[nodiscard]] inline unsigned int ecx() const noexcept { return m_currentLeaf[ magic_enum::enum_integer( Register::ECX ) ]; }
+    [[nodiscard]] inline unsigned int ecx() const noexcept { return m_currentLeaf[ std::to_underlying( Register::ECX ) ]; }
 
     /**
      * @brief Return EDX id.
      * @return The EDX id.
      */
-    [[nodiscard]] inline unsigned int edx() const noexcept { return m_currentLeaf[ magic_enum::enum_integer( Register::EDX ) ]; }
+    [[nodiscard]] inline unsigned int edx() const noexcept { return m_currentLeaf[ std::to_underlying( Register::EDX ) ]; }
 
     /**
      * @brief Request a special register.

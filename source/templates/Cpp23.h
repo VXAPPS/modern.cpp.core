@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Florian Becker <fb@vxapps.com> (VX APPS).
+ * Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,42 +28,27 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#pragma once
+
 /* stl header */
-#include <functional>
-#include <iostream>
+#include <type_traits>
 
-/* modern.cpp.core */
-#include <Timer.h>
+/**
+ * @brief std (Standard template library) namespace.
+ */
+namespace std {
 
-constexpr int intervallSeconds = 1;
-constexpr int secondsToMilliseconds = 1000;
-constexpr int exitSeconds = 15;
-
-int main() {
-
-  int intervall = 1;
-  auto intervallTimer = vx::Timer();
-
-  using func = std::function<void( void )>;
-  const func runOnInterval = [ &intervallTimer, &intervall ]() {
-    std::cout << "Intervall: " << intervall << std::endl;
-    intervall++;
-    if ( intervall >= exitSeconds ) {
-
-      intervallTimer.stop();
-    }
-  };
-
-  intervallTimer.setInterval( runOnInterval, intervallSeconds * secondsToMilliseconds );
-
-  while ( true ) {
-
-    /* Leave the app run infinity */
-    if ( !intervallTimer.isRunning() ) {
-
-      break;
-    }
+#if !__has_cpp_attribute( __cpp_lib_to_underlying )
+  /**
+   * @brief Return the underlying value in its correct type of an enumeration.
+   * <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1682r3.html">https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1682r3.html</a>
+   * @param _enum   Enumeration value.
+   * @return The underlying value in its correct type of an enumeration.
+   * @note https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1682r3.html
+   */
+  template <typename E>
+  constexpr typename std::underlying_type<E>::type to_underlying( E _enum ) noexcept {
+    return static_cast<typename std::underlying_type<E>::type>( _enum );
   }
-
-  return EXIT_SUCCESS;
+#endif
 }

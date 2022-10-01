@@ -96,7 +96,7 @@ namespace vx::string_utils {
   bool startsWith( std::string_view _string,
                    std::string_view _start ) noexcept {
 
-    return ( _string.rfind( _start, 0 ) == 0 );
+    return _string.rfind( _start, 0 ) == 0;
   }
 
   bool endsWith( std::string_view _string,
@@ -109,8 +109,8 @@ namespace vx::string_utils {
     return false;
   }
 
-  constexpr bool bothAreSpaces( char lhs,
-                                char rhs ) noexcept { return ( lhs == rhs ) && ( lhs == ' ' ); }
+  constexpr bool bothAreSpaces( char _lhs,
+                                char _rhs ) noexcept { return _lhs == _rhs && _lhs == ' '; }
 
   std::string &simplified( std::string &_string ) noexcept {
 
@@ -137,11 +137,10 @@ namespace vx::string_utils {
 
     std::vector<std::string_view> result {};
     std::string_view split = _string;
-    const std::size_t startPos = 0;
     std::size_t endPos = split.find( _separator );
     while ( endPos != std::string_view::npos ) {
 
-      const std::string_view word = split.substr( startPos, endPos - startPos );
+      const std::string_view word = split.substr( 0, endPos );
       if ( _split == Split::SkipEmpty && word.empty() ) {
 
         /* Nothing to do here */
@@ -167,7 +166,7 @@ namespace vx::string_utils {
 
   std::string toHex( std::string_view _string ) noexcept {
 
-    std::stringstream result;
+    std::ostringstream result {};
     for ( const auto &chr : _string ) {
 
       result << std::hex << static_cast<int>( chr );

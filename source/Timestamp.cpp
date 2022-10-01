@@ -35,6 +35,7 @@
 #include <sstream>
 
 /* local header */
+#include "Cpp23.h"
 #include "Timestamp.h"
 
 namespace vx::timestamp {
@@ -42,13 +43,12 @@ namespace vx::timestamp {
   /* get a precise timestamp as a string */
   std::string iso8601( Precision _precision ) noexcept {
 
+    (void)_precision;
     struct std::tm currentLocalTime {};
 
-    const auto now = std::chrono::system_clock::now();
-    const auto nowAsTimeT = std::chrono::system_clock::to_time_t( now );
-    const auto nowMilli = std::chrono::duration_cast<std::chrono::milliseconds>( now.time_since_epoch() ) % 1000;
-    const auto nowMicro = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch() ) % 1000000;
-    const auto nowNano = std::chrono::duration_cast<std::chrono::nanoseconds>( now.time_since_epoch() ) % 1000000000;
+    const std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+    const std::time_t nowAsTimeT = std::chrono::system_clock::to_time_t( now );
+    (void)nowAsTimeT;
 
 #ifdef _WIN32
     localtime_s( &currentLocalTime, &nowAsTimeT );
@@ -56,30 +56,45 @@ namespace vx::timestamp {
     localtime_r( &nowAsTimeT, &currentLocalTime );
 #endif
 
-    std::ostringstream nowSs;
+    std::stringstream nowSs {};
+    std::cout << "Exceptions: " << nowSs.exceptions() << std::endl;
     nowSs << std::put_time( &currentLocalTime, "%Y-%m-%dT%T" );
-    if ( _precision != Precision::Seconds ) {
+    switch ( _precision ) {
 
-      nowSs << '.' << std::setfill( '0' ) << std::setw( static_cast<int>( _precision ) );
-      switch ( _precision ) {
+      case Precision::MilliSeconds: {
 
-        case Precision::MilliSeconds:
-          nowSs << nowMilli.count();
-          break;
-        case Precision::MicroSeconds:
-          nowSs << nowMicro.count();
-          break;
-        case Precision::NanoSeconds:
-          nowSs << nowNano.count();
-          break;
-        case Precision::Seconds:
-          break;
+        const auto nowMilli = std::chrono::duration_cast<std::chrono::milliseconds>( now.time_since_epoch() ) % std::milli::den;
+        nowSs << '.' << std::setfill( '0' ) << std::setw( std::to_underlying( _precision ) );
+        nowSs << nowMilli.count();
+        break;
       }
+      case Precision::MicroSeconds: {
+
+        const auto nowMicro = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch() ) % std::micro::den;
+        nowSs << '.' << std::setfill( '0' ) << std::setw( std::to_underlying( _precision ) );
+        nowSs << nowMicro.count();
+        break;
+      }
+      case Precision::NanoSeconds: {
+
+        const auto nowNano = std::chrono::duration_cast<std::chrono::nanoseconds>( now.time_since_epoch() ) % std::nano::den;
+        nowSs << '.' << std::setfill( '0' ) << std::setw( std::to_underlying( _precision ) );
+        nowSs << nowNano.count();
+        break;
+      }
+      case Precision::Seconds:
+        break;
     }
     nowSs << std::put_time( &currentLocalTime, "%z" );
 
-    std::string result = nowSs.str();
-    /* somewhat special - maybe see systemtimeformatter */
+    std::string result {};
+    try {
+
+      result = nowSs.str();
+    }
+    // TODO: What exceptions?
+    catch (...) {}
+    /* ### somewhat special - maybe see systemtimeformatter */
     result.replace( result.end() - 2, result.end() - 2, ":" );
     return result;
   }

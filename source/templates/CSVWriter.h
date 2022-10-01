@@ -58,10 +58,10 @@ namespace vx {
                         std::string_view _delimiter = ",",
                         std::string_view _linePrefix = {},
                         std::string_view _lineSuffix = {} )
-        : m_filename( _filename ),
-          m_delimiter( _delimiter ),
-          m_linePrefix( _linePrefix ),
-          m_lineSuffix( _lineSuffix ) {}
+      : m_filename( _filename ),
+        m_delimiter( _delimiter ),
+        m_linePrefix( _linePrefix ),
+        m_lineSuffix( _lineSuffix ) {}
 
     /**
      * @brief Write out the values.

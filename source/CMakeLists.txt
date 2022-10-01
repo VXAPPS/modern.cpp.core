@@ -51,6 +51,7 @@ add_library(${PROJECT_NAME}
   Timestamp.h
   Timing.cpp
   Timing.h
+  templates/Cpp23.h
   templates/CSVWriter.h
   templates/SharedQueue.h
   templates/Singleton.h

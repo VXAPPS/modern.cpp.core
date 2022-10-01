@@ -43,7 +43,7 @@
 #include <vector>
 
 /* modern.cpp.logger */
-#if __has_include( <LoggerFactory.h>)
+#if __has_include( <LoggerFactory.h> )
   #include <LoggerFactory.h>
 #else
   #include <iostream>
@@ -101,12 +101,12 @@ namespace vx {
     /* Configure other settings */
     /* Settings from: */
     /* https://github.com/Marzac/rs232/blob/master/rs232-linux.c */
-    options.c_iflag &= static_cast<unsigned long>( ~( INLCR | ICRNL ) );
+    options.c_iflag &= static_cast<std::uint64_t>( ~( INLCR | ICRNL ) );
     options.c_iflag |= IGNPAR | IGNBRK;
-    options.c_oflag &= static_cast<unsigned long>( ~( OPOST | ONLCR | OCRNL ) );
-    options.c_cflag &= static_cast<unsigned long>( ~( PARENB | PARODD | CSTOPB | CSIZE | CRTSCTS ) );
+    options.c_oflag &= static_cast<std::uint64_t>( ~( OPOST | ONLCR | OCRNL ) );
+    options.c_cflag &= static_cast<std::uint64_t>( ~( PARENB | PARODD | CSTOPB | CSIZE | CRTSCTS ) );
     options.c_cflag |= CLOCAL | CREAD | CS8;
-    options.c_lflag &= static_cast<unsigned long>( ~( ICANON | ISIG | ECHO ) );
+    options.c_lflag &= static_cast<std::uint64_t>( ~( ICANON | ISIG | ECHO ) );
     options.c_cc[ VTIME ] = 1;
     options.c_cc[ VMIN ] = 0;
 
@@ -114,7 +114,7 @@ namespace vx {
     /* TCSANOW vs TCSAFLUSH? Was using TCSAFLUSH; settings source above uses TCSANOW. */
     if ( tcsetattr( m_descriptor, TCSANOW, &options ) < 0 ) {
 
-#if __has_include( <LoggerFactory.h>)
+#if __has_include( <LoggerFactory.h> )
       LogError( "Error setting serial port attributes." );
 #else
       std::cout << "Error setting serial port attributes." << std::endl;
@@ -146,7 +146,7 @@ namespace vx {
       const std::string result = read();
       if ( result.empty() ) {
 
-#if __has_include( <LoggerFactory.h>)
+#if __has_include( <LoggerFactory.h> )
         LogError( "Serial port read() failed. Error: " + std::string( std::strerror( errno ) ) );
 #else
         std::cout << "Serial port read() failed. Error: " << std::strerror( errno ) << std::endl;
@@ -161,7 +161,7 @@ namespace vx {
 
     if ( ::write( m_descriptor, _data.c_str(), _data.size() ) < 0 ) {
 
-#if __has_include( <LoggerFactory.h>)
+#if __has_include( <LoggerFactory.h> )
       LogError( "Serial port write() failed. Error: " + std::string( std::strerror( errno ) ) );
 #else
       std::cout << "Serial port write() failed. Error: " << std::strerror( errno ) << std::endl;
@@ -178,7 +178,7 @@ namespace vx {
     buffer.resize( static_cast<std::size_t>( numBytesRead ) );
     if ( numBytesRead < 0 ) {
 
-#if __has_include( <LoggerFactory.h>)
+#if __has_include( <LoggerFactory.h> )
       LogError( "Serial port read() failed. Error: " + std::string( std::strerror( errno ) ) );
 #else
       std::cout << "Serial port read() failed. Error: " << std::strerror( errno ) << std::endl;

@@ -33,7 +33,7 @@
 #include <sstream>
 
 /* modern.cpp.logger */
-#if __has_include( <LoggerFactory.h>)
+#if __has_include( <LoggerFactory.h> )
   #include <LoggerFactory.h>
 #else
   #include <iostream>
@@ -50,7 +50,18 @@ namespace vx {
   /** Multiplier from nanoseconds to milliseconds to seconds and vice versa. */
   constexpr double multiplier = 1000.0;
 
-  void Timing::start() noexcept {
+  Timing::Timing( std::string_view _action,
+                  bool _autoStart ) {
+
+    if ( _autoStart ) { start( _action ); }
+  }
+
+  void Timing::start( std::string_view _action ) noexcept {
+
+    if ( !_action.empty() ) {
+
+      setAction( _action );
+    }
 
     m_start = std::chrono::high_resolution_clock::now();
     m_cpu = std::clock();
@@ -60,13 +71,13 @@ namespace vx {
 
     auto end = std::chrono::high_resolution_clock::now();
 
-    std::stringstream realTime;
+    std::ostringstream realTime {};
     realTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::chrono::duration_cast<std::chrono::nanoseconds>( end - m_start ).count() ) / multiplier / multiplier;
 
-    std::stringstream cpuTime;
+    std::ostringstream cpuTime {};
     cpuTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::clock() - m_cpu ) / static_cast<double>( CLOCKS_PER_SEC ) * multiplier;
 
-#if __has_include( <LoggerFactory.h>)
+#if __has_include( <LoggerFactory.h> )
     LogVerbose( "------ " + m_action );
     LogVerbose( "Real Time: " + realTime.str() + " ms" );
     LogVerbose( "CPU Time: " + cpuTime.str() + " ms" );

@@ -55,9 +55,18 @@ namespace vx {
     Timing() = default;
 
     /**
-     * @brief Start the internal timer or reset.
+     * @brief Constructor for Timing.
+     * @param _autoStart   Automatically start if true.
+     * @param _action   The name of the action.
      */
-    void start() noexcept;
+    explicit Timing( std::string_view _action,
+                     bool _autoStart = true );
+
+    /**
+     * @brief Start the internal timer or reset.
+     * @param _action   The name of the action.
+     */
+    void start( std::string_view _action = {} ) noexcept;
 
     /**
      * @brief Stop the internal timer and output to stdout.
