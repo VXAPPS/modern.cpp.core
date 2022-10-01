@@ -37,7 +37,7 @@
 
 int main() {
 
-  vx::Timing timing { "Just a test" };
+  const vx::Timing timing { "Just a test" };
 
   std::cout << vx::timestamp::iso8601( vx::timestamp::Precision::Seconds ) << std::endl;
   std::cout << vx::timestamp::iso8601( vx::timestamp::Precision::MilliSeconds ) << std::endl;

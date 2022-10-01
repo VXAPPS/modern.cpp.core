@@ -174,7 +174,7 @@ namespace vx {
   std::string Serial::read() const {
 
     std::vector<char> buffer( bufferSize );
-    ssize_t numBytesRead = ::read( m_descriptor, buffer.data(), buffer.size() );
+    const ssize_t numBytesRead = ::read( m_descriptor, buffer.data(), buffer.size() );
     buffer.resize( static_cast<std::size_t>( numBytesRead ) );
     if ( numBytesRead < 0 ) {
 
