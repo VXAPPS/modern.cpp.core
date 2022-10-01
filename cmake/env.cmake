@@ -50,7 +50,7 @@ set(3RDPARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 
 # Force C++17 or C++20 if available
 include(CheckCXXCompilerFlag)
-if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" OR WIN32)
   check_cxx_compiler_flag(/std:c++20 HAVE_FLAG_STD_CXX20)
 else()
   check_cxx_compiler_flag(-std=c++20 HAVE_FLAG_STD_CXX20)

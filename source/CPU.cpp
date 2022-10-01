@@ -60,11 +60,11 @@ namespace vx {
 
 #ifdef _MSC_VER
     std::array<int, 4> currentLeaf {};
-    __cpuidex( currentLeaf.data(), _leaf, _subleaf );
-    m_currentLeaf[ std::to_underlying( Register::EAX ) ] = currentLeaf[ std::to_underlying( Register::EAX ) ];
-    m_currentLeaf[ std::to_underlying( Register::EBX ) ] = currentLeaf[ std::to_underlying( Register::EBX ) ];
-    m_currentLeaf[ std::to_underlying( Register::ECX ) ] = currentLeaf[ std::to_underlying( Register::ECX ) ];
-    m_currentLeaf[ std::to_underlying( Register::EDX ) ] = currentLeaf[ std::to_underlying( Register::EDX ) ];
+    __cpuidex( currentLeaf.data(), static_cast<int>( _leaf ), static_cast<int>( _subleaf ) );
+    m_currentLeaf[ std::to_underlying( Register::EAX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::EAX ) ] );
+    m_currentLeaf[ std::to_underlying( Register::EBX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::EBX ) ] );
+    m_currentLeaf[ std::to_underlying( Register::ECX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::ECX ) ] );
+    m_currentLeaf[ std::to_underlying( Register::EDX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::EDX ) ] );
 #else
   #ifdef __aarch64__
       /* Not available */
