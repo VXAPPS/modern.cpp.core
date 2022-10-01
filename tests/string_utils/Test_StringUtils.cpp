@@ -162,7 +162,7 @@ namespace vx {
 
   TEST( StringUtils, ToHex ) {
 
-    std::string source = "The answer is 42.";
+    std::string_view source = "The answer is 42.";
     std::string result = string_utils::toHex( source );
     EXPECT_EQ( result, "54686520616e737765722069732034322e" );
   }

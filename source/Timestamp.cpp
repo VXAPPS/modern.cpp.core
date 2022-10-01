@@ -43,12 +43,10 @@ namespace vx::timestamp {
   /* get a precise timestamp as a string */
   std::string iso8601( Precision _precision ) noexcept {
 
-    (void)_precision;
     struct std::tm currentLocalTime {};
 
     const std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
     const std::time_t nowAsTimeT = std::chrono::system_clock::to_time_t( now );
-    (void)nowAsTimeT;
 
 #ifdef _WIN32
     localtime_s( &currentLocalTime, &nowAsTimeT );
@@ -57,7 +55,6 @@ namespace vx::timestamp {
 #endif
 
     std::stringstream nowSs {};
-    std::cout << "Exceptions: " << nowSs.exceptions() << std::endl;
     nowSs << std::put_time( &currentLocalTime, "%Y-%m-%dT%T" );
     switch ( _precision ) {
 
@@ -92,8 +89,10 @@ namespace vx::timestamp {
 
       result = nowSs.str();
     }
-    // TODO: What exceptions?
-    catch (...) {}
+    catch ( const std::exception &_exception ) {
+
+      std::cout << _exception.what() << std::endl;
+    }
     /* ### somewhat special - maybe see systemtimeformatter */
     result.replace( result.end() - 2, result.end() - 2, ":" );
     return result;

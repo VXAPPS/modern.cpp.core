@@ -60,7 +60,7 @@ namespace vx {
      * @param _action   The name of the action.
      */
     explicit Timing( std::string_view _action,
-                     bool _autoStart = true );
+                     bool _autoStart = true ) noexcept;
 
     /**
      * @brief Start the internal timer or reset.

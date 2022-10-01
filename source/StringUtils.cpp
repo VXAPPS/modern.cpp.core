@@ -33,6 +33,7 @@
 
 /* stl header */
 #include <algorithm>
+#include <iostream>
 #if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
   #include <ranges>
 #endif
@@ -166,12 +167,22 @@ namespace vx::string_utils {
 
   std::string toHex( std::string_view _string ) noexcept {
 
-    std::ostringstream result {};
+    std::ostringstream stream {};
     for ( const auto &chr : _string ) {
 
-      result << std::hex << static_cast<int>( chr );
+      stream << std::hex << static_cast<int>( chr );
     }
-    return result.str();
+
+    std::string result {};
+    try {
+
+      result = stream.str();
+    }
+    catch ( const std::exception &_exception ) {
+
+      std::cout << _exception.what() << std::endl;
+    }
+    return result;
   }
 
   std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr ) noexcept {
