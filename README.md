@@ -11,7 +11,7 @@ make -j`nproc`
 
 ## Classes
 - **CPU** - Get CPU information.
-- **Demangle** - demangle, demangleExtrem
+- **Demangle** - demangle, demangleExtreme
 - **DoubleUtils** - Less, Greater, Equal, Between, Round, Split.
 - **Exec** - Run command and return stdout or mixed (stdout and stderr) and result code.
 - **Keyboard** - Check for caps lock state.

@@ -47,6 +47,7 @@
 
 /* stl header */
 #include <list>
+#include <optional>
 #include <vector>
 
 /* modern.cpp.core */
