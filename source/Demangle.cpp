@@ -123,6 +123,13 @@ namespace vx {
     result = std::regex_replace( result, std::regex( " >" ), ">" );
     result = string_utils::simplified( result );
 
+    /* Try to fix no spaces and comma issues */
+    result = std::regex_replace( result, std::regex( " ," ), "," );
+    if ( result.find( ", " ) == std::string::npos ) {
+
+      result = std::regex_replace( result, std::regex( "," ), ", " );
+    }
+
     return result;
   }
 }
