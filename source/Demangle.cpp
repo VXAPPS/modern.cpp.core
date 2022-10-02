@@ -92,11 +92,38 @@ namespace vx {
     //    result = std::regex_replace( result, std::regex( "char const *" ), "const char *" );
     //    result = std::regex_replace( result, std::regex( "char const*" ), "const char *" );
 
+    // Remove space before closing bracket - overall valid
+    result = std::regex_replace( result, std::regex( ", >" ), ">" );
+    result = std::regex_replace( result, std::regex( ",>" ), ">" );
+    result = std::regex_replace( result, std::regex( " >" ), ">" );
+    result = string_utils::simplified( result );
+
+    return result;
+  }
+
+  std::string demangleExtreme( const std::string &_name ) noexcept {
+
+    std::string result = demangle( _name );
+
     // std::less until end - >
     std::size_t lessPos = result.find( "std::less" );
     if ( lessPos != std::string::npos ) {
 
       result = result.replace( lessPos, result.size() - 1 - lessPos, "" );
+    }
+
+    // std::hash until end - >
+    std::size_t hashPos = result.find( "std::hash" );
+    if ( hashPos != std::string::npos ) {
+
+      result = result.replace( hashPos, result.size() - 1 - hashPos, "" );
+    }
+
+    // std::hash until end - >
+    std::size_t equalPos = result.find( "std::equal_to" );
+    if ( equalPos != std::string::npos ) {
+
+      result = result.replace( equalPos, result.size() - 1 - equalPos, "" );
     }
 
     // std::allocator until end - >

@@ -28,27 +28,58 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+/* cppunit header */
+#ifdef __clang__
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Weverything"
+#endif
+#ifdef __GNUC__
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Weffc++"
+#endif
+#include <gtest/gtest.h>
+#ifdef __GNUC__
+  #pragma GCC diagnostic pop
+#endif
+#ifdef __clang__
+  #pragma clang diagnostic pop
+#endif
 
 /* stl header */
-#include <string>
+#include <vector>
 
-/**
- * @brief vx (VX APPS) namespace.
- */
+/* modern.cpp.core */
+#include <Demangle.h>
+
+using ::testing::InitGoogleTest;
+using ::testing::Test;
+
+#ifdef __clang__
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wglobal-constructors"
+#endif
 namespace vx {
 
-  /**
-   * @brief Demangle a type information, remove namespaces, remove spaces and order const and pointer and reference.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string demangle( const std::string &_name ) noexcept;
+  TEST( Demangle, SimpleTypes ) {
 
-  /**
-   * @brief Demangle with demangle() but also remove less, hash, equal_to and allocator information.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string demangleExtreme( const std::string &_name ) noexcept;
+    EXPECT_EQ( demangle( typeid( int ).name() ), "int" );
+    EXPECT_EQ( demangle( typeid( float ).name() ), "float" );
+    EXPECT_EQ( demangle( typeid( double ).name() ), "double" );
+    EXPECT_EQ( demangle( typeid( std::string ).name() ), "std::string" );
+  }
+
+  TEST( Demangle, ComplexTypes ) {
+
+    EXPECT_EQ( demangle( typeid( std::vector<int> ).name() ), "std::vector<int, std::allocator<int>>" );
+    EXPECT_EQ( demangleExtreme( typeid( std::vector<int> ).name() ), "std::vector<int>" );
+  }
+}
+#ifdef __clang__
+  #pragma clang diagnostic pop
+#endif
+
+int main( int argc, char **argv ) {
+
+  InitGoogleTest( &argc, argv );
+  return RUN_ALL_TESTS();
 }
