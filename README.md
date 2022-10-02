@@ -11,6 +11,7 @@ make -j`nproc`
 
 ## Classes
 - **CPU** - Get CPU information.
+- **Demangle** - demangle, demangleExtrem
 - **DoubleUtils** - Less, Greater, Equal, Between, Round, Split.
 - **Exec** - Run command and return stdout or mixed (stdout and stderr) and result code.
 - **Keyboard** - Check for caps lock state.
@@ -20,6 +21,7 @@ make -j`nproc`
 - **Timing** - Measuring time, cpu and real time.
 
 ## Template classes
+- **Cpp23** - std::to_underlying, std::unreachable.
 - **CSVWriter** - Write out comma-separated values.
 - **Singleton** - Singleton templace class.
 - **SharedQueue** - Queue, which is thread-safe.

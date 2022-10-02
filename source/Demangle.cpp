@@ -88,10 +88,6 @@ namespace vx {
     result = std::regex_replace( result, std::regex( "std::basic_string<char, std::char_traits<char>, std::allocator<char> >" ), "std::string" );
     result = std::regex_replace( result, std::regex( "std::basic_string_view<char, std::char_traits<char> >" ), "std::string_view" );
 
-    // Will result to const char**??? Maybe, have an look at regex documentation...
-    //    result = std::regex_replace( result, std::regex( "char const *" ), "const char *" );
-    //    result = std::regex_replace( result, std::regex( "char const*" ), "const char *" );
-
     // Remove space before closing bracket - overall valid
     result = std::regex_replace( result, std::regex( ", >" ), ">" );
     result = std::regex_replace( result, std::regex( ",>" ), ">" );
@@ -105,35 +101,23 @@ namespace vx {
 
     std::string result = demangle( _name );
 
-    // std::less until end - >
-    std::size_t lessPos = result.find( "std::less" );
-    if ( lessPos != std::string::npos ) {
+    /* Everything to cut out until end to simplify the types printed */
+    const std::vector toRemove { "std::less", "std::hash", "std::equal_to", "std::allocator" };
+    for ( const auto &remove : toRemove ) {
 
-      result = result.replace( lessPos, result.size() - 1 - lessPos, "" );
+      const std::size_t pos = result.find( remove );
+      if ( pos != std::string::npos ) {
+
+        result = result.replace( pos, result.size() - 1 - pos, "" );
+      }
     }
 
-    // std::hash until end - >
-    std::size_t hashPos = result.find( "std::hash" );
-    if ( hashPos != std::string::npos ) {
+    /* reorder for const type pointer/reference */
+    result = std::regex_replace( result, std::regex( "int const" ), "const int " );
+    result = std::regex_replace( result, std::regex( "double const" ), "const double " );
+    result = std::regex_replace( result, std::regex( "char const" ), "const char " );
 
-      result = result.replace( hashPos, result.size() - 1 - hashPos, "" );
-    }
-
-    // std::hash until end - >
-    std::size_t equalPos = result.find( "std::equal_to" );
-    if ( equalPos != std::string::npos ) {
-
-      result = result.replace( equalPos, result.size() - 1 - equalPos, "" );
-    }
-
-    // std::allocator until end - >
-    std::size_t allocatorPos = result.find( "std::allocator" );
-    if ( allocatorPos != std::string::npos ) {
-
-      result = result.replace( allocatorPos, result.size() - 1 - allocatorPos, "" );
-    }
-
-    // Remove space before closing bracket - overall valid
+    /* Remove space before closing bracket - overall valid */
     result = std::regex_replace( result, std::regex( ", >" ), ">" );
     result = std::regex_replace( result, std::regex( ",>" ), ">" );
     result = std::regex_replace( result, std::regex( " >" ), ">" );

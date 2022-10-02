@@ -41,9 +41,9 @@ namespace std {
 #if !__has_cpp_attribute( __cpp_lib_to_underlying )
   /**
    * @brief Return the underlying value in its correct type of an enumeration.
-   * <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1682r3.html">https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1682r3.html</a>
    * @param _enum   Enumeration value.
    * @return The underlying value in its correct type of an enumeration.
+   * @note https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1682r3.html
    */
   template <typename E>
   constexpr typename std::underlying_type<E>::type to_underlying( E _enum ) noexcept {
