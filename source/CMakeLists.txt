@@ -31,7 +31,7 @@
 project(modern.cpp.core)
 
 if(UNIX)
-  set(${PROJECT_NAME}_os_src Serial.cpp Serial.h) # unixservice/main.cpp)
+  set(${PROJECT_NAME}_source Serial.cpp Serial.h) # unixservice/main.cpp)
 endif()
 
 add_library(${PROJECT_NAME}
@@ -56,7 +56,7 @@ add_library(${PROJECT_NAME}
   templates/SharedQueue.h
   templates/Singleton.h
   templates/Timer.h
-  ${${PROJECT_NAME}_os_src}
+  ${${PROJECT_NAME}_source}
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -65,7 +65,12 @@ target_include_directories(${PROJECT_NAME}
   ${SOURCE_DIR}/templates
 )
 
+if(UNIX AND NOT APPLE)
+  set(${PROJECT_NAME}_libs ${X11_LIBRARIES})
+endif()
+
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
   magic_enum
+  ${${PROJECT_NAME}_libs}
 )

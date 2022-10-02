@@ -28,6 +28,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstring> // strerror_r
+
+/* stl header */
+#include <vector>
+
 #ifdef _MSC_VER
   #include <Windows.h>
 #elif defined __APPLE__
@@ -37,9 +43,11 @@
     #include <X11/Xlib.h>
     #include <X11/keysym.h>
   #else
-    #include <fcntl.h>
+    #include <fcntl.h> // open
+    #include <iostream>
+    #include <linux/kd.h>
     #include <sys/ioctl.h>
-    #include <unistd.h>
+    #include <unistd.h> // close
   #endif
 #endif
 
@@ -83,14 +91,20 @@ namespace vx::keyboard {
     isActive = keyboardState.led_mask & 1U;
     XCloseDisplay( display );
   #else
-      /* Variant 2 ioctl */
-      //    int fd = open( "/dev/console", O_RDONLY );
-      //    if ( fd == -1 ) {
+    /* Variant 2 ioctl */
+    const int descriptor = ::open( "/dev/console", O_RDONLY | O_NOCTTY );
+    if ( descriptor == -1 ) {
 
-      //
-  //    }
-  //    ioctl( fd, 0x4B32, 0x04 );
-  //    close( fd );
+      constexpr int len = 128;
+      std::vector<char> buffer( len );
+      std::cout << "Unable to open console port: /dev/console. Error: " << strerror_r( errno, buffer.data(), buffer.size() ) << std::endl;
+    }
+    std::int64_t result = 0;
+    if ( ::ioctl( descriptor, KDGKBLED, &result ) == -1 ) {
+
+      perror( "ioctl" );
+    }
+    ::close( descriptor );
   #endif
 
 #endif
