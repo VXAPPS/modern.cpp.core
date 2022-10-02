@@ -34,7 +34,6 @@
 #endif
 
 /* stl header */
-#include <iostream>
 #include <regex>
 
 /* local header */
@@ -68,7 +67,6 @@ namespace vx {
     }
 #endif
 
-    std::cout << "Original " << result << std::endl;
     // WINDOWS
     result = std::regex_replace( result, std::regex( "class" ), "" );
     result = std::regex_replace( result, std::regex( "struct" ), "" );
