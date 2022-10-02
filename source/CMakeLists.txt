@@ -39,6 +39,8 @@ add_library(${PROJECT_NAME}
   ../README.md
   CPU.cpp
   CPU.h
+  Demangle.cpp
+  Demangle.h
   DoubleUtils.cpp
   DoubleUtils.h
   Exec.cpp
