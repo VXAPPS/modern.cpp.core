@@ -55,9 +55,17 @@ add_library(${PROJECT_NAME}
   Timing.h
   templates/Cpp23.h
   templates/CSVWriter.h
+  templates/FloatingPoint.cpp
+  templates/FloatingPoint.h
+  templates/Line.h
+  templates/Point.h
+  templates/Rect.cpp
+  templates/Rect.h
   templates/SharedQueue.h
   templates/Singleton.h
+  templates/Size.h
   templates/Timer.h
+  templates/TypeCheck.h
   ${${PROJECT_NAME}_source}
 )
 

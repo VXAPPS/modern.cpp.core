@@ -28,16 +28,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* c header */
-#include <cmath> // std::abs, std::floor, std::modf, std::pow
-
 /* stl header */
 #include <algorithm>
 
 /* local header */
-#include "DoubleUtils.h"
+#include "FloatingPoint.h"
 
-namespace vx::double_utils {
+namespace vx::floating_point {
 
   /** Base for default precision factor. */
   constexpr double precisionBase = 10;
@@ -45,60 +42,10 @@ namespace vx::double_utils {
   /** Base for rounding. */
   constexpr double roundBase = 0.5;
 
-  bool equal( double _left,
-              double _right,
-              Equal _equal ) noexcept {
-
-    /* Absolute */
-    double factor = 1.0;
-    if ( _equal == Equal::Relative ) {
-
-      factor = std::max( std::abs( _left ), std::abs( _right ) );
-    }
-    else if ( _equal == Equal::Combined ) {
-
-      factor = std::max( { 1.0, std::abs( _left ), std::abs( _right ) } );
-    }
-    return std::abs( _left - _right ) <= std::numeric_limits<double>::epsilon() * factor;
-  }
-
-  bool less( double _left,
-             double _right,
-             bool _orEqual,
-             Equal _equal ) noexcept {
-
-    if ( equal( _left, _right, _equal ) ) {
-
-      return _orEqual;
-    }
-    return _left < _right;
-  }
-
-  bool greater( double _left,
-                double _right,
-                bool _orEqual,
-                Equal _equal ) noexcept {
-
-    if ( equal( _left, _right, _equal ) ) {
-
-      return _orEqual;
-    }
-    return _left > _right;
-  }
-
-  bool between( double _value,
-                double _min,
-                double _max,
-                bool _orEqual,
-                Equal _equal ) noexcept {
-
-    return greater( _value, _min, _orEqual, _equal ) && less( _value, _max, _orEqual, _equal );
-  }
-
   double round( double _value,
                 std::size_t _precision ) noexcept {
 
-    const double factor = _precision != 0 ? std::pow( precisionBase, _precision ) : 1;
+    const auto factor = _precision != 0 ? std::pow( precisionBase, _precision ) : 1;
     return std::floor( _value * factor + roundBase ) / factor;
   }
 

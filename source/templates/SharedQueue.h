@@ -107,13 +107,13 @@ namespace vx {
      * @brief Return the size queue size.
      * @return The queue size.
      */
-    std::size_t size() noexcept;
+    std::size_t size() const noexcept;
 
     /**
      * @brief Check if the queue is empty.
      * @return True, it the queue is empty - otherwise false.
      */
-    bool empty() noexcept;
+    bool empty() const noexcept;
 
   private:
     /**
@@ -179,7 +179,7 @@ namespace vx {
   }
 
   template <typename T>
-  std::size_t SharedQueue<T>::size() noexcept {
+  std::size_t SharedQueue<T>::size() const noexcept {
 
     std::unique_lock<std::mutex> lock( m_mutex );
 
@@ -187,5 +187,16 @@ namespace vx {
 
     lock.unlock();
     return size;
+  }
+
+  template <typename T>
+  bool SharedQueue<T>::empty() const noexcept {
+
+    std::unique_lock<std::mutex> lock( m_mutex );
+
+    std::size_t size = m_queue.size();
+
+    lock.unlock();
+    return size == 0;
   }
 }

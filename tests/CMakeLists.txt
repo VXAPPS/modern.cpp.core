@@ -31,3 +31,91 @@
 add_subdirectory(demangle)
 add_subdirectory(double_utils)
 add_subdirectory(string_utils)
+
+project(Test_Line)
+
+add_executable(${PROJECT_NAME}
+  ${PROJECT_NAME}.cpp
+)
+
+add_dependencies(${PROJECT_NAME} googletest)
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+  ${GOOGLETEST_INCLUDE_DIR}
+)
+
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp.core
+  ${GOOGLETEST_LIBRARY}
+  Threads::Threads
+)
+
+add_test(${PROJECT_NAME} ${PROJECT_NAME})
+
+project(Test_Point)
+
+add_executable(${PROJECT_NAME}
+  ${PROJECT_NAME}.cpp
+)
+
+add_dependencies(${PROJECT_NAME} googletest)
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+  ${GOOGLETEST_INCLUDE_DIR}
+)
+
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp.core
+  ${GOOGLETEST_LIBRARY}
+  Threads::Threads
+)
+
+add_test(${PROJECT_NAME} ${PROJECT_NAME})
+
+project(Test_Rect)
+
+add_executable(${PROJECT_NAME}
+  ${PROJECT_NAME}.cpp
+)
+
+add_dependencies(${PROJECT_NAME} googletest)
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+  ${GOOGLETEST_INCLUDE_DIR}
+)
+
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp.core
+  ${GOOGLETEST_LIBRARY}
+  Threads::Threads
+)
+
+add_test(${PROJECT_NAME} ${PROJECT_NAME})
+
+project(Test_Size)
+
+add_executable(${PROJECT_NAME}
+  ${PROJECT_NAME}.cpp
+)
+
+add_dependencies(${PROJECT_NAME} googletest)
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+  ${GOOGLETEST_INCLUDE_DIR}
+)
+
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp.core
+  ${GOOGLETEST_LIBRARY}
+  Threads::Threads
+)
+
+add_test(${PROJECT_NAME} ${PROJECT_NAME})

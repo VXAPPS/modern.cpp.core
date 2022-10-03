@@ -65,26 +65,49 @@ namespace vx {
 
     m_start = std::chrono::high_resolution_clock::now();
     m_cpu = std::clock();
+
+    /* clockid_t clk_id = 0;
+    clk_id = CLOCK_PROCESS_CPUTIME_ID;
+    int result = ::clock_gettime( clk_id, &tp );
+    std::cout << result << std::endl;
+    std::cout << tp.tv_nsec << std::endl;
+    std::cout << tp.tv_sec << std::endl; */
   }
 
   void Timing::stop() const noexcept {
 
     auto end = std::chrono::high_resolution_clock::now();
 
+    /* Auto scale from ms to s */
+    std::string literal = "ms";
+    double diff = static_cast<double>( std::chrono::duration_cast<std::chrono::nanoseconds>( end - m_start ).count() ) / multiplier / multiplier;
+    if ( diff > multiplier ) {
+
+      literal = "s";
+      diff = diff / multiplier;
+    }
+
     std::ostringstream realTime {};
-    realTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::chrono::duration_cast<std::chrono::nanoseconds>( end - m_start ).count() ) / multiplier / multiplier;
+    realTime << std::setprecision( std::numeric_limits<double>::digits10 ) << diff;
 
     std::ostringstream cpuTime {};
     cpuTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::clock() - m_cpu ) / static_cast<double>( CLOCKS_PER_SEC ) * multiplier;
 
+    /* clockid_t clk_id;
+    clk_id = CLOCK_PROCESS_CPUTIME_ID;
+    int result = ::clock_getres( clk_id, const_cast<struct timespec *>( &tp ) );
+    std::cout << result << std::endl;
+    std::cout << tp.tv_nsec << std::endl;
+    std::cout << tp.tv_sec << std::endl; */
+
 #if __has_include( <LoggerFactory.h> )
     LogVerbose( "------ " + m_action );
-    LogVerbose( "Real Time: " + realTime.str() + " ms" );
+    LogVerbose( "Real Time: " + realTime.str() + ' ' + literal );
     LogVerbose( "CPU Time: " + cpuTime.str() + " ms" );
 #else
     std::cout << "------ " << m_action << std::endl;
     std::cout << "Timestamp: " << timestamp::iso8601( Precision::MicroSeconds ) << std::endl;
-    std::cout << "Real Time: " << realTime.str() << " ms" << std::endl;
+    std::cout << "Real Time: " << realTime.str() << ' ' << literal << std::endl;
     std::cout << "CPU Time: " << cpuTime.str() << " ms" << std::endl;
 #endif
   }

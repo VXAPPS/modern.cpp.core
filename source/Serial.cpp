@@ -67,7 +67,7 @@ namespace vx {
     m_descriptor = ::open( _path.c_str(), ( O_RDWR | O_NOCTTY | O_NONBLOCK ) );
     if ( m_descriptor == -1 ) {
 
-#if __has_include( <LoggerFactory.h>)
+#if __has_include( <LoggerFactory.h> )
       LogInfo( "Unable to open serial port: " + _path + " at baud rate: " + std::to_string( static_cast<int>( _baudrate ) ) );
 #else
       std::cout << "Unable to open serial port: " << _path << " at baud rate: " << static_cast<int>( _baudrate ) << std::endl;
