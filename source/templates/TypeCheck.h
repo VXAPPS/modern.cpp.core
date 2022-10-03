@@ -38,22 +38,46 @@
  */
 namespace vx {
 
-  /** Template type check */
+  /**
+   * @brief Template type check.
+   */
   template <bool> struct TypeCheck;
 
+  /**
+   * @brief Template type check.
+   */
   template <> struct TypeCheck<true> {};
 
-  /** Main lookup logic of looking up a type in a list. */
+  /**
+   * @brief Main lookup logic of looking up a type in a variant.
+   * @tparam T   Type.
+   * @tparam All   Variadic pack.
+   */
   template <typename T, typename... All>
   struct isOneOf : std::false_type {};
 
+  /**
+   * @brief Main lookup logic of looking up a type in a variant.
+   * @tparam T   Type.
+   * @tparam First   First variadic element.
+   * @tparam Rest   Rest variadic elements.
+   */
   template <typename T, typename First, typename... Rest>
   struct isOneOf<T, First, Rest...> : std::conditional_t<std::is_same_v<T, First>, std::true_type, isOneOf<T, Rest...>> {};
 
-  /* Convenience wrapper for std::variant<>.  */
+  /**
+   * @brief Convenience wrapper for std::variant<>.
+   * @tparam T   Type.
+   * @tparam Variant   Variant.
+   */
   template <typename T, typename Variant>
   struct isVariantMember;
 
-  template <typename T, typename... VariantTypes>
-  struct isVariantMember<T, std::variant<VariantTypes...>> : isOneOf<T, VariantTypes...> {};
+  /**
+   * @brief Convenience wrapper for std::variant<>.
+   * @tparam T   Type.
+   * @tparam Ts   Variant types.
+   */
+  template <typename T, typename... Ts>
+  struct isVariantMember<T, std::variant<Ts...>> : isOneOf<T, Ts...> {};
 }
