@@ -41,6 +41,7 @@ namespace std {
 #if !__has_cpp_attribute( __cpp_lib_to_underlying )
   /**
    * @brief Return the underlying value in its correct type of an enumeration.
+   * @tparam E   Enum or enum class.
    * @param _enum   Enumeration value.
    * @return The underlying value in its correct type of an enumeration.
    * @note https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1682r3.html

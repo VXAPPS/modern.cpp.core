@@ -65,6 +65,7 @@ namespace vx {
 
     /**
      * @brief Write out the values.
+     * @tparam T   Type.
      * @param _first   First value.
      * @param _last   Last value.
      */

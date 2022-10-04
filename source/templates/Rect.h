@@ -40,6 +40,11 @@
  */
 namespace vx {
 
+  /**
+   * @brief Template for rect.
+   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
+   * @tparam T   Type.
+   */
   template <typename T>
   class Rect : TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
 

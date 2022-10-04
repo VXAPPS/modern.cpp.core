@@ -50,6 +50,7 @@ namespace vx {
   public:
     /**
      * @brief Call a function after timeout.
+     * @tparam Function   Function definition.
      * @param _function   Call back function.
      * @param _delay   Delay in milliseconds after the function is called.
      */
@@ -75,6 +76,7 @@ namespace vx {
 
     /**
      * @brief Call a function after interval.
+     * @tparam Function   Function definition.
      * @param _function   Call back function.
      * @param _interval   Interval in milliseconds after the function is called.
      */

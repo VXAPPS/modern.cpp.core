@@ -43,6 +43,7 @@ namespace vx {
   /**
    * @brief Template for shared queue class.
    * @author Florian Becker <fb\@vxapps.com> (VX APPS)
+   * @tparam T   Type.
    */
   template <typename T>
   class SharedQueue {

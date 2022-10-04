@@ -38,6 +38,7 @@ namespace vx {
   /**
    * @brief Template instance class.
    * @author Florian Becker <fb\@vxapps.com> (VX APPS)
+   * @tparam T   Type.
    */
   template <typename T>
   class Singleton {

@@ -54,6 +54,7 @@ namespace vx::floating_point {
 
   /**
    * @brief Is _left and _right equal?
+   * @tparam T   Type.
    * @param _left   The first value.
    * @param _right   The second value.
    * @param _equal   Absolute or relative to input or combined.
@@ -79,6 +80,7 @@ namespace vx::floating_point {
 
   /**
    * @brief Is _left less than _right or _orEqual?
+   * @tparam T   Type.
    * @param _left   The first value.
    * @param _right   The second value.
    * @param _orEqual   Check if _left and _right are equal - default false.
@@ -101,6 +103,7 @@ namespace vx::floating_point {
 
   /**
    * @brief Is _left greater than _right or _orEqual?
+   * @tparam T   Type.
    * @param _left   The first value.
    * @param _right   The second value.
    * @param _orEqual   Check if _left and _right are equal - default false.
@@ -123,6 +126,7 @@ namespace vx::floating_point {
 
   /**
    * @brief Is _value between _min and _max or _orEqual.
+   * @tparam T   Type.
    * @param _value   Value to test.
    * @param _min   Is _value greater?
    * @param _max   Is _value less?

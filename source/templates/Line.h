@@ -45,6 +45,11 @@
  */
 namespace vx {
 
+  /**
+   * @brief Template for line.
+   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
+   * @tparam T   Type.
+   */
   template <typename T>
   class Line : TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
 

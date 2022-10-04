@@ -39,6 +39,11 @@
  */
 namespace vx {
 
+  /**
+   * @brief Template for size.
+   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
+   * @tparam T   Type.
+   */
   template <typename T>
   class Size : TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
 
