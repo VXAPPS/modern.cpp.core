@@ -217,8 +217,7 @@ namespace vx {
 
     enum class ColorUnsigned : unsigned { RED = 2,
                                           BLUE = 4,
-                                          GREEN = 8
-    };
+                                          GREEN = 8 };
 
     auto colorRedUnsigned = magic_enum::enum_integer( ColorUnsigned::RED );
     EXPECT_EQ( typeid( colorRedUnsigned ), typeid( unsigned int ) );
