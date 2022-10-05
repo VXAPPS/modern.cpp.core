@@ -181,7 +181,7 @@ namespace vx {
                        GREEN = 8 };
 
     constexpr std::size_t colorCount = magic_enum::enum_count<Color>();
-    EXPECT_EQ( colorCount, 3 );
+    EXPECT_EQ( colorCount, 3U );
   }
 
   TEST( MagicEnum, ValueInteger ) {
