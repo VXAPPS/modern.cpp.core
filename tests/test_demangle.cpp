@@ -65,6 +65,7 @@ namespace vx {
 
   TEST( Demangle, Enum ) {
 
+#ifndef _WIN32
     enum class Color { RED = 2,
                        BLUE = 4,
                        GREEN = 8 };
@@ -83,6 +84,7 @@ namespace vx {
     const std::string resultColorUnscoped = demangleSimple( typeid( ColorUnscoped ).name() );
     const std::vector<std::string_view> colorUnscopedTkens = string_utils::tokenize( resultColorUnscoped, "::" );
     EXPECT_EQ( colorUnscopedTkens, colorUnscopedTokens );
+#endif
   }
 
   TEST( Demangle, SimpleTypes ) {

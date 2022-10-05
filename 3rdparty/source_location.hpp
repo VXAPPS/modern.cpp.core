@@ -61,10 +61,10 @@ namespace std {
                                std::string_view _functionName,
                                const uint_least32_t _lineNumber,
                                const uint_least32_t _columnOffset ) noexcept
-        : fileName( _fileName ),
-          functionName( _functionName ),
-          lineNumber( _lineNumber ),
-          columnOffset( _columnOffset ) {}
+      : fileName( _fileName ),
+        functionName( _functionName ),
+        lineNumber( _lineNumber ),
+        columnOffset( _columnOffset ) {}
 
     std::string_view fileName;
     std::string_view functionName;
