@@ -28,41 +28,50 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+/* cppunit header */
+#ifdef __clang__
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Weverything"
+#endif
+#ifdef __GNUC__
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Weffc++"
+#endif
+#include <gtest/gtest.h>
+#ifdef __GNUC__
+  #pragma GCC diagnostic pop
+#endif
+#ifdef __clang__
+  #pragma clang diagnostic pop
+#endif
 
 /* stl header */
-#include <string>
+#include <format>
 
-/**
- * @brief vx (VX APPS) namespace.
- */
+using ::testing::InitGoogleTest;
+using ::testing::Test;
+
+#ifdef __clang__
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wglobal-constructors"
+#endif
 namespace vx {
 
-  /**
-   * @brief Demangle typeid.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string demangle( const std::string &_name ) noexcept;
+  TEST( Format, Simple ) {
 
-  /**
-   * @brief Demangle a type information, remove namespaces, remove spaces and order const and pointer and reference.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string demangleSimple( const std::string &_name ) noexcept;
+    using namespace std::literals;
 
-  /**
-   * @brief Demangle with demangleSimple() but also remove less, hash, equal_to and allocator information.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string demangleExtreme( const std::string &_name ) noexcept;
+    EXPECT_EQ( std::format( "{}", 1 ), "1" );
+    EXPECT_EQ( std::format( "{}", "Test"sv ), "Test"s );
+    EXPECT_EQ( std::format( "{} {} {}", 1, 2, "3" ), "1 2 3"s );
+  }
+}
+#ifdef __clang__
+  #pragma clang diagnostic pop
+#endif
 
-  /**
-   * @brief Demangle with demangleSimple() but also remove less, hash, equal_to and allocator information.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string demangleClassName( const std::string &_name ) noexcept;
+int main( int argc, char **argv ) {
+
+  InitGoogleTest( &argc, argv );
+  return RUN_ALL_TESTS();
 }

@@ -32,9 +32,15 @@ cmake_minimum_required(VERSION 3.18)
 
 project(modern.cpp.core VERSION 0.6 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES CXX)
 include(cmake/env.cmake)
+include(cmake/checks.cmake)
 
 # Fetch Content Dependencies
 include(${CMAKE}/fetch/magic_enum.cmake)
+
+# External Project Dependencies
+if(NOT HAVE_FORMAT)
+  include(${CMAKE}/external/fmt.cmake)
+endif()
 
 add_subdirectory(source)
 if(CORE_BUILD_EXAMPLES)

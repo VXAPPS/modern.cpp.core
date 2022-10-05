@@ -28,11 +28,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-add_subdirectory(demangle)
-add_subdirectory(double_utils)
-add_subdirectory(string_utils)
-
-project(Test_Line)
+project(test_demangle)
 
 add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
@@ -54,7 +50,7 @@ target_link_libraries(${PROJECT_NAME}
 
 add_test(${PROJECT_NAME} ${PROJECT_NAME})
 
-project(Test_Point)
+project(test_double_utils)
 
 add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
@@ -76,7 +72,43 @@ target_link_libraries(${PROJECT_NAME}
 
 add_test(${PROJECT_NAME} ${PROJECT_NAME})
 
-project(Test_Rect)
+project(test_format)
+
+if(NOT HAVE_FORMAT)
+  set(${PROJECT_NAME}_includes ${FMT_INCLUDE_DIR})
+endif()
+
+add_executable(${PROJECT_NAME}
+  ${PROJECT_NAME}.cpp
+)
+
+add_dependencies(${PROJECT_NAME} googletest)
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+  ${GOOGLETEST_INCLUDE_DIR}
+  ${${PROJECT_NAME}_includes}
+)
+
+if(NOT HAVE_FORMAT)
+  set(${PROJECT_NAME}_libs ${FMT_LIBRARY})
+endif()
+
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp.core
+  ${GOOGLETEST_LIBRARY}
+  Threads::Threads
+  ${${PROJECT_NAME}_libs}
+)
+
+if(NOT HAVE_FORMAT)
+  add_dependencies(${PROJECT_NAME} fmt)
+endif()
+
+add_test(${PROJECT_NAME} ${PROJECT_NAME})
+
+project(test_line)
 
 add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
@@ -98,7 +130,95 @@ target_link_libraries(${PROJECT_NAME}
 
 add_test(${PROJECT_NAME} ${PROJECT_NAME})
 
-project(Test_Size)
+project(test_magic_enum)
+
+add_executable(${PROJECT_NAME}
+  ${PROJECT_NAME}.cpp
+)
+
+add_dependencies(${PROJECT_NAME} googletest)
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+  ${GOOGLETEST_INCLUDE_DIR}
+)
+
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp.core
+  ${GOOGLETEST_LIBRARY}
+  Threads::Threads
+)
+
+add_test(${PROJECT_NAME} ${PROJECT_NAME})
+
+project(test_point)
+
+add_executable(${PROJECT_NAME}
+  ${PROJECT_NAME}.cpp
+)
+
+add_dependencies(${PROJECT_NAME} googletest)
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+  ${GOOGLETEST_INCLUDE_DIR}
+)
+
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp.core
+  ${GOOGLETEST_LIBRARY}
+  Threads::Threads
+)
+
+add_test(${PROJECT_NAME} ${PROJECT_NAME})
+
+project(test_rect)
+
+add_executable(${PROJECT_NAME}
+  ${PROJECT_NAME}.cpp
+)
+
+add_dependencies(${PROJECT_NAME} googletest)
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+  ${GOOGLETEST_INCLUDE_DIR}
+)
+
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp.core
+  ${GOOGLETEST_LIBRARY}
+  Threads::Threads
+)
+
+add_test(${PROJECT_NAME} ${PROJECT_NAME})
+
+project(test_size)
+
+add_executable(${PROJECT_NAME}
+  ${PROJECT_NAME}.cpp
+)
+
+add_dependencies(${PROJECT_NAME} googletest)
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE
+  ${GOOGLETEST_INCLUDE_DIR}
+)
+
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp.core
+  ${GOOGLETEST_LIBRARY}
+  Threads::Threads
+)
+
+add_test(${PROJECT_NAME} ${PROJECT_NAME})
+
+project(test_string_utils)
 
 add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp

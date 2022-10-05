@@ -37,6 +37,7 @@ endif()
 add_library(${PROJECT_NAME}
   ../.github/workflows/integrate.yml
   ../README.md
+  ${3RDPARTY_DIR}/source_location.hpp
   CPU.cpp
   CPU.h
   Demangle.cpp
@@ -47,6 +48,8 @@ add_library(${PROJECT_NAME}
   Exec.h
   Keyboard.cpp
   Keyboard.h
+  Logger.cpp
+  Logger.h
   StringUtils.cpp
   StringUtils.h
   Timestamp.cpp
@@ -71,12 +74,16 @@ add_library(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC
+  ${3RDPARTY_DIR}
   ${SOURCE_DIR}
   ${SOURCE_DIR}/templates
 )
 
 if(UNIX AND NOT APPLE)
   set(${PROJECT_NAME}_libs ${X11_LIBRARIES})
+endif()
+if(APPLE AND NOT IOS)
+  set(${PROJECT_NAME}_libs ${FOUNDATION})
 endif()
 
 target_link_libraries(${PROJECT_NAME}

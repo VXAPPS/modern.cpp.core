@@ -67,6 +67,13 @@ namespace vx {
     }
 #endif
 
+    return result;
+  }
+
+  std::string demangleSimple( const std::string &_name ) noexcept {
+
+    std::string result = demangle( _name );
+
     // WINDOWS
     result = std::regex_replace( result, std::regex( "class" ), "" );
     result = std::regex_replace( result, std::regex( "struct" ), "" );
@@ -95,11 +102,12 @@ namespace vx {
     result = string_utils::simplified( result );
 
     return result;
+
   }
 
   std::string demangleExtreme( const std::string &_name ) noexcept {
 
-    std::string result = demangle( _name );
+    std::string result = demangleSimple( _name );
 
     /* Everything to cut out until end to simplify the types printed */
     const std::vector toRemove { "std::less", "std::hash", "std::equal_to", "std::allocator" };
@@ -128,6 +136,19 @@ namespace vx {
     if ( result.find( ", " ) == std::string::npos ) {
 
       result = std::regex_replace( result, std::regex( "," ), ", " );
+    }
+
+    return result;
+  }
+
+  std::string demangleClassName( const std::string &_name ) noexcept {
+
+    std::string result = demangleSimple( _name );
+
+    std::size_t pos = result.find_last_of( ':' );
+    if ( pos != std::string::npos ) {
+
+      result = result.substr( pos + 1, result.size() - pos - 1 );
     }
 
     return result;
