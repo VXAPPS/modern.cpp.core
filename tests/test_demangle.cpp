@@ -52,6 +52,7 @@
 
 /* modern.cpp.core */
 #include <Demangle.h>
+#include <StringUtils.h>
 
 using ::testing::InitGoogleTest;
 using ::testing::Test;
@@ -69,11 +70,19 @@ namespace vx {
                        GREEN = 8 };
 
     enum ColorUnscoped { RED = 2,
-                       BLUE = 4,
-                       GREEN = 8 };
+                         BLUE = 4,
+                         GREEN = 8 };
 
-    EXPECT_EQ( demangleClassName( typeid( Color ).name() ), "Color" );
-    EXPECT_EQ( demangleClassName( typeid( ColorUnscoped ).name() ), "ColorUnscoped" );
+    const std::vector<std::string_view> colorTokens { "vx", "Demangle_Enum_Test", "TestBody()", "Color" };
+    const std::vector<std::string_view> colorUnscopedTokens { "vx", "Demangle_Enum_Test", "TestBody()", "ColorUnscoped" };
+
+    const std::string result = demangleSimple( typeid( Color ).name() );
+    const std::vector<std::string_view> colorTkens = string_utils::tokenize( result, "::" );
+    EXPECT_EQ( colorTkens, colorTokens );
+
+    const std::string resultColorUnscoped = demangleSimple( typeid( ColorUnscoped ).name() );
+    const std::vector<std::string_view> colorUnscopedTkens = string_utils::tokenize( resultColorUnscoped, "::" );
+    EXPECT_EQ( colorUnscopedTkens, colorUnscopedTokens );
   }
 
   TEST( Demangle, SimpleTypes ) {

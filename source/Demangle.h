@@ -32,6 +32,8 @@
 
 /* stl header */
 #include <string>
+#include <string_view>
+#include <vector>
 
 /**
  * @brief vx (VX APPS) namespace.
@@ -58,11 +60,4 @@ namespace vx {
    * @return The demangled type information.
    */
   [[nodiscard]] std::string demangleExtreme( const std::string &_name ) noexcept;
-
-  /**
-   * @brief Demangle with demangleSimple() but also remove less, hash, equal_to and allocator information.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string demangleClassName( const std::string &_name ) noexcept;
 }

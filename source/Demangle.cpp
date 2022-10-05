@@ -102,7 +102,6 @@ namespace vx {
     result = string_utils::simplified( result );
 
     return result;
-
   }
 
   std::string demangleExtreme( const std::string &_name ) noexcept {
@@ -136,19 +135,6 @@ namespace vx {
     if ( result.find( ", " ) == std::string::npos ) {
 
       result = std::regex_replace( result, std::regex( "," ), ", " );
-    }
-
-    return result;
-  }
-
-  std::string demangleClassName( const std::string &_name ) noexcept {
-
-    std::string result = demangleSimple( _name );
-
-    std::size_t pos = result.find_last_of( ':' );
-    if ( pos != std::string::npos ) {
-
-      result = result.substr( pos + 1, result.size() - pos - 1 );
     }
 
     return result;
