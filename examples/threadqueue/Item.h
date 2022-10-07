@@ -36,14 +36,14 @@
 class Item {
 
 public:
-  Item( std::string _message,
-        int _number )
-      : m_message( std::move( _message ) ),
-        m_number( _number ) {}
+  explicit Item( std::string _message,
+                 int _number ) noexcept
+    : m_message( std::move( _message ) ),
+      m_number( _number ) {}
 
-  [[nodiscard]] inline std::string getMessage() const { return m_message; }
+  [[nodiscard]] inline std::string getMessage() const noexcept { return m_message; }
 
-  [[nodiscard]] inline int getNumber() const { return m_number; }
+  [[nodiscard]] inline int getNumber() const noexcept { return m_number; }
 
 private:
   std::string m_message {};

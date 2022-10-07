@@ -49,12 +49,12 @@ static void process( vx::SharedQueue<std::unique_ptr<Item>> &_queue, int _thread
 
     std::unique_ptr<Item> item = std::move( _queue.front() );
     _queue.pop();
+    if ( item && item->getMessage() == "STOP" ) {
+
+      break;
+    }
     if ( item ) {
 
-      if ( item->getMessage() == "STOP" ) {
-
-        break;
-      }
       std::cout << _threadId << ": received item: " << item->getMessage() << " " << item->getNumber() << std::endl;
     }
   }
