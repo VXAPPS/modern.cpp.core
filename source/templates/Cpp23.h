@@ -38,6 +38,40 @@
  */
 namespace std {
 
+#if !__has_cpp_attribute( __cpp_lib_is_scoped_enum )
+  namespace detail {
+
+    /* avoid ODR-violation */
+    namespace {
+
+      template <class T>
+    [[maybe_unused]] auto test_sizable( int ) -> decltype( static_cast<void>(sizeof( T )), true_type {} );
+
+      template <class>
+      [[maybe_unused]] auto test_sizable( ... ) -> false_type;
+
+      template <class T>
+      [[maybe_unused]] auto test_nonconvertible_to_int( int ) -> decltype( static_cast<false_type ( * )( int )>( nullptr )( declval<T>() ) );
+
+      template <class>
+      [[maybe_unused]] auto test_nonconvertible_to_int( ... ) -> true_type;
+
+      template <class T>
+      constexpr bool is_scoped_enum_impl = conjunction_v<decltype( test_sizable<T>( 0 ) ), decltype( test_nonconvertible_to_int<T>( 0 ) )>;
+    }
+  }
+
+  template <class>
+  struct is_scoped_enum : false_type {};
+
+  template <class E>
+  requires is_enum_v<E>
+  struct is_scoped_enum<E> : bool_constant<detail::is_scoped_enum_impl<E>> {};
+
+  template <class E>
+  inline constexpr bool is_scoped_enum_v = is_scoped_enum<E>::value;
+#endif
+
 #if !__has_cpp_attribute( __cpp_lib_to_underlying )
   /**
    * @brief Return the underlying value in its correct type of an enumeration.
@@ -47,10 +81,13 @@ namespace std {
    * @note https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p1682r3.html
    */
   template <typename E>
-  constexpr typename std::underlying_type<E>::type to_underlying( E _enum ) noexcept {
+  constexpr typename underlying_type<E>::type to_underlying( E _enum ) noexcept {
 
-    return static_cast<typename std::underlying_type<E>::type>( _enum );
+    return static_cast<typename underlying_type<E>::type>( _enum );
   }
+
+  template <class E>
+  using underlying_type_t = typename underlying_type<E>::type;
 #endif
 
 #if !__has_cpp_attribute( __cpp_lib_unreachable )
@@ -59,9 +96,9 @@ namespace std {
    */
   [[noreturn]] inline void unreachable() {
 
-    // Uses compiler specific extensions if possible.
-    // Even if no extension is used, undefined behavior is still raised by
-    // an empty function body and the noreturn attribute.
+  // Uses compiler specific extensions if possible.
+  // Even if no extension is used, undefined behavior is still raised by
+  // an empty function body and the noreturn attribute.
   #ifdef __GNUC__ // GCC, Clang, ICC
     __builtin_unreachable();
   #elif defined _MSC_VER // MSVC

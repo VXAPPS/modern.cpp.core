@@ -29,7 +29,6 @@
  */
 
 /* stl header */
-#include <functional>
 #include <iostream>
 
 /* modern.cpp.core */
@@ -44,8 +43,7 @@ int main() {
   int intervall = 1;
   auto intervallTimer = vx::Timer();
 
-  using func = std::function<void( void )>;
-  const func runOnInterval = [ &intervallTimer, &intervall ]() {
+  const auto runOnInterval = [ &intervallTimer, &intervall ]() {
     std::cout << "Intervall: " << intervall << std::endl;
     intervall++;
     if ( intervall >= exitSeconds ) {

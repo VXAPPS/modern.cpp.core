@@ -29,7 +29,6 @@
  */
 
 /* stl header */
-#include <functional>
 #include <iostream>
 
 /* modern.cpp.core */
@@ -79,8 +78,7 @@ int main() {
 
   auto intervallTimer = vx::Timer();
 
-  using func = std::function<void( void )>;
-  const func runOnInterval = [ &intervallTimer, &intervall, &queue ]() {
+  const auto runOnInterval = [ &intervallTimer, &intervall, &queue ]() {
     ++intervall;
     std::cout << "Intervall: " << intervall << std::endl;
     try {

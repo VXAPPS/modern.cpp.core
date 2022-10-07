@@ -326,7 +326,13 @@ namespace vx {
     EXPECT_FALSE( magic_enum::is_unscoped_enum<Color>::value );
     EXPECT_FALSE( magic_enum::is_unscoped_enum_v<Color> );
 
-    // EXPECT_FALSE( magic_enum::is_unscoped_enum<int> ); - not compileable - seems correct.
+    /* c++23 solution */
+    EXPECT_FALSE( magic_enum::is_unscoped_enum_v<int> );
+    EXPECT_FALSE( magic_enum::is_unscoped_enum<int>::value );
+
+    EXPECT_FALSE( std::is_scoped_enum_v<ColorUnscoped> );
+    EXPECT_TRUE( std::is_scoped_enum_v<Color> );
+    EXPECT_FALSE( std::is_scoped_enum_v<int> );
   }
 }
 #ifdef __clang__

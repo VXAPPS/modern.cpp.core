@@ -195,9 +195,9 @@ namespace vx {
 
     std::unique_lock<std::mutex> lock( m_mutex );
 
-    std::size_t size = m_queue.size();
+    bool empty = m_queue.empty();
 
     lock.unlock();
-    return size == 0;
+    return empty;
   }
 }
