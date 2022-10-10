@@ -74,15 +74,19 @@ add_test(${PROJECT_NAME} ${PROJECT_NAME})
 
 project(test_format)
 
-if(NOT HAVE_FORMAT)
-  set(${PROJECT_NAME}_includes ${FMT_INCLUDE_DIR})
-endif()
-
 add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
 )
 
-add_dependencies(${PROJECT_NAME} googletest)
+if(NOT HAVE_FORMAT)
+  add_dependencies(${PROJECT_NAME} fmt googletest)
+else()
+  add_dependencies(${PROJECT_NAME} googletest)
+endif()
+
+if(NOT HAVE_FORMAT)
+  set(${PROJECT_NAME}_includes ${FMT_INCLUDE_DIR})
+endif()
 
 target_include_directories(${PROJECT_NAME}
   PRIVATE
@@ -101,10 +105,6 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
   ${${PROJECT_NAME}_libs}
 )
-
-if(NOT HAVE_FORMAT)
-  add_dependencies(${PROJECT_NAME} fmt)
-endif()
 
 add_test(${PROJECT_NAME} ${PROJECT_NAME})
 

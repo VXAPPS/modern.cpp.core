@@ -37,11 +37,6 @@ include(cmake/checks.cmake)
 # Fetch Content Dependencies
 include(${CMAKE}/fetch/magic_enum.cmake)
 
-# External Project Dependencies
-if(NOT HAVE_FORMAT)
-  include(${CMAKE}/external/fmt.cmake)
-endif()
-
 add_subdirectory(source)
 if(CORE_BUILD_EXAMPLES)
   add_subdirectory(examples)
@@ -49,6 +44,9 @@ endif()
 
 if(CORE_BUILD_TESTS)
   include(${CMAKE}/external/googletest.cmake)
+  if(NOT HAVE_FORMAT)
+    include(${CMAKE}/external/fmt.cmake)
+  endif()
   enable_testing()
   add_subdirectory(tests)
 endif()
