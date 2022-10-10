@@ -86,8 +86,8 @@ namespace std {
     return static_cast<typename underlying_type<E>::type>( _enum );
   }
 
-  template <class E>
-  using underlying_type_t = typename underlying_type<E>::type;
+//  template <class E>
+//  using underlying_type_t = typename underlying_type<E>::type;
 #endif
 
 #if !__has_cpp_attribute( __cpp_lib_unreachable )
