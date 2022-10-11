@@ -45,7 +45,7 @@ namespace std {
     namespace {
 
       template <class T>
-    [[maybe_unused]] auto test_sizable( int ) -> decltype( static_cast<void>(sizeof( T )), true_type {} );
+      [[maybe_unused]] auto test_sizable( int ) -> decltype( static_cast<void>( sizeof( T ) ), true_type {} );
 
       template <class>
       [[maybe_unused]] auto test_sizable( ... ) -> false_type;
@@ -61,12 +61,8 @@ namespace std {
     }
   }
 
-  template <class>
-  struct is_scoped_enum : false_type {};
-
   template <class E>
-  requires is_enum_v<E>
-  struct is_scoped_enum<E> : bool_constant<detail::is_scoped_enum_impl<E>> {};
+  struct is_scoped_enum : bool_constant<detail::is_scoped_enum_impl<E>> {};
 
   template <class E>
   inline constexpr bool is_scoped_enum_v = is_scoped_enum<E>::value;
@@ -85,9 +81,6 @@ namespace std {
 
     return static_cast<typename underlying_type<E>::type>( _enum );
   }
-
-//  template <class E>
-//  using underlying_type_t = typename underlying_type<E>::type;
 #endif
 
 #if !__has_cpp_attribute( __cpp_lib_unreachable )
