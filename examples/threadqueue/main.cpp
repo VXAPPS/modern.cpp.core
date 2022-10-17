@@ -42,14 +42,14 @@ constexpr int intervallSeconds = 1;
 constexpr int secondsToMilliseconds = 100;
 constexpr int exitIntervall = 30;
 
-static void process( vx::SharedQueue<std::unique_ptr<Item>> &_queue, int _threadId ) {
+static void process( vx::SharedQueue<Item *> &_queue, int _threadId ) {
 
   std::cout << "Start Thread: " << _threadId << std::endl;
   while ( true ) {
 
-    std::unique_ptr<Item> item = std::move( _queue.front() );
+    Item *item = std::move( _queue.front() );
     _queue.pop();
-    if ( item && item->getMessage() == "STOP" ) {
+    if ( item && item->getNumber() == 0 ) {
 
       break;
     }
@@ -65,7 +65,7 @@ int main() {
 
   int intervall {};
 
-  vx::SharedQueue<std::unique_ptr<Item>> queue {};
+  vx::SharedQueue<Item *> queue {};
 
   const unsigned int threadCount = std::max( 1U, std::thread::hardware_concurrency() );
   std::vector<std::thread> threads {};
@@ -83,15 +83,15 @@ int main() {
     std::cout << "Intervall: " << intervall << std::endl;
     try {
 
-      queue.push( std::make_unique<Item>( "Attached", intervall ) );
+      queue.push( new Item( "Attached", intervall ) );
     }
     catch ( const std::bad_alloc &_exception ) {
 
-      std::cout << "bad_alloc: " << _exception.what() << std::endl;
+      std::cout << __LINE__ << " bad_alloc: " << _exception.what() << std::endl;
     }
     catch ( const std::exception &_exception ) {
 
-      std::cout << _exception.what() << std::endl;
+      std::cout << __LINE__ << _exception.what() << std::endl;
     }
 
     if ( intervall >= exitIntervall ) {
@@ -116,15 +116,15 @@ int main() {
 
     try {
 
-      queue.push( std::make_unique<Item>( "STOP", 0 ) );
+      queue.push( new Item( "STOP", 0 ) );
     }
     catch ( const std::bad_alloc &_exception ) {
 
-      std::cout << "bad_alloc: " << _exception.what() << std::endl;
+      std::cout << __LINE__ << " bad_alloc: " << _exception.what() << std::endl;
     }
     catch ( const std::exception &_exception ) {
 
-      std::cout << _exception.what() << std::endl;
+      std::cout << __LINE__ << _exception.what() << std::endl;
     }
   }
 
