@@ -58,7 +58,7 @@ namespace vx {
     const std::unique_ptr<char, void ( * )( void * )> res {
 
       abi::__cxa_demangle( _name.c_str(), nullptr, nullptr, &status ),
-      std::free
+      []( void *_toFree ) { std::free( _toFree ); }
     };
 
     if ( status == 0 ) {

@@ -51,7 +51,7 @@ namespace vx {
    * @tparam T   Type.
    */
   template <typename T>
-  class Line : TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
+  class Line : private TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
 
   public:
     constexpr Line<T>() = default;
@@ -72,23 +72,23 @@ namespace vx {
      * @brief Is this line empty?
      * @return True, this line has identical points - otherwise false.
      */
-    [[nodiscard]] inline constexpr bool null() const noexcept { return m_point1 == m_point2; }
+    [[nodiscard]] constexpr bool null() const noexcept { return m_point1 == m_point2; }
 
-    [[nodiscard]] inline constexpr Point<T> point1() const noexcept { return m_point1; }
+    [[nodiscard]] constexpr Point<T> point1() const noexcept { return m_point1; }
 
-    [[nodiscard]] inline constexpr Point<T> point2() const noexcept { return m_point2; }
+    [[nodiscard]] constexpr Point<T> point2() const noexcept { return m_point2; }
 
-    [[nodiscard]] inline constexpr T x1() const noexcept { return m_point1.x(); }
+    [[nodiscard]] constexpr T x1() const noexcept { return m_point1.x(); }
 
-    [[nodiscard]] inline constexpr T y1() const noexcept { return m_point1.y(); }
+    [[nodiscard]] constexpr T y1() const noexcept { return m_point1.y(); }
 
-    [[nodiscard]] inline constexpr T x2() const noexcept { return m_point2.x(); }
+    [[nodiscard]] constexpr T x2() const noexcept { return m_point2.x(); }
 
-    [[nodiscard]] inline constexpr T y2() const noexcept { return m_point2.y(); }
+    [[nodiscard]] constexpr T y2() const noexcept { return m_point2.y(); }
 
-    [[nodiscard]] inline constexpr T dx() const noexcept { return m_point2.x() - m_point1.x(); }
+    [[nodiscard]] constexpr T dx() const noexcept { return m_point2.x() - m_point1.x(); }
 
-    [[nodiscard]] inline constexpr T dy() const noexcept { return m_point2.y() - m_point1.y(); }
+    [[nodiscard]] constexpr T dy() const noexcept { return m_point2.y() - m_point1.y(); }
 
     inline void translate( Point<T> _point ) noexcept {
 
@@ -99,7 +99,7 @@ namespace vx {
     inline void translate( T _dx,
                            T _dy ) noexcept { translate( Point<T>( _dx, _dy ) ); }
 
-    [[nodiscard]] inline constexpr T width() const noexcept { return static_cast<T>( std::sqrt( std::sqrt( m_point2.x() - m_point1.x() ) + std::sqrt( m_point2.y() - m_point1.y() ) ) ); }
+    [[nodiscard]] constexpr T width() const noexcept { return static_cast<T>( std::sqrt( std::sqrt( m_point2.x() - m_point1.x() ) + std::sqrt( m_point2.y() - m_point1.y() ) ) ); }
 
   private:
     Point<T> m_point1 {};

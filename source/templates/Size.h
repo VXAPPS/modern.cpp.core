@@ -45,7 +45,7 @@ namespace vx {
    * @tparam T   Type.
    */
   template <typename T>
-  class Size : TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
+  class Size : private TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
 
   public:
     constexpr Size<T>() = default;
@@ -55,35 +55,35 @@ namespace vx {
       : m_width( _width ),
         m_height( _height ) {}
 
-    [[nodiscard]] inline constexpr bool null() const noexcept { return floating_point::equal( m_width, static_cast<T>( 0 ) ) && floating_point::equal( m_height, static_cast<T>( 0 ) ); }
+    [[nodiscard]] constexpr bool null() const noexcept { return floating_point::equal( m_width, static_cast<T>( 0 ) ) && floating_point::equal( m_height, static_cast<T>( 0 ) ); }
 
-    [[nodiscard]] inline constexpr bool empty() const noexcept { return floating_point::less( m_width, static_cast<T>( 1 ) ) || floating_point::less( m_height, static_cast<T>( 1 ) ); }
+    [[nodiscard]] constexpr bool empty() const noexcept { return floating_point::less( m_width, static_cast<T>( 1 ) ) || floating_point::less( m_height, static_cast<T>( 1 ) ); }
 
-    [[nodiscard]] inline constexpr T width() const noexcept { return m_width; }
+    [[nodiscard]] constexpr T width() const noexcept { return m_width; }
 
-    [[nodiscard]] inline constexpr T height() const noexcept { return m_height; }
+    [[nodiscard]] constexpr T height() const noexcept { return m_height; }
 
     inline void setWidth( T _width ) noexcept { m_width = _width; }
 
     inline void setHeight( T _height ) noexcept { m_height = _height; }
 
-    inline constexpr Size<T> &operator+=( Size<T> _size ) noexcept {
+    constexpr Size<T> &operator+=( Size<T> _size ) noexcept {
 
       m_width += _size.m_width;
       m_height += _size.m_height;
       return *this;
     }
 
-    inline constexpr Size<T> &operator-=( Size<T> _size ) noexcept {
+    constexpr Size<T> &operator-=( Size<T> _size ) noexcept {
 
       m_width -= _size.m_width;
       m_height -= _size.m_height;
       return *this;
     }
 
-    [[nodiscard]] inline constexpr bool operator==( Size<T> _size ) const noexcept { return floating_point::equal( m_width, _size.m_width ) && floating_point::equal( m_height, _size.m_height ); }
+    [[nodiscard]] constexpr bool operator==( Size<T> _size ) const noexcept { return floating_point::equal( m_width, _size.m_width ) && floating_point::equal( m_height, _size.m_height ); }
 
-    [[nodiscard]] inline constexpr bool operator!=( Size<T> _size ) const noexcept { return !floating_point::equal( m_width, _size.m_width ) || !floating_point::equal( m_height, _size.m_height ); }
+    [[nodiscard]] constexpr bool operator!=( Size<T> _size ) const noexcept { return !floating_point::equal( m_width, _size.m_width ) || !floating_point::equal( m_height, _size.m_height ); }
 
   private:
     T m_width = 1;

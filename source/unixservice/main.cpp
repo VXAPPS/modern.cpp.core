@@ -34,7 +34,7 @@
 #include <unistd.h>
 
 /* stl header */
-#if __has_include(<filesystem>)
+#if __has_include( <filesystem> )
   #include <filesystem>
 #endif
 #include <fstream>
@@ -49,7 +49,7 @@ int main() {
   // DAEMONIZE START
   /* Fork the current process */
   /* The parent process continues with a process ID greater than 0 */
-  if ( pid_t pid = fork() > 0 ) {
+  if ( pid_t pid = ::fork() > 0 ) {
 
     std::exit( EXIT_SUCCESS );
   }
@@ -62,18 +62,18 @@ int main() {
   /* (the pid of the child process was 0) */
 
   /* Since the child process is a daemon, the umask needs to be set so files and logs can be written */
-  umask( S_IRWXO );
+  ::umask( S_IRWXO );
 
   /* Open system logs for the child process */
-  openlog( DAEMON_NAME, LOG_NOWAIT | LOG_PID, LOG_USER );
-  syslog( LOG_NOTICE, "Successfully started %s", DAEMON_NAME );
+  ::openlog( DAEMON_NAME, LOG_NOWAIT | LOG_PID, LOG_USER );
+  ::syslog( LOG_NOTICE, "Successfully started %s", DAEMON_NAME );
 
   /* Generate a session ID for the child process */
   /* Ensure a valid SID for the child process */
-  if ( setsid() < 0 ) {
+  if ( ::setsid() < 0 ) {
 
     /* Log failure and exit */
-    syslog( LOG_ERR, "Could not generate session ID for child process" );
+    ::syslog( LOG_ERR, "Could not generate session ID for child process" );
 
     /* If a new session ID could not be generated, we must terminate the child process */
     /* or it will be orphaned */
@@ -81,10 +81,10 @@ int main() {
   }
 
   /* Change the current working directory to a directory guaranteed to exist */
-  if ( ( chdir( "/" ) ) < 0 ) {
+  if ( ( ::chdir( "/" ) ) < 0 ) {
 
     /* Log failure and exit */
-    syslog( LOG_ERR, "Could not change working directory to /" );
+    ::syslog( LOG_ERR, "Could not change working directory to /" );
 
     /* If our guaranteed directory does not exist, terminate the child process to ensure */
     /* the daemon has not been hijacked */
@@ -92,21 +92,21 @@ int main() {
   }
 
   /* A daemon cannot use the terminal, so close standard file descriptors for security reasons */
-  for ( auto x = static_cast<int>( sysconf( _SC_OPEN_MAX ) ); x >= 0; x-- ) {
+  for ( auto pos = static_cast<int>( sysconf( _SC_OPEN_MAX ) ); pos >= 0; pos-- ) {
 
-    close( x );
+    ::close( pos );
   }
   /* Alternative, some times it is needed not to close all file descriptors */
-  // close( STDIN_FILENO );
-  // close( STDOUT_FILENO );
-  // close( STDERR_FILENO );
+  // ::close( STDIN_FILENO );
+  // ::close( STDOUT_FILENO );
+  // ::close( STDERR_FILENO );
 
   /* Ensure only one copy */
-  std::stringstream ss;
-  ss << "/var/run/" << DAEMON_NAME << ".pid";
-  std::string pidfile = ss.str();
+  std::ostringstream ostream {};
+  ostream << "/var/run/" << DAEMON_NAME << ".pid";
+  std::string pidfile = ostream.str();
 
-  std::ofstream file;
+  std::ofstream file {};
   std::ios_base::iostate state = file.exceptions();
   file.exceptions( std::ofstream::failbit | std::ofstream::badbit );
   try {
@@ -116,13 +116,13 @@ int main() {
   catch ( const std::ofstream::failure &_exception ) {
 
     /* Couldn't open pid lock file */
-    syslog( LOG_INFO, "Could not open or create PID lock file %s: %s, exiting", pidfile.c_str(), _exception.what() );
+    ::syslog( LOG_INFO, "Could not open or create PID lock file %s: %s, exiting", pidfile.c_str(), _exception.what() );
     std::exit( EXIT_FAILURE );
   }
   file.exceptions( state );
 
   /* Read pid from file, if there is any, find if the process is running - EXIT */
-  std::stringstream buffer;
+  std::ostringstream buffer {};
   buffer << file.rdbuf();
   std::string currentPid = buffer.str();
 
@@ -131,7 +131,7 @@ int main() {
   if ( !currentPid.empty() && currentPid != str ) {
 
     /* Couldn't open lock file */
-    syslog( LOG_INFO, "Service allready running as PID %s, exiting", currentPid.c_str() );
+    ::syslog( LOG_INFO, "Service allready running as PID %s, exiting", currentPid.c_str() );
     std::exit( EXIT_FAILURE );
   }
 
@@ -143,13 +143,13 @@ int main() {
   }
   catch ( const std::ofstream::failure &_exception ) {
 
-    syslog( LOG_INFO, "Could not close PID lock file %s, exiting with: %s", pidfile.c_str(), _exception.what() );
+    ::syslog( LOG_INFO, "Could not close PID lock file %s, exiting with: %s", pidfile.c_str(), _exception.what() );
     std::exit( EXIT_FAILURE );
   }
   /* bugprone solution */
   /* catch ( ... ) {
 
-    syslog( LOG_INFO, "Could not close PID lock file %s, exiting", pidfile.c_str() );
+    ::syslog( LOG_INFO, "Could not close PID lock file %s, exiting", pidfile.c_str() );
     std::exit( EXIT_FAILURE );
   } */
   // DAEMONIZE END
@@ -161,12 +161,18 @@ int main() {
 
   // CLEANUP START
   /* Close system logs for the child process */
-  syslog( LOG_NOTICE, "Stopping %s", DAEMON_NAME );
-  closelog();
+  ::syslog( LOG_NOTICE, "Stopping %s", DAEMON_NAME );
+  ::closelog();
 
   /* Remove content of file */
-#if __has_include(<filesystem>)
-  std::filesystem::remove( pidfile );
+#if __has_include( <filesystem> )
+  std::error_code errorCode {};
+  std::filesystem::remove( pidfile, errorCode );
+  if ( errorCode ) {
+
+    ::syslog( LOG_INFO, "Could not remove PID lock file %s, exiting with: %s, Code: %i", pidfile.c_str(), errorCode.message().c_str(), errorCode.value() );
+    std::exit( EXIT_FAILURE );
+  }
 #else
   std::ofstream ofs;
   ofs.open( pidfile, std::ofstream::out | std::ofstream::trunc );

@@ -329,7 +329,7 @@ namespace vx::logger {
     template <typename Tuple>
     void printTupleReal( [[maybe_unused]] std::size_t _current,
                          [[maybe_unused]] const Tuple &_tuple,
-                         [[maybe_unused]] typename std::tuple_size<Tuple>::type _size ) noexcept {}
+                         [[maybe_unused]] typename std::tuple_size<Tuple>::type _size ) const noexcept { /* empty */ }
 
     template <std::size_t _pos, typename Tuple, typename = std::enable_if_t<std::tuple_size<Tuple>::value != _pos>>
     void printTupleReal( std::size_t _current,
@@ -358,7 +358,7 @@ namespace vx::logger {
     template <typename Variant>
     void printVariantReal( [[maybe_unused]] std::size_t _current,
                            [[maybe_unused]] const Variant &_variant,
-                           [[maybe_unused]] typename std::variant_size<Variant>::type _size ) noexcept {}
+                           [[maybe_unused]] typename std::variant_size<Variant>::type _size ) const noexcept { /* empty */ }
 
     template <std::size_t _pos, typename Variant, typename = std::enable_if_t<std::variant_size<Variant>::value != _pos>>
     void printVariantReal( std::size_t _current,
@@ -452,9 +452,9 @@ namespace vx::logger {
                      const List &_list ) noexcept {
 
     using func = std::function<void( void )>;
-    func checkComma = []() {};
+    func checkComma = []() { /* empty */ };
     func printComma = [ &_logger ]() { _logger.stream() << ',' << ' '; };
-    func noPrint = [ & ]() { checkComma = printComma; };
+    func noPrint = [ &checkComma, &printComma ]() { checkComma = printComma; };
     checkComma = noPrint;
 
     _logger.stream() << demangleExtreme( typeid( _list ).name() ) << ' ' << '{';
@@ -502,9 +502,9 @@ namespace vx::logger {
                     const T &_map ) noexcept {
 
     using func = std::function<void( void )>;
-    func checkComma = []() {};
+    func checkComma = []() { /* empty */ };
     func printComma = [ &_logger ]() { _logger.stream() << ',' << ' '; };
-    func noPrint = [ & ]() { checkComma = printComma; };
+    func noPrint = [ &checkComma, &printComma ]() { checkComma = printComma; };
     checkComma = noPrint;
 
     _logger.stream() << demangleExtreme( typeid( _map ).name() ) << ' ' << '{';
@@ -549,9 +549,9 @@ namespace vx::logger {
                       const T &_tuple ) noexcept {
 
     using func = std::function<void( void )>;
-    func checkComma = []() {};
+    func checkComma = []() { /* empty */ };
     func printComma = [ &_logger ]() { _logger.stream() << ',' << ' '; };
-    func noPrint = [ & ]() { checkComma = printComma; };
+    func noPrint = [ &checkComma, &printComma ]() { checkComma = printComma; };
     checkComma = noPrint;
 
     _logger.stream() << demangleExtreme( typeid( _tuple ).name() ) << ' ' << '{';

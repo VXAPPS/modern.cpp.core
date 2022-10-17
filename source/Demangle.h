@@ -32,8 +32,6 @@
 
 /* stl header */
 #include <string>
-#include <string_view>
-#include <vector>
 
 /**
  * @brief vx (VX APPS) namespace.

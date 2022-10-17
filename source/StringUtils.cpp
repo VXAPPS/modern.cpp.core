@@ -52,11 +52,13 @@ namespace std {
 
 namespace vx::string_utils {
 
-  constexpr auto trimmed = " \t\n\r\f\v";
+  constexpr std::string_view trimmed = " \t\n\r\f\v";
 
   std::string &trimRight( std::string &_string,
                           std::string_view _trim ) noexcept {
 
+    // auto notTrimmed = [ &_trim ]( auto _chr ) { return _trim.empty() ? trimmed.find( _chr ) == std::string_view::npos : _trim.find( _chr ) == std::string_view::npos; };
+    // _string.erase( std::find_if( std::rbegin( _string ), std::rend( _string ), notTrimmed ).base(), std::end( _string ) );
     _string.erase( _string.find_last_not_of( _trim.empty() ? trimmed : _trim ) + 1 );
     return _string;
   }
@@ -64,6 +66,8 @@ namespace vx::string_utils {
   std::string &trimLeft( std::string &_string,
                          std::string_view _trim ) noexcept {
 
+    // auto notTrimmed = [ &_trim ]( auto _chr ) { return _trim.empty() ? trimmed.find( _chr ) == std::string_view::npos : _trim.find( _chr ) == std::string_view::npos; };
+    // _string.erase( std::begin( _string ), std::find_if( std::begin( _string ), std::end( _string ), notTrimmed ) );
     _string.erase( 0, _string.find_first_not_of( _trim.empty() ? trimmed : _trim ) );
     return _string;
   }
@@ -77,9 +81,9 @@ namespace vx::string_utils {
   std::string &toLower( std::string &_string ) noexcept {
 
 #if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
-    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return static_cast<char>( std::tolower( chr ) ); } );
+    std::ranges::transform( _string, std::begin( _string ), []( auto _chr ) { return static_cast<char>( std::tolower( _chr ) ); } );
 #else
-    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return static_cast<char>( std::tolower( chr ) ); } );
+    std::transform( std::cbegin( _string ), std::cend( _string ), std::begin( _string ), []( auto _chr ) { return static_cast<char>( std::tolower( _chr ) ); } );
 #endif
     return _string;
   }
@@ -87,9 +91,9 @@ namespace vx::string_utils {
   std::string &toUpper( std::string &_string ) noexcept {
 
 #if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
-    std::ranges::transform( _string, std::begin( _string ), []( auto chr ) { return static_cast<char>( std::toupper( chr ) ); } );
+    std::ranges::transform( _string, std::begin( _string ), []( auto _chr ) { return static_cast<char>( std::toupper( _chr ) ); } );
 #else
-    std::transform( std::begin( _string ), std::end( _string ), std::begin( _string ), []( auto chr ) { return static_cast<char>( std::toupper( chr ) ); } );
+    std::transform( std::cbegin( _string ), std::cend( _string ), std::begin( _string ), []( auto _chr ) { return static_cast<char>( std::toupper( _chr ) ); } );
 #endif
     return _string;
   }
@@ -123,8 +127,8 @@ namespace vx::string_utils {
     std::replace( std::begin( _string ), std::end( _string ), '\v', ' ' );
 
     /* Normalize spaces to just one */
-    const std::string::iterator newEnd = std::unique( std::begin( _string ), std::end( _string ), bothAreSpaces );
-    _string.erase( newEnd, std::end( _string ) );
+    const auto newEnd = std::unique( std::begin( _string ), std::end( _string ), bothAreSpaces );
+    _string.erase( newEnd, std::cend( _string ) );
 
     /* Trim */
     trim( _string );

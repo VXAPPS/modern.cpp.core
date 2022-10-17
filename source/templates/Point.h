@@ -51,7 +51,7 @@ namespace vx {
    * @tparam T   Type.
    */
   template <typename T>
-  class Point : TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
+  class Point : private TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
 
   public:
     constexpr Point<T>() = default;
@@ -61,35 +61,35 @@ namespace vx {
       : m_x( _x ),
         m_y( _y ) {}
 
-    [[nodiscard]] inline constexpr bool null() const noexcept { return floating_point::equal( m_x, static_cast<T>( 0 ) ) && floating_point::equal( m_y, static_cast<T>( 0 ) ); }
+    [[nodiscard]] constexpr bool null() const noexcept { return floating_point::equal( m_x, static_cast<T>( 0 ) ) && floating_point::equal( m_y, static_cast<T>( 0 ) ); }
 
-    [[nodiscard]] inline constexpr T x() const noexcept { return m_x; }
+    [[nodiscard]] constexpr T x() const noexcept { return m_x; }
 
-    [[nodiscard]] inline constexpr T y() const noexcept { return m_y; }
+    [[nodiscard]] constexpr T y() const noexcept { return m_y; }
 
     inline void setX( T _x ) noexcept { m_x = _x; }
 
     inline void setY( T _y ) noexcept { m_y = _y; }
 
-    [[nodiscard]] inline constexpr T manhattanLength() const noexcept { return std::abs( m_x ) + std::abs( m_y ); }
+    [[nodiscard]] constexpr T manhattanLength() const noexcept { return std::abs( m_x ) + std::abs( m_y ); }
 
-    inline constexpr Point<T> &operator+=( Point<T> _point ) noexcept {
+    constexpr Point<T> &operator+=( Point<T> _point ) noexcept {
 
       m_x += _point.m_x;
       m_y += _point.m_y;
       return *this;
     }
 
-    inline constexpr Point<T> &operator-=( Point<T> _point ) noexcept {
+    constexpr Point<T> &operator-=( Point<T> _point ) noexcept {
 
       m_x -= _point.m_x;
       m_y -= _point.m_y;
       return *this;
     }
 
-    [[nodiscard]] inline constexpr bool operator==( Point<T> _point ) const noexcept { return floating_point::equal( m_x, _point.m_x ) && floating_point::equal( m_y, _point.m_y ); }
+    [[nodiscard]] constexpr bool operator==( Point<T> _point ) const noexcept { return floating_point::equal( m_x, _point.m_x ) && floating_point::equal( m_y, _point.m_y ); }
 
-    [[nodiscard]] inline constexpr bool operator!=( Point<T> _point ) const noexcept { return !floating_point::equal( m_x, _point.m_x ) || !floating_point::equal( m_y, _point.m_y ); }
+    [[nodiscard]] constexpr bool operator!=( Point<T> _point ) const noexcept { return !floating_point::equal( m_x, _point.m_x ) || !floating_point::equal( m_y, _point.m_y ); }
 
   private:
     T m_x = 0;

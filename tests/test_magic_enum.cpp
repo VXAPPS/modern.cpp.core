@@ -135,7 +135,7 @@ namespace vx {
       return value + std::to_underlying( color );
     };
 
-    const auto max = std::accumulate( std::begin( colors ), std::end( colors ), 0, calcEnum );
+    const auto max = std::accumulate( std::cbegin( colors ), std::cend( colors ), 0, calcEnum );
     EXPECT_EQ( max, 14 );
 
     const std::optional colorMax = magic_enum::enum_cast<Color>( max );

@@ -35,6 +35,7 @@
 #include <cstddef> // std::size_t
 
 /* stl header */
+#include <algorithm>
 #include <utility>
 
 /**
@@ -61,12 +62,12 @@ namespace vx::floating_point {
    * @return True, if _left and _right are equal - otherwise false.
    */
   template <typename T>
-  [[nodiscard]] inline constexpr bool equal( T _left,
-                                             T _right,
-                                             Equal _equal = Equal::Absolute ) noexcept {
+  [[nodiscard]] constexpr bool equal( T _left,
+                                      T _right,
+                                      Equal _equal = Equal::Absolute ) noexcept {
 
     /* Absolute */
-    T factor = static_cast<T>( 1 );
+    auto factor = static_cast<T>( 1 );
     if ( _equal == Equal::Relative ) {
 
       factor = std::max( std::abs( _left ), std::abs( _right ) );
@@ -89,10 +90,10 @@ namespace vx::floating_point {
    * _orEqual is set to true - otherwise false.
    */
   template <typename T>
-  [[nodiscard]] inline constexpr bool less( T _left,
-                                            T _right,
-                                            bool _orEqual = false,
-                                            Equal _equal = Equal::Absolute ) noexcept {
+  [[nodiscard]] constexpr bool less( T _left,
+                                     T _right,
+                                     bool _orEqual = false,
+                                     Equal _equal = Equal::Absolute ) noexcept {
 
     if ( equal( _left, _right, _equal ) ) {
 
@@ -112,10 +113,10 @@ namespace vx::floating_point {
    * _orEqual is set to true - otherwise false.
    */
   template <typename T>
-  [[nodiscard]] inline constexpr bool greater( T _left,
-                                               T _right,
-                                               bool _orEqual = false,
-                                               Equal _equal = Equal::Absolute ) noexcept {
+  [[nodiscard]] constexpr bool greater( T _left,
+                                        T _right,
+                                        bool _orEqual = false,
+                                        Equal _equal = Equal::Absolute ) noexcept {
 
     if ( equal( _left, _right, _equal ) ) {
 
@@ -135,11 +136,11 @@ namespace vx::floating_point {
    * @return True, if _value is between _min and _max _orEqual - otherwise false.
    */
   template <typename T>
-  [[nodiscard]] bool inline constexpr between( T _value,
-                                               T _min,
-                                               T _max,
-                                               bool _orEqual = false,
-                                               Equal _equal = Equal::Absolute ) noexcept {
+  [[nodiscard]] constexpr bool between( T _value,
+                                        T _min,
+                                        T _max,
+                                        bool _orEqual = false,
+                                        Equal _equal = Equal::Absolute ) noexcept {
 
     return greater( _value, _min, _orEqual, _equal ) && less( _value, _max, _orEqual, _equal );
   }

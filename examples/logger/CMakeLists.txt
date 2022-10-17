@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2020 Florian Becker <fb@vxapps.com> (VX APPS).
+# Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,11 +28,10 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-add_subdirectory(command)
-add_subdirectory(cpuinfo)
-add_subdirectory(double)
-add_subdirectory(logger)
-add_subdirectory(pipe)
-add_subdirectory(threadqueue)
-add_subdirectory(time)
-add_subdirectory(timer)
+project(logger)
+
+add_executable(${PROJECT_NAME}
+  main.cpp
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE modern.cpp.core Threads::Threads)

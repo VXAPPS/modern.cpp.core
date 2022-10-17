@@ -65,7 +65,7 @@ namespace std {
   struct is_scoped_enum : bool_constant<detail::is_scoped_enum_impl<E>> {};
 
   template <class E>
-  inline constexpr bool is_scoped_enum_v = is_scoped_enum<E>::value;
+  constexpr bool is_scoped_enum_v = is_scoped_enum<E>::value;
 #endif
 
 #if !__has_cpp_attribute( __cpp_lib_to_underlying )

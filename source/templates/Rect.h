@@ -46,7 +46,7 @@ namespace vx {
    * @tparam T   Type.
    */
   template <typename T>
-  class Rect : TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
+  class Rect : private TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
 
   public:
     constexpr Rect<T>() = default;
@@ -74,27 +74,27 @@ namespace vx {
         m_x2( _point.x() + _size.width() - 1 ),
         m_y2( _point.y() + _size.height() - 1 ) {}
 
-    [[nodiscard]] inline constexpr bool null() const noexcept { return floating_point::equal( m_x2, m_x1 - 1 ) && floating_point::equal( m_y2, m_y1 - 1 ); }
+    [[nodiscard]] constexpr bool null() const noexcept { return floating_point::equal( m_x2, m_x1 - 1 ) && floating_point::equal( m_y2, m_y1 - 1 ); }
 
-    [[nodiscard]] inline constexpr bool empty() const noexcept { return floating_point::greater( m_x1, m_x2 ) || floating_point::greater( m_y1, m_y2 ); }
+    [[nodiscard]] constexpr bool empty() const noexcept { return floating_point::greater( m_x1, m_x2 ) || floating_point::greater( m_y1, m_y2 ); }
 
-    [[nodiscard]] inline constexpr bool valid() const noexcept { return floating_point::less( m_x1, m_x2, true ) && floating_point::less( m_y1, m_y2, true ); }
+    [[nodiscard]] constexpr bool valid() const noexcept { return floating_point::less( m_x1, m_x2, true ) && floating_point::less( m_y1, m_y2, true ); }
 
-    [[nodiscard]] inline constexpr T left() const noexcept { return m_x1; }
+    [[nodiscard]] constexpr T left() const noexcept { return m_x1; }
 
-    [[nodiscard]] inline constexpr T top() const noexcept { return m_y1; }
+    [[nodiscard]] constexpr T top() const noexcept { return m_y1; }
 
-    [[nodiscard]] inline constexpr T right() const noexcept { return m_x2; }
+    [[nodiscard]] constexpr T right() const noexcept { return m_x2; }
 
-    [[nodiscard]] inline constexpr T bottom() const noexcept { return m_y2; }
+    [[nodiscard]] constexpr T bottom() const noexcept { return m_y2; }
 
-    [[nodiscard]] inline constexpr T x() const noexcept { return m_x1; }
+    [[nodiscard]] constexpr T x() const noexcept { return m_x1; }
 
-    [[nodiscard]] inline constexpr T y() const noexcept { return m_y1; }
+    [[nodiscard]] constexpr T y() const noexcept { return m_y1; }
 
-    [[nodiscard]] inline constexpr T width() const noexcept { return m_x2 - m_x1 + 1; }
+    [[nodiscard]] constexpr T width() const noexcept { return m_x2 - m_x1 + 1; }
 
-    [[nodiscard]] inline constexpr T height() const noexcept { return m_y2 - m_y1 + 1; }
+    [[nodiscard]] constexpr T height() const noexcept { return m_y2 - m_y1 + 1; }
 
     inline void setLeft( int _pos ) noexcept { m_x1 = _pos; }
 
@@ -115,19 +115,19 @@ namespace vx {
 
     [[nodiscard]] bool contains( Rect<T> _rectangle ) const noexcept;
 
-    [[nodiscard]] inline constexpr Rect<T> intersected( Rect<T> _rectangle ) const noexcept { return *this & _rectangle; }
+    [[nodiscard]] constexpr Rect<T> intersected( Rect<T> _rectangle ) const noexcept { return *this & _rectangle; }
 
     [[nodiscard]] bool intersects( Rect<T> _rectangle ) const noexcept;
 
-    [[nodiscard]] inline constexpr Rect<T> united( Rect<T> _rectangle ) const noexcept { return *this | _rectangle; }
+    [[nodiscard]] constexpr Rect<T> united( Rect<T> _rectangle ) const noexcept { return *this | _rectangle; }
 
     [[nodiscard]] static constexpr bool compareWidth( Rect<T> _rect1, Rect<T> _rect2 ) noexcept { return floating_point::less( _rect1.width(), _rect2.width() ); }
 
     [[nodiscard]] static constexpr bool compareHeight( Rect<T> _rect1, Rect<T> _rect2 ) noexcept { return floating_point::less( _rect1.height(), _rect2.height() ); }
 
-    [[nodiscard]] inline constexpr bool operator==( Rect<T> _rect ) const noexcept { return floating_point::equal( m_x1, _rect.m_x1 ) && floating_point::equal( m_y1, _rect.m_y1 ) && floating_point::equal( m_x2, _rect.m_x2 ) && floating_point::equal( m_y2, _rect.m_y2 ); }
+    [[nodiscard]] constexpr bool operator==( Rect<T> _rect ) const noexcept { return floating_point::equal( m_x1, _rect.m_x1 ) && floating_point::equal( m_y1, _rect.m_y1 ) && floating_point::equal( m_x2, _rect.m_x2 ) && floating_point::equal( m_y2, _rect.m_y2 ); }
 
-    [[nodiscard]] inline constexpr bool operator!=( Rect<T> _rect ) const noexcept { return !floating_point::equal( m_x1, _rect.m_x1 ) || !floating_point::equal( m_y1, _rect.m_y1 ) || !floating_point::equal( m_x2, _rect.m_x2 ) || !floating_point::equal( m_y2, _rect.m_y2 ); }
+    [[nodiscard]] constexpr bool operator!=( Rect<T> _rect ) const noexcept { return !floating_point::equal( m_x1, _rect.m_x1 ) || !floating_point::equal( m_y1, _rect.m_y1 ) || !floating_point::equal( m_x2, _rect.m_x2 ) || !floating_point::equal( m_y2, _rect.m_y2 ); }
 
   private:
     T m_x1 = 0;

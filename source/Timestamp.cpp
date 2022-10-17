@@ -82,19 +82,27 @@ namespace vx::timestamp {
         break;
       }
     }
-    nowSs << std::put_time( &currentLocalTime, "%z" );
+
+    std::stringstream offset {};
+    offset << std::put_time( &currentLocalTime, "%z" );
+    if ( offset.peek() != decltype( offset )::traits_type::eof() ) {
+
+      offset.seekp( -2, std::ios_base::end );
+      offset << ':';
+      offset.seekp( 0, std::ios_base::end );
+      offset << '0';
+    }
 
     std::string result {};
     try {
 
+      nowSs << offset.str();
       result = nowSs.str();
     }
     catch ( const std::exception &_exception ) {
 
       std::cout << _exception.what() << std::endl;
     }
-    /* ### somewhat special - maybe see systemtimeformatter */
-    result.replace( result.end() - 2, result.end() - 2, ":" );
     return result;
   }
 }
