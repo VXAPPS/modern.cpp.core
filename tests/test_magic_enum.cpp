@@ -87,18 +87,15 @@ namespace vx {
 
     const std::optional colorRed = magic_enum::enum_cast<Color>( "RED" );
     EXPECT_TRUE( colorRed.has_value() );
-    /* TODO: This will not build with gcc-9 release */
-    // EXPECT_EQ( colorRed.value(), Color::RED );
+    EXPECT_EQ( colorRed.value(), Color::RED );
 
     const std::optional colorBlue = magic_enum::enum_cast<Color>( "BLUE" );
     EXPECT_TRUE( colorBlue.has_value() );
-    /* TODO: This will not build with gcc-9 release */
-    // EXPECT_EQ( colorBlue.value(), Color::BLUE );
+    EXPECT_EQ( colorBlue.value(), Color::BLUE );
 
     const std::optional colorGreen = magic_enum::enum_cast<Color>( "GREEN" );
     EXPECT_TRUE( colorGreen.has_value() );
-    /* TDOO: This will not build with gcc-9 release */
-    // EXPECT_EQ( colorGreen.value(), Color::GREEN );
+    EXPECT_EQ( colorGreen.value(), Color::GREEN );
 
     /* Bad case */
     const std::optional colorPurple = magic_enum::enum_cast<Color>( "PURPLE" );

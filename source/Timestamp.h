@@ -52,7 +52,7 @@ namespace vx::timestamp {
   /**
    * @brief Create thread-safe timestamp.
    * @param _precision   Precision of decimal fraction of a second.
-   * @return Timestamp as 'Y-m-dThh:mm:ss.xxxxxx'
+   * @return Timestamp as 'Y-m-dThh:mm:ss.xxxxxxT'
    * @note https://www.w3.org/TR/NOTE-datetime
    */
   [[nodiscard]] std::string iso8601( Precision _precision = Precision::Seconds ) noexcept;

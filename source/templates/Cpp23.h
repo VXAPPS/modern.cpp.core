@@ -39,32 +39,38 @@
 namespace std {
 
 #if !__has_cpp_attribute( __cpp_lib_is_scoped_enum )
-  namespace detail {
+  namespace detail::impl {
 
-    /* avoid ODR-violation */
-    namespace {
+    template <typename T>
+    [[maybe_unused]] auto test_sizable( int ) -> decltype( static_cast<void>( sizeof( T ) ), true_type {} );
 
-      template <class T>
-      [[maybe_unused]] auto test_sizable( int ) -> decltype( static_cast<void>( sizeof( T ) ), true_type {} );
+    template <typename>
+    [[maybe_unused]] auto test_sizable( ... ) -> false_type;
 
-      template <class>
-      [[maybe_unused]] auto test_sizable( ... ) -> false_type;
+    template <typename T>
+    [[maybe_unused]] auto test_nonconvertible_to_int( int ) -> decltype( static_cast<false_type ( * )( int )>( nullptr )( declval<T>() ) );
 
-      template <class T>
-      [[maybe_unused]] auto test_nonconvertible_to_int( int ) -> decltype( static_cast<false_type ( * )( int )>( nullptr )( declval<T>() ) );
+    template <typename>
+    [[maybe_unused]] auto test_nonconvertible_to_int( ... ) -> true_type;
 
-      template <class>
-      [[maybe_unused]] auto test_nonconvertible_to_int( ... ) -> true_type;
-
-      template <class T>
-      constexpr bool is_scoped_enum_impl = conjunction_v<decltype( test_sizable<T>( 0 ) ), decltype( test_nonconvertible_to_int<T>( 0 ) )>;
-    }
+    template <typename T>
+    constexpr bool is_scoped_enum = conjunction_v<decltype( test_sizable<T>( 0 ) ), decltype( test_nonconvertible_to_int<T>( 0 ) )>;
   }
 
-  template <class E>
-  struct is_scoped_enum : bool_constant<detail::is_scoped_enum_impl<E>> {};
+  /**
+   * @brief Return true, if this is an scoped enum.
+   * @tparam E   Enum.
+   * @note https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1048r1.pdf
+   */
+  template <typename E>
+  struct is_scoped_enum : bool_constant<detail::impl::is_scoped_enum<E>> {};
 
-  template <class E>
+  /**
+   * @brief Return true, if this is an scoped enum.
+   * @tparam E   Enum.
+   * @note https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1048r1.pdf
+   */
+  template <typename E>
   constexpr bool is_scoped_enum_v = is_scoped_enum<E>::value;
 #endif
 
@@ -86,6 +92,7 @@ namespace std {
 #if !__has_cpp_attribute( __cpp_lib_unreachable )
   /**
    * @brief Unreachable section is reached.
+   * @note https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2816.pdf
    */
   [[noreturn]] inline void unreachable() {
 

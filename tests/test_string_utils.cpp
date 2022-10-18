@@ -178,7 +178,8 @@ namespace vx {
     EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 5 ), "The answer is 42." );
 
     /* Wrong size check - more than expected. */
-    EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
+    /* A sanitizer will found that issue, so this is not useable for regular testing. */
+    // EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
 
     /* nullptr unsigned char */
     const unsigned char *chrPointerNull = nullptr;

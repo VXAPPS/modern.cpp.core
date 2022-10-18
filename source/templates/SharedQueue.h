@@ -68,7 +68,7 @@ namespace vx {
      * @brief Constructor move assign for SharedQueue.
      * @param _other   Other shared queue.
      */
-    SharedQueue( SharedQueue &&_other ) {
+    SharedQueue( SharedQueue &&_other ) noexcept {
 
       std::unique_lock<std::mutex> lock( m_mutex );
       m_queue = std::move( _other.m_queue );

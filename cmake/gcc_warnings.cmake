@@ -30,3 +30,8 @@
 
 set(WARNING_FLAGS
 )
+
+set(WARNING_FLAGS_VERSION9
+  # std::optional false/positive bug of gcc9
+  -Wno-maybe-uninitialized
+)
