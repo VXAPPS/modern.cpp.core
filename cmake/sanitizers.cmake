@@ -59,11 +59,12 @@ function(test_san_flags return_var flags)
 endfunction()
 
 if(USE_SANITIZER)
-  append("-fno-omit-frame-pointer" CMAKE_C_FLAGS CMAKE_CXX_FLAGS)
 
   unset(SANITIZER_SELECTED_FLAGS)
 
   if(UNIX)
+
+    append("-fno-omit-frame-pointer" CMAKE_C_FLAGS CMAKE_CXX_FLAGS)
 
     if(uppercase_CMAKE_BUILD_TYPE STREQUAL "DEBUG")
       append("-O1" CMAKE_C_FLAGS CMAKE_CXX_FLAGS)

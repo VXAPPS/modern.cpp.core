@@ -67,7 +67,6 @@ namespace std {
 
   /**
    * @brief Return true, if this is an scoped enum.
-   * @tparam E   Enum.
    * @note https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1048r1.pdf
    */
   template <typename E>
