@@ -166,8 +166,6 @@ jobs:
             sudo apt install -y ninja-build
 
             if [ "${{matrix.compiler}}" = "gcc" ]; then
-              sudo apt install -y libasan6
-              sudo apt install -y libasan8
               sudo apt install -y g++-${{matrix.version}}
               echo "CC=gcc-${{matrix.version}}" >> $GITHUB_ENV
               echo "CXX=g++-${{matrix.version}}" >> $GITHUB_ENV

@@ -15,21 +15,12 @@
 
 include(CheckCXXSourceCompiles)
 
-if(CMAKE_BUILD_TYPE STREQUAL Debug)
-  set(USE_SANITIZER
-      "Address"
-      CACHE
-        STRING
-        "Compile with a sanitizer. Options are: Address, Memory, MemoryWithOrigins, Undefined, Thread, Leak, 'Address;Undefined', CFI"
-  )
-else()
-  set(USE_SANITIZER
-      ""
-      CACHE
-        STRING
-        "Compile with a sanitizer. Options are: Address, Memory, MemoryWithOrigins, Undefined, Thread, Leak, 'Address;Undefined', CFI"
-  )
-endif()
+set(USE_SANITIZER
+    ""
+    CACHE
+      STRING
+      "Compile with a sanitizer. Options are: Address, Memory, MemoryWithOrigins, Undefined, Thread, Leak, 'Address;Undefined', CFI"
+)
 
 function(append value)
   foreach(variable ${ARGN})
