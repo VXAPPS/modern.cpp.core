@@ -46,6 +46,7 @@ if (NOT DEFINED CORE_MASTER_PROJECT)
   endif ()
 endif ()
 
+include(${CMAKE}/external/re2.cmake)
 add_subdirectory(source)
 
 if(CORE_MASTER_PROJECT)

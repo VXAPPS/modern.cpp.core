@@ -34,7 +34,11 @@
 #endif
 
 /* stl header */
-#include <regex>
+//#include <regex>
+#include <memory>
+
+/* re2 header */
+#include <re2/re2.h>
 
 /* local header */
 #include "Demangle.h"
@@ -75,24 +79,34 @@ namespace vx {
     std::string result = demangle( _name );
 
     // WINDOWS
-    result = std::regex_replace( result, std::regex( "class" ), "" );
-    result = std::regex_replace( result, std::regex( "struct" ), "" );
-    result = std::regex_replace( result, std::regex( "__ptr64" ), "" );
+    RE2::GlobalReplace( &result, "class", "" );
+    RE2::GlobalReplace( &result, "struct", "" );
+    RE2::GlobalReplace( &result, "__ptr64", "" );
+    // result = std::regex_replace( result, std::regex( "class" ), "" );
+    // result = std::regex_replace( result, std::regex( "struct" ), "" );
+    // result = std::regex_replace( result, std::regex( "__ptr64" ), "" );
 
     // LINUX clang and gcc
-    result = std::regex_replace( result, std::regex( "__cxx11::" ), "" );
+    RE2::GlobalReplace( &result, "__cxx11::", "" );
+    // result = std::regex_replace( result, std::regex( "__cxx11::" ), "" );
 
     // MAC AppleClang
-    result = std::regex_replace( result, std::regex( "__1::" ), "" );
+    RE2::GlobalReplace( &result, "__1::", "" );
+    // result = std::regex_replace( result, std::regex( "__1::" ), "" );
 
     // All, after general cleanup
-    result = std::regex_replace( result, std::regex( "std::basic_string<char, std::char_traits<char>, std::allocator<char> >" ), "std::string" );
-    result = std::regex_replace( result, std::regex( "std::basic_string_view<char, std::char_traits<char> >" ), "std::string_view" );
+    RE2::GlobalReplace( &result, "std::basic_string<char, std::char_traits<char>, std::allocator<char> >", "std::string" );
+    RE2::GlobalReplace( &result, "std::basic_string_view<char, std::char_traits<char> >", "std::string_view" );
+    // result = std::regex_replace( result, std::regex( "std::basic_string<char, std::char_traits<char>, std::allocator<char> >" ), "std::string" );
+    // result = std::regex_replace( result, std::regex( "std::basic_string_view<char, std::char_traits<char> >" ), "std::string_view" );
 
     // Remove space before closing bracket - overall valid
-    result = std::regex_replace( result, std::regex( ", >" ), ">" );
-    result = std::regex_replace( result, std::regex( ",>" ), ">" );
-    result = std::regex_replace( result, std::regex( " >" ), ">" );
+    RE2::GlobalReplace( &result, ", >", ">" );
+    RE2::GlobalReplace( &result, ",>", ">" );
+    RE2::GlobalReplace( &result, " >", ">" );
+    // result = std::regex_replace( result, std::regex( ", >" ), ">" );
+    //result = std::regex_replace( result, std::regex( ",>" ), ">" );
+    //result = std::regex_replace( result, std::regex( " >" ), ">" );
     result = string_utils::simplified( result );
 
     return result;
@@ -113,21 +127,29 @@ namespace vx {
     }
 
     /* reorder for const type pointer/reference */
-    result = std::regex_replace( result, std::regex( "int const" ), "const int " );
-    result = std::regex_replace( result, std::regex( "double const" ), "const double " );
-    result = std::regex_replace( result, std::regex( "char const" ), "const char " );
+    RE2::GlobalReplace( &result, "int const", "const int " );
+    RE2::GlobalReplace( &result, "double const", "const double " );
+    RE2::GlobalReplace( &result, "char const", "const char " );
+    // result = std::regex_replace( result, std::regex( "int const" ), "const int " );
+    // result = std::regex_replace( result, std::regex( "double const" ), "const double " );
+    // result = std::regex_replace( result, std::regex( "char const" ), "const char " );
 
     /* Remove space before closing bracket - overall valid */
-    result = std::regex_replace( result, std::regex( ", >" ), ">" );
-    result = std::regex_replace( result, std::regex( ",>" ), ">" );
-    result = std::regex_replace( result, std::regex( " >" ), ">" );
+    RE2::GlobalReplace( &result, ", >", ">" );
+    RE2::GlobalReplace( &result, ",>", ">" );
+    RE2::GlobalReplace( &result, " >", ">" );
+    // result = std::regex_replace( result, std::regex( ", >" ), ">" );
+    // result = std::regex_replace( result, std::regex( ",>" ), ">" );
+    // result = std::regex_replace( result, std::regex( " >" ), ">" );
     result = string_utils::simplified( result );
 
     /* Try to fix no spaces and comma issues */
-    result = std::regex_replace( result, std::regex( " ," ), "," );
+    RE2::GlobalReplace( &result, " ,", "," );
+    // result = std::regex_replace( result, std::regex( " ," ), "," );
     if ( result.find( ", " ) == std::string::npos ) {
 
-      result = std::regex_replace( result, std::regex( "," ), ", " );
+      RE2::GlobalReplace( &result, ",", ", " );
+      // result = std::regex_replace( result, std::regex( "," ), ", " );
     }
 
     return result;
