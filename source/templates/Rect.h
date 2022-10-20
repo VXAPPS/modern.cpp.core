@@ -116,17 +116,17 @@ namespace vx {
 
     [[nodiscard]] constexpr T height() const noexcept { return m_y2 - m_y1 + 1; }
 
-    inline void setLeft( int _pos ) noexcept { m_x1 = _pos; }
+    inline void setLeft( T _pos ) noexcept { m_x1 = _pos; }
 
-    inline void setTop( int _pos ) noexcept { m_y1 = _pos; }
+    inline void setTop( T _pos ) noexcept { m_y1 = _pos; }
 
-    inline void setRight( int _pos ) noexcept { m_x2 = _pos; }
+    inline void setRight( T _pos ) noexcept { m_x2 = _pos; }
 
-    inline void setBottom( int _pos ) noexcept { m_y2 = _pos; }
+    inline void setBottom( T _pos ) noexcept { m_y2 = _pos; }
 
-    inline void setWidth( int _width ) noexcept { m_x2 = m_x1 + _width - 1; }
+    inline void setWidth( T _width ) noexcept { m_x2 = m_x1 + _width - 1; }
 
-    inline void setHeight( int _height ) noexcept { m_y2 = m_y2 + _height - 1; }
+    inline void setHeight( T _height ) noexcept { m_y2 = m_y2 + _height - 1; }
 
     [[nodiscard]] constexpr Rect<T> operator|( Rect<T> _rectangle ) const noexcept;
     [[nodiscard]] constexpr Rect<T> operator&( Rect<T> _rectangle ) const noexcept;

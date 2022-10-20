@@ -177,14 +177,14 @@ namespace vx {
     EXPECT_EQ( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 10 ), "The answer" );
     EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 5 ), "The answer is 42." );
 
-    /* Wrong size check - more than expected. */
-    /* A sanitizer will found that issue, so this is not useable for regular testing. */
-    // EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
-
     /* nullptr unsigned char */
     const unsigned char *chrPointerNull = nullptr;
     EXPECT_EQ( string_utils::fromUnsignedChar( chrPointerNull ), std::nullopt );
     EXPECT_EQ( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointerNull, 0 ), std::nullopt );
+
+    /* Wrong size check - more than expected. */
+    /* A sanitizer will found that issue, so this is not useable for regular testing. */
+    // EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
   }
 }
 #ifdef __clang__

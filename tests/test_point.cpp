@@ -45,7 +45,7 @@
   #pragma clang diagnostic pop
 #endif
 
-/* imagr header */
+/* modern.cpp.core */
 #include <Point.h>
 
 using ::testing::InitGoogleTest;
@@ -97,9 +97,9 @@ namespace vx {
     EXPECT_TRUE( point == point3 );
     EXPECT_FALSE( point == point2 );
     EXPECT_FALSE( point == pointNull );
-    EXPECT_FALSE( point != point3 );
-    EXPECT_TRUE( point != point2 );
-    EXPECT_TRUE( point != pointNull );
+    EXPECT_FALSE( !( point == point3 ) );
+    EXPECT_TRUE( !( point == point2 ) );
+    EXPECT_TRUE( !( point == pointNull ) );
 
     /* operator */
     point += point2;
@@ -165,9 +165,9 @@ namespace vx {
     EXPECT_TRUE( point == point3 );
     EXPECT_FALSE( point == point2 );
     EXPECT_FALSE( point == pointNull );
-    EXPECT_FALSE( point != point3 );
-    EXPECT_TRUE( point != point2 );
-    EXPECT_TRUE( point != pointNull );
+    EXPECT_FALSE( !( point == point3 ) );
+    EXPECT_TRUE( !( point == point2 ) );
+    EXPECT_TRUE( !( point == pointNull ) );
 
     /* operator */
     point += point2;
@@ -233,9 +233,9 @@ namespace vx {
     EXPECT_TRUE( point == point3 );
     EXPECT_FALSE( point == point2 );
     EXPECT_FALSE( point == pointNull );
-    EXPECT_FALSE( point != point3 );
-    EXPECT_TRUE( point != point2 );
-    EXPECT_TRUE( point != pointNull );
+    EXPECT_FALSE( !( point == point3 ) );
+    EXPECT_TRUE( !( point == point2 ) );
+    EXPECT_TRUE( !( point == pointNull ) );
 
     /* operator */
     point += point2;

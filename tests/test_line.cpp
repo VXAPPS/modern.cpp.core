@@ -46,9 +46,6 @@
 #endif
 
 /* modern.cpp.core */
-#include <DoubleUtils.h>
-
-/* imagr header */
 #include <Line.h>
 
 using ::testing::InitGoogleTest;
@@ -169,7 +166,7 @@ namespace vx {
     EXPECT_EQ( line.point2().y(), 10.4F );
 
     /* Calculated width */
-    EXPECT_TRUE( double_utils::equal( static_cast<double>( line.width() ), static_cast<double>( 2.11474252F ) ) );
+    EXPECT_TRUE( floating_point::equal( static_cast<double>( line.width() ), static_cast<double>( 2.11474252F ) ) );
 
     /* Copy constructor */
     line = copy;
@@ -234,7 +231,7 @@ namespace vx {
     EXPECT_EQ( line.point2().y(), 10.5 );
 
     /* Calculated width */
-    EXPECT_TRUE( double_utils::equal( line.width(), 2.1147425268811282 ) );
+    EXPECT_TRUE( floating_point::equal( line.width(), 2.1147425268811282 ) );
 
     /* Copy constructor */
     line = copy;

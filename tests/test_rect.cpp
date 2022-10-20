@@ -45,7 +45,7 @@
   #pragma clang diagnostic pop
 #endif
 
-/* imagr header */
+/* modern.cpp.core */
 #include <Rect.h>
 
 using ::testing::InitGoogleTest;
@@ -77,8 +77,8 @@ namespace vx {
     EXPECT_EQ( typeid( rect.height() ), typeid( int ) );
 
     /* Setter */
-//    rect.setX( 10 );
-//    rect.setY( 10 );
+    rect.setLeft( 5 );
+    rect.setTop( 5 );
 
     /* Values direct */
     EXPECT_EQ( rect.x(), 5 );
@@ -103,9 +103,9 @@ namespace vx {
     EXPECT_TRUE( rect == rect3 );
     EXPECT_FALSE( rect == rect2 );
     EXPECT_FALSE( rect == rectNull );
-    EXPECT_FALSE( rect != rect3 );
-    EXPECT_TRUE( rect != rect2 );
-    EXPECT_TRUE( rect != rectNull );
+    EXPECT_FALSE( !( rect == rect3 ) );
+    EXPECT_TRUE( !( rect == rect2 ) );
+    EXPECT_TRUE( !( rect == rectNull ) );
 
     /* operator */
     EXPECT_TRUE( rect.contains( rect2 ) );
@@ -154,8 +154,8 @@ namespace vx {
     EXPECT_EQ( typeid( rect.height() ), typeid( float ) );
 
     /* Setter */
-//    rect.setX( 10 );
-//    rect.setY( 10 );
+    rect.setLeft( 5.4F );
+    rect.setTop( 5.4F );
 
     /* Values direct */
     EXPECT_EQ( rect.x(), 5.4F );
@@ -180,9 +180,9 @@ namespace vx {
     EXPECT_TRUE( rect == rect3 );
     EXPECT_FALSE( rect == rect2 );
     EXPECT_FALSE( rect == rectNull );
-    EXPECT_FALSE( rect != rect3 );
-    EXPECT_TRUE( rect != rect2 );
-    EXPECT_TRUE( rect != rectNull );
+    EXPECT_FALSE( !( rect == rect3 ) );
+    EXPECT_TRUE( !( rect == rect2 ) );
+    EXPECT_TRUE( !( rect == rectNull ) );
 
     /* operator */
     EXPECT_TRUE( rect.contains( rect2 ) );
@@ -231,8 +231,8 @@ namespace vx {
     EXPECT_EQ( typeid( rect.height() ), typeid( double ) );
 
     /* Setter */
-//    rect.setX( 10 );
-//    rect.setY( 10 );
+    rect.setLeft( 5.5 );
+    rect.setTop( 5.5 );
 
     /* Values direct */
     EXPECT_EQ( rect.x(), 5.5 );
@@ -257,9 +257,9 @@ namespace vx {
     EXPECT_TRUE( rect == rect3 );
     EXPECT_FALSE( rect == rect2 );
     EXPECT_FALSE( rect == rectNull );
-    EXPECT_FALSE( rect != rect3 );
-    EXPECT_TRUE( rect != rect2 );
-    EXPECT_TRUE( rect != rectNull );
+    EXPECT_FALSE( !( rect == rect3 ) );
+    EXPECT_TRUE( !( rect == rect2 ) );
+    EXPECT_TRUE( !( rect == rectNull ) );
 
     /* operator */
     EXPECT_TRUE( rect.contains( rect2 ) );

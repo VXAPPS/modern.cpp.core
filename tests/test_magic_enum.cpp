@@ -52,7 +52,7 @@
 #include <magic_enum.hpp>
 
 /* modern.cpp.core */
-#include "Cpp23.h"
+#include <Cpp23.h>
 
 using ::testing::InitGoogleTest;
 using ::testing::Test;
@@ -60,6 +60,7 @@ using ::testing::Test;
 #ifdef __clang__
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wglobal-constructors"
+  #pragma clang diagnostic ignored "-Wused-but-marked-unused"
 #endif
 namespace vx {
 
@@ -142,6 +143,17 @@ namespace vx {
     EXPECT_FALSE( colorMaxPlusOne.has_value() );
   }
 
+  static void enumOutOfRange() {
+
+    enum class Color { RED = 2,
+                       BLUE = 4,
+                       GREEN = 8 };
+
+    /* Will assert, but would be better if this could not compile with static_assert... */
+    /* but static_assert is not possible while index is not a integral_constant */
+    [[maybe_unused]] const Color colorUnkown = magic_enum::enum_value<Color>( 3 );
+  }
+
   TEST( MagicEnum, IndexAccess ) {
 
     enum class Color { RED = 2,
@@ -158,9 +170,7 @@ namespace vx {
     EXPECT_EQ( colorGreen, Color::GREEN );
 
     /* Bad case */
-    /* Will assert, but would be better if this could not compile with static_assert... */
-    /* but static_assert is not possible while index is not a integral_constant */
-    // Color colorUnkown = magic_enum::enum_value<Color>(3);
+    EXPECT_DEATH( enumOutOfRange(), "" );
   }
 
   TEST( MagicEnum, Values ) {

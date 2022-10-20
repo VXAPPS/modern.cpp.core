@@ -45,7 +45,7 @@
   #pragma clang diagnostic pop
 #endif
 
-/* imagr header */
+/* modern.cpp.core */
 #include <Size.h>
 
 using ::testing::InitGoogleTest;
@@ -93,9 +93,9 @@ namespace vx {
     EXPECT_TRUE( size == size3 );
     EXPECT_FALSE( size == size2 );
     EXPECT_FALSE( size == sizeNull );
-    EXPECT_FALSE( size != size3 );
-    EXPECT_TRUE( size != size2 );
-    EXPECT_TRUE( size != sizeNull );
+    EXPECT_FALSE( !( size == size3 ) );
+    EXPECT_TRUE( !( size == size2 ) );
+    EXPECT_TRUE( !( size == sizeNull ) );
 
     /* operator */
     size += size2;
@@ -157,9 +157,9 @@ namespace vx {
     EXPECT_TRUE( size == size3 );
     EXPECT_FALSE( size == size2 );
     EXPECT_FALSE( size == sizeNull );
-    EXPECT_FALSE( size != size3 );
-    EXPECT_TRUE( size != size2 );
-    EXPECT_TRUE( size != sizeNull );
+    EXPECT_FALSE( !( size == size3 ) );
+    EXPECT_TRUE( !( size == size2 ) );
+    EXPECT_TRUE( !( size == sizeNull ) );
 
     /* operator */
     size += size2;
@@ -221,9 +221,9 @@ namespace vx {
     EXPECT_TRUE( size == size3 );
     EXPECT_FALSE( size == size2 );
     EXPECT_FALSE( size == sizeNull );
-    EXPECT_FALSE( size != size3 );
-    EXPECT_TRUE( size != size2 );
-    EXPECT_TRUE( size != sizeNull );
+    EXPECT_FALSE( !( size == size3 ) );
+    EXPECT_TRUE( !( size == size2 ) );
+    EXPECT_TRUE( !( size == sizeNull ) );
 
     /* operator */
     size += size2;
