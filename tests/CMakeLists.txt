@@ -41,7 +41,9 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-add_test(${PROJECT_NAME} ${PROJECT_NAME})
+gtest_discover_tests(${PROJECT_NAME}
+  WORKING_DIRECTORY ${PROJECT_DIR}
+)
 
 project(test_double_utils)
 
@@ -56,7 +58,9 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-add_test(${PROJECT_NAME} ${PROJECT_NAME})
+gtest_discover_tests(${PROJECT_NAME}
+  WORKING_DIRECTORY ${PROJECT_DIR}
+)
 
 project(test_format)
 
@@ -76,7 +80,9 @@ target_link_libraries(${PROJECT_NAME}
   ${${PROJECT_NAME}_libs}
 )
 
-add_test(${PROJECT_NAME} ${PROJECT_NAME})
+gtest_discover_tests(${PROJECT_NAME}
+  WORKING_DIRECTORY ${PROJECT_DIR}
+)
 
 project(test_line)
 
@@ -91,7 +97,9 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-add_test(${PROJECT_NAME} ${PROJECT_NAME})
+gtest_discover_tests(${PROJECT_NAME}
+  WORKING_DIRECTORY ${PROJECT_DIR}
+)
 
 project(test_magic_enum)
 
@@ -106,7 +114,9 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-add_test(${PROJECT_NAME} ${PROJECT_NAME})
+gtest_discover_tests(${PROJECT_NAME}
+  WORKING_DIRECTORY ${PROJECT_DIR}
+)
 
 project(test_point)
 
@@ -121,7 +131,9 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-add_test(${PROJECT_NAME} ${PROJECT_NAME})
+gtest_discover_tests(${PROJECT_NAME}
+  WORKING_DIRECTORY ${PROJECT_DIR}
+)
 
 project(test_rect)
 
@@ -136,7 +148,9 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-add_test(${PROJECT_NAME} ${PROJECT_NAME})
+gtest_discover_tests(${PROJECT_NAME}
+  WORKING_DIRECTORY ${PROJECT_DIR}
+)
 
 project(test_size)
 
@@ -151,7 +165,9 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-add_test(${PROJECT_NAME} ${PROJECT_NAME})
+gtest_discover_tests(${PROJECT_NAME}
+  WORKING_DIRECTORY ${PROJECT_DIR}
+)
 
 project(test_string_utils)
 
@@ -166,4 +182,7 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-add_test(${PROJECT_NAME} ${PROJECT_NAME})
+gtest_discover_tests(${PROJECT_NAME}
+  WORKING_DIRECTORY ${PROJECT_DIR}
+  XML_OUTPUT_DIR {CMAKE_BINARY_DIR}/Testing
+)
