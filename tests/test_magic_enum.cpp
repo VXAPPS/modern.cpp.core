@@ -143,6 +143,7 @@ namespace vx {
     EXPECT_FALSE( colorMaxPlusOne.has_value() );
   }
 
+#ifdef DEBUG
   static void enumOutOfRange() {
 
     enum class Color { RED = 2,
@@ -153,6 +154,7 @@ namespace vx {
     /* but static_assert is not possible while index is not a integral_constant */
     [[maybe_unused]] const Color colorUnkown = magic_enum::enum_value<Color>( 3 );
   }
+#endif
 
   TEST( MagicEnum, IndexAccess ) {
 
@@ -170,7 +172,12 @@ namespace vx {
     EXPECT_EQ( colorGreen, Color::GREEN );
 
     /* Bad case */
+#ifdef DEBUG
     EXPECT_DEATH( enumOutOfRange(), "" );
+#else
+    const Color colorUnkown = magic_enum::enum_value<Color>( 3 );
+    EXPECT_EQ( colorUnkown, static_cast<Color>( 16 ) );
+#endif
   }
 
   TEST( MagicEnum, Values ) {
