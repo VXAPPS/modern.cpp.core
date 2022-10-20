@@ -29,7 +29,7 @@
  */
 
 /* stl header */
-//#include <format>
+#include <format>
 #include <iostream>
 #include <memory> // std::unique_ptr
 
@@ -44,7 +44,7 @@ public:
   explicit MyClass( std::string_view _something )
     : m_something( _something ) {}
 
-  void test() { std::cout << m_something << std::endl; }
+  void test() const { std::cout << m_something << std::endl; }
 
   friend std::ostream &operator<<( std::ostream &out, MyClass val ) {
 
@@ -78,7 +78,7 @@ int main() {
   const std::vector<std::string> vec { "abc", "def", "ghj" };
   logVerbose() << vec;
 
-  std::string *str = nullptr;
+  const std::string *str = nullptr;
   logDebug() << str << false << true << nullptr << 'a';
 
   const std::unique_ptr<std::string> blub = std::make_unique<std::string>( "blub2" );
@@ -111,8 +111,6 @@ int main() {
   const std::unordered_map<int, std::string_view> testsv { { 2, "ghj"sv }, { 1, "def"sv }, { 3, "abc"sv } };
   (void)testsv;
 
-  //  std::unordered_map testsv2{{2, "ghj"sv}, {1, "def"sv}, {3, "abc"sv}};
-
   logInfo() << MyClass( "Blub" );
 
   std::vector<std::any> anyList {};
@@ -135,13 +133,12 @@ int main() {
   logInfo() << variant;
 
   constexpr int theAnswerOfEverything = 42;
-//  logFatal() << std::format( "The answer is {}.", theAnswerOfEverything );
+  logFatal() << std::format( "The answer is {}.", theAnswerOfEverything );
 
   constexpr double someDouble = 4.2;
 
   const std::tuple tupl { theAnswerOfEverything, 'a', someDouble }; // Another C++17 feature: class template argument deduction
   std::apply( []( auto &&...args ) { logDebug() << std::forward_as_tuple( args... ); }, tupl );
-  // ( ( logDebug() << args ), ... ); }, tupl );
 
   constexpr auto severities = magic_enum::enum_entries<vx::logger::Path>();
   logFatal() << severities;
@@ -161,11 +158,10 @@ int main() {
     Absolute
   };
 
-  constexpr auto pathNames = magic_enum::enum_entries<Path>();
+  constexpr auto &pathNames = magic_enum::enum_entries<Path>();
   logInfo() << pathNames;
 
-  //  logInfo() << std::format( "{}", std::vector<char>{'h', 'e', 'l', 'l', 'o'} );
-//  logInfo().stream() << std::format( "int: {0:d}; hex: {0:#x}; oct: {0:#o}; bin: {0:#b}", theAnswerOfEverything );
+  logInfo().stream() << std::format( "int: {0:d}; hex: {0:#x}; oct: {0:#o}; bin: {0:#b}", theAnswerOfEverything );
 
   const std::optional<std::string> opti = "myOptional";
   const std::optional<std::string> optiNull = std::nullopt;

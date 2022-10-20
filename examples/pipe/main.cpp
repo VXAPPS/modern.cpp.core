@@ -51,8 +51,7 @@ int main( int argc, char **argv ) {
   std::cout << "This is std::cout text." << std::endl;
   std::cerr << "This is std::cerr text." << std::endl;
 
-  const int result = fprintf( stderr, "This is fprintf( stderr ) text.\n" );
-  if ( !result ) {
+  if ( const int result = fprintf( stderr, "This is fprintf( stderr ) text.\n" ); !result ) {
 
     std::cout << "Error writing to stderr with fprintf." << std::endl;
   }

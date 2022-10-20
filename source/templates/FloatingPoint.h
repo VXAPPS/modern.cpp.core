@@ -62,6 +62,7 @@ namespace vx::floating_point {
    * @return True, if _left and _right are equal - otherwise false.
    */
   template <typename T>
+  // requires std::is_floating_point_v<T>
   [[nodiscard]] constexpr bool equal( T _left,
                                       T _right,
                                       Equal _equal = Equal::Absolute ) noexcept {
@@ -90,6 +91,7 @@ namespace vx::floating_point {
    * _orEqual is set to true - otherwise false.
    */
   template <typename T>
+  // requires std::is_floating_point_v<T>
   [[nodiscard]] constexpr bool less( T _left,
                                      T _right,
                                      bool _orEqual = false,
@@ -113,6 +115,7 @@ namespace vx::floating_point {
    * _orEqual is set to true - otherwise false.
    */
   template <typename T>
+  // requires std::is_floating_point_v<T>
   [[nodiscard]] constexpr bool greater( T _left,
                                         T _right,
                                         bool _orEqual = false,
@@ -136,6 +139,7 @@ namespace vx::floating_point {
    * @return True, if _value is between _min and _max _orEqual - otherwise false.
    */
   template <typename T>
+  // requires std::is_floating_point_v<T>
   [[nodiscard]] constexpr bool between( T _value,
                                         T _min,
                                         T _max,
@@ -145,19 +149,40 @@ namespace vx::floating_point {
     return greater( _value, _min, _orEqual, _equal ) && less( _value, _max, _orEqual, _equal );
   }
 
+  /** Base for default precision factor. */
+  constexpr double precisionBase = 10;
+
+  /** Base for rounding. */
+  constexpr double roundBase = 0.5;
+
   /**
    * @brief Round a double _value by _precision. Rounded by default to two decimal places.
+   * @tparam T   Type.
    * @param _value   Value to round.
    * @param _precision   Decimal places to round.
    * @return The rounded value.
    */
-  [[nodiscard]] double round( double _value,
-                              std::size_t _precision = 2 ) noexcept;
+  template <typename T>
+  // requires std::is_floating_point_v<T>
+  [[nodiscard]] constexpr T round( T _value,
+                                   std::size_t _precision = 2 ) noexcept {
+
+    const auto factor = _precision != 0 ? std::pow( precisionBase, _precision ) : 1;
+    return std::floor( _value * factor + roundBase ) / factor;
+  }
 
   /**
    * @brief Split a double _value to its integer and decimal places.
+   * @tparam T   Type.
    * @param _value   Value to split.
    * @return The integer and decimal places.
    */
-  [[nodiscard]] std::pair<double, double> split( double _value ) noexcept;
+  template <typename T>
+  // requires std::is_floating_point_v<T>
+  [[nodiscard]] std::pair<T, T> split( T _value ) noexcept {
+
+    T integral = 0.0;
+    const auto fraction = std::modf( _value, &integral );
+    return std::make_pair( integral, fraction );
+  }
 }

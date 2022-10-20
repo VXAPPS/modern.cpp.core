@@ -31,7 +31,11 @@
 project(modern.cpp.core)
 
 if(UNIX)
-  set(${PROJECT_NAME}_source Serial.cpp Serial.h) # unixservice/main.cpp)
+  if(CORE_MASTER_PROJECT)
+    set(${PROJECT_NAME}_source Serial.cpp Serial.h unixservice/main.cpp)
+  else()
+    set(${PROJECT_NAME}_source Serial.cpp Serial.h)
+  endif()
 endif()
 
 add_library(${PROJECT_NAME}
@@ -58,7 +62,6 @@ add_library(${PROJECT_NAME}
   Timing.h
   templates/Cpp23.h
   templates/CSVWriter.h
-  templates/FloatingPoint.cpp
   templates/FloatingPoint.h
   templates/Line.h
   templates/Point.h

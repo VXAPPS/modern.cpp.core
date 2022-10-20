@@ -25,7 +25,7 @@ make -j`nproc`
 - **Cpp23** - std::is_scoped_enum, std::to_underlying, std::unreachable.
 - **CSVWriter** - Write out comma-separated values.
 - **SharedQueue** - Queue, which is thread-safe.
-- **Singleton** - Singleton templace class.
+- **Singleton** - Singleton template class.
 - **Timer** - Timeout thread on time or interval.
 - **TypeCheck** - Template variant for typename check.
 
@@ -35,5 +35,5 @@ make -j`nproc`
 - **Rect** - Rectangle template based on Point and Size.
 - **Size** - Size from width and height.
 
-## Unixservice class
+## Unix daemon body
 - Main function to run as a unix daemon (Not for Windows).

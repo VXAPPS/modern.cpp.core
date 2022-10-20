@@ -34,4 +34,13 @@ add_executable(${PROJECT_NAME}
   main.cpp
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE modern.cpp.core Threads::Threads)
+if(NOT HAVE_FORMAT)
+  set(${PROJECT_NAME}_libs fmt::fmt)
+endif()
+
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp.core
+  ${${PROJECT_NAME}_libs}
+  Threads::Threads
+)

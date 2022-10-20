@@ -240,7 +240,7 @@ namespace vx {
                        BLUE = 4,
                        GREEN = 8 };
 
-    constexpr auto names = magic_enum::enum_names<Color>();
+    constexpr auto &names = magic_enum::enum_names<Color>();
     const std::array<std::string_view, 3> check { "RED"sv, "BLUE"sv, "GREEN"sv };
     EXPECT_EQ( names, check );
   }
@@ -253,7 +253,7 @@ namespace vx {
                        BLUE = 4,
                        GREEN = 8 };
 
-    constexpr auto entries = magic_enum::enum_entries<Color>();
+    constexpr auto &entries = magic_enum::enum_entries<Color>();
     const std::array<std::pair<Color, std::string_view>, 3> check { { { Color::RED, "RED"sv }, { Color::BLUE, "BLUE"sv }, { Color::GREEN, "GREEN"sv } } };
     EXPECT_EQ( entries, check );
   }

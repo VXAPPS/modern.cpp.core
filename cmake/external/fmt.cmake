@@ -58,6 +58,16 @@ ExternalProject_Add(fmt
   UPDATE_COMMAND ""
 )
 
+# We cannot use find_library because ExternalProject_Add() is performed at build time.
+# And to please the property INTERFACE_INCLUDE_DIRECTORIES,
+# we make the include directory in advance.
+file(MAKE_DIRECTORY ${FMT_INCLUDE_DIR})
+
+add_library(fmt::fmt STATIC IMPORTED GLOBAL)
+set_property(TARGET fmt::fmt PROPERTY IMPORTED_LOCATION ${FMT_LIBRARY})
+set_property(TARGET fmt::fmt PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${FMT_INCLUDE_DIR})
+add_dependencies(fmt::fmt fmt)
+
 set(FMT_ABSTRACT
 "/*
 * Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).

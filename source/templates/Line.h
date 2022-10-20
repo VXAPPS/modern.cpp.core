@@ -54,13 +54,28 @@ namespace vx {
   class Line : private TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
 
   public:
+    /**
+     * @brief Default constructor for Line.
+     */
     constexpr Line<T>() = default;
 
+    /**
+     * @brief Constructor for Line
+     * @param _point1   First point.
+     * @param _point2   Second point.
+     */
     constexpr Line<T>( Point<T> _point1,
                        Point<T> _point2 ) noexcept
       : m_point1( _point1 ),
         m_point2( _point2 ) {}
 
+    /**
+     * @brief Constructor for Line.
+     * @param _x1   X of first point.
+     * @param _y1   Y of first point.
+     * @param _x2   X of second point.
+     * @param _y2   Y of second point.
+     */
     constexpr Line<T>( T _x1,
                        T _y1,
                        T _x2,

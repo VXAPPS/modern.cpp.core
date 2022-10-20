@@ -54,8 +54,16 @@ namespace vx {
   class Point : private TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
 
   public:
+    /**
+     * @brief Default constructor for Point.
+     */
     constexpr Point<T>() = default;
 
+    /**
+     * @brief Constructor for Point.
+     * @param _x   X value.
+     * @param _y   Y value.
+     */
     constexpr Point<T>( T _x,
                         T _y ) noexcept
       : m_x( _x ),
@@ -88,8 +96,6 @@ namespace vx {
     }
 
     [[nodiscard]] constexpr bool operator==( Point<T> _point ) const noexcept { return floating_point::equal( m_x, _point.m_x ) && floating_point::equal( m_y, _point.m_y ); }
-
-    [[nodiscard]] constexpr bool operator!=( Point<T> _point ) const noexcept { return !floating_point::equal( m_x, _point.m_x ) || !floating_point::equal( m_y, _point.m_y ); }
 
   private:
     T m_x = 0;

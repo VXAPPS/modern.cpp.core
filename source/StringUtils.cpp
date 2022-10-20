@@ -145,8 +145,7 @@ namespace vx::string_utils {
     std::size_t endPos = split.find( _separator );
     while ( endPos != std::string_view::npos ) {
 
-      const std::string_view word = split.substr( 0, endPos );
-      if ( _split == Split::SkipEmpty && word.empty() ) {
+      if ( const std::string_view word = split.substr( 0, endPos ); _split == Split::SkipEmpty && word.empty() ) {
 
         /* Nothing to do here */
       }

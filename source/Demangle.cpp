@@ -78,18 +78,12 @@ namespace vx {
     result = std::regex_replace( result, std::regex( "class" ), "" );
     result = std::regex_replace( result, std::regex( "struct" ), "" );
     result = std::regex_replace( result, std::regex( "__ptr64" ), "" );
-    //    result = std::regex_replace( result, std::regex( "class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >" ), "std::string" );
-    //    result = std::regex_replace( result, std::regex( "class std::basic_string_view<char,struct std::char_traits<char> >" ), "std::string" );
 
     // LINUX clang and gcc
     result = std::regex_replace( result, std::regex( "__cxx11::" ), "" );
-    //    result = std::regex_replace( result, std::regex( "std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >" ), "std::string" );
-    //    result = std::regex_replace( result, std::regex( "std::basic_string_view<char, std::char_traits<char> >" ), "std::string_view" );
 
     // MAC AppleClang
     result = std::regex_replace( result, std::regex( "__1::" ), "" );
-    //    result = std::regex_replace( result, std::regex( "std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >" ), "std::string" );
-    //    result = std::regex_replace( result, std::regex( "std::__1::basic_string_view<char, std::__1::char_traits<char> >" ), "std::string_view" );
 
     // All, after general cleanup
     result = std::regex_replace( result, std::regex( "std::basic_string<char, std::char_traits<char>, std::allocator<char> >" ), "std::string" );
@@ -109,8 +103,7 @@ namespace vx {
     std::string result = demangleSimple( _name );
 
     /* Everything to cut out until end to simplify the types printed */
-    const std::vector toRemove { "std::less", "std::hash", "std::equal_to", "std::allocator" };
-    for ( const auto &remove : toRemove ) {
+    for ( const std::vector toRemove { "std::less", "std::hash", "std::equal_to", "std::allocator" }; const auto &remove : toRemove ) {
 
       const std::size_t pos = result.find( remove );
       if ( pos != std::string::npos ) {

@@ -34,17 +34,10 @@ add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
 )
 
-add_dependencies(${PROJECT_NAME} googletest)
-
-target_include_directories(${PROJECT_NAME}
-  PRIVATE
-  ${GOOGLETEST_INCLUDE_DIR}
-)
-
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp.core
-  ${GOOGLETEST_LIBRARY}
+  GTest::gtest_main
   Threads::Threads
 )
 
@@ -56,17 +49,10 @@ add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
 )
 
-add_dependencies(${PROJECT_NAME} googletest)
-
-target_include_directories(${PROJECT_NAME}
-  PRIVATE
-  ${GOOGLETEST_INCLUDE_DIR}
-)
-
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp.core
-  ${GOOGLETEST_LIBRARY}
+  GTest::gtest_main
   Threads::Threads
 )
 
@@ -79,29 +65,13 @@ add_executable(${PROJECT_NAME}
 )
 
 if(NOT HAVE_FORMAT)
-  add_dependencies(${PROJECT_NAME} fmt googletest)
-else()
-  add_dependencies(${PROJECT_NAME} googletest)
-endif()
-
-if(NOT HAVE_FORMAT)
-  set(${PROJECT_NAME}_includes ${FMT_INCLUDE_DIR})
-endif()
-
-target_include_directories(${PROJECT_NAME}
-  PRIVATE
-  ${GOOGLETEST_INCLUDE_DIR}
-  ${${PROJECT_NAME}_includes}
-)
-
-if(NOT HAVE_FORMAT)
-  set(${PROJECT_NAME}_libs ${FMT_LIBRARY})
+  set(${PROJECT_NAME}_libs fmt::fmt)
 endif()
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp.core
-  ${GOOGLETEST_LIBRARY}
+  GTest::gtest_main
   Threads::Threads
   ${${PROJECT_NAME}_libs}
 )
@@ -114,17 +84,10 @@ add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
 )
 
-add_dependencies(${PROJECT_NAME} googletest)
-
-target_include_directories(${PROJECT_NAME}
-  PRIVATE
-  ${GOOGLETEST_INCLUDE_DIR}
-)
-
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp.core
-  ${GOOGLETEST_LIBRARY}
+  GTest::gtest_main
   Threads::Threads
 )
 
@@ -136,17 +99,10 @@ add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
 )
 
-add_dependencies(${PROJECT_NAME} googletest)
-
-target_include_directories(${PROJECT_NAME}
-  PRIVATE
-  ${GOOGLETEST_INCLUDE_DIR}
-)
-
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp.core
-  ${GOOGLETEST_LIBRARY}
+  GTest::gtest_main
   Threads::Threads
 )
 
@@ -158,17 +114,10 @@ add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
 )
 
-add_dependencies(${PROJECT_NAME} googletest)
-
-target_include_directories(${PROJECT_NAME}
-  PRIVATE
-  ${GOOGLETEST_INCLUDE_DIR}
-)
-
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp.core
-  ${GOOGLETEST_LIBRARY}
+  GTest::gtest_main
   Threads::Threads
 )
 
@@ -180,17 +129,10 @@ add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
 )
 
-add_dependencies(${PROJECT_NAME} googletest)
-
-target_include_directories(${PROJECT_NAME}
-  PRIVATE
-  ${GOOGLETEST_INCLUDE_DIR}
-)
-
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp.core
-  ${GOOGLETEST_LIBRARY}
+  GTest::gtest_main
   Threads::Threads
 )
 
@@ -202,17 +144,10 @@ add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
 )
 
-add_dependencies(${PROJECT_NAME} googletest)
-
-target_include_directories(${PROJECT_NAME}
-  PRIVATE
-  ${GOOGLETEST_INCLUDE_DIR}
-)
-
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp.core
-  ${GOOGLETEST_LIBRARY}
+  GTest::gtest_main
   Threads::Threads
 )
 
@@ -224,17 +159,10 @@ add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp
 )
 
-add_dependencies(${PROJECT_NAME} googletest)
-
-target_include_directories(${PROJECT_NAME}
-  PRIVATE
-  ${GOOGLETEST_INCLUDE_DIR}
-)
-
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp.core
-  ${GOOGLETEST_LIBRARY}
+  GTest::gtest_main
   Threads::Threads
 )
 

@@ -48,8 +48,16 @@ namespace vx {
   class Size : private TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
 
   public:
+    /**
+     * @brief Default constructor for Size.
+     */
     constexpr Size<T>() = default;
 
+    /**
+     * @brief Constructor for Size.
+     * @param _width   Width value.
+     * @param _height   Height value.
+     */
     constexpr Size<T>( T _width,
                        T _height ) noexcept
       : m_width( _width ),
@@ -82,8 +90,6 @@ namespace vx {
     }
 
     [[nodiscard]] constexpr bool operator==( Size<T> _size ) const noexcept { return floating_point::equal( m_width, _size.m_width ) && floating_point::equal( m_height, _size.m_height ); }
-
-    [[nodiscard]] constexpr bool operator!=( Size<T> _size ) const noexcept { return !floating_point::equal( m_width, _size.m_width ) || !floating_point::equal( m_height, _size.m_height ); }
 
   private:
     T m_width = 1;

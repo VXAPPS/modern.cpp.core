@@ -49,3 +49,13 @@ ExternalProject_Add(googletest
   BUILD_BYPRODUCTS ${GOOGLETEST_LIBRARY}
   UPDATE_COMMAND ""
 )
+
+# We cannot use find_library because ExternalProject_Add() is performed at build time.
+# And to please the property INTERFACE_INCLUDE_DIRECTORIES,
+# we make the include directory in advance.
+file(MAKE_DIRECTORY ${GOOGLETEST_INCLUDE_DIR})
+
+add_library(GTest::gtest_main STATIC IMPORTED GLOBAL)
+set_property(TARGET GTest::gtest_main PROPERTY IMPORTED_LOCATION ${GOOGLETEST_LIBRARY})
+set_property(TARGET GTest::gtest_main PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${GOOGLETEST_INCLUDE_DIR})
+add_dependencies(GTest::gtest_main googletest)

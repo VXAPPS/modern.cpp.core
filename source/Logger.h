@@ -105,8 +105,6 @@ namespace vx::logger {
 
     void setFilename( const std::string &_filename ) noexcept { m_filename = _filename; }
 
-    void setFlags() noexcept {}
-
     [[nodiscard]] inline bool autoSpace() const noexcept { return m_autoSpace; }
 
     inline void setAutoSpace( bool _autoSpace ) noexcept { m_autoSpace = _autoSpace; }
@@ -451,16 +449,23 @@ namespace vx::logger {
   Logger &printList( Logger &_logger,
                      const List &_list ) noexcept {
 
-    using func = std::function<void( void )>;
-    func checkComma = []() { /* empty */ };
-    func printComma = [ &_logger ]() { _logger.stream() << ',' << ' '; };
-    func noPrint = [ &checkComma, &printComma ]() { checkComma = printComma; };
+    using func = std::function<void ( void )>;
+    func checkComma {};
+    func printComma = [ &_logger ]() noexcept { _logger.stream() << ',' << ' '; };
+    func noPrint = [ &checkComma, &printComma ]() noexcept { checkComma = printComma; };
+
     checkComma = noPrint;
 
     _logger.stream() << demangleExtreme( typeid( _list ).name() ) << ' ' << '{';
     for ( const auto &value : _list ) {
 
-      checkComma();
+      try {
+
+        checkComma();
+      } catch ( [[maybe_unused]] const std::bad_function_call &_exception ) {
+
+        /* Nothing to do here, the delimeter is not the most important thing here. */
+      }
       const bool saveState = _logger.autoSpace();
       _logger.nospace() << value;
       _logger.setAutoSpace( saveState );
@@ -502,15 +507,21 @@ namespace vx::logger {
                     const T &_map ) noexcept {
 
     using func = std::function<void( void )>;
-    func checkComma = []() { /* empty */ };
-    func printComma = [ &_logger ]() { _logger.stream() << ',' << ' '; };
-    func noPrint = [ &checkComma, &printComma ]() { checkComma = printComma; };
+    func checkComma {};
+    func printComma = [ &_logger ]() noexcept { _logger.stream() << ',' << ' '; };
+    func noPrint = [ &checkComma, &printComma ]() noexcept { checkComma = printComma; };
     checkComma = noPrint;
 
     _logger.stream() << demangleExtreme( typeid( _map ).name() ) << ' ' << '{';
     for ( const auto &[ key, value ] : _map ) {
 
-      checkComma();
+      try {
+
+        checkComma();
+      } catch ( [[maybe_unused]] const std::bad_function_call &_exception ) {
+
+        /* Nothing to do here, the delimeter is not the most important thing here. */
+      }
       _logger.stream() << '{';
       const bool saveState = _logger.autoSpace();
       _logger.nospace() << key;
@@ -549,37 +560,32 @@ namespace vx::logger {
                       const T &_tuple ) noexcept {
 
     using func = std::function<void( void )>;
-    func checkComma = []() { /* empty */ };
-    func printComma = [ &_logger ]() { _logger.stream() << ',' << ' '; };
-    func noPrint = [ &checkComma, &printComma ]() { checkComma = printComma; };
+    func checkComma {};
+    func printComma = [ &_logger ]() noexcept { _logger.stream() << ',' << ' '; };
+    func noPrint = [ &checkComma, &printComma ]() noexcept { checkComma = printComma; };
     checkComma = noPrint;
 
     _logger.stream() << demangleExtreme( typeid( _tuple ).name() ) << ' ' << '{';
     std::size_t tupleSize = std::tuple_size_v<T>;
     for ( std::size_t pos = 0; pos < tupleSize; pos++ ) {
 
-      checkComma();
+      try {
+
+        checkComma();
+      } catch ( [[maybe_unused]] const std::bad_function_call &_exception ) {
+
+        /* Nothing to do here, the delimeter is not the most important thing here. */
+      }
       _logger.printTuple( pos, _tuple );
     }
     _logger.stream() << '}';
     return _logger.maybeSpace();
   }
 
-  /* template <typename T>
-  void helper( [[maybe_unused]] Logger &_logger ) noexcept {}
-
-  template <typename T, typename First, typename... Rest>
-  void helper( Logger &_logger ) noexcept {
-
-    _logger << demangleExtreme( typeid( First ).name() );
-    helper<T, Rest...>( _logger );
-  } */
-
   template <typename... Ts>
   inline Logger &operator<<( Logger &_logger,
                              const std::tuple<Ts...> &_values ) noexcept {
 
-    //    helper<void, Ts...>( _logger );
     return printTuple( _logger, _values );
   }
 
@@ -600,7 +606,6 @@ namespace vx::logger {
   inline Logger &operator<<( Logger &_logger,
                              const std::variant<Ts...> &_values ) noexcept {
 
-    //    helper<void, Ts...>( _logger );
     return printVariant( _logger, _values );
   }
 
@@ -624,47 +629,47 @@ namespace vx::logger {
 #endif
   const std::unordered_map<std::type_index, std::function<void( Logger &_logger, const std::any & )>> visitors {
 
-    add<bool>( []( Logger &_logger, bool _input ) { _logger << _input; } ),
-    add<char>( []( Logger &_logger, char _input ) { _logger << _input; } ),
-    add<int>( []( Logger &_logger, int _input ) { _logger << _input; } ),
-    add<unsigned int>( []( Logger &_logger, unsigned int _input ) { _logger << _input; } ),
-    add<std::size_t>( []( Logger &_logger, std::size_t _input ) { _logger << _input; } ),
-    add<float>( []( Logger &_logger, float _input ) { _logger << _input; } ),
-    add<double>( []( Logger &_logger, double _input ) { _logger << _input; } ),
-    add<const char *>( []( Logger &_logger, const char *_input ) { _logger << _input; } ),
-    add<std::string_view>( []( Logger &_logger, std::string_view _input ) { _logger << _input; } ),
-    add<std::string>( []( Logger &_logger, const std::string &_input ) { _logger << _input; } ),
-    add<std::list<bool>>( []( Logger &_logger, const std::list<bool> &_input ) { _logger << _input; } ),
-    add<std::list<char>>( []( Logger &_logger, const std::list<char> &_input ) { _logger << _input; } ),
-    add<std::list<int>>( []( Logger &_logger, const std::list<int> &_input ) { _logger << _input; } ),
-    add<std::list<unsigned int>>( []( Logger &_logger, const std::list<unsigned int> &_input ) { _logger << _input; } ),
-    add<std::list<std::size_t>>( []( Logger &_logger, const std::list<std::size_t> &_input ) { _logger << _input; } ),
-    add<std::list<float>>( []( Logger &_logger, const std::list<float> &_input ) { _logger << _input; } ),
-    add<std::list<double>>( []( Logger &_logger, const std::list<double> &_input ) { _logger << _input; } ),
-    add<std::list<const char *>>( []( Logger &_logger, const std::list<const char *> &_input ) { _logger << _input; } ),
-    add<std::list<std::string_view>>( []( Logger &_logger, const std::list<std::string_view> &_input ) { _logger << _input; } ),
-    add<std::list<std::string>>( []( Logger &_logger, const std::list<std::string> &_input ) { _logger << _input; } ),
-    add<std::set<bool>>( []( Logger &_logger, const std::set<bool> &_input ) { _logger << _input; } ),
-    add<std::set<char>>( []( Logger &_logger, const std::set<char> &_input ) { _logger << _input; } ),
-    add<std::set<int>>( []( Logger &_logger, const std::set<int> &_input ) { _logger << _input; } ),
-    add<std::set<unsigned int>>( []( Logger &_logger, const std::set<unsigned int> &_input ) { _logger << _input; } ),
-    add<std::set<std::size_t>>( []( Logger &_logger, const std::set<std::size_t> &_input ) { _logger << _input; } ),
-    add<std::set<float>>( []( Logger &_logger, const std::set<float> &_input ) { _logger << _input; } ),
-    add<std::set<double>>( []( Logger &_logger, const std::set<double> &_input ) { _logger << _input; } ),
-    add<std::set<const char *>>( []( Logger &_logger, const std::set<const char *> &_input ) { _logger << _input; } ),
-    add<std::set<std::string_view>>( []( Logger &_logger, const std::set<std::string_view> &_input ) { _logger << _input; } ),
-    add<std::set<std::string>>( []( Logger &_logger, const std::set<std::string> &_input ) { _logger << _input; } ),
-    // MAC found that ambiguous...    add<std::vector<bool>>( []( Logger & _logger, const std::vector<bool> &_input ) { _logger << _input; } ),
-    add<std::vector<char>>( []( Logger &_logger, const std::vector<char> &_input ) { _logger << _input; } ),
-    add<std::vector<int>>( []( Logger &_logger, const std::vector<int> &_input ) { _logger << _input; } ),
-    add<std::vector<unsigned int>>( []( Logger &_logger, const std::vector<unsigned int> &_input ) { _logger << _input; } ),
-    add<std::vector<std::size_t>>( []( Logger &_logger, const std::vector<std::size_t> &_input ) { _logger << _input; } ),
-    add<std::vector<float>>( []( Logger &_logger, const std::vector<float> &_input ) { _logger << _input; } ),
-    add<std::vector<double>>( []( Logger &_logger, const std::vector<double> &_input ) { _logger << _input; } ),
-    add<std::vector<const char *>>( []( Logger &_logger, const std::vector<const char *> &_input ) { _logger << _input; } ),
-    add<std::vector<std::string_view>>( []( Logger &_logger, const std::vector<std::string_view> &_input ) { _logger << _input; } ),
-    add<std::vector<std::string>>( []( Logger &_logger, const std::vector<std::string> &_input ) { _logger << _input; } ),
-    // VC2017 issue    add<void>( []( Logger & _logger, [[maybe_unused]] void *_input ) { _logger << _input; } ),
+    add<bool>( []( Logger &_logger, bool _input ) noexcept { _logger << _input; } ),
+    add<char>( []( Logger &_logger, char _input ) noexcept { _logger << _input; } ),
+    add<int>( []( Logger &_logger, int _input ) noexcept { _logger << _input; } ),
+    add<unsigned int>( []( Logger &_logger, unsigned int _input ) noexcept { _logger << _input; } ),
+    add<std::size_t>( []( Logger &_logger, std::size_t _input ) noexcept { _logger << _input; } ),
+    add<float>( []( Logger &_logger, float _input ) noexcept { _logger << _input; } ),
+    add<double>( []( Logger &_logger, double _input ) noexcept { _logger << _input; } ),
+    add<const char *>( []( Logger &_logger, const char *_input ) noexcept { _logger << _input; } ),
+    add<std::string_view>( []( Logger &_logger, std::string_view _input ) noexcept { _logger << _input; } ),
+    add<std::string>( []( Logger &_logger, const std::string &_input ) noexcept { _logger << _input; } ),
+    add<std::list<bool>>( []( Logger &_logger, const std::list<bool> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<char>>( []( Logger &_logger, const std::list<char> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<int>>( []( Logger &_logger, const std::list<int> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<unsigned int>>( []( Logger &_logger, const std::list<unsigned int> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<std::size_t>>( []( Logger &_logger, const std::list<std::size_t> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<float>>( []( Logger &_logger, const std::list<float> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<double>>( []( Logger &_logger, const std::list<double> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<const char *>>( []( Logger &_logger, const std::list<const char *> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<std::string_view>>( []( Logger &_logger, const std::list<std::string_view> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<std::string>>( []( Logger &_logger, const std::list<std::string> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<bool>>( []( Logger &_logger, const std::set<bool> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<char>>( []( Logger &_logger, const std::set<char> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<int>>( []( Logger &_logger, const std::set<int> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<unsigned int>>( []( Logger &_logger, const std::set<unsigned int> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<std::size_t>>( []( Logger &_logger, const std::set<std::size_t> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<float>>( []( Logger &_logger, const std::set<float> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<double>>( []( Logger &_logger, const std::set<double> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<const char *>>( []( Logger &_logger, const std::set<const char *> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<std::string_view>>( []( Logger &_logger, const std::set<std::string_view> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<std::string>>( []( Logger &_logger, const std::set<std::string> &_input ) noexcept { _logger << _input; } ),
+    // MAC found that ambiguous...    add<std::vector<bool>>( []( Logger & _logger, const std::vector<bool> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<char>>( []( Logger &_logger, const std::vector<char> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<int>>( []( Logger &_logger, const std::vector<int> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<unsigned int>>( []( Logger &_logger, const std::vector<unsigned int> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<std::size_t>>( []( Logger &_logger, const std::vector<std::size_t> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<float>>( []( Logger &_logger, const std::vector<float> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<double>>( []( Logger &_logger, const std::vector<double> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<const char *>>( []( Logger &_logger, const std::vector<const char *> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<std::string_view>>( []( Logger &_logger, const std::vector<std::string_view> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<std::string>>( []( Logger &_logger, const std::vector<std::string> &_input ) noexcept { _logger << _input; } ),
+    // VC2017 issue    add<void>( []( Logger & _logger, [[maybe_unused]] void *_input ) noexcept { _logger << _input; } ),
   };
 #ifdef __clang__
   #pragma clang diagnostic pop

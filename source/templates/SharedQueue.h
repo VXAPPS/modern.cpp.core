@@ -70,7 +70,7 @@ namespace vx {
      */
     SharedQueue( SharedQueue &&_other ) noexcept {
 
-      std::unique_lock<std::mutex> lock( m_mutex );
+      std::scoped_lock<std::mutex> lock( m_mutex );
       m_queue = std::move( _other.m_queue );
     }
 

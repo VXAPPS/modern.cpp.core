@@ -49,8 +49,18 @@ namespace vx {
   class Rect : private TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
 
   public:
+    /**
+     * @brief Default constructor for Rect.
+     */
     constexpr Rect<T>() = default;
 
+    /**
+     * @brief Constructor for Rect.
+     * @param _left   X value.
+     * @param _top   Y value.
+     * @param _width   Width value.
+     * @param _height   Height value.
+     */
     constexpr Rect<T>( T _left,
                        T _top,
                        T _width,
@@ -60,6 +70,11 @@ namespace vx {
         m_x2( _left + _width - 1 ),
         m_y2( _top + _height - 1 ) {}
 
+    /**
+     * @brief Constructor for Rect.
+     * @param _topleft   Top left point.
+     * @param _bottomright   Bottom right point.
+     */
     constexpr Rect<T>( Point<T> _topleft,
                        Point<T> _bottomright ) noexcept
       : m_x1( _topleft.x() ),
@@ -67,6 +82,11 @@ namespace vx {
         m_x2( _bottomright.x() ),
         m_y2( _bottomright.y() ) {}
 
+    /**
+     * @brief Constructor for Rect.
+     * @param _point   Point value.
+     * @param _size   Size value.
+     */
     constexpr Rect<T>( Point<T> _point,
                        Size<T> _size ) noexcept
       : m_x1( _point.x() ),
@@ -126,8 +146,6 @@ namespace vx {
     [[nodiscard]] static constexpr bool compareHeight( Rect<T> _rect1, Rect<T> _rect2 ) noexcept { return floating_point::less( _rect1.height(), _rect2.height() ); }
 
     [[nodiscard]] constexpr bool operator==( Rect<T> _rect ) const noexcept { return floating_point::equal( m_x1, _rect.m_x1 ) && floating_point::equal( m_y1, _rect.m_y1 ) && floating_point::equal( m_x2, _rect.m_x2 ) && floating_point::equal( m_y2, _rect.m_y2 ); }
-
-    [[nodiscard]] constexpr bool operator!=( Rect<T> _rect ) const noexcept { return !floating_point::equal( m_x1, _rect.m_x1 ) || !floating_point::equal( m_y1, _rect.m_y1 ) || !floating_point::equal( m_x2, _rect.m_x2 ) || !floating_point::equal( m_y2, _rect.m_y2 ); }
 
   private:
     T m_x1 = 0;
