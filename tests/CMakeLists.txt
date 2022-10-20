@@ -41,8 +41,8 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-gtest_discover_tests(${PROJECT_NAME}
-  WORKING_DIRECTORY ${PROJECT_DIR}
+gtest_add_tests(${PROJECT_NAME}
+  SOURCES ${PROJECT_NAME}.cpp
 )
 
 project(test_double_utils)
@@ -58,8 +58,8 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-gtest_discover_tests(${PROJECT_NAME}
-  WORKING_DIRECTORY ${PROJECT_DIR}
+gtest_add_tests(${PROJECT_NAME}
+  SOURCES ${PROJECT_NAME}.cpp
 )
 
 project(test_format)
@@ -80,8 +80,8 @@ target_link_libraries(${PROJECT_NAME}
   ${${PROJECT_NAME}_libs}
 )
 
-gtest_discover_tests(${PROJECT_NAME}
-  WORKING_DIRECTORY ${PROJECT_DIR}
+gtest_add_tests(${PROJECT_NAME}
+  SOURCES ${PROJECT_NAME}.cpp
 )
 
 project(test_line)
@@ -97,8 +97,8 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-gtest_discover_tests(${PROJECT_NAME}
-  WORKING_DIRECTORY ${PROJECT_DIR}
+gtest_add_tests(${PROJECT_NAME}
+  SOURCES ${PROJECT_NAME}.cpp
 )
 
 project(test_magic_enum)
@@ -114,8 +114,8 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-gtest_discover_tests(${PROJECT_NAME}
-  WORKING_DIRECTORY ${PROJECT_DIR}
+gtest_add_tests(${PROJECT_NAME}
+  SOURCES ${PROJECT_NAME}.cpp
 )
 
 project(test_point)
@@ -131,8 +131,8 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-gtest_discover_tests(${PROJECT_NAME}
-  WORKING_DIRECTORY ${PROJECT_DIR}
+gtest_add_tests(${PROJECT_NAME}
+  SOURCES ${PROJECT_NAME}.cpp
 )
 
 project(test_rect)
@@ -148,8 +148,8 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-gtest_discover_tests(${PROJECT_NAME}
-  WORKING_DIRECTORY ${PROJECT_DIR}
+gtest_add_tests(${PROJECT_NAME}
+  SOURCES ${PROJECT_NAME}.cpp
 )
 
 project(test_size)
@@ -165,8 +165,8 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-gtest_discover_tests(${PROJECT_NAME}
-  WORKING_DIRECTORY ${PROJECT_DIR}
+gtest_add_tests(${PROJECT_NAME}
+  SOURCES ${PROJECT_NAME}.cpp
 )
 
 project(test_string_utils)
@@ -182,7 +182,6 @@ target_link_libraries(${PROJECT_NAME}
   Threads::Threads
 )
 
-gtest_discover_tests(${PROJECT_NAME}
-  WORKING_DIRECTORY ${PROJECT_DIR}
-  XML_OUTPUT_DIR {CMAKE_BINARY_DIR}/Testing
+gtest_add_tests(${PROJECT_NAME}
+  SOURCES ${PROJECT_NAME}.cpp
 )
