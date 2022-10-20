@@ -82,31 +82,21 @@ namespace vx {
     RE2::GlobalReplace( &result, "class", "" );
     RE2::GlobalReplace( &result, "struct", "" );
     RE2::GlobalReplace( &result, "__ptr64", "" );
-    // result = std::regex_replace( result, std::regex( "class" ), "" );
-    // result = std::regex_replace( result, std::regex( "struct" ), "" );
-    // result = std::regex_replace( result, std::regex( "__ptr64" ), "" );
 
     // LINUX clang and gcc
     RE2::GlobalReplace( &result, "__cxx11::", "" );
-    // result = std::regex_replace( result, std::regex( "__cxx11::" ), "" );
 
     // MAC AppleClang
     RE2::GlobalReplace( &result, "__1::", "" );
-    // result = std::regex_replace( result, std::regex( "__1::" ), "" );
 
     // All, after general cleanup
     RE2::GlobalReplace( &result, "std::basic_string<char, std::char_traits<char>, std::allocator<char> >", "std::string" );
     RE2::GlobalReplace( &result, "std::basic_string_view<char, std::char_traits<char> >", "std::string_view" );
-    // result = std::regex_replace( result, std::regex( "std::basic_string<char, std::char_traits<char>, std::allocator<char> >" ), "std::string" );
-    // result = std::regex_replace( result, std::regex( "std::basic_string_view<char, std::char_traits<char> >" ), "std::string_view" );
 
     // Remove space before closing bracket - overall valid
     RE2::GlobalReplace( &result, ", >", ">" );
     RE2::GlobalReplace( &result, ",>", ">" );
     RE2::GlobalReplace( &result, " >", ">" );
-    // result = std::regex_replace( result, std::regex( ", >" ), ">" );
-    //result = std::regex_replace( result, std::regex( ",>" ), ">" );
-    //result = std::regex_replace( result, std::regex( " >" ), ">" );
     result = string_utils::simplified( result );
 
     return result;
@@ -130,26 +120,18 @@ namespace vx {
     RE2::GlobalReplace( &result, "int const", "const int " );
     RE2::GlobalReplace( &result, "double const", "const double " );
     RE2::GlobalReplace( &result, "char const", "const char " );
-    // result = std::regex_replace( result, std::regex( "int const" ), "const int " );
-    // result = std::regex_replace( result, std::regex( "double const" ), "const double " );
-    // result = std::regex_replace( result, std::regex( "char const" ), "const char " );
 
     /* Remove space before closing bracket - overall valid */
     RE2::GlobalReplace( &result, ", >", ">" );
     RE2::GlobalReplace( &result, ",>", ">" );
     RE2::GlobalReplace( &result, " >", ">" );
-    // result = std::regex_replace( result, std::regex( ", >" ), ">" );
-    // result = std::regex_replace( result, std::regex( ",>" ), ">" );
-    // result = std::regex_replace( result, std::regex( " >" ), ">" );
     result = string_utils::simplified( result );
 
     /* Try to fix no spaces and comma issues */
     RE2::GlobalReplace( &result, " ,", "," );
-    // result = std::regex_replace( result, std::regex( " ," ), "," );
     if ( result.find( ", " ) == std::string::npos ) {
 
       RE2::GlobalReplace( &result, ",", ", " );
-      // result = std::regex_replace( result, std::regex( "," ), ", " );
     }
 
     return result;
