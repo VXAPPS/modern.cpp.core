@@ -71,7 +71,7 @@ namespace vx {
      */
     SharedQueue( SharedQueue &&_other ) noexcept {
 
-      std::scoped_lock lock( m_mutex );
+      std::scoped_lock<std::shared_mutex> lock( m_mutex );
       m_queue = std::move( _other.m_queue );
     }
 
@@ -150,7 +150,7 @@ namespace vx {
      */
     std::size_t size() const noexcept {
 
-      std::shared_lock lock( m_mutex );
+      std::shared_lock<std::shared_mutex> lock( m_mutex );
 
       std::size_t size = m_queue.size();
 
@@ -164,7 +164,7 @@ namespace vx {
      */
     bool empty() const noexcept {
 
-      std::shared_lock lock( m_mutex );
+      std::shared_lock<std::shared_mutex> lock( m_mutex );
 
       bool empty = m_queue.empty();
 
