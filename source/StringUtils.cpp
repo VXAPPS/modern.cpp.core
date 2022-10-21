@@ -57,8 +57,6 @@ namespace vx::string_utils {
   std::string &trimRight( std::string &_string,
                           std::string_view _trim ) noexcept {
 
-    // auto notTrimmed = [ &_trim ]( auto _chr ) { return _trim.empty() ? trimmed.find( _chr ) == std::string_view::npos : _trim.find( _chr ) == std::string_view::npos; };
-    // _string.erase( std::find_if( std::rbegin( _string ), std::rend( _string ), notTrimmed ).base(), std::end( _string ) );
     _string.erase( _string.find_last_not_of( _trim.empty() ? trimmed : _trim ) + 1 );
     return _string;
   }
@@ -66,8 +64,6 @@ namespace vx::string_utils {
   std::string &trimLeft( std::string &_string,
                          std::string_view _trim ) noexcept {
 
-    // auto notTrimmed = [ &_trim ]( auto _chr ) { return _trim.empty() ? trimmed.find( _chr ) == std::string_view::npos : _trim.find( _chr ) == std::string_view::npos; };
-    // _string.erase( std::begin( _string ), std::find_if( std::begin( _string ), std::end( _string ), notTrimmed ) );
     _string.erase( 0, _string.find_first_not_of( _trim.empty() ? trimmed : _trim ) );
     return _string;
   }

@@ -59,10 +59,10 @@ namespace vx {
      * */
     int status = -4;
 
-    const std::unique_ptr<char, void ( * )( void * )> res {
+    const std::unique_ptr<char, void ( * )( char * )> res {
 
       abi::__cxa_demangle( _name.c_str(), nullptr, nullptr, &status ),
-      []( void *_toFree ) { std::free( _toFree ); }
+      []( char *_toFree ) { std::free( _toFree ); }
     };
 
     if ( status == 0 ) {

@@ -34,6 +34,7 @@
 #include <condition_variable>
 #include <mutex>
 #include <queue>
+#include <shared_mutex>
 
 /**
  * @brief vx (VX APPS) namespace.
@@ -70,7 +71,7 @@ namespace vx {
      */
     SharedQueue( SharedQueue &&_other ) noexcept {
 
-      std::scoped_lock<std::mutex> lock( m_mutex );
+      std::scoped_lock lock( m_mutex );
       m_queue = std::move( _other.m_queue );
     }
 
@@ -92,7 +93,7 @@ namespace vx {
      */
     T &front() noexcept {
 
-      std::unique_lock<std::mutex> lock( m_mutex );
+      std::unique_lock<std::shared_mutex> lock( m_mutex );
 
       m_condition.wait( lock, [ this ] { return !m_queue.empty(); } );
       return m_queue.front();
@@ -103,7 +104,7 @@ namespace vx {
      */
     void pop() noexcept {
 
-      std::unique_lock<std::mutex> lock( m_mutex );
+      std::unique_lock<std::shared_mutex> lock( m_mutex );
 
       m_condition.wait( lock, [ this ] { return !m_queue.empty(); } );
       m_queue.pop();
@@ -115,7 +116,7 @@ namespace vx {
      */
     void push( const T &item ) noexcept {
 
-      std::unique_lock<std::mutex> lock( m_mutex );
+      std::unique_lock<std::shared_mutex> lock( m_mutex );
 
       m_queue.push( item );
 
@@ -132,7 +133,7 @@ namespace vx {
      */
     void push( T &&item ) noexcept {
 
-      std::unique_lock<std::mutex> lock( m_mutex );
+      std::unique_lock<std::shared_mutex> lock( m_mutex );
 
       m_queue.push( std::move( item ) );
 
@@ -149,7 +150,7 @@ namespace vx {
      */
     std::size_t size() const noexcept {
 
-      std::unique_lock<std::mutex> lock( m_mutex );
+      std::shared_lock lock( m_mutex );
 
       std::size_t size = m_queue.size();
 
@@ -163,7 +164,7 @@ namespace vx {
      */
     bool empty() const noexcept {
 
-      std::unique_lock<std::mutex> lock( m_mutex );
+      std::shared_lock lock( m_mutex );
 
       bool empty = m_queue.empty();
 
@@ -180,11 +181,11 @@ namespace vx {
     /**
      * @brief Member for shared mutex.
      */
-    mutable std::mutex m_mutex {};
+    mutable std::shared_mutex m_mutex {};
 
     /**
      * @brief Condition member.
      */
-    std::condition_variable m_condition {};
+    std::condition_variable_any m_condition {};
   };
 }

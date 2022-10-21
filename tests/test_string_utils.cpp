@@ -184,7 +184,7 @@ namespace vx {
 
     /* Wrong size check - more than expected. */
     /* A sanitizer will found that issue, so this is not useable for regular testing. */
-    // EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
+    EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
   }
 }
 #ifdef __clang__

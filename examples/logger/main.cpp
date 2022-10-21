@@ -81,7 +81,7 @@ int main() {
   const std::string *str = nullptr;
   logDebug() << str << false << true << nullptr << 'a';
 
-  const std::unique_ptr<std::string> blub = std::make_unique<std::string>( "blub2" );
+  const auto blub = std::make_unique<std::string>( "blub2" );
   logInfo() << "Pointer:" << blub.get();
 
   const std::list<std::string> list { "abc", "def", "ghj" };
@@ -109,7 +109,7 @@ int main() {
 
   using namespace std::literals;
   const std::unordered_map<int, std::string_view> testsv { { 2, "ghj"sv }, { 1, "def"sv }, { 3, "abc"sv } };
-  (void)testsv;
+  ( void )testsv;
 
   logInfo() << MyClass( "Blub" );
 
@@ -140,15 +140,15 @@ int main() {
   const std::tuple tupl { theAnswerOfEverything, 'a', someDouble }; // Another C++17 feature: class template argument deduction
   std::apply( []( auto &&...args ) { logDebug() << std::forward_as_tuple( args... ); }, tupl );
 
-  constexpr auto severities = magic_enum::enum_entries<vx::logger::Path>();
+  constexpr auto &severities = magic_enum::enum_entries<vx::logger::Path>();
   logFatal() << severities;
-  for ( const auto &severity : severities ) {
+  for ( const auto &[ key, value ] : severities ) {
 
-    logFatal() << severity.first << severity.second;
+    logFatal() << key << value;
   }
   logDebug() << magic_enum::enum_name( vx::logger::Path::Filename ) << vx::logger::Path::Filename;
 
-  constexpr auto severityNames = magic_enum::enum_names<vx::logger::Path>();
+  constexpr auto &severityNames = magic_enum::enum_names<vx::logger::Path>();
   logInfo() << severityNames;
 
   enum class Path {
