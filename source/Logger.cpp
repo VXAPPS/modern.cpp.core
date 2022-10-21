@@ -30,8 +30,8 @@
 
 /* stl header */
 #include <algorithm>
+#include <iomanip>
 #include <iostream> // std::streambuf, std::cout
-#include <memory>   // std::unique_ptr
 #if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
   #include <ranges>
 #endif
@@ -40,12 +40,10 @@
 /* magic enum */
 #include <magic_enum.hpp>
 
-/* modern.cpp.core */
-#include <StringUtils.h>
-#include <Timestamp.h>
-
 /* local header */
 #include "Logger.h"
+#include "StringUtils.h"
+#include "Timestamp.h"
 
 namespace vx::logger {
 
@@ -100,9 +98,10 @@ namespace vx::logger {
         const std::size_t pos = filename.find_last_of( delimiter );
         filename = filename.substr( pos + 1, filename.size() - ( pos + 1 ) );
       }
-/*      else if ( m_locationPath == Path::Relative && filename.find_last_of( delimiter ) != std::string::npos ) {
+      /*      else if ( m_locationPath == Path::Relative && filename.find_last_of( delimiter ) != std::string::npos ) {
 
-        *//* TODO: Find a better solution for the real project_source_dir, instead of two folders back if available *//*
+        */
+      /* TODO: Find a better solution for the real project_source_dir, instead of two folders back if available */ /*
         std::size_t pos = filename.find_last_of( delimiter );
         const std::size_t secondPos = filename.find_last_of( delimiter, pos - 1 );
         if ( secondPos != std::string::npos ) {

@@ -54,6 +54,9 @@ add_library(${PROJECT_NAME}
   Keyboard.h
   Logger.cpp
   Logger.h
+  Logger_any.h
+  Logger_container.h
+  Logger_enum.h
   StringUtils.cpp
   StringUtils.h
   Timestamp.cpp

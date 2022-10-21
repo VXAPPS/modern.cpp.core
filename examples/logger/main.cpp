@@ -35,6 +35,8 @@
 
 /* modern.cpp.core */
 #include <Logger.h>
+#include <Logger_any.h>
+#include <Logger_enum.h>
 
 using namespace std::literals;
 
@@ -109,7 +111,7 @@ int main() {
 
   using namespace std::literals;
   const std::unordered_map<int, std::string_view> testsv { { 2, "ghj"sv }, { 1, "def"sv }, { 3, "abc"sv } };
-  ( void )testsv;
+  (void)testsv;
 
   logInfo() << MyClass( "Blub" );
 
