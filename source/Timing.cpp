@@ -28,6 +28,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* windows header */
+#ifdef _WIN32_REVIEW
+  #include <processthreadsapi.h>
+#endif
+
 /* stl header */
 #include <iomanip>
 #include <sstream>
@@ -50,6 +55,25 @@ namespace vx {
   /** Multiplier from nanoseconds to milliseconds to seconds and vice versa. */
   constexpr double multiplier = 1000.0;
 
+#ifdef _WIN32_REVIEW
+  static double get_cpu_time() {
+
+    FILETIME a, b, c, d;
+    if ( GetProcessTimes( GetCurrentProcess(), &a, &b, &c, &d ) != 0 ) {
+
+      //  Returns total user time.
+      //  Can be tweaked to include kernel times as well.
+      return (double)( d.dwLowDateTime |
+                       ( (unsigned long long)d.dwHighDateTime << 32 ) ) *
+             0.0000001;
+    }
+    else {
+      //  Handle error
+      return 0;
+    }
+  }
+#endif
+
   Timing::Timing( std::string_view _action,
                   bool _autoStart ) noexcept {
 
@@ -65,13 +89,6 @@ namespace vx {
 
     m_start = std::chrono::high_resolution_clock::now();
     m_cpu = std::clock();
-
-    /* clockid_t clk_id = 0;
-    clk_id = CLOCK_PROCESS_CPUTIME_ID;
-    int result = ::clock_gettime( clk_id, &tp );
-    std::cout << result << std::endl;
-    std::cout << tp.tv_nsec << std::endl;
-    std::cout << tp.tv_sec << std::endl; */
   }
 
   void Timing::stop() const noexcept {
@@ -92,13 +109,6 @@ namespace vx {
 
     std::ostringstream cpuTime {};
     cpuTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::clock() - m_cpu ) / static_cast<double>( CLOCKS_PER_SEC ) * multiplier;
-
-    /* clockid_t clk_id;
-    clk_id = CLOCK_PROCESS_CPUTIME_ID;
-    int result = ::clock_getres( clk_id, const_cast<struct timespec *>( &tp ) );
-    std::cout << result << std::endl;
-    std::cout << tp.tv_nsec << std::endl;
-    std::cout << tp.tv_sec << std::endl; */
 
 #if __has_include( <LoggerFactory.h> )
     LogVerbose( "------ " + m_action );

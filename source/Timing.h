@@ -100,7 +100,5 @@ namespace vx {
      * @brief Clock to calculate the elapsed CPU time.
      */
     std::clock_t m_cpu {};
-
-    //    struct timespec tp {};
   };
 }

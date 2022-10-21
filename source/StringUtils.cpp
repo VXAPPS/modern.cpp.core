@@ -204,12 +204,12 @@ namespace vx::string_utils {
 
       const std::basic_string<unsigned char> result = _uchr;
 #ifdef _WIN32
-      size = strnlen_s( reinterpret_cast<const char *>( _uchr ), result.size() );
+      size = strnlen_s( reinterpret_cast<const char *>( _uchr ), result.size() ); // NOSONAR do not use reinterpret_cast
 #else
-      size = strnlen( reinterpret_cast<const char *>( _uchr ), result.size() );
+      size = strnlen( reinterpret_cast<const char *>( _uchr ), result.size() ); // NOSONAR do not use reinterpret_cast
 #endif
     }
-    return std::make_optional( std::string( _uchr, _uchr + size ) );
+    return std::make_optional( std::string( _uchr, _uchr + size ) ); // NOSONAR do not use pointer arithmetric
   }
 
 #ifdef __APPLE__

@@ -142,7 +142,7 @@ int main() {
   const std::tuple tupl { theAnswerOfEverything, 'a', someDouble }; // Another C++17 feature: class template argument deduction
   std::apply( []( auto &&...args ) { logDebug() << std::forward_as_tuple( args... ); }, tupl );
 
-  constexpr auto &severities = magic_enum::enum_entries<vx::logger::Path>();
+  constexpr const auto &severities = magic_enum::enum_entries<vx::logger::Path>();
   logFatal() << severities;
   for ( const auto &[ key, value ] : severities ) {
 
@@ -150,7 +150,7 @@ int main() {
   }
   logDebug() << magic_enum::enum_name( vx::logger::Path::Filename ) << vx::logger::Path::Filename;
 
-  constexpr auto &severityNames = magic_enum::enum_names<vx::logger::Path>();
+  constexpr const auto &severityNames = magic_enum::enum_names<vx::logger::Path>();
   logInfo() << severityNames;
 
   enum class Path {
@@ -160,7 +160,7 @@ int main() {
     Absolute
   };
 
-  constexpr auto &pathNames = magic_enum::enum_entries<Path>();
+  constexpr const auto &pathNames = magic_enum::enum_entries<Path>();
   logInfo() << pathNames;
 
   logInfo().stream() << std::format( "int: {0:d}; hex: {0:#x}; oct: {0:#o}; bin: {0:#b}", theAnswerOfEverything );

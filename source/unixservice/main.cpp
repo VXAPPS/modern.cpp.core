@@ -49,7 +49,7 @@ int main() {
   // DAEMONIZE START
   /* Fork the current process */
   /* The parent process continues with a process ID greater than 0 */
-  if ( pid_t pid = ::fork() > 0 ) {
+  if ( const pid_t pid = ::fork() > 0 ) {
 
     std::exit( EXIT_SUCCESS );
   }
@@ -97,17 +97,17 @@ int main() {
     ::close( pos );
   }
   /* Alternative, some times it is needed not to close all file descriptors */
-  // ::close( STDIN_FILENO );
-  // ::close( STDOUT_FILENO );
-  // ::close( STDERR_FILENO );
+  // ::close( STDIN_FILENO ); // NOSONAR possible alternative solution
+  // ::close( STDOUT_FILENO ); // NOSONAR possible alternative solution
+  // ::close( STDERR_FILENO ); // NOSONAR possible alternative solution
 
   /* Ensure only one copy */
   std::ostringstream ostream {};
   ostream << "/var/run/" << DAEMON_NAME << ".pid";
-  std::string pidfile = ostream.str();
+  const std::string pidfile = ostream.str();
 
   std::ofstream file {};
-  std::ios_base::iostate state = file.exceptions();
+  const std::ios_base::iostate state = file.exceptions();
   file.exceptions( std::ofstream::failbit | std::ofstream::badbit );
   try {
 
@@ -124,10 +124,10 @@ int main() {
   /* Read pid from file, if there is any, find if the process is running - EXIT */
   std::ostringstream buffer {};
   buffer << file.rdbuf();
-  std::string currentPid = buffer.str();
+  const std::string currentPid = buffer.str();
 
   /* Get and format PID */
-  std::string str = std::to_string( getpid() );
+  const std::string str = std::to_string( getpid() );
   if ( !currentPid.empty() && currentPid != str ) {
 
     /* Couldn't open lock file */
