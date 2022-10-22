@@ -167,8 +167,8 @@ int main() {
   /* Remove content of file */
 #if __has_include( <filesystem> )
   std::error_code errorCode {};
-  std::filesystem::remove( pidfile, errorCode );
-  if ( errorCode ) {
+  bool removed = std::filesystem::remove( pidfile, errorCode );
+  if ( errorCode || !removed ) {
 
     ::syslog( LOG_INFO, "Could not remove PID lock file %s, exiting with: %s, Code: %i", pidfile.c_str(), errorCode.message().c_str(), errorCode.value() );
     std::exit( EXIT_FAILURE );
