@@ -100,6 +100,7 @@ set(RANGES_ABSTRACT
  #pragma clang diagnostic pop
 #endif
 
+#if defined __clang__ && __clang_major__ <= 10 || defined __GNUC__ && ( __GNUC__ == 10 || __GNUC__ == 9 )
 namespace std {
 
   namespace ranges {
@@ -108,6 +109,7 @@ namespace std {
     using ::ranges::replace\;
   }
 }
+#endif
 "
 )
 
