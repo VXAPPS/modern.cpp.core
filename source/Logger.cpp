@@ -32,9 +32,6 @@
 #include <algorithm>
 #include <iomanip>
 #include <iostream> // std::streambuf, std::cout
-#if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
-  #include <ranges>
-#endif
 #include <sstream>
 
 /* magic enum */

@@ -30,45 +30,39 @@
 
 include(ExternalProject)
 
-set(FMT_SRC ${CMAKE_BINARY_DIR}/_deps/fmt-src)
-set(FMT_INSTALL ${CMAKE_BINARY_DIR}/_deps/fmt-install)
-if (UNIX)
-  if(CMAKE_BUILD_TYPE STREQUAL Release)
-    set(FMT_LIBRARY ${FMT_INSTALL}/lib/libfmt.a)
-  else()
-    set(FMT_LIBRARY ${FMT_INSTALL}/lib/libfmtd.a)
-  endif()
-else()
-  if(CMAKE_BUILD_TYPE STREQUAL Release)
-    set(FMT_LIBRARY ${FMT_INSTALL}/lib/fmt.lib)
-  else()
-    set(FMT_LIBRARY ${FMT_INSTALL}/lib/fmtd.lib)
-  endif()
-endif()
-set(FMT_INCLUDE_DIR ${FMT_INSTALL}/include)
+set(RANGES_SRC ${CMAKE_BINARY_DIR}/_deps/ranges-src)
+set(RANGES_INSTALL ${CMAKE_BINARY_DIR}/_deps/ranges-install)
+#if (UNIX)
+#  set(RANGES_LIBRARY ${RANGES_INSTALL}/lib/libranges.a)
+#else()
+#  set(RANGES_LIBRARY ${RANGES_INSTALL}/lib/ranges.lib)
+#endif()
+set(RANGES_INCLUDE_DIR ${RANGES_INSTALL}/include)
 
-ExternalProject_Add(fmt
-  PREFIX ${FMT_SRC}
-  GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-  GIT_TAG 9.1.0
-  GIT_SHALLOW 1
-  CMAKE_ARGS -DCMAKE_CXX_COMPILER:FILEPATH=${CMAKE_CXX_COMPILER} -DCMAKE_OSX_ARCHITECTURES:STRING=${CMAKE_OSX_ARCHITECTURES} -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX:PATH=${FMT_INSTALL} -DFMT_MASTER_PROJECT:BOOL=OFF -DFMT_INSTALL:BOOL=ON -DFMT_PEDANTIC:BOOL=ON -DFMT_WERROR:BOOL=ON
-  INSTALL_DIR ${FMT_INSTALL}
-  BUILD_BYPRODUCTS ${FMT_LIBRARY}
+ExternalProject_Add(ranges
+  PREFIX ${RANGES_SRC}
+  URL https://github.com/ericniebler/range-v3/archive/refs/tags/0.12.0.tar.gz
+  URL_HASH SHA512=b8b632b8e0f2a3234ef61813212c237f648cd741e816ca57bd86f82f6459f7d755e2b70361d2aa43847874fb546a31a792ab1c3ba90292818ae7313438dc62d0
+  # GIT_REPOSITORY https://github.com/ericniebler/range-v3.git
+  # GIT_TAG 0.12.0
+  # GIT_SHALLOW 1
+  CMAKE_ARGS -DCMAKE_CXX_COMPILER:FILEPATH=${CMAKE_CXX_COMPILER} -DCMAKE_OSX_ARCHITECTURES:STRING=${CMAKE_OSX_ARCHITECTURES} -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX:PATH=${RANGES_INSTALL} -Dis_subproject:BOOL=OFF -DRANGE_V3_DOCS:BOOL=OFF -DRANGE_V3_TESTS:BOOL=OFF -DRANGE_V3_EXAMPLES:BOOL=OFF -DRANGE_V3_PERF:BOOL=OFF
+  INSTALL_DIR ${RANGES_INSTALL}
+  BUILD_BYPRODUCTS ${RANGES_LIBRARY}
   UPDATE_COMMAND ""
 )
 
 # We cannot use find_library because ExternalProject_Add() is performed at build time.
 # And to please the property INTERFACE_INCLUDE_DIRECTORIES,
 # we make the include directory in advance.
-file(MAKE_DIRECTORY ${FMT_INCLUDE_DIR})
+file(MAKE_DIRECTORY ${RANGES_INCLUDE_DIR})
 
-add_library(fmt::fmt STATIC IMPORTED GLOBAL)
-set_property(TARGET fmt::fmt PROPERTY IMPORTED_LOCATION ${FMT_LIBRARY})
-set_property(TARGET fmt::fmt PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${FMT_INCLUDE_DIR})
-add_dependencies(fmt::fmt fmt)
+#add_library(range-v3::range-v3 STATIC IMPORTED GLOBAL)
+#set_property(TARGET range-v3::range-v3 PROPERTY IMPORTED_LOCATION ${RANGES_LIBRARY})
+#set_property(TARGET range-v3::range-v3 PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${RANGES_INCLUDE_DIR})
+#add_dependencies(range-v3::range-v3 ranges)
 
-set(FMT_ABSTRACT
+set(RANGES_ABSTRACT
 "/*
  * Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
  * All rights reserved.
@@ -99,35 +93,19 @@ set(FMT_ABSTRACT
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* stl header */
-#include <utility>
-
-/* fmt header */
+/* ranges-v3 header */
 #ifdef __clang__
  #pragma clang diagnostic push
- #pragma clang diagnostic ignored \"-Weverything\"
+ #pragma clang diagnostic ignored \"-Wold-style-cast\"
+ #pragma clang diagnostic ignored \"-Wdeprecated\"
+ #pragma clang diagnostic ignored \"-Wdocumentation\"
+ #pragma clang diagnostic ignored \"-Wweak-vtables\"
 #endif
-#ifdef __GNUC__
- #pragma GCC diagnostic push
- #pragma GCC diagnostic ignored \"-Weffc++\"
-#endif
-#include <fmt/core.h>
-#ifdef __GNUC__
- #pragma GCC diagnostic pop
-#endif
+#include <range/v3/all.hpp>
 #ifdef __clang__
  #pragma clang diagnostic pop
 #endif
-
-namespace std {
-
- template <typename... T>
- std::string format( fmt::format_string<T...> fmt, T &&...args ) {
-
-   return fmt::format( fmt, std::forward<T>( args )... )\;
- }
-}
 "
 )
 
-write_file(${FMT_INCLUDE_DIR}/format ${FMT_ABSTRACT})
+write_file(${RANGES_INCLUDE_DIR}/ranges ${RANGES_ABSTRACT})

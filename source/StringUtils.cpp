@@ -34,9 +34,7 @@
 /* stl header */
 #include <algorithm>
 #include <iostream>
-#if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
-  #include <ranges>
-#endif
+#include <ranges>
 #include <sstream>
 
 /* local header */
@@ -76,21 +74,13 @@ namespace vx::string_utils {
 
   std::string &toLower( std::string &_string ) noexcept {
 
-#if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
     std::ranges::transform( _string, std::begin( _string ), []( auto _chr ) { return static_cast<char>( std::tolower( _chr ) ); } );
-#else
-    std::transform( std::cbegin( _string ), std::cend( _string ), std::begin( _string ), []( auto _chr ) { return static_cast<char>( std::tolower( _chr ) ); } );
-#endif
     return _string;
   }
 
   std::string &toUpper( std::string &_string ) noexcept {
 
-#if defined __GNUC__ && __GNUC__ >= 10 || defined _MSC_VER && _MSC_VER >= 1929 || defined __clang__ && __clang_major__ >= 15
     std::ranges::transform( _string, std::begin( _string ), []( auto _chr ) { return static_cast<char>( std::toupper( _chr ) ); } );
-#else
-    std::transform( std::cbegin( _string ), std::cend( _string ), std::begin( _string ), []( auto _chr ) { return static_cast<char>( std::toupper( _chr ) ); } );
-#endif
     return _string;
   }
 
@@ -116,11 +106,11 @@ namespace vx::string_utils {
   std::string &simplified( std::string &_string ) noexcept {
 
     /* Replace every control with a space */
-    std::replace( std::begin( _string ), std::end( _string ), '\t', ' ' );
-    std::replace( std::begin( _string ), std::end( _string ), '\n', ' ' );
-    std::replace( std::begin( _string ), std::end( _string ), '\r', ' ' );
-    std::replace( std::begin( _string ), std::end( _string ), '\f', ' ' );
-    std::replace( std::begin( _string ), std::end( _string ), '\v', ' ' );
+    std::ranges::replace( _string, '\t', ' ' );
+    std::ranges::replace( _string, '\n', ' ' );
+    std::ranges::replace( _string, '\r', ' ' );
+    std::ranges::replace( _string, '\f', ' ' );
+    std::ranges::replace( _string, '\v', ' ' );
 
     /* Normalize spaces to just one */
     const auto newEnd = std::unique( std::begin( _string ), std::end( _string ), bothAreSpaces );

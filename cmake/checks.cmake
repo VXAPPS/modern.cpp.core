@@ -40,6 +40,16 @@ if(HAVE_FORMAT_INCLUDE)
   )
 endif()
 
+check_include_file_cxx(ranges HAVE_RANGES_INCLUDE)
+if(HAVE_RANGES_INCLUDE)
+  check_cxx_source_compiles(
+    "#include<list>
+    #include <ranges>
+    int main() { std::list<int> list = { 1, 4, 2, 3 }; std::ranges::sort( std::begin( list ), std::end( list ) ); return 0; }"
+    HAVE_RANGES
+  )
+endif()
+
 check_include_file_cxx(source_location HAVE_SOURCE_LOCATION_INCLUDE)
 if(HAVE_SOURCE_LOCATION_INCLUDE)
   check_cxx_source_compiles(

@@ -78,11 +78,17 @@ add_library(${PROJECT_NAME}
   ${${PROJECT_NAME}_source}
 )
 
+if(NOT HAVE_RANGES)
+  set(${PROJECT_NAME}_includes ${RANGES_INCLUDE_DIR})
+endif()
+
 target_include_directories(${PROJECT_NAME}
   PUBLIC
   ${3RDPARTY_DIR}
   ${SOURCE_DIR}
   ${SOURCE_DIR}/templates
+  PRIVATE
+  ${${PROJECT_NAME}_includes}
 )
 
 if(UNIX AND NOT APPLE)

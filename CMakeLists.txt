@@ -46,6 +46,9 @@ if (NOT DEFINED CORE_MASTER_PROJECT)
   endif()
 endif()
 
+if(NOT HAVE_RANGES)
+  include(${CMAKE}/external/ranges.cmake)
+endif()
 include(${CMAKE}/external/re2.cmake)
 add_subdirectory(source)
 
