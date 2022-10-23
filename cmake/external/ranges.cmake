@@ -89,9 +89,17 @@ set(RANGES_ABSTRACT
  #pragma clang diagnostic ignored \"-Wold-style-cast\"
  #pragma clang diagnostic ignored \"-Wdeprecated\"
  #pragma clang diagnostic ignored \"-Wdocumentation\"
+ #pragma clang diagnostic ignored \"-Wdocumentation-unknown-command\"
  #pragma clang diagnostic ignored \"-Wweak-vtables\"
 #endif
+#ifdef __GNUC__
+ #pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored \"-Weffc++\"
+#endif
 #include <range/v3/all.hpp>
+#ifdef __GNUC__
+ #pragma GCC diagnostic pop
+#endif
 #ifdef __clang__
  #pragma clang diagnostic pop
 #endif
