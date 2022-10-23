@@ -100,7 +100,7 @@ set(RANGES_ABSTRACT
  #pragma clang diagnostic pop
 #endif
 
-#if defined __clang__ && __clang_major__ <= 10 || defined __GNUC__ && ( __GNUC__ == 10 || __GNUC__ == 9 ) || __APPLE__
+#if defined __clang__ && __clang_major__ <= 10 || defined __GNUC__ && ( __GNUC__ == 10 || __GNUC__ == 9 ) || defined __APPLE__
 namespace std {
 
   namespace ranges {
