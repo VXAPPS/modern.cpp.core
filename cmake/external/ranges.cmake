@@ -86,11 +86,7 @@ set(RANGES_ABSTRACT
 /* ranges-v3 header */
 #ifdef __clang__
  #pragma clang diagnostic push
- #pragma clang diagnostic ignored \"-Wold-style-cast\"
- #pragma clang diagnostic ignored \"-Wdeprecated\"
- #pragma clang diagnostic ignored \"-Wdocumentation\"
- #pragma clang diagnostic ignored \"-Wdocumentation-unknown-command\"
- #pragma clang diagnostic ignored \"-Wweak-vtables\"
+ #pragma clang diagnostic ignored \"-Weverything\"
 #endif
 #ifdef __GNUC__
  #pragma GCC diagnostic push
