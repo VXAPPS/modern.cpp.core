@@ -47,9 +47,8 @@ static void process( vx::SharedQueue<Item *> &_queue, int _threadId ) {
   std::cout << "Start Thread: " << _threadId << std::endl;
   while ( true ) {
 
-    Item *item = std::move( _queue.front() );
-    _queue.pop();
-    if ( item && item->getNumber() == 0 ) {
+    std::unique_ptr<Item> item { _queue.front() };
+    if ( item && item->getMessage() == "STOP" ) {
 
       break;
     }
@@ -112,7 +111,7 @@ int main() {
   }
 
   /* Send STOP to finish all threads */
-  for ( unsigned int thread = 0; thread < threads.size() * 2; ++thread ) {
+  for ( unsigned int thread = 0; thread < threads.size(); ++thread ) {
 
     try {
 

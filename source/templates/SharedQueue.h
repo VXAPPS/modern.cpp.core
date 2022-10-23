@@ -69,11 +69,8 @@ namespace vx {
      * @brief Constructor move assign for SharedQueue.
      * @param _other   Other shared queue.
      */
-    SharedQueue( SharedQueue &&_other ) noexcept {
-
-      std::scoped_lock<std::shared_mutex> lock( m_mutex );
-      m_queue = std::move( _other.m_queue );
-    }
+    SharedQueue( SharedQueue &&_other ) noexcept
+      : m_queue( std::move( _other.m_queue ) ) {}
 
     /**
      * @brief Delete copy assign.
@@ -91,23 +88,14 @@ namespace vx {
      * @brief Return the item in front.
      * @return The item in front.
      */
-    T &front() noexcept {
+    T front() noexcept {
 
       std::unique_lock<std::shared_mutex> lock( m_mutex );
-
       m_condition.wait( lock, [ this ] { return !m_queue.empty(); } );
-      return m_queue.front();
-    }
 
-    /**
-     * @brief Clean from front item.
-     */
-    void pop() noexcept {
-
-      std::unique_lock<std::shared_mutex> lock( m_mutex );
-
-      m_condition.wait( lock, [ this ] { return !m_queue.empty(); } );
+      T tmp = m_queue.front();
       m_queue.pop();
+      return tmp;
     }
 
     /**
