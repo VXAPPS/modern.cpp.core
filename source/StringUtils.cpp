@@ -32,7 +32,6 @@
 #include <cstring>
 
 /* stl header */
-#include <algorithm>
 #include <iostream>
 #include <ranges>
 #include <sstream>

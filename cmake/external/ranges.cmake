@@ -99,6 +99,15 @@ set(RANGES_ABSTRACT
 #ifdef __clang__
  #pragma clang diagnostic pop
 #endif
+
+namespace std {
+
+  namespace ranges {
+
+    using ::ranges::transform\;
+    using ::ranges::replace\;
+  }
+}
 "
 )
 
