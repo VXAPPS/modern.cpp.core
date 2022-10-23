@@ -32,11 +32,6 @@ include(ExternalProject)
 
 set(RANGES_SRC ${CMAKE_BINARY_DIR}/_deps/ranges-src)
 set(RANGES_INSTALL ${CMAKE_BINARY_DIR}/_deps/ranges-install)
-#if (UNIX)
-#  set(RANGES_LIBRARY ${RANGES_INSTALL}/lib/libranges.a)
-#else()
-#  set(RANGES_LIBRARY ${RANGES_INSTALL}/lib/ranges.lib)
-#endif()
 set(RANGES_INCLUDE_DIR ${RANGES_INSTALL}/include)
 
 ExternalProject_Add(ranges
@@ -56,11 +51,6 @@ ExternalProject_Add(ranges
 # And to please the property INTERFACE_INCLUDE_DIRECTORIES,
 # we make the include directory in advance.
 file(MAKE_DIRECTORY ${RANGES_INCLUDE_DIR})
-
-#add_library(range-v3::range-v3 STATIC IMPORTED GLOBAL)
-#set_property(TARGET range-v3::range-v3 PROPERTY IMPORTED_LOCATION ${RANGES_LIBRARY})
-#set_property(TARGET range-v3::range-v3 PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${RANGES_INCLUDE_DIR})
-#add_dependencies(range-v3::range-v3 ranges)
 
 set(RANGES_ABSTRACT
 "/*
