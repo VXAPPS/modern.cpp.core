@@ -45,7 +45,7 @@ if(HAVE_RANGES_INCLUDE)
   check_cxx_source_compiles(
     "#include <array>
     #include <ranges>
-    int main() { std::array list = { 1, 4, 2, 3 }; std::ranges::sort( list ); return 0; }"
+    int main() { std::array list = { 1, 4, 2, 3 }; std::ranges::sort( list ); (void)list; return 0; }"
     HAVE_RANGES
   )
 endif()
