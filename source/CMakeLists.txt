@@ -78,6 +78,8 @@ add_library(${PROJECT_NAME}
   ${${PROJECT_NAME}_source}
 )
 
+add_dependencies(${PROJECT_NAME} ranges)
+
 if(NOT HAVE_RANGES)
   set(${PROJECT_NAME}_includes ${RANGES_INCLUDE_DIR})
 endif()
