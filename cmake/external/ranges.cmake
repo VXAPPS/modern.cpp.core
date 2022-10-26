@@ -34,10 +34,11 @@ set(RANGES_SRC ${CMAKE_BINARY_DIR}/_deps/ranges-src)
 set(RANGES_INSTALL ${CMAKE_BINARY_DIR}/_deps/ranges-install)
 set(RANGES_INCLUDE_DIR ${RANGES_INSTALL}/include)
 
-ExternalProject_Add(ranges
+ExternalProject_Add(range-v3
   PREFIX ${RANGES_SRC}
   URL https://github.com/ericniebler/range-v3/archive/refs/tags/0.12.0.tar.gz
   URL_HASH SHA512=b8b632b8e0f2a3234ef61813212c237f648cd741e816ca57bd86f82f6459f7d755e2b70361d2aa43847874fb546a31a792ab1c3ba90292818ae7313438dc62d0
+  # DOWNLOAD_EXTRACT_TIMESTAMP OFF
   # GIT_REPOSITORY https://github.com/ericniebler/range-v3.git
   # GIT_TAG 0.12.0
   # GIT_SHALLOW 1
@@ -51,6 +52,10 @@ ExternalProject_Add(ranges
 # And to please the property INTERFACE_INCLUDE_DIRECTORIES,
 # we make the include directory in advance.
 file(MAKE_DIRECTORY ${RANGES_INCLUDE_DIR})
+
+add_library(range-v3::range-v3 INTERFACE IMPORTED GLOBAL)
+set_property(TARGET range-v3::range-v3 PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${RANGES_INCLUDE_DIR})
+add_dependencies(range-v3::range-v3 range-v3)
 
 set(RANGES_ABSTRACT
 "/*

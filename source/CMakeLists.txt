@@ -78,30 +78,34 @@ add_library(${PROJECT_NAME}
   ${${PROJECT_NAME}_source}
 )
 
-if(NOT HAVE_RANGES)
-  add_dependencies(${PROJECT_NAME} ranges)
-  set(${PROJECT_NAME}_includes ${RANGES_INCLUDE_DIR})
-endif()
-
 target_include_directories(${PROJECT_NAME}
   PUBLIC
   ${3RDPARTY_DIR}
   ${SOURCE_DIR}
   ${SOURCE_DIR}/templates
-  PRIVATE
-  ${${PROJECT_NAME}_includes}
 )
 
 if(UNIX AND NOT APPLE)
-  set(${PROJECT_NAME}_libs ${X11_LIBRARIES})
-endif()
-if(APPLE AND NOT IOS)
-  set(${PROJECT_NAME}_libs ${FOUNDATION})
+  if(NOT HAVE_RANGES)
+    set(${PROJECT_NAME}_libs range-v3::range-v3 ${X11_LIBRARIES})
+  else()
+    set(${PROJECT_NAME}_libs ${X11_LIBRARIES})
+  endif()
+elseif(APPLE AND NOT IOS)
+  if(NOT HAVE_RANGES)
+    set(${PROJECT_NAME}_libs range-v3::range-v3 ${FOUNDATION})
+  else()
+    set(${PROJECT_NAME}_libs ${FOUNDATION})
+  endif()
+else()
+  if(NOT HAVE_RANGES)
+    set(${PROJECT_NAME}_libs range-v3::range-v3)
+  endif()
 endif()
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
-  magic_enum
+  magic_enum::magic_enum
   re2::re2
   ${${PROJECT_NAME}_libs}
 )
