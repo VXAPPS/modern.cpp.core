@@ -34,7 +34,6 @@
 #endif
 
 /* stl header */
-//#include <regex>
 #include <memory>
 
 /* re2 header */

@@ -78,6 +78,8 @@ add_library(${PROJECT_NAME}
   ${${PROJECT_NAME}_source}
 )
 
+add_library(modern.cpp::core ALIAS ${PROJECT_NAME})
+
 target_include_directories(${PROJECT_NAME}
   PUBLIC
   ${3RDPARTY_DIR}

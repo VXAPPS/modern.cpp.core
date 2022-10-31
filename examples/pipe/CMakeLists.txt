@@ -33,3 +33,8 @@ project(pipe)
 add_executable(${PROJECT_NAME}
   main.cpp
 )
+
+target_compile_definitions(${PROJECT_NAME}
+  PRIVATE
+  $<$<BOOL:${HAVE_SPAN}>:HAVE_SPAN>
+)

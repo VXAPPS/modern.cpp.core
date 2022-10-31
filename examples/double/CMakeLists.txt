@@ -34,4 +34,7 @@ add_executable(${PROJECT_NAME}
   main.cpp
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE modern.cpp.core)
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp::core
+)

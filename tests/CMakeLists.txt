@@ -36,7 +36,7 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-  modern.cpp.core
+  modern.cpp::core
   GTest::gtest_main
   Threads::Threads
 )
@@ -53,7 +53,7 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-  modern.cpp.core
+  modern.cpp::core
   GTest::gtest_main
   Threads::Threads
 )
@@ -74,7 +74,7 @@ endif()
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-  modern.cpp.core
+  modern.cpp::core
   GTest::gtest_main
   Threads::Threads
   ${${PROJECT_NAME}_libs}
@@ -92,7 +92,7 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-  modern.cpp.core
+  modern.cpp::core
   GTest::gtest_main
   Threads::Threads
 )
@@ -109,7 +109,7 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-  modern.cpp.core
+  modern.cpp::core
   GTest::gtest_main
   Threads::Threads
 )
@@ -126,7 +126,7 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-  modern.cpp.core
+  modern.cpp::core
   GTest::gtest_main
   Threads::Threads
 )
@@ -143,7 +143,7 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-  modern.cpp.core
+  modern.cpp::core
   GTest::gtest_main
   Threads::Threads
 )
@@ -160,7 +160,7 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-  modern.cpp.core
+  modern.cpp::core
   GTest::gtest_main
   Threads::Threads
 )
@@ -177,7 +177,7 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-  modern.cpp.core
+  modern.cpp::core
   GTest::gtest_main
   Threads::Threads
 )

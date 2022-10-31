@@ -35,4 +35,8 @@ add_executable(${PROJECT_NAME}
   Item.h
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE modern.cpp.core Threads::Threads)
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  modern.cpp::core
+  Threads::Threads
+)
