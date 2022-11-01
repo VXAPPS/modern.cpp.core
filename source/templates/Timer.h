@@ -55,15 +55,15 @@ namespace vx {
     /**
      * @brief Call a function after timeout.
      * @tparam Function   Function definition.
-     * @param _function   Call back function.
      * @param _delay   Delay in milliseconds after the function is called.
+     * @param _function   Call back function.
      */
     template <typename Function>
-    void setTimeout( Function _function,
-                     int _delay ) noexcept {
+    void setTimeout( int _delay,
+                     Function _function ) noexcept {
 
       m_clear = false;
-      std::jthread thread( [ &, _function, _delay ]() {
+      std::jthread thread( [ &, _delay, _function ]() {
         if ( this->m_clear ) {
 
           return;
@@ -81,15 +81,15 @@ namespace vx {
     /**
      * @brief Call a function after interval.
      * @tparam Function   Function definition.
-     * @param _function   Call back function.
      * @param _interval   Interval in milliseconds after the function is called.
+     * @param _function   Call back function.
      */
     template <typename Function>
-    void setInterval( Function _function,
-                      int _interval ) noexcept {
+    void setInterval( int _interval,
+                      Function _function ) noexcept {
 
       m_clear = false;
-      std::jthread thread( [ &, _function, _interval ]() {
+      std::jthread thread( [ &, _interval, _function ]() {
         while ( true ) {
 
           if ( this->m_clear ) {

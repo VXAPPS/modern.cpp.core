@@ -52,7 +52,7 @@ int main() {
     }
   };
 
-  intervallTimer.setInterval( runOnInterval, intervallSeconds * secondsToMilliseconds );
+  intervallTimer.setInterval( intervallSeconds * secondsToMilliseconds, runOnInterval );
 
   while ( true ) {
 
