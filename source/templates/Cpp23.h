@@ -42,16 +42,16 @@ namespace std {
   namespace detail::impl {
 
     template <typename T>
-    [[maybe_unused]] auto test_sizable( int ) -> decltype( static_cast<void>( sizeof( T ) ), true_type {} );
+    [[maybe_unused]] decltype( static_cast<void>( sizeof( T ) ), true_type {} ) test_sizable( int );
 
     template <typename>
-    [[maybe_unused]] auto test_sizable( ... ) -> false_type;
+    [[maybe_unused]] false_type test_sizable( ... );
 
     template <typename T>
-    [[maybe_unused]] auto test_nonconvertible_to_int( int ) -> decltype( static_cast<false_type ( * )( int )>( nullptr )( declval<T>() ) );
+    [[maybe_unused]] decltype( static_cast<false_type ( * )( int )>( nullptr )( declval<T>() ) ) test_nonconvertible_to_int( int );
 
     template <typename>
-    [[maybe_unused]] auto test_nonconvertible_to_int( ... ) -> true_type;
+    [[maybe_unused]] true_type test_nonconvertible_to_int( ... );
 
     template <typename T>
     constexpr bool is_scoped_enum = conjunction_v<decltype( test_sizable<T>( 0 ) ), decltype( test_nonconvertible_to_int<T>( 0 ) )>;

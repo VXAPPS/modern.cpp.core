@@ -59,23 +59,25 @@ namespace vx::timestamp {
     nowSs << std::put_time( &currentLocalTime, "%Y-%m-%dT%T" );
     switch ( _precision ) {
 
-      case Precision::Seconds:
+      using enum Precision;
+
+      case Seconds:
         break;
-      case Precision::MilliSeconds: {
+      case MilliSeconds: {
 
         const auto nowMilli = std::chrono::duration_cast<std::chrono::milliseconds>( now.time_since_epoch() ) % std::milli::den;
         nowSs << '.' << std::setfill( '0' ) << std::setw( std::to_underlying( _precision ) );
         nowSs << nowMilli.count();
         break;
       }
-      case Precision::MicroSeconds: {
+      case MicroSeconds: {
 
         const auto nowMicro = std::chrono::duration_cast<std::chrono::microseconds>( now.time_since_epoch() ) % std::micro::den;
         nowSs << '.' << std::setfill( '0' ) << std::setw( std::to_underlying( _precision ) );
         nowSs << nowMicro.count();
         break;
       }
-      case Precision::NanoSeconds: {
+      case NanoSeconds: {
 
         const auto nowNano = std::chrono::duration_cast<std::chrono::nanoseconds>( now.time_since_epoch() ) % std::nano::den;
         nowSs << '.' << std::setfill( '0' ) << std::setw( std::to_underlying( _precision ) );

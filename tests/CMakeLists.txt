@@ -45,7 +45,7 @@ gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
 
-project(test_double_utils)
+project(test_floating_point)
 
 add_executable(${PROJECT_NAME}
   ${PROJECT_NAME}.cpp

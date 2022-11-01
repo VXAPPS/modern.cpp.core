@@ -34,9 +34,7 @@
 #include <unistd.h>
 
 /* stl header */
-#if __has_include( <filesystem> )
-  #include <filesystem>
-#endif
+#include <filesystem>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -165,16 +163,12 @@ int main() {
   ::closelog();
 
   /* Remove content of file */
-#if __has_include( <filesystem> )
   if ( std::error_code errorCode {}; !std::filesystem::remove( pidfile, errorCode ) || errorCode ) {
 
     ::syslog( LOG_INFO, "Could not remove PID lock file %s, exiting with: %s, Code: %i", pidfile.c_str(), errorCode.message().c_str(), errorCode.value() );
     std::exit( EXIT_FAILURE );
   }
-#else
-  std::ofstream ofs;
-  ofs.open( pidfile, std::ofstream::out | std::ofstream::trunc );
-#endif
+
   // CLEANUP END
 
   /* Terminate the child process when the daemon completes */

@@ -57,7 +57,7 @@ using ::testing::Test;
 #endif
 namespace vx {
 
-  TEST( DoubleUtils, Equal ) {
+  TEST( FloatingPoint, Equal ) {
 
     constexpr double first = 1.23;
     constexpr double second = 2.2345678;
@@ -69,7 +69,7 @@ namespace vx {
     EXPECT_FALSE( floating_point::equal( third, fourth ) );
   }
 
-  TEST( DoubleUtils, Less ) {
+  TEST( FloatingPoint, Less ) {
 
     constexpr double first = 1.23;
     constexpr double second = 2.2345678;
@@ -84,7 +84,7 @@ namespace vx {
     EXPECT_FALSE( floating_point::less( third, fourth, true ) );
   }
 
-  TEST( DoubleUtils, Greater ) {
+  TEST( FloatingPoint, Greater ) {
 
     constexpr double first = 1.23;
     constexpr double second = 2.2345678;
@@ -99,7 +99,7 @@ namespace vx {
     EXPECT_TRUE( floating_point::greater( third, fourth, true ) );
   }
 
-  TEST( DoubleUtils, Between ) {
+  TEST( FloatingPoint, Between ) {
 
     constexpr double first = 1.23;
     constexpr double second = 2.2345678;
@@ -113,7 +113,7 @@ namespace vx {
     EXPECT_TRUE( floating_point::between( fourth, first, second, true ) );
   }
 
-  TEST( DoubleUtils, Round ) {
+  TEST( FloatingPoint, Round ) {
 
     constexpr std::size_t precisionTwo = 2;
     constexpr std::size_t precisionFive = 5;
@@ -129,7 +129,7 @@ namespace vx {
     EXPECT_EQ( floating_point::round( fourth, precisionFive ), 2.23357 );
   }
 
-  TEST( DoubleUtils, Split ) {
+  TEST( FloatingPoint, Split ) {
 
     constexpr double first = 1.23;
     constexpr double second = 2.2345678;
