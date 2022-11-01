@@ -77,11 +77,11 @@ namespace vx {
     const std::vector<std::string_view> colorTokens { "vx", "Demangle_Enum_Test", "TestBody()", "Color" };
     const std::vector<std::string_view> colorUnscopedTokens { "vx", "Demangle_Enum_Test", "TestBody()", "ColorUnscoped" };
 
-    const std::string result = demangleSimple( typeid( Color ).name() );
+    const std::string result = demangle::simple( typeid( Color ).name() );
     const std::vector<std::string_view> colorTkens = string_utils::tokenize( result, "::" );
     EXPECT_EQ( colorTkens, colorTokens );
 
-    const std::string resultColorUnscoped = demangleSimple( typeid( ColorUnscoped ).name() );
+    const std::string resultColorUnscoped = demangle::simple( typeid( ColorUnscoped ).name() );
     const std::vector<std::string_view> colorUnscopedTkens = string_utils::tokenize( resultColorUnscoped, "::" );
     EXPECT_EQ( colorUnscopedTkens, colorUnscopedTokens );
 #endif
@@ -89,32 +89,32 @@ namespace vx {
 
   TEST( Demangle, SimpleTypes ) {
 
-    EXPECT_EQ( demangle( typeid( int ).name() ), "int" );
-    EXPECT_EQ( demangle( typeid( float ).name() ), "float" );
-    EXPECT_EQ( demangle( typeid( double ).name() ), "double" );
-    EXPECT_EQ( demangleSimple( typeid( std::string ).name() ), "std::string" );
+    EXPECT_EQ( demangle::abi( typeid( int ).name() ), "int" );
+    EXPECT_EQ( demangle::abi( typeid( float ).name() ), "float" );
+    EXPECT_EQ( demangle::abi( typeid( double ).name() ), "double" );
+    EXPECT_EQ( demangle::simple( typeid( std::string ).name() ), "std::string" );
   }
 
   TEST( Demangle, ComplexTypes ) {
 
-    EXPECT_EQ( demangleSimple( typeid( std::vector<int> ).name() ), "std::vector<int, std::allocator<int>>" );
+    EXPECT_EQ( demangle::simple( typeid( std::vector<int> ).name() ), "std::vector<int, std::allocator<int>>" );
   }
 
   TEST( DemangleExtreme, ComplexTypes ) {
 
-    EXPECT_EQ( demangleExtreme( typeid( std::vector<int> ).name() ), "std::vector<int>" );
-    EXPECT_EQ( demangleExtreme( typeid( std::set<int> ).name() ), "std::set<int>" );
-    EXPECT_EQ( demangleExtreme( typeid( std::list<int> ).name() ), "std::list<int>" );
-    EXPECT_EQ( demangleExtreme( typeid( std::optional<int> ).name() ), "std::optional<int>" );
-    EXPECT_EQ( demangleExtreme( typeid( std::tuple<int, std::string, std::string_view> ).name() ), "std::tuple<int, std::string, std::string_view>" );
-    EXPECT_EQ( demangleExtreme( typeid( std::tuple<int, char, int> ).name() ), "std::tuple<int, char, int>" );
-    EXPECT_EQ( demangleExtreme( typeid( std::tuple<int, const char *, const char *> ).name() ), "std::tuple<int, const char *, const char *>" );
+    EXPECT_EQ( demangle::extreme( typeid( std::vector<int> ).name() ), "std::vector<int>" );
+    EXPECT_EQ( demangle::extreme( typeid( std::set<int> ).name() ), "std::set<int>" );
+    EXPECT_EQ( demangle::extreme( typeid( std::list<int> ).name() ), "std::list<int>" );
+    EXPECT_EQ( demangle::extreme( typeid( std::optional<int> ).name() ), "std::optional<int>" );
+    EXPECT_EQ( demangle::extreme( typeid( std::tuple<int, std::string, std::string_view> ).name() ), "std::tuple<int, std::string, std::string_view>" );
+    EXPECT_EQ( demangle::extreme( typeid( std::tuple<int, char, int> ).name() ), "std::tuple<int, char, int>" );
+    EXPECT_EQ( demangle::extreme( typeid( std::tuple<int, const char *, const char *> ).name() ), "std::tuple<int, const char *, const char *>" );
 
     const std::tuple tuple { 1, "abc", "def" };
-    EXPECT_EQ( demangleExtreme( typeid( tuple ).name() ), "std::tuple<int, const char *, const char *>" );
+    EXPECT_EQ( demangle::extreme( typeid( tuple ).name() ), "std::tuple<int, const char *, const char *>" );
 
     const std::tuple tuple2 { 1, 'a', "def" };
-    EXPECT_EQ( demangleExtreme( typeid( tuple2 ).name() ), "std::tuple<int, char, const char *>" );
+    EXPECT_EQ( demangle::extreme( typeid( tuple2 ).name() ), "std::tuple<int, char, const char *>" );
   }
 }
 #ifdef __clang__

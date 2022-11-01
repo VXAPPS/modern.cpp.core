@@ -11,8 +11,7 @@ make -j`nproc`
 
 ## Classes
 - **CPU** - Get CPU information.
-- **Demangle** - demangle, demangleExtreme
-- **DoubleUtils** - Less, Greater, Equal, Between, Round, Split.
+- **Demangle** - abi, simple, extreme
 - **Exec** - Run command and return stdout or mixed (stdout and stderr) and result code.
 - **Keyboard** - Check for caps lock state.
 - **Logger** - Log everything, everywhere.
@@ -21,15 +20,16 @@ make -j`nproc`
 - **Timestamp** - ISO 8601 timestamp.
 - **Timing** - Measuring time, cpu and real time.
 
-## Template classes
+## Templates
 - **Cpp23** - std::is_scoped_enum, std::to_underlying, std::unreachable.
 - **CSVWriter** - Write out comma-separated values.
+- **FloatingPoint** - Less, Greater, Equal, Between, Round, Split.
 - **SharedQueue** - Queue, which is thread-safe.
 - **Singleton** - Singleton template class.
 - **Timer** - Timeout thread on time or interval.
 - **TypeCheck** - Template variant for typename check.
 
-## Rectangle template classes
+## Rectangle templates
 - **Line** - Line based on two points.
 - **Point** - Point from x and y.
 - **Rect** - Rectangle template based on Point and Size.

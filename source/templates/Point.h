@@ -98,11 +98,21 @@ namespace vx {
     [[nodiscard]] constexpr bool operator==( Point<T> _point ) const noexcept { return floating_point::equal( m_x, _point.m_x ) && floating_point::equal( m_y, _point.m_y ); }
 
   private:
+    /**
+     * @brief Member for x coordinate.
+     */
     T m_x = 0;
+
+    /**
+     * @brief Member for y coordinate.
+     */
     T m_y = 0;
   };
 
-  /* template argument deduction */
+  /**
+   * @brief Template argument deduction.
+   * @tparam T   Type.
+   */
   template <typename T>
   Point( T ) -> Point<T>;
 }

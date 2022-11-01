@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
+ * Copyright (c) 2020 Florian Becker <fb@vxapps.com> (VX APPS).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,34 +28,21 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
-
 /* stl header */
 #include <string>
+
+/* apple header */
+#include <CoreFoundation/CoreFoundation.h>
 
 /**
  * @brief vx (VX APPS) namespace.
  */
-namespace vx::demangle {
+namespace vx::string_utils {
 
   /**
-   * @brief Demangle typeid.
-   * @param _name   Type information.
-   * @return The demangled type information.
+   * @brief Returns standard string from CFStringRef.
+   * @param _stringRef   CFStringRef input.
+   * @return Standard string from CFStringRef.
    */
-  [[nodiscard]] std::string abi( const std::string &_name ) noexcept;
-
-  /**
-   * @brief Demangle a type information, remove namespaces, remove spaces and order const and pointer and reference.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string simple( const std::string &_name ) noexcept;
-
-  /**
-   * @brief Demangle with demangleSimple() but also remove less, hash, equal_to and allocator information.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string extreme( const std::string &_name ) noexcept;
+  std::string fromCFStringRef( CFStringRef _stringRef ) noexcept;
 }

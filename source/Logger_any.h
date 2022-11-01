@@ -131,7 +131,7 @@ namespace vx::logger {
     }
     else {
 
-      _logger.stream() << "unregistered: " << demangleExtreme( _any.type().name() );
+      _logger.stream() << "unregistered: " << demangle::extreme( _any.type().name() );
     }
   }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
+ * Copyright (c) 2020 Florian Becker <fb@vxapps.com> (VX APPS).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,34 +28,23 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+/* local header */
+#include "StringUtils_apple.h"
 
-/* stl header */
-#include <string>
+namespace vx::string_utils {
 
-/**
- * @brief vx (VX APPS) namespace.
- */
-namespace vx::demangle {
+  std::string fromCFStringRef( CFStringRef _stringRef ) noexcept {
 
-  /**
-   * @brief Demangle typeid.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string abi( const std::string &_name ) noexcept;
+    if ( const auto *fastCString = CFStringGetCStringPtr( _stringRef, kCFStringEncodingUTF8 ) ) {
 
-  /**
-   * @brief Demangle a type information, remove namespaces, remove spaces and order const and pointer and reference.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string simple( const std::string &_name ) noexcept;
+      return std::string( fastCString );
+    }
 
-  /**
-   * @brief Demangle with demangleSimple() but also remove less, hash, equal_to and allocator information.
-   * @param _name   Type information.
-   * @return The demangled type information.
-   */
-  [[nodiscard]] std::string extreme( const std::string &_name ) noexcept;
+    auto utf16length = CFStringGetLength( _stringRef );
+    auto maxUtf8len = CFStringGetMaximumSizeForEncoding( utf16length, kCFStringEncodingUTF8 );
+
+    std::string converted( static_cast<std::size_t>( maxUtf8len ), '\0' );
+    CFStringGetCString( _stringRef, converted.data(), maxUtf8len, kCFStringEncodingUTF8 );
+    return converted;
+  }
 }

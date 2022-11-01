@@ -46,7 +46,7 @@
 #endif
 
 /* modern.cpp.core */
-#include <DoubleUtils.h>
+#include <FloatingPoint.h>
 
 using ::testing::InitGoogleTest;
 using ::testing::Test;
@@ -64,9 +64,9 @@ namespace vx {
     constexpr double third = 2.2345678;
     constexpr double fourth = 2.2335678;
 
-    EXPECT_FALSE( double_utils::equal( first, second ) );
-    EXPECT_TRUE( double_utils::equal( second, third ) );
-    EXPECT_FALSE( double_utils::equal( third, fourth ) );
+    EXPECT_FALSE( floating_point::equal( first, second ) );
+    EXPECT_TRUE( floating_point::equal( second, third ) );
+    EXPECT_FALSE( floating_point::equal( third, fourth ) );
   }
 
   TEST( DoubleUtils, Less ) {
@@ -76,12 +76,12 @@ namespace vx {
     constexpr double third = 2.2345678;
     constexpr double fourth = 2.2335678;
 
-    EXPECT_TRUE( double_utils::less( first, second ) );
-    EXPECT_FALSE( double_utils::less( second, third ) );
-    EXPECT_FALSE( double_utils::less( third, fourth ) );
-    EXPECT_TRUE( double_utils::less( first, second, true ) );
-    EXPECT_TRUE( double_utils::less( second, third, true ) );
-    EXPECT_FALSE( double_utils::less( third, fourth, true ) );
+    EXPECT_TRUE( floating_point::less( first, second ) );
+    EXPECT_FALSE( floating_point::less( second, third ) );
+    EXPECT_FALSE( floating_point::less( third, fourth ) );
+    EXPECT_TRUE( floating_point::less( first, second, true ) );
+    EXPECT_TRUE( floating_point::less( second, third, true ) );
+    EXPECT_FALSE( floating_point::less( third, fourth, true ) );
   }
 
   TEST( DoubleUtils, Greater ) {
@@ -91,12 +91,12 @@ namespace vx {
     constexpr double third = 2.2345678;
     constexpr double fourth = 2.2335678;
 
-    EXPECT_FALSE( double_utils::greater( first, second ) );
-    EXPECT_FALSE( double_utils::greater( second, third ) );
-    EXPECT_TRUE( double_utils::greater( third, fourth ) );
-    EXPECT_FALSE( double_utils::greater( first, second, true ) );
-    EXPECT_TRUE( double_utils::greater( second, third, true ) );
-    EXPECT_TRUE( double_utils::greater( third, fourth, true ) );
+    EXPECT_FALSE( floating_point::greater( first, second ) );
+    EXPECT_FALSE( floating_point::greater( second, third ) );
+    EXPECT_TRUE( floating_point::greater( third, fourth ) );
+    EXPECT_FALSE( floating_point::greater( first, second, true ) );
+    EXPECT_TRUE( floating_point::greater( second, third, true ) );
+    EXPECT_TRUE( floating_point::greater( third, fourth, true ) );
   }
 
   TEST( DoubleUtils, Between ) {
@@ -105,12 +105,12 @@ namespace vx {
     constexpr double second = 2.2345678;
     constexpr double fourth = 2.2335678;
 
-    EXPECT_FALSE( double_utils::between( first, first, second ) );
-    EXPECT_FALSE( double_utils::between( second, first, second ) );
-    EXPECT_TRUE( double_utils::between( fourth, first, second ) );
-    EXPECT_TRUE( double_utils::between( first, first, second, true ) );
-    EXPECT_TRUE( double_utils::between( second, first, second, true ) );
-    EXPECT_TRUE( double_utils::between( fourth, first, second, true ) );
+    EXPECT_FALSE( floating_point::between( first, first, second ) );
+    EXPECT_FALSE( floating_point::between( second, first, second ) );
+    EXPECT_TRUE( floating_point::between( fourth, first, second ) );
+    EXPECT_TRUE( floating_point::between( first, first, second, true ) );
+    EXPECT_TRUE( floating_point::between( second, first, second, true ) );
+    EXPECT_TRUE( floating_point::between( fourth, first, second, true ) );
   }
 
   TEST( DoubleUtils, Round ) {
@@ -123,10 +123,10 @@ namespace vx {
     constexpr double third = 2.2345678;
     constexpr double fourth = 2.2335678;
 
-    EXPECT_EQ( double_utils::round( first, precisionTwo ), 1.23 );
-    EXPECT_EQ( double_utils::round( second, precisionTwo ), 2.23 );
-    EXPECT_EQ( double_utils::round( third, precisionFive ), 2.23457 );
-    EXPECT_EQ( double_utils::round( fourth, precisionFive ), 2.23357 );
+    EXPECT_EQ( floating_point::round( first, precisionTwo ), 1.23 );
+    EXPECT_EQ( floating_point::round( second, precisionTwo ), 2.23 );
+    EXPECT_EQ( floating_point::round( third, precisionFive ), 2.23457 );
+    EXPECT_EQ( floating_point::round( fourth, precisionFive ), 2.23357 );
   }
 
   TEST( DoubleUtils, Split ) {
@@ -136,21 +136,21 @@ namespace vx {
     constexpr double third = 2.2345678;
     constexpr double fourth = 2.2335678;
 
-    std::pair<double, double> splitted = vx::double_utils::split( first );
+    std::pair<double, double> splitted = vx::floating_point::split( first );
     EXPECT_EQ( splitted.first, 1.0 );
-    EXPECT_TRUE( double_utils::equal( splitted.second, 0.23 ) );
+    EXPECT_TRUE( floating_point::equal( splitted.second, 0.23 ) );
 
-    splitted = vx::double_utils::split( second );
+    splitted = vx::floating_point::split( second );
     EXPECT_EQ( splitted.first, 2.0 );
-    EXPECT_TRUE( double_utils::equal( splitted.second, 0.2345678 ) );
+    EXPECT_TRUE( floating_point::equal( splitted.second, 0.2345678 ) );
 
-    splitted = vx::double_utils::split( third );
+    splitted = vx::floating_point::split( third );
     EXPECT_EQ( splitted.first, 2.0 );
-    EXPECT_TRUE( double_utils::equal( splitted.second, 0.2345678 ) );
+    EXPECT_TRUE( floating_point::equal( splitted.second, 0.2345678 ) );
 
-    splitted = vx::double_utils::split( fourth );
+    splitted = vx::floating_point::split( fourth );
     EXPECT_EQ( splitted.first, 2.0 );
-    EXPECT_TRUE( double_utils::equal( splitted.second, 0.2335678 ) );
+    EXPECT_TRUE( floating_point::equal( splitted.second, 0.2335678 ) );
   }
 }
 #ifdef __clang__

@@ -59,7 +59,7 @@ namespace vx::logger {
   Logger &operator<<( Logger &_logger,
                       const std::optional<T> &_optional ) noexcept {
 
-    _logger.stream() << demangleExtreme( typeid( _optional ).name() ) << ' ';
+    _logger.stream() << demangle::extreme( typeid( _optional ).name() ) << ' ';
     if ( _optional ) {
 
       const bool saveState = _logger.autoSpace();
@@ -77,7 +77,7 @@ namespace vx::logger {
   Logger &operator<<( Logger &_logger,
                       const std::pair<Key, T> &_pair ) noexcept {
 
-    _logger.stream() << /* demangleExtreme( typeid( _pair ).name() ) << ' ' << */ '{';
+    _logger.stream() << /* demangle::extreme( typeid( _pair ).name() ) << ' ' << */ '{';
     const bool saveState = _logger.autoSpace();
     _logger.nospace() << _pair.first;
     _logger.stream() << ',' << ' ';
@@ -97,7 +97,7 @@ namespace vx::logger {
     const func noPrint = [ &checkComma, &printComma ]() noexcept { checkComma = printComma; };
     checkComma = noPrint;
 
-    _logger.stream() << demangleExtreme( typeid( _list ).name() ) << ' ' << '{';
+    _logger.stream() << demangle::extreme( typeid( _list ).name() ) << ' ' << '{';
     for ( const auto &value : _list ) {
 
       try {
@@ -155,7 +155,7 @@ namespace vx::logger {
     const func noPrint = [ &checkComma, &printComma ]() noexcept { checkComma = printComma; };
     checkComma = noPrint;
 
-    _logger.stream() << demangleExtreme( typeid( _map ).name() ) << ' ' << '{';
+    _logger.stream() << demangle::extreme( typeid( _map ).name() ) << ' ' << '{';
     for ( const auto &[ key, value ] : _map ) {
 
       try {
@@ -210,7 +210,7 @@ namespace vx::logger {
     const func noPrint = [ &checkComma, &printComma ]() noexcept { checkComma = printComma; };
     checkComma = noPrint;
 
-    _logger.stream() << demangleExtreme( typeid( _tuple ).name() ) << ' ' << '{';
+    _logger.stream() << demangle::extreme( typeid( _tuple ).name() ) << ' ' << '{';
     std::size_t tupleSize = std::tuple_size_v<T>;
     for ( std::size_t pos = 0; pos < tupleSize; pos++ ) {
 
@@ -240,7 +240,7 @@ namespace vx::logger {
   Logger &printVariant( Logger &_logger,
                         const T &_variant ) noexcept {
 
-    _logger.stream() << demangleExtreme( typeid( _variant ).name() ) << ' ';
+    _logger.stream() << demangle::extreme( typeid( _variant ).name() ) << ' ';
     std::size_t variantSize = std::variant_size_v<T>;
     for ( std::size_t pos = 0; pos < variantSize; pos++ ) {
 

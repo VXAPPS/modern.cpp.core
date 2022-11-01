@@ -202,21 +202,4 @@ namespace vx::string_utils {
     }
     return std::make_optional( std::string( _uchr, _uchr + size ) ); // NOSONAR do not use pointer arithmetric
   }
-
-#ifdef __APPLE__
-  std::string fromCFStringRef( CFStringRef _stringRef ) noexcept {
-
-    if ( const auto *fastCString = CFStringGetCStringPtr( _stringRef, kCFStringEncodingUTF8 ) ) {
-
-      return std::string( fastCString );
-    }
-
-    auto utf16length = CFStringGetLength( _stringRef );
-    auto maxUtf8len = CFStringGetMaximumSizeForEncoding( utf16length, kCFStringEncodingUTF8 );
-
-    std::string converted( static_cast<std::size_t>( maxUtf8len ), '\0' );
-    CFStringGetCString( _stringRef, converted.data(), maxUtf8len, kCFStringEncodingUTF8 );
-    return converted;
-  }
-#endif
 }

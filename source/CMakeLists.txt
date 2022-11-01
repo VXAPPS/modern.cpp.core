@@ -38,6 +38,10 @@ if(UNIX)
   endif()
 endif()
 
+if(APPLE)
+  set(${PROJECT_NAME}_source ${${PROJECT_NAME}_source} StringUtils_apple.cpp StringUtils_apple.h)
+endif()
+
 add_library(${PROJECT_NAME}
   ../.github/workflows/integrate.yml
   ../README.md
@@ -46,8 +50,6 @@ add_library(${PROJECT_NAME}
   CPU.h
   Demangle.cpp
   Demangle.h
-  DoubleUtils.cpp
-  DoubleUtils.h
   Exec.cpp
   Exec.h
   Keyboard.cpp

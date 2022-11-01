@@ -92,11 +92,21 @@ namespace vx {
     [[nodiscard]] constexpr bool operator==( Size<T> _size ) const noexcept { return floating_point::equal( m_width, _size.m_width ) && floating_point::equal( m_height, _size.m_height ); }
 
   private:
+    /**
+     * @brief Member for width.
+     */
     T m_width = 1;
+
+    /**
+     * @brief Member for height.
+     */
     T m_height = 1;
   };
 
-  /* template argument deduction */
+  /**
+   * @brief Template argument deduction.
+   * @tparam T   Type.
+   */
   template <typename T>
   Size( T ) -> Size<T>;
 }

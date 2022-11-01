@@ -34,11 +34,6 @@
 #include <string_view>
 #include <vector>
 
-/* apple header */
-#ifdef __APPLE__
-  #include <CoreFoundation/CoreFoundation.h>
-#endif
-
 /**
  * @brief vx (VX APPS) namespace.
  */
@@ -157,13 +152,4 @@ namespace vx::string_utils {
    */
   [[nodiscard]] std::optional<std::string> MAYBE_BAD_fromUnsignedChar( const unsigned char *_uchr,
                                                                        std::size_t _size ) noexcept;
-
-#ifdef __APPLE__
-  /**
-   * @brief Returns standard string from CFStringRef.
-   * @param _stringRef   CFStringRef input.
-   * @return Standard string from CFStringRef.
-   */
-  std::string fromCFStringRef( CFStringRef _stringRef ) noexcept;
-#endif
 }

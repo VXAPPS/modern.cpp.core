@@ -148,13 +148,31 @@ namespace vx {
     [[nodiscard]] constexpr bool operator==( Rect<T> _rect ) const noexcept { return floating_point::equal( m_x1, _rect.m_x1 ) && floating_point::equal( m_y1, _rect.m_y1 ) && floating_point::equal( m_x2, _rect.m_x2 ) && floating_point::equal( m_y2, _rect.m_y2 ); }
 
   private:
+    /**
+     * @brief Member for x coordinate of point1.
+     */
     T m_x1 = 0;
+
+    /**
+     * @brief Member for y coordinate of point1.
+     */
     T m_y1 = 0;
+
+    /**
+     * @brief Member for x coordinate of point2.
+     */
     T m_x2 = 1;
+
+    /**
+     * @brief Member for y coordinate of point2.
+     */
     T m_y2 = 1;
   };
 
-  /* template argument deduction */
+  /**
+   * @brief Template argument deduction.
+   * @tparam T   Type.
+   */
   template <typename T>
   Rect( T ) -> Rect<T>;
 

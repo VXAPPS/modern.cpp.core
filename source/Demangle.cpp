@@ -43,9 +43,9 @@
 #include "Demangle.h"
 #include "StringUtils.h"
 
-namespace vx {
+namespace vx::demangle {
 
-  std::string demangle( const std::string &_name ) noexcept {
+  std::string abi( const std::string &_name ) noexcept {
 
     std::string result = _name;
 
@@ -73,9 +73,9 @@ namespace vx {
     return result;
   }
 
-  std::string demangleSimple( const std::string &_name ) noexcept {
+  std::string simple( const std::string &_name ) noexcept {
 
-    std::string result = demangle( _name );
+    std::string result = abi( _name );
 
     // WINDOWS
     RE2::GlobalReplace( &result, "class", "" );
@@ -101,9 +101,9 @@ namespace vx {
     return result;
   }
 
-  std::string demangleExtreme( const std::string &_name ) noexcept {
+  std::string extreme( const std::string &_name ) noexcept {
 
-    std::string result = demangleSimple( _name );
+    std::string result = simple( _name );
 
     /* Everything to cut out until end to simplify the types printed */
     for ( const std::vector toRemove { "std::less", "std::hash", "std::equal_to", "std::allocator" }; const auto &remove : toRemove ) {

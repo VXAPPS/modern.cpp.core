@@ -89,39 +89,94 @@ namespace vx {
      */
     [[nodiscard]] constexpr bool null() const noexcept { return m_point1 == m_point2; }
 
+    /**
+     * @brief Return point1.
+     * @return Point1.
+     */
     [[nodiscard]] constexpr Point<T> point1() const noexcept { return m_point1; }
 
+    /**
+     * @brief Return point2.
+     * @return Point2.
+     */
     [[nodiscard]] constexpr Point<T> point2() const noexcept { return m_point2; }
 
+    /**
+     * @brief Return x coordinate of point1.
+     * @return The x coordinate of point1.
+     */
     [[nodiscard]] constexpr T x1() const noexcept { return m_point1.x(); }
 
+    /**
+     * @brief Return y coordinate of point1.
+     * @return The y coordinate of point1.
+     */
     [[nodiscard]] constexpr T y1() const noexcept { return m_point1.y(); }
 
+    /**
+     * @brief Return x coordinate of point2.
+     * @return The x coordinate of point2.
+     */
     [[nodiscard]] constexpr T x2() const noexcept { return m_point2.x(); }
 
+    /**
+     * @brief Return y coordinate of point2.
+     * @return The y coordinate of point2.
+     */
     [[nodiscard]] constexpr T y2() const noexcept { return m_point2.y(); }
 
+    /**
+     * @brief Distance of x coordinates.
+     * @return Return the distance of the x coordinates.
+     */
     [[nodiscard]] constexpr T dx() const noexcept { return m_point2.x() - m_point1.x(); }
 
+    /**
+     * @brief Distance of y coordinates.
+     * @return Return the distance of the y coordinates.
+     */
     [[nodiscard]] constexpr T dy() const noexcept { return m_point2.y() - m_point1.y(); }
 
+    /**
+     * @brief Translate line by point.
+     * @param _point   Point to translate.
+     */
     inline void translate( Point<T> _point ) noexcept {
 
       m_point1 += _point;
       m_point2 += _point;
     }
 
+    /**
+     * @brief Translate line by coordinates.
+     * @param _dx   X coordinate to translate.
+     * @param _dy   Y coordinate to translate.
+     */
     inline void translate( T _dx,
                            T _dy ) noexcept { translate( Point<T>( _dx, _dy ) ); }
 
+    /**
+     * @brief Width of this line.
+     * @return The width of this line.
+     */
     [[nodiscard]] constexpr T width() const noexcept { return static_cast<T>( std::sqrt( std::sqrt( m_point2.x() - m_point1.x() ) + std::sqrt( m_point2.y() - m_point1.y() ) ) ); }
 
   private:
+    /**
+     * @brief Member for point1.
+     */
     Point<T> m_point1 {};
+
+    /**
+     * @brief Member for point2.
+     */
     Point<T> m_point2 {};
   };
 
-  /* template argument deduction */
+  /**
+   * @brief Template argument deduction.
+   * @tparam T   Type.
+   */
   template <typename T>
   Line( T ) -> Line<T>;
 }
