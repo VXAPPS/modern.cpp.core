@@ -71,21 +71,19 @@ namespace vx {
     tcgetattr( m_descriptor, &options );
     switch ( _baudrate ) {
 
-      using enum Baudrate;
-
-      case Speed9600:
+      case Baudrate::Speed9600:
         cfsetispeed( &options, B9600 );
         cfsetospeed( &options, B9600 );
         break;
-      case Speed19200:
+      case Baudrate::Speed19200:
         cfsetispeed( &options, B19200 );
         cfsetospeed( &options, B19200 );
         break;
-      case Speed38400:
+      case Baudrate::Speed38400:
         cfsetispeed( &options, B38400 );
         cfsetospeed( &options, B38400 );
         break;
-      case Speed57600:
+      case Baudrate::Speed57600:
         cfsetispeed( &options, B57600 );
         cfsetospeed( &options, B57600 );
         break;

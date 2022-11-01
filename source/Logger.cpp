@@ -141,24 +141,22 @@ namespace vx::logger {
     string_utils::toUpper( severity );
     switch ( _severity ) {
 
-      using enum Severity;
-
-      case Verbose:
+      case Severity::Verbose:
         result += "\x1b[37;1m[" + severity + "]\x1b[0m";
         break;
-      case Debug:
+      case Severity::Debug:
         result += "  \x1b[34;1m[" + severity + "]\x1b[0m";
         break;
-      case Info:
+      case Severity::Info:
         result += "   \x1b[32;1m[" + severity + "]\x1b[0m";
         break;
-      case Warning:
+      case Severity::Warning:
         result += "\x1b[33;1m[" + severity + "]\x1b[0m";
         break;
-      case Error:
+      case Severity::Error:
         result += "  \x1b[31;1m[" + severity + "]\x1b[0m";
         break;
-      case Fatal:
+      case Severity::Fatal:
         result += "  \x1b[41;1m[" + severity + "]\x1b[0m";
         break;
     }

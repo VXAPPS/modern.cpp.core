@@ -38,16 +38,14 @@
 
 int main() {
 
-  using enum vx::logger::Severity;
-  vx::logger::Configuration::instance().setAvoidLogBelow( Verbose );
+  vx::logger::Configuration::instance().setAvoidLogBelow( vx::logger::Severity::Verbose );
 
   const vx::Timing timing { "Just a test" };
 
-  using enum vx::timestamp::Precision;
-  logVerbose() << vx::timestamp::iso8601( Seconds );
-  logVerbose() << vx::timestamp::iso8601( MilliSeconds );
-  logVerbose() << vx::timestamp::iso8601( MicroSeconds );
-  logVerbose() << vx::timestamp::iso8601( NanoSeconds );
+  logVerbose() << vx::timestamp::iso8601( vx::timestamp::Precision::Seconds );
+  logVerbose() << vx::timestamp::iso8601( vx::timestamp::Precision::MilliSeconds );
+  logVerbose() << vx::timestamp::iso8601( vx::timestamp::Precision::MicroSeconds );
+  logVerbose() << vx::timestamp::iso8601( vx::timestamp::Precision::NanoSeconds );
 
   timing.stop();
 
