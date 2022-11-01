@@ -42,5 +42,4 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp::core
   ${${PROJECT_NAME}_libs}
-  Threads::Threads
 )

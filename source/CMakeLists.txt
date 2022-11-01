@@ -110,5 +110,6 @@ target_link_libraries(${PROJECT_NAME}
   PUBLIC
   magic_enum::magic_enum
   re2::re2
+  Threads::Threads # re2 is using them
   ${${PROJECT_NAME}_libs}
 )
