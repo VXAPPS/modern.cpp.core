@@ -116,7 +116,7 @@ namespace vx::logger {
     add<std::vector<const char *>>( []( Logger &_logger, const std::vector<const char *> &_input ) noexcept { _logger << _input; } ),
     add<std::vector<std::string_view>>( []( Logger &_logger, const std::vector<std::string_view> &_input ) noexcept { _logger << _input; } ),
     add<std::vector<std::string>>( []( Logger &_logger, const std::vector<std::string> &_input ) noexcept { _logger << _input; } ),
-    // VC2017 issue    add<void>( []( Logger & _logger, [[maybe_unused]] void *_input ) noexcept { _logger << _input; } ),
+    // VC2017 issue    add<void>( []( Logger & _logger, void *_input ) noexcept { _logger << _input; } ),
   };
 #ifdef __clang__
   #pragma clang diagnostic pop

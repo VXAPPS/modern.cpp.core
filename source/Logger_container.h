@@ -104,7 +104,7 @@ namespace vx::logger {
 
         checkComma();
       }
-      catch ( [[maybe_unused]] const std::bad_function_call &_exception ) {
+      catch ( const std::bad_function_call &_exception ) {
 
         /* Nothing to do here, the delimeter is not the most important thing here. */
         logFatal() << "bad_function_call:" << _exception.what();
@@ -162,7 +162,7 @@ namespace vx::logger {
 
         checkComma();
       }
-      catch ( [[maybe_unused]] const std::bad_function_call &_exception ) {
+      catch ( const std::bad_function_call &_exception ) {
 
         /* Nothing to do here, the delimeter is not the most important thing here. */
         logFatal() << "bad_function_call:" << _exception.what();
@@ -218,7 +218,7 @@ namespace vx::logger {
 
         checkComma();
       }
-      catch ( [[maybe_unused]] const std::bad_function_call &_exception ) {
+      catch ( const std::bad_function_call &_exception ) {
 
         /* Nothing to do here, the delimeter is not the most important thing here. */
         logFatal() << "bad_function_call:" << _exception.what();

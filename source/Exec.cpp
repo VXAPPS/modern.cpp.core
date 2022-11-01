@@ -39,7 +39,7 @@
 
 namespace vx::exec {
 
-  static int m_resultCode = 0;
+  static int m_resultCode = 0; // NOSONAR const is not possible here.
 
   /** Buffer size to read stdout. */
   constexpr int bufferSize = 128;

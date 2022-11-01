@@ -291,7 +291,7 @@ namespace vx::logger {
 
     Logger &operator<<( std::time_t _input ) noexcept;
 
-    inline Logger &operator<<( const void *_input ) noexcept {
+    inline Logger &operator<<( const void *_input ) noexcept { // NOSONAR redundant is needed.
 
       _input == nullptr ? m_stream << "(nullptr)" : m_stream << '(' << _input << ')';
       return maybeSpace();
@@ -358,7 +358,7 @@ namespace vx::logger {
           nospace() << std::get<_pos>( _variant );
           setAutoSpace( saveState );
         }
-        catch ( [[maybe_unused]] const std::bad_variant_access &_exception ) {
+        catch ( const std::bad_variant_access &_exception ) {
 
           /* Nothing to do here. */
           stream() << "bad_variant_access " << _exception.what();
