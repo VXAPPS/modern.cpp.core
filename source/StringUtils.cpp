@@ -38,6 +38,7 @@
 #include <sstream>
 
 /* local header */
+#include "Logger.h"
 #include "StringUtils.h"
 
 #if defined _MSC_VER && _MSC_VER < 1920
@@ -113,7 +114,7 @@ namespace vx::string_utils {
     std::ranges::replace( _string, '\v', ' ' );
 
     /* Normalize spaces to just one */
-    const auto newEnd = std::unique( std::begin( _string ), std::end( _string ), bothAreSpaces );
+    const auto newEnd = std::ranges::unique( _string, bothAreSpaces );
     _string.erase( newEnd, std::cend( _string ) );
 
     /* Trim */
@@ -169,7 +170,7 @@ namespace vx::string_utils {
     }
     catch ( const std::exception &_exception ) {
 
-      std::cout << _exception.what() << std::endl;
+      logFatal() << _exception.what();
     }
     return result;
   }

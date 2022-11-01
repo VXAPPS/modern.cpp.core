@@ -37,14 +37,8 @@
 #include <iomanip>
 #include <sstream>
 
-/* modern.cpp.logger */
-#if __has_include( <LoggerFactory.h> )
-  #include <LoggerFactory.h>
-#else
-  #include <iostream>
-#endif
-
 /* local header */
+#include "Logger.h"
 #include "Timestamp.h"
 #include "Timing.h"
 
@@ -110,15 +104,9 @@ namespace vx {
     std::ostringstream cpuTime {};
     cpuTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::clock() - m_cpu ) / static_cast<double>( CLOCKS_PER_SEC ) * multiplier;
 
-#if __has_include( <LoggerFactory.h> )
-    LogVerbose( "------ " + m_action );
-    LogVerbose( "Real Time: " + realTime.str() + ' ' + literal );
-    LogVerbose( "CPU Time: " + cpuTime.str() + " ms" );
-#else
-    std::cout << "------ " << m_action << std::endl;
-    std::cout << "Timestamp: " << timestamp::iso8601( Precision::MicroSeconds ) << std::endl;
-    std::cout << "Real Time: " << realTime.str() << ' ' << literal << std::endl;
-    std::cout << "CPU Time: " << cpuTime.str() << " ms" << std::endl;
-#endif
+    logVerbose().stream() << "------ " << m_action;
+    logVerbose().stream() << "Timestamp: " << timestamp::iso8601( Precision::MicroSeconds );
+    logVerbose().stream() << "Real Time: " << realTime.str() << ' ' << literal;
+    logVerbose().stream() << "CPU Time: " << cpuTime.str() << ' ' << "ms";
   }
 }

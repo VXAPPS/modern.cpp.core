@@ -58,22 +58,24 @@ namespace vx {
   void CPU::updateNativeId( [[maybe_unused]] unsigned int _leaf,
                             [[maybe_unused]] unsigned int _subleaf ) noexcept {
 
+    using enum Register;
+
 #ifdef _MSC_VER
     std::array<int, 4> currentLeaf {};
     __cpuidex( currentLeaf.data(), static_cast<int>( _leaf ), static_cast<int>( _subleaf ) );
-    m_currentLeaf[ std::to_underlying( Register::EAX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::EAX ) ] );
-    m_currentLeaf[ std::to_underlying( Register::EBX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::EBX ) ] );
-    m_currentLeaf[ std::to_underlying( Register::ECX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::ECX ) ] );
-    m_currentLeaf[ std::to_underlying( Register::EDX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::EDX ) ] );
+    m_currentLeaf[ std::to_underlying( Register::EAX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( EAX ) ] );
+    m_currentLeaf[ std::to_underlying( Register::EBX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( EBX ) ] );
+    m_currentLeaf[ std::to_underlying( Register::ECX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( ECX ) ] );
+    m_currentLeaf[ std::to_underlying( Register::EDX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( EDX ) ] );
 #else
   #ifdef __aarch64__
       /* Not available */
   #else
     asm volatile( "cpuid"
-                  : "=a"( m_currentLeaf[std::to_underlying( Register::EAX )] ),
-                    "=b"( m_currentLeaf[std::to_underlying( Register::EBX )] ),
-                    "=c"( m_currentLeaf[std::to_underlying( Register::ECX )] ),
-                    "=d"( m_currentLeaf[std::to_underlying( Register::EDX )] )
+                  : "=a"( m_currentLeaf[std::to_underlying( EAX )] ),
+                    "=b"( m_currentLeaf[std::to_underlying( EBX )] ),
+                    "=c"( m_currentLeaf[std::to_underlying( ECX )] ),
+                    "=d"( m_currentLeaf[std::to_underlying( EDX )] )
                   : "a"( _leaf ), "c"( _subleaf ) );
   #endif
 #endif

@@ -147,10 +147,10 @@ int main() {
     std::exit( EXIT_FAILURE );
   }
   /* bugprone solution */
-  /* catch ( ... ) {
+  /* catch ( ... ) { // NOSONAR possible alternative solution
 
-    ::syslog( LOG_INFO, "Could not close PID lock file %s, exiting", pidfile.c_str() );
-    std::exit( EXIT_FAILURE );
+    ::syslog( LOG_INFO, "Could not close PID lock file %s, exiting", pidfile.c_str() ); // NOSONAR possible alternative solution
+    std::exit( EXIT_FAILURE ); // NOSONAR possible alternative solution
   } */
   // DAEMONIZE END
 
@@ -166,9 +166,7 @@ int main() {
 
   /* Remove content of file */
 #if __has_include( <filesystem> )
-  std::error_code errorCode {};
-  bool removed = std::filesystem::remove( pidfile, errorCode );
-  if ( errorCode || !removed ) {
+  if ( std::error_code errorCode {}; !std::filesystem::remove( pidfile, errorCode ) || errorCode ) {
 
     ::syslog( LOG_INFO, "Could not remove PID lock file %s, exiting with: %s, Code: %i", pidfile.c_str(), errorCode.message().c_str(), errorCode.value() );
     std::exit( EXIT_FAILURE );

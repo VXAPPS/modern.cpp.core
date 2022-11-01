@@ -34,50 +34,35 @@
 /* modern.cpp.core */
 #include <Exec.h>
 
-int main() {
+static void checkResult( int _code,
+                         const std::string &_pipe ) {
 
-  int code = 0;
   std::string result = "EXIT_SUCCESS";
+  if ( _code != EXIT_SUCCESS ) {
+
+    result = "EXIT_FAILURE";
+  }
+  std::cout << "'" << _pipe << "'" << std::endl;
+  std::cout << "Result: " << result << std::endl;
+}
+
+int main() {
 
   std::cout << "----- Result: EXIT_SUCCESS stdout" << std::endl;
   std::string pipe = vx::exec::run( "../pipe/pipe 0 2>/dev/null" );
-  code = vx::exec::resultCode();
-  if ( code != EXIT_SUCCESS ) {
-
-    result = "EXIT_FAILURE";
-  }
-  std::cout << "'" << pipe << "'" << std::endl;
-  std::cout << "Result: " << result << std::endl;
+  checkResult( vx::exec::resultCode(), pipe );
 
   std::cout << "----- Result: EXIT_SUCCESS mixed stdout and stderr" << std::endl;
   pipe = vx::exec::run( "../pipe/pipe 0 2>&1" );
-  code = vx::exec::resultCode();
-  if ( code != EXIT_SUCCESS ) {
-
-    result = "EXIT_FAILURE";
-  }
-  std::cout << "'" << pipe << "'" << std::endl;
-  std::cout << "Result: " << result << std::endl;
+  checkResult( vx::exec::resultCode(), pipe );
 
   std::cout << "----- Result: EXIT_FAILURE stdout" << std::endl;
   pipe = vx::exec::run( "../pipe/pipe 1 2>/dev/null" );
-  code = vx::exec::resultCode();
-  if ( code != EXIT_SUCCESS ) {
-
-    result = "EXIT_FAILURE";
-  }
-  std::cout << "'" << pipe << "'" << std::endl;
-  std::cout << "Result: " << result << std::endl;
+  checkResult( vx::exec::resultCode(), pipe );
 
   std::cout << "----- Result: EXIT_FAILURE mixed stdout and stderr" << std::endl;
   pipe = vx::exec::run( "../pipe/pipe 1 2>&1" );
-  code = vx::exec::resultCode();
-  if ( code != EXIT_SUCCESS ) {
-
-    result = "EXIT_FAILURE";
-  }
-  std::cout << "'" << pipe << "'" << std::endl;
-  std::cout << "Result: " << result << std::endl;
+  checkResult( vx::exec::resultCode(), pipe );
 
   return EXIT_SUCCESS;
 }

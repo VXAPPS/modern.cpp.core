@@ -66,7 +66,8 @@ private:
 
 int main() {
 
-  vx::logger::Configuration::instance().setAvoidLogBelow( vx::logger::Severity::Verbose );
+  using enum vx::logger::Severity;
+  vx::logger::Configuration::instance().setAvoidLogBelow( Verbose );
 
   constexpr int aInt = 17;
   constexpr int bInt = 12;

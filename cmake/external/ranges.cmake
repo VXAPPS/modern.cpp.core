@@ -112,6 +112,7 @@ namespace std {
 
     using ::ranges::transform\;
     using ::ranges::replace\;
+    using ::ranges::unique\;
   }
 }
 #endif

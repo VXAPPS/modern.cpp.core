@@ -86,11 +86,11 @@ int main() {
     }
     catch ( const std::bad_alloc &_exception ) {
 
-      std::cout << __LINE__ << " bad_alloc: " << _exception.what() << std::endl;
+      std::cout << "bad_alloc: " << _exception.what() << std::endl;
     }
     catch ( const std::exception &_exception ) {
 
-      std::cout << __LINE__ << _exception.what() << std::endl;
+      std::cout << _exception.what() << std::endl;
     }
 
     if ( intervall >= exitIntervall ) {
@@ -119,11 +119,11 @@ int main() {
     }
     catch ( const std::bad_alloc &_exception ) {
 
-      std::cout << __LINE__ << " bad_alloc: " << _exception.what() << std::endl;
+      std::cout << "bad_alloc: " << _exception.what() << std::endl;
     }
     catch ( const std::exception &_exception ) {
 
-      std::cout << __LINE__ << _exception.what() << std::endl;
+      std::cout << _exception.what() << std::endl;
     }
   }
 

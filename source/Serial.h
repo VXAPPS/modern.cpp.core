@@ -62,7 +62,7 @@ namespace vx {
      * @param _baudrate   Baudrate.
      */
     explicit Serial( const std::string &_path,
-                     Baudrate _baudrate = Baudrate::Speed9600 );
+                     Baudrate _baudrate = Baudrate::Speed9600 ) noexcept;
 
     /**
      * @brief Delete copy assign.
@@ -89,43 +89,43 @@ namespace vx {
     /**
      * @brief Default destructor for Serial.
      */
-    virtual ~Serial();
+    virtual ~Serial() noexcept;
 
     /**
      * @brief Is the serial device open?
      * @return True, if open - otherwise false.
      */
-    [[nodiscard]] inline bool isOpen() const { return m_isOpen; }
+    [[nodiscard]] inline bool isOpen() const noexcept { return m_isOpen; }
 
     /**
      * @brief Flush the serial port.
      * @return True, if flushing is successful - otherwise false.
      */
-    [[nodiscard]] bool flush() const;
+    [[nodiscard]] bool flush() const noexcept;
 
     /**
      * @brief Write data to the serial device.
      * @param _data   Date written to the device.
      * @return True, if the data writing was successful - otherwise false.
      */
-    [[nodiscard]] bool write( const std::string &_data ) const;
+    [[nodiscard]] bool write( const std::string &_data ) const noexcept;
 
     /**
      * @brief Read data from the serial device.
      * @return Data read from the serial device.
      */
-    [[nodiscard]] std::string read() const;
+    [[nodiscard]] std::string read() const noexcept;
 
     /**
      * @brief Descriptor of the current device.
      * @return The descriptor of the serial device - -1 is not a valid descriptor.
      */
-    [[nodiscard]] inline int descriptor() const { return m_descriptor; }
+    [[nodiscard]] inline int descriptor() const noexcept { return m_descriptor; }
 
     /**
      * @brief Close connection to serial device.
      */
-    void close();
+    void close() noexcept;
 
   private:
     /**

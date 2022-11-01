@@ -95,30 +95,13 @@ namespace vx::logger {
         const std::size_t pos = filename.find_last_of( delimiter );
         filename = filename.substr( pos + 1, filename.size() - ( pos + 1 ) );
       }
-      /*      else if ( m_locationPath == Path::Relative && filename.find_last_of( delimiter ) != std::string::npos ) {
-
-        */
-      /* TODO: Find a better solution for the real project_source_dir, instead of two folders back if available */ /*
-        std::size_t pos = filename.find_last_of( delimiter );
-        const std::size_t secondPos = filename.find_last_of( delimiter, pos - 1 );
-        if ( secondPos != std::string::npos ) {
-
-          pos = secondPos;
-          const std::size_t thirdPos = filename.find_last_of( delimiter, pos - 1 );
-          if ( thirdPos != std::string::npos ) {
-
-            pos = thirdPos;
-          }
-        }
-        filename = filename.substr( pos + 1, filename.size() - ( pos + 1 ) );
-      } */
       m_stream << filename << ':' << _location.line() << ' ' << _location.function_name() << ' ';
     }
   }
 
   Logger::~Logger() noexcept {
 
-    m_stream << std::endl;
+    m_stream << '\n';
     m_stream.flush();
   }
 
@@ -158,22 +141,24 @@ namespace vx::logger {
     string_utils::toUpper( severity );
     switch ( _severity ) {
 
-      case Severity::Verbose:
+      using enum Severity;
+
+      case Verbose:
         result += "\x1b[37;1m[" + severity + "]\x1b[0m";
         break;
-      case Severity::Debug:
+      case Debug:
         result += "  \x1b[34;1m[" + severity + "]\x1b[0m";
         break;
-      case Severity::Info:
+      case Info:
         result += "   \x1b[32;1m[" + severity + "]\x1b[0m";
         break;
-      case Severity::Warning:
+      case Warning:
         result += "\x1b[33;1m[" + severity + "]\x1b[0m";
         break;
-      case Severity::Error:
+      case Error:
         result += "  \x1b[31;1m[" + severity + "]\x1b[0m";
         break;
-      case Severity::Fatal:
+      case Fatal:
         result += "  \x1b[41;1m[" + severity + "]\x1b[0m";
         break;
     }

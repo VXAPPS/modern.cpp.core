@@ -36,6 +36,7 @@
 
 /* local header */
 #include "Cpp23.h"
+#include "Logger.h"
 #include "Timestamp.h"
 
 namespace vx::timestamp {
@@ -101,7 +102,7 @@ namespace vx::timestamp {
     }
     catch ( const std::exception &_exception ) {
 
-      std::cout << _exception.what() << std::endl;
+      logFatal() << _exception.what();
     }
     return result;
   }

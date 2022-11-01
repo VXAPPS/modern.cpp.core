@@ -42,14 +42,9 @@
 #include <chrono>
 #include <vector>
 
-/* modern.cpp.logger */
-#if __has_include( <LoggerFactory.h> )
-  #include <LoggerFactory.h>
-#else
-  #include <iostream>
-#endif
-
 /* local haeder */
+#include "Cpp23.h"
+#include "Logger.h"
 #include "Serial.h"
 
 namespace vx {
@@ -61,17 +56,13 @@ namespace vx {
   constexpr int bufferSize = 1024;
 
   Serial::Serial( const std::string &_path,
-                  Baudrate _baudrate ) {
+                  Baudrate _baudrate ) noexcept {
 
     /* Open port, checking for errors */
     m_descriptor = ::open( _path.c_str(), ( O_RDWR | O_NOCTTY | O_NONBLOCK ) );
     if ( m_descriptor == -1 ) {
 
-#if __has_include( <LoggerFactory.h> )
-      LogInfo( "Unable to open serial port: " + _path + " at baud rate: " + std::to_string( static_cast<int>( _baudrate ) ) );
-#else
-      std::cout << "Unable to open serial port: " << _path << " at baud rate: " << static_cast<int>( _baudrate ) << std::endl;
-#endif
+      logFatal() << "Unable to open serial port:" << _path << "at baud rate:" << std::to_underlying( _baudrate );
       return;
     }
 
@@ -80,19 +71,21 @@ namespace vx {
     tcgetattr( m_descriptor, &options );
     switch ( _baudrate ) {
 
-      case Baudrate::Speed9600:
+      using enum Baudrate;
+
+      case Speed9600:
         cfsetispeed( &options, B9600 );
         cfsetospeed( &options, B9600 );
         break;
-      case Baudrate::Speed19200:
+      case Speed19200:
         cfsetispeed( &options, B19200 );
         cfsetospeed( &options, B19200 );
         break;
-      case Baudrate::Speed38400:
+      case Speed38400:
         cfsetispeed( &options, B38400 );
         cfsetospeed( &options, B38400 );
         break;
-      case Baudrate::Speed57600:
+      case Speed57600:
         cfsetispeed( &options, B57600 );
         cfsetospeed( &options, B57600 );
         break;
@@ -114,18 +107,14 @@ namespace vx {
     /* TCSANOW vs TCSAFLUSH? Was using TCSAFLUSH; settings source above uses TCSANOW. */
     if ( tcsetattr( m_descriptor, TCSANOW, &options ) < 0 ) {
 
-#if __has_include( <LoggerFactory.h> )
-      LogError( "Error setting serial port attributes." );
-#else
-      std::cout << "Error setting serial port attributes." << std::endl;
-#endif
+      logFatal() << "Error setting serial port attributes.";
       close();
       return;
     }
     m_isOpen = true;
   }
 
-  Serial::~Serial() {
+  Serial::~Serial() noexcept {
 
     if ( m_isOpen ) {
 
@@ -133,12 +122,12 @@ namespace vx {
     }
   }
 
-  static std::chrono::milliseconds timestampMs() {
+  static std::chrono::milliseconds timestampMs() noexcept {
 
     return std::chrono::duration_cast<std::chrono::milliseconds>( std::chrono::steady_clock::now().time_since_epoch() );
   }
 
-  bool Serial::flush() const {
+  bool Serial::flush() const noexcept {
 
     const std::chrono::milliseconds startTimestampMs = timestampMs();
     while ( timestampMs().count() - startTimestampMs.count() < flushDurationMs ) {
@@ -146,49 +135,50 @@ namespace vx {
       const std::string result = read();
       if ( result.empty() ) {
 
-#if __has_include( <LoggerFactory.h> )
-        LogError( "Serial port read() failed. Error: " + std::string( std::strerror( errno ) ) );
-#else
-        std::cout << "Serial port read() failed. Error: " << std::strerror( errno ) << std::endl;
-#endif
+        logError() << "Serial port read() failed. Error:" << std::strerror( errno );
         return false;
       }
     }
     return true;
   }
 
-  bool Serial::write( const std::string &_data ) const {
+  bool Serial::write( const std::string &_data ) const noexcept {
 
     if ( ::write( m_descriptor, _data.c_str(), _data.size() ) < 0 ) {
 
-#if __has_include( <LoggerFactory.h> )
-      LogError( "Serial port write() failed. Error: " + std::string( std::strerror( errno ) ) );
-#else
-      std::cout << "Serial port write() failed. Error: " << std::strerror( errno ) << std::endl;
-#endif
+      logError() << "Serial port write() failed. Error:" << std::strerror( errno );
       return false;
     }
     return true;
   }
 
-  std::string Serial::read() const {
+  std::string Serial::read() const noexcept {
 
-    std::vector<char> buffer( bufferSize );
-    const ssize_t numBytesRead = ::read( m_descriptor, buffer.data(), buffer.size() );
-    buffer.resize( static_cast<std::size_t>( numBytesRead ) );
+    std::vector<char> buffer {};
+    ssize_t numBytesRead {};
+    try {
+
+      buffer.resize( bufferSize );
+      numBytesRead = ::read( m_descriptor, buffer.data(), buffer.size() );
+      buffer.resize( static_cast<std::size_t>( numBytesRead ) );
+    }
+    catch ( const std::bad_alloc &_exception ) {
+
+      logFatal() << _exception.what();
+    }
+    catch ( const std::exception &_exception ) {
+
+      logFatal() << _exception.what();
+    }
     if ( numBytesRead < 0 ) {
 
-#if __has_include( <LoggerFactory.h> )
-      LogError( "Serial port read() failed. Error: " + std::string( std::strerror( errno ) ) );
-#else
-      std::cout << "Serial port read() failed. Error: " << std::strerror( errno ) << std::endl;
-#endif
+      logError() << "Serial port read() failed. Error:" << std::strerror( errno );
       return {};
     }
     return { std::cbegin( buffer ), std::cend( buffer ) };
   }
 
-  void Serial::close() {
+  void Serial::close() noexcept {
 
     if ( m_isOpen ) {
 

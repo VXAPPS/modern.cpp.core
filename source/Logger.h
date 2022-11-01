@@ -361,6 +361,7 @@ namespace vx::logger {
         catch ( [[maybe_unused]] const std::bad_variant_access &_exception ) {
 
           /* Nothing to do here. */
+          // logFatal() << "bad_variant_access" << _exception.what();
         }
       }
       else {

@@ -32,17 +32,22 @@
 #include <iostream>
 
 /* modern.cpp.core */
+#include <Logger.h>
 #include <Timestamp.h>
 #include <Timing.h>
 
 int main() {
 
+  using enum vx::logger::Severity;
+  vx::logger::Configuration::instance().setAvoidLogBelow( Verbose );
+
   const vx::Timing timing { "Just a test" };
 
-  std::cout << vx::timestamp::iso8601( vx::timestamp::Precision::Seconds ) << std::endl;
-  std::cout << vx::timestamp::iso8601( vx::timestamp::Precision::MilliSeconds ) << std::endl;
-  std::cout << vx::timestamp::iso8601( vx::timestamp::Precision::MicroSeconds ) << std::endl;
-  std::cout << vx::timestamp::iso8601( vx::timestamp::Precision::NanoSeconds ) << std::endl;
+  using enum vx::timestamp::Precision;
+  logVerbose() << vx::timestamp::iso8601( Seconds );
+  logVerbose() << vx::timestamp::iso8601( MilliSeconds );
+  logVerbose() << vx::timestamp::iso8601( MicroSeconds );
+  logVerbose() << vx::timestamp::iso8601( NanoSeconds );
 
   timing.stop();
 
