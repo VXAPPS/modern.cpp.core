@@ -67,7 +67,7 @@ int main() {
   vx::SharedQueue<Item *> queue {};
 
   const unsigned int threadCount = std::max( 1U, std::thread::hardware_concurrency() );
-  std::vector<std::thread> threads {};
+  std::vector<std::jthread> threads {};
   threads.reserve( threadCount );
 
   for ( unsigned int i = 0; i < threadCount; ++i ) {

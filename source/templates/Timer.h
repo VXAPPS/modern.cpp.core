@@ -34,7 +34,11 @@
 #include <chrono>
 #include <mutex>
 #include <shared_mutex>
-#include <thread>
+#ifdef HAVE_JTHREAD
+  #include <thread>
+#else
+  #include <jthread.hpp>
+#endif
 
 /**
  * @brief vx (VX APPS) namespace.
@@ -59,7 +63,7 @@ namespace vx {
                      int _delay ) noexcept {
 
       m_clear = false;
-      std::thread thread( [ &, _function, _delay ]() {
+      std::jthread thread( [ &, _function, _delay ]() {
         if ( this->m_clear ) {
 
           return;
@@ -85,7 +89,7 @@ namespace vx {
                       int _interval ) noexcept {
 
       m_clear = false;
-      std::thread thread( [ &, _function, _interval ]() {
+      std::jthread thread( [ &, _function, _interval ]() {
         while ( true ) {
 
           if ( this->m_clear ) {
@@ -108,7 +112,7 @@ namespace vx {
      */
     inline void stop() noexcept {
 
-      const std::unique_lock<std::shared_mutex> lock( m_mutex );
+      const std::unique_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction
       m_clear = true;
     }
 
@@ -118,7 +122,7 @@ namespace vx {
      */
     [[nodiscard]] inline bool isRunning() const noexcept {
 
-      const std::shared_lock<std::shared_mutex> lock( m_mutex );
+      const std::shared_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction
       return !m_clear;
     }
 

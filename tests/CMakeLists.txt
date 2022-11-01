@@ -38,7 +38,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp::core
   GTest::gtest_main
-  Threads::Threads
 )
 
 gtest_add_tests(${PROJECT_NAME}
@@ -55,7 +54,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp::core
   GTest::gtest_main
-  Threads::Threads
 )
 
 gtest_add_tests(${PROJECT_NAME}
@@ -76,7 +74,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp::core
   GTest::gtest_main
-  Threads::Threads
   ${${PROJECT_NAME}_libs}
 )
 
@@ -94,7 +91,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp::core
   GTest::gtest_main
-  Threads::Threads
 )
 
 gtest_add_tests(${PROJECT_NAME}
@@ -111,7 +107,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp::core
   GTest::gtest_main
-  Threads::Threads
 )
 
 gtest_add_tests(${PROJECT_NAME}
@@ -128,7 +123,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp::core
   GTest::gtest_main
-  Threads::Threads
 )
 
 gtest_add_tests(${PROJECT_NAME}
@@ -145,7 +139,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp::core
   GTest::gtest_main
-  Threads::Threads
 )
 
 gtest_add_tests(${PROJECT_NAME}
@@ -162,7 +155,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp::core
   GTest::gtest_main
-  Threads::Threads
 )
 
 gtest_add_tests(${PROJECT_NAME}
@@ -179,7 +171,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   modern.cpp::core
   GTest::gtest_main
-  Threads::Threads
 )
 
 gtest_add_tests(${PROJECT_NAME}

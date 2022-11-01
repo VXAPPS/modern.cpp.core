@@ -138,7 +138,7 @@ namespace vx {
      */
     std::size_t size() const noexcept {
 
-      std::shared_lock<std::shared_mutex> lock( m_mutex );
+      std::shared_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction
 
       std::size_t size = m_queue.size();
 
@@ -152,7 +152,7 @@ namespace vx {
      */
     bool empty() const noexcept {
 
-      std::shared_lock<std::shared_mutex> lock( m_mutex );
+      std::shared_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction
 
       bool empty = m_queue.empty();
 

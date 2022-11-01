@@ -45,7 +45,6 @@ endif()
 add_library(${PROJECT_NAME}
   ../.github/workflows/integrate.yml
   ../README.md
-  ${3RDPARTY_DIR}/source_location.hpp
   CPU.cpp
   CPU.h
   Demangle.cpp
@@ -78,9 +77,17 @@ add_library(${PROJECT_NAME}
   templates/Timer.h
   templates/TypeCheck.h
   ${${PROJECT_NAME}_source}
+  ${3RDPARTY_DIR}/jthread.hpp
+  ${3RDPARTY_DIR}/source_location.hpp
+  ${3RDPARTY_DIR}/stop_token.hpp
 )
 
 add_library(modern.cpp::core ALIAS ${PROJECT_NAME})
+
+target_compile_definitions(${PROJECT_NAME}
+  PUBLIC
+  $<$<BOOL:${HAVE_JTHREAD}>:HAVE_JTHREAD>
+)
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC
@@ -90,21 +97,13 @@ target_include_directories(${PROJECT_NAME}
 )
 
 if(UNIX AND NOT APPLE)
-  if(NOT HAVE_RANGES)
-    set(${PROJECT_NAME}_libs range-v3::range-v3 ${X11_LIBRARIES})
-  else()
-    set(${PROJECT_NAME}_libs ${X11_LIBRARIES})
-  endif()
+  set(${PROJECT_NAME}_libs ${X11_LIBRARIES})
 elseif(APPLE AND NOT IOS)
-  if(NOT HAVE_RANGES)
-    set(${PROJECT_NAME}_libs range-v3::range-v3 ${FOUNDATION})
-  else()
-    set(${PROJECT_NAME}_libs ${FOUNDATION})
-  endif()
-else()
-  if(NOT HAVE_RANGES)
-    set(${PROJECT_NAME}_libs range-v3::range-v3)
-  endif()
+  set(${PROJECT_NAME}_libs ${FOUNDATION})
+endif()
+
+if(NOT HAVE_RANGES)
+  set(${PROJECT_NAME}_libs ${${PROJECT_NAME}_libs} range-v3::range-v3)
 endif()
 
 target_link_libraries(${PROJECT_NAME}

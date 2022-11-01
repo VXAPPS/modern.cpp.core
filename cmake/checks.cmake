@@ -40,6 +40,15 @@ if(HAVE_FORMAT_INCLUDE)
   )
 endif()
 
+check_include_file_cxx(thread HAVE_THREAD_INCLUDE)
+if(HAVE_THREAD_INCLUDE)
+  check_cxx_source_compiles(
+    "#include <thread>
+    int main() { unsigned int nodiscard = std::jthread::hardware_concurrency(); (void)nodiscard; return 0; }"
+    HAVE_JTHREAD
+  )
+endif()
+
 check_include_file_cxx(ranges HAVE_RANGES_INCLUDE)
 if(HAVE_RANGES_INCLUDE)
   check_cxx_source_compiles(
