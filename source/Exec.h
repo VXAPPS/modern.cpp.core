@@ -30,6 +30,9 @@
 
 #pragma once
 
+/* c header */
+#include <cstdio> // std::FILE
+
 /* stl header */
 #include <string>
 
@@ -55,5 +58,5 @@ namespace vx::exec {
    * @brief Result   Exit code of the command.
    * @return The result code.
    */
-  [[nodiscard]] int resultCode() noexcept;
+  [[nodiscard]] std::int32_t resultCode() noexcept;
 }

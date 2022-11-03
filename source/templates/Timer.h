@@ -30,6 +30,9 @@
 
 #pragma once
 
+/* c header */
+#include <cstdint> // std::uint32_t
+
 /* stl header */
 #include <chrono>
 #include <mutex>
@@ -59,7 +62,7 @@ namespace vx {
      * @param _function   Call back function.
      */
     template <typename Function>
-    void setTimeout( int _delay,
+    void setTimeout( std::uint32_t _delay,
                      Function _function ) noexcept {
 
       m_clear = false;
@@ -85,7 +88,7 @@ namespace vx {
      * @param _function   Call back function.
      */
     template <typename Function>
-    void setInterval( int _interval,
+    void setInterval( std::uint32_t _interval,
                       Function _function ) noexcept {
 
       m_clear = false;

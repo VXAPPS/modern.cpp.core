@@ -28,6 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* stl header */
 #include <iostream>
 #include <limits>
@@ -35,7 +38,7 @@
 /* modern.cpp.core */
 #include <FloatingPoint.h>
 
-int main() {
+std::int32_t main() {
 
   bool result = false;
 

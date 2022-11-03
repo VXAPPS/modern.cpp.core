@@ -28,19 +28,22 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* stl header */
 #include <iostream>
 
 /* modern.cpp.core */
 #include <Timer.h>
 
-constexpr int intervallSeconds = 1;
-constexpr int secondsToMilliseconds = 1000;
-constexpr int exitSeconds = 15;
+constexpr std::int32_t intervallSeconds = 1;
+constexpr std::int32_t secondsToMilliseconds = 1000;
+constexpr std::int32_t exitSeconds = 15;
 
-int main() {
+std::int32_t main() {
 
-  int intervall = 1;
+  std::int32_t intervall = 1;
   auto intervallTimer = vx::Timer();
 
   const auto runOnInterval = [ &intervallTimer, &intervall ]() {

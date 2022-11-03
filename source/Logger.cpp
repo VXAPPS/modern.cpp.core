@@ -50,7 +50,7 @@ namespace vx::logger {
   class WindowsBuffer : public std::stringbuf {
 
   public:
-    virtual int sync() override {
+    virtual std::int32_t sync() override {
 
       return 0;
     }
@@ -105,7 +105,7 @@ namespace vx::logger {
     m_stream.flush();
   }
 
-  void Logger::printChar( char _input ) noexcept {
+  void Logger::printChar( std::int8_t _input ) noexcept {
 
     m_autoQuotes ? m_stream << "'" << _input << "'" : m_stream << _input;
   }

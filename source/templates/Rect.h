@@ -30,6 +30,12 @@
 
 #pragma once
 
+/* c header */
+#include <cstdint> // std::int32_t
+
+/* stl header */
+#include <variant>
+
 /* local header */
 #include "Point.h"
 #include "Size.h"
@@ -46,7 +52,7 @@ namespace vx {
    * @tparam T   Type.
    */
   template <typename T>
-  class Rect : private TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
+  class Rect : private TypeCheck<isVariantMember<T, std::variant<std::int32_t, float, double>>::value> {
 
   public:
     /**

@@ -28,6 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* stl header */
 #include <iostream>
 
@@ -36,7 +39,7 @@
 #include <Timestamp.h>
 #include <Timing.h>
 
-int main() {
+std::int32_t main() {
 
   vx::logger::Configuration::instance().setAvoidLogBelow( vx::logger::Severity::Verbose );
 

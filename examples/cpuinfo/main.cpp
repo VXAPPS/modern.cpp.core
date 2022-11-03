@@ -28,6 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* stl header */
 #include <iostream>
 
@@ -35,12 +38,12 @@
 #include <CPU.h>
 
 /** SGX information leaf. */
-constexpr unsigned int sgxLeaf = 12;
+constexpr std::uint32_t sgxLeaf = 12;
 
 /** Maximum subleafs to read out. */
-constexpr unsigned int maximumSubLeafs = 10;
+constexpr std::uint32_t maximumSubLeafs = 10;
 
-int main() {
+std::int32_t main() {
 
   vx::CPU cpu;
   std::cout << std::hex << cpu.eax() << " " << cpu.ebx() << " " << cpu.ecx() << " " << cpu.edx() << " " << std::dec << std::endl;
@@ -68,7 +71,7 @@ int main() {
   std::cout << "Maximum enclave size: " << std::hex << cpu.maximumEnclaveSize() << std::endl;
   std::cout << "Maximum enclave size 64: " << std::hex << cpu.maximumEnclaveSize64() << std::endl;
 
-  for ( unsigned int i = 1; i < maximumSubLeafs; i++ ) {
+  for ( std::uint32_t i = 1; i < maximumSubLeafs; i++ ) {
 
     std::cout << std::endl
               << "SGX subleaf " << i << std::endl;

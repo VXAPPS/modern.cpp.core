@@ -39,10 +39,10 @@
 
 namespace vx::exec {
 
-  static int m_resultCode = 0; // NOSONAR const is not possible here.
+  static std::int32_t m_resultCode = 0; // NOSONAR const is not possible here.
 
   /** Buffer size to read stdout. */
-  constexpr int bufferSize = 128;
+  constexpr std::int32_t bufferSize = 128;
 
   void close( std::FILE *_file ) noexcept {
 
@@ -80,5 +80,5 @@ namespace vx::exec {
     return result;
   }
 
-  int resultCode() noexcept { return m_resultCode; }
+  std::int32_t resultCode() noexcept { return m_resultCode; }
 }

@@ -30,6 +30,9 @@
 
 #pragma once
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* stl header */
 #include <type_traits>
 
@@ -42,13 +45,13 @@ namespace std {
   namespace detail::impl {
 
     template <typename T>
-    [[maybe_unused]] decltype( static_cast<void>( sizeof( T ) ), true_type {} ) test_sizable( int );
+    [[maybe_unused]] decltype( static_cast<void>( sizeof( T ) ), true_type {} ) test_sizable( std::int32_t );
 
     template <typename>
     [[maybe_unused]] false_type test_sizable( ... );
 
     template <typename T>
-    [[maybe_unused]] decltype( static_cast<false_type ( * )( int )>( nullptr )( declval<T>() ) ) test_nonconvertible_to_int( int );
+    [[maybe_unused]] decltype( static_cast<false_type ( * )( std::int32_t )>( nullptr )( declval<T>() ) ) test_nonconvertible_to_int( std::int32_t );
 
     template <typename>
     [[maybe_unused]] true_type test_nonconvertible_to_int( ... );

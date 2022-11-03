@@ -28,13 +28,16 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* stl header */
 #include <iostream>
 
 /* modern.cpp.core */
 #include <Exec.h>
 
-static void checkResult( int _code,
+static void checkResult( std::int32_t _code,
                          const std::string &_pipe ) {
 
   std::string result = "EXIT_SUCCESS";
@@ -46,7 +49,7 @@ static void checkResult( int _code,
   std::cout << "Result: " << result << std::endl;
 }
 
-int main() {
+std::int32_t main() {
 
   std::cout << "----- Result: EXIT_SUCCESS stdout" << std::endl;
   std::string pipe = vx::exec::run( "../pipe/pipe 0 2>/dev/null" );

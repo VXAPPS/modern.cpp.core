@@ -30,6 +30,9 @@
 
 #pragma once
 
+/* c header */
+#include <cstdint> // std::int8_t, std::int32_t
+
 /* stl header */
 #include <chrono>
 #include <optional>
@@ -150,7 +153,7 @@ namespace vx::logger {
 
     Logger &logger() noexcept { return *this; }
 
-    void printChar( char _input ) noexcept;
+    void printChar( std::int8_t _input ) noexcept;
 
     void printString( std::string_view _input ) noexcept;
 
@@ -191,20 +194,20 @@ namespace vx::logger {
       return maybeSpace();
     }
 
-    inline Logger &operator<<( char _input ) noexcept {
+    inline Logger &operator<<( std::int8_t _input ) noexcept {
 
       printChar( _input );
       return maybeSpace();
     }
 
-    inline Logger &operator<<( int _input ) noexcept {
+    inline Logger &operator<<( std::int32_t _input ) noexcept {
 
       m_stream << _input;
       return maybeSpace();
     }
 
 #if !defined _MSC_VER || defined _MSC_VER && _MSC_VER >= 1920
-    inline Logger &operator<<( unsigned int _input ) noexcept {
+    inline Logger &operator<<( std::uint32_t _input ) noexcept {
 
       m_stream << _input;
       return maybeSpace();
@@ -273,8 +276,8 @@ namespace vx::logger {
 
       Ratio ratio;
       std::string_view literal {};
-      constexpr int hourInSeconds = 3600;
-      constexpr int minuteInSesonds = 60;
+      constexpr std::int32_t hourInSeconds = 3600;
+      constexpr std::int32_t minuteInSesonds = 60;
       if constexpr ( ratio.num == std::ratio<hourInSeconds, 1>::num && ratio.den == std::ratio<hourInSeconds, 1>::den ) { literal = "h"; }
       else if constexpr ( ratio.num == std::ratio<minuteInSesonds, 1>::num && ratio.den == std::ratio<minuteInSesonds, 1>::den ) { literal = "min"; }
       else if constexpr ( ratio.num == std::ratio<1, 1>::num && ratio.den == std::ratio<1, 1>::den ) { literal = "s"; }

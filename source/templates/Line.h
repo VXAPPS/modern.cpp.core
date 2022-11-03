@@ -31,7 +31,8 @@
 #pragma once
 
 /* c header */
-#include <cmath>
+#include <cmath> // std::sqrt
+#include <cstdint> // std::int32_t
 
 /* stl header */
 #include <variant>
@@ -51,7 +52,7 @@ namespace vx {
    * @tparam T   Type.
    */
   template <typename T>
-  class Line : private TypeCheck<isVariantMember<T, std::variant<int, float, double>>::value> {
+  class Line : private TypeCheck<isVariantMember<T, std::variant<std::int32_t, float, double>>::value> {
 
   public:
     /**

@@ -28,6 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint>
+
 /* system header */
 #include <sys/stat.h>
 #include <syslog.h>
@@ -42,7 +45,7 @@
 constexpr auto DAEMON_NAME = "Demo";
 
 /* For security purposes, we don't allow any arguments to be passed into the daemon */
-int main() {
+std::int32_t main() {
 
   // DAEMONIZE START
   /* Fork the current process */

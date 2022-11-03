@@ -28,6 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* cppunit header */
 #ifdef __clang__
   #pragma clang diagnostic push
@@ -229,24 +232,24 @@ namespace vx {
                        GREEN = 8 };
 
     const auto colorRed = magic_enum::enum_integer( Color::RED );
-    EXPECT_EQ( typeid( colorRed ), typeid( int ) );
-    EXPECT_EQ( typeid( std::underlying_type<Color>::type ), typeid( int ) );
+    EXPECT_EQ( typeid( colorRed ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( std::underlying_type<Color>::type ), typeid( std::int32_t ) );
 
-    enum class ColorUnsigned : unsigned { RED = 2,
-                                          BLUE = 4,
-                                          GREEN = 8 };
+    enum class ColorUnsigned : std::uint32_t { RED = 2,
+                                               BLUE = 4,
+                                               GREEN = 8 };
 
     const auto colorRedUnsigned = magic_enum::enum_integer( ColorUnsigned::RED );
-    EXPECT_EQ( typeid( colorRedUnsigned ), typeid( unsigned int ) );
-    EXPECT_EQ( typeid( std::underlying_type<ColorUnsigned>::type ), typeid( unsigned int ) );
+    EXPECT_EQ( typeid( colorRedUnsigned ), typeid( std::uint32_t ) );
+    EXPECT_EQ( typeid( std::underlying_type<ColorUnsigned>::type ), typeid( std::uint32_t ) );
 
-    enum class ColorChar : char { RED = 'a',
-                                  BLUE = 'b',
-                                  GREEN = 'c' };
+    enum class ColorChar : std::uint8_t { RED = 'a',
+                                          BLUE = 'b',
+                                          GREEN = 'c' };
 
     const auto colorRedChar = magic_enum::enum_integer( ColorChar::RED );
-    EXPECT_EQ( typeid( colorRedChar ), typeid( char ) );
-    EXPECT_EQ( typeid( std::underlying_type<ColorChar>::type ), typeid( char ) );
+    EXPECT_EQ( typeid( colorRedChar ), typeid( std::uint8_t ) );
+    EXPECT_EQ( typeid( std::underlying_type<ColorChar>::type ), typeid( std::uint8_t ) );
   }
 
   TEST( MagicEnum, Names ) {
@@ -353,7 +356,8 @@ namespace vx {
   #pragma clang diagnostic pop
 #endif
 
-int main( int argc, char **argv ) {
+std::int32_t main( std::int32_t argc,
+                   char **argv ) {
 
   InitGoogleTest( &argc, argv );
   return RUN_ALL_TESTS();

@@ -28,6 +28,10 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
+/* windows header */
 #ifdef _MSC_VER
   #include <intrin.h>
 #endif
@@ -38,13 +42,13 @@
 namespace vx {
 
   /** Leaf of extended information. */
-  constexpr unsigned int extendedLeaf = 7;
+  constexpr std::uint32_t extendedLeaf = 7;
 
   /** Leaf of SGX information. */
-  constexpr unsigned int sgxLeaf = 18; // 0x12
+  constexpr std::uint32_t sgxLeaf = 18; // 0x12
 
-  CPU::CPU( unsigned int _leaf,
-            unsigned int _subleaf ) noexcept {
+  CPU::CPU( std::uint32_t _leaf,
+            std::uint32_t _subleaf ) noexcept {
 
     updateNativeId( sgxLeaf, 0 );
     m_sgxLeaf = m_currentLeaf;
@@ -55,16 +59,16 @@ namespace vx {
     updateNativeId( _leaf, _subleaf );
   }
 
-  void CPU::updateNativeId( [[maybe_unused]] unsigned int _leaf,
-                            [[maybe_unused]] unsigned int _subleaf ) noexcept {
+  void CPU::updateNativeId( [[maybe_unused]] std::uint32_t _leaf,
+                            [[maybe_unused]] std::uint32_t _subleaf ) noexcept {
 
 #ifdef _MSC_VER
     std::array<int, 4> currentLeaf {};
     __cpuidex( currentLeaf.data(), static_cast<int>( _leaf ), static_cast<int>( _subleaf ) );
-    m_currentLeaf[ std::to_underlying( Register::EAX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::EAX ) ] );
-    m_currentLeaf[ std::to_underlying( Register::EBX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::EBX ) ] );
-    m_currentLeaf[ std::to_underlying( Register::ECX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::ECX ) ] );
-    m_currentLeaf[ std::to_underlying( Register::EDX ) ] = static_cast<unsigned int>( currentLeaf[ std::to_underlying( Register::EDX ) ] );
+    m_currentLeaf[ std::to_underlying( Register::EAX ) ] = static_cast<std::uint32_t>( currentLeaf[ std::to_underlying( Register::EAX ) ] );
+    m_currentLeaf[ std::to_underlying( Register::EBX ) ] = static_cast<std::uint32_t>( currentLeaf[ std::to_underlying( Register::EBX ) ] );
+    m_currentLeaf[ std::to_underlying( Register::ECX ) ] = static_cast<std::uint32_t>( currentLeaf[ std::to_underlying( Register::ECX ) ] );
+    m_currentLeaf[ std::to_underlying( Register::EDX ) ] = static_cast<std::uint32_t>( currentLeaf[ std::to_underlying( Register::EDX ) ] );
 #else
   #ifdef __aarch64__
       /* Not available */

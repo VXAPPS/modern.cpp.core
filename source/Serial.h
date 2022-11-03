@@ -30,6 +30,9 @@
 
 #pragma once
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* stl header */
 #include <string>
 
@@ -120,7 +123,7 @@ namespace vx {
      * @brief Descriptor of the current device.
      * @return The descriptor of the serial device - -1 is not a valid descriptor.
      */
-    [[nodiscard]] inline int descriptor() const noexcept { return m_descriptor; }
+    [[nodiscard]] inline std::int32_t descriptor() const noexcept { return m_descriptor; }
 
     /**
      * @brief Close connection to serial device.
@@ -136,6 +139,6 @@ namespace vx {
     /**
      * @brief Member for descriptor.
      */
-    int m_descriptor = -1;
+    std::int32_t m_descriptor = -1;
   };
 }

@@ -57,7 +57,7 @@ using ::testing::Test;
 #endif
 namespace vx {
 
-  TEST( Rect, Simple_int ) {
+  TEST( Rect, Simple_int32_t ) {
 
     Rect rect( 5, 5, 10, 10 );
     Rect rect2( 6, 6, 8, 8 );
@@ -71,10 +71,10 @@ namespace vx {
     EXPECT_TRUE( rectNull.null() );
 
     /* Type check direct */
-    EXPECT_EQ( typeid( rect.x() ), typeid( int ) );
-    EXPECT_EQ( typeid( rect.y() ), typeid( int ) );
-    EXPECT_EQ( typeid( rect.width() ), typeid( int ) );
-    EXPECT_EQ( typeid( rect.height() ), typeid( int ) );
+    EXPECT_EQ( typeid( rect.x() ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( rect.y() ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( rect.width() ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( rect.height() ), typeid( std::int32_t ) );
 
     /* Setter */
     rect.setLeft( 5 );
@@ -292,7 +292,8 @@ namespace vx {
   #pragma clang diagnostic pop
 #endif
 
-int main( int argc, char **argv ) {
+std::int32_t main( std::int32_t argc,
+                   char **argv ) {
 
   InitGoogleTest( &argc, argv );
   return RUN_ALL_TESTS();

@@ -35,7 +35,8 @@
 #endif
 #include <string>
 
-int main( int argc, char **argv ) {
+std::int32_t main( std::int32_t argc,
+                   char **argv ) {
 
   /* Usage: pipe RESULTCODE */
 #ifdef HAVE_SPAN
@@ -51,7 +52,7 @@ int main( int argc, char **argv ) {
   std::cout << "This is std::cout text." << std::endl;
   std::cerr << "This is std::cerr text." << std::endl;
 
-  if ( const int result = fprintf( stderr, "This is fprintf( stderr ) text.\n" ); !result ) {
+  if ( const std::int32_t result = fprintf( stderr, "This is fprintf( stderr ) text.\n" ); !result ) {
 
     std::cout << "Error writing to stderr with fprintf." << std::endl;
   }

@@ -28,6 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* cppunit header */
 #ifdef __clang__
   #pragma clang diagnostic push
@@ -89,7 +92,7 @@ namespace vx {
 
   TEST( Demangle, SimpleTypes ) {
 
-    EXPECT_EQ( demangle::abi( typeid( int ).name() ), "int" );
+    EXPECT_EQ( demangle::abi( typeid( std::int32_t ).name() ), "int" );
     EXPECT_EQ( demangle::abi( typeid( float ).name() ), "float" );
     EXPECT_EQ( demangle::abi( typeid( double ).name() ), "double" );
     EXPECT_EQ( demangle::simple( typeid( std::string ).name() ), "std::string" );
@@ -121,7 +124,8 @@ namespace vx {
   #pragma clang diagnostic pop
 #endif
 
-int main( int argc, char **argv ) {
+std::int32_t main( std::int32_t argc,
+                   char **argv ) {
 
   InitGoogleTest( &argc, argv );
   return RUN_ALL_TESTS();

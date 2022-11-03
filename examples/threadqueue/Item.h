@@ -30,6 +30,9 @@
 
 #pragma once
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* stl header */
 #include <string>
 
@@ -37,15 +40,15 @@ class Item {
 
 public:
   explicit Item( std::string _message,
-                 int _number ) noexcept
+                 std::int32_t _number ) noexcept
     : m_message( std::move( _message ) ),
       m_number( _number ) {}
 
   [[nodiscard]] inline std::string getMessage() const noexcept { return m_message; }
 
-  [[nodiscard]] inline int getNumber() const noexcept { return m_number; }
+  [[nodiscard]] inline std::int32_t getNumber() const noexcept { return m_number; }
 
 private:
   std::string m_message {};
-  int m_number {};
+  std::int32_t m_number {};
 };

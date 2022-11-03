@@ -57,7 +57,7 @@ using ::testing::Test;
 #endif
 namespace vx {
 
-  TEST( Point, Simple_int ) {
+  TEST( Point, Simple_int32_t ) {
 
     Point point( 5, 5 );
     Point point2( 5, 5 );
@@ -71,8 +71,8 @@ namespace vx {
     EXPECT_TRUE( pointNull.null() );
 
     /* Type check direct */
-    EXPECT_EQ( typeid( point.x() ), typeid( int ) );
-    EXPECT_EQ( typeid( point.y() ), typeid( int ) );
+    EXPECT_EQ( typeid( point.x() ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( point.y() ), typeid( std::int32_t ) );
 
     /* Setter */
     point.setX( 10 );
@@ -265,7 +265,8 @@ namespace vx {
   #pragma clang diagnostic pop
 #endif
 
-int main( int argc, char **argv ) {
+std::int32_t main( std::int32_t argc,
+                   char **argv ) {
 
   InitGoogleTest( &argc, argv );
   return RUN_ALL_TESTS();

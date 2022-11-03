@@ -30,6 +30,9 @@
 
 #pragma once
 
+/* c header */
+#include <cstdint> // std::int8_t, std::int32_t
+
 /* stl header */
 #include <any>
 #include <array>
@@ -77,9 +80,9 @@ namespace vx::logger {
   const std::unordered_map<std::type_index, std::function<void( Logger &_logger, const std::any & )>> visitors {
 
     add<bool>( []( Logger &_logger, bool _input ) noexcept { _logger << _input; } ),
-    add<char>( []( Logger &_logger, char _input ) noexcept { _logger << _input; } ),
-    add<int>( []( Logger &_logger, int _input ) noexcept { _logger << _input; } ),
-    add<unsigned int>( []( Logger &_logger, unsigned int _input ) noexcept { _logger << _input; } ),
+    add<std::int8_t>( []( Logger &_logger, std::int8_t _input ) noexcept { _logger << _input; } ),
+    add<std::int32_t>( []( Logger &_logger, std::int32_t _input ) noexcept { _logger << _input; } ),
+    add<std::uint32_t>( []( Logger &_logger, std::uint32_t _input ) noexcept { _logger << _input; } ),
     add<std::size_t>( []( Logger &_logger, std::size_t _input ) noexcept { _logger << _input; } ),
     add<float>( []( Logger &_logger, float _input ) noexcept { _logger << _input; } ),
     add<double>( []( Logger &_logger, double _input ) noexcept { _logger << _input; } ),
@@ -87,9 +90,9 @@ namespace vx::logger {
     add<std::string_view>( []( Logger &_logger, std::string_view _input ) noexcept { _logger << _input; } ),
     add<std::string>( []( Logger &_logger, const std::string &_input ) noexcept { _logger << _input; } ),
     add<std::list<bool>>( []( Logger &_logger, const std::list<bool> &_input ) noexcept { _logger << _input; } ),
-    add<std::list<char>>( []( Logger &_logger, const std::list<char> &_input ) noexcept { _logger << _input; } ),
-    add<std::list<int>>( []( Logger &_logger, const std::list<int> &_input ) noexcept { _logger << _input; } ),
-    add<std::list<unsigned int>>( []( Logger &_logger, const std::list<unsigned int> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<std::int8_t>>( []( Logger &_logger, const std::list<std::int8_t> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<std::int32_t>>( []( Logger &_logger, const std::list<std::int32_t> &_input ) noexcept { _logger << _input; } ),
+    add<std::list<std::uint32_t>>( []( Logger &_logger, const std::list<std::uint32_t> &_input ) noexcept { _logger << _input; } ),
     add<std::list<std::size_t>>( []( Logger &_logger, const std::list<std::size_t> &_input ) noexcept { _logger << _input; } ),
     add<std::list<float>>( []( Logger &_logger, const std::list<float> &_input ) noexcept { _logger << _input; } ),
     add<std::list<double>>( []( Logger &_logger, const std::list<double> &_input ) noexcept { _logger << _input; } ),
@@ -97,9 +100,9 @@ namespace vx::logger {
     add<std::list<std::string_view>>( []( Logger &_logger, const std::list<std::string_view> &_input ) noexcept { _logger << _input; } ),
     add<std::list<std::string>>( []( Logger &_logger, const std::list<std::string> &_input ) noexcept { _logger << _input; } ),
     add<std::set<bool>>( []( Logger &_logger, const std::set<bool> &_input ) noexcept { _logger << _input; } ),
-    add<std::set<char>>( []( Logger &_logger, const std::set<char> &_input ) noexcept { _logger << _input; } ),
-    add<std::set<int>>( []( Logger &_logger, const std::set<int> &_input ) noexcept { _logger << _input; } ),
-    add<std::set<unsigned int>>( []( Logger &_logger, const std::set<unsigned int> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<std::int8_t>>( []( Logger &_logger, const std::set<std::int8_t> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<std::int32_t>>( []( Logger &_logger, const std::set<std::int32_t> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<std::uint32_t>>( []( Logger &_logger, const std::set<std::uint32_t> &_input ) noexcept { _logger << _input; } ),
     add<std::set<std::size_t>>( []( Logger &_logger, const std::set<std::size_t> &_input ) noexcept { _logger << _input; } ),
     add<std::set<float>>( []( Logger &_logger, const std::set<float> &_input ) noexcept { _logger << _input; } ),
     add<std::set<double>>( []( Logger &_logger, const std::set<double> &_input ) noexcept { _logger << _input; } ),
@@ -107,9 +110,9 @@ namespace vx::logger {
     add<std::set<std::string_view>>( []( Logger &_logger, const std::set<std::string_view> &_input ) noexcept { _logger << _input; } ),
     add<std::set<std::string>>( []( Logger &_logger, const std::set<std::string> &_input ) noexcept { _logger << _input; } ),
     // MAC found that ambiguous...    add<std::vector<bool>>( []( Logger & _logger, const std::vector<bool> &_input ) noexcept { _logger << _input; } ),
-    add<std::vector<char>>( []( Logger &_logger, const std::vector<char> &_input ) noexcept { _logger << _input; } ),
-    add<std::vector<int>>( []( Logger &_logger, const std::vector<int> &_input ) noexcept { _logger << _input; } ),
-    add<std::vector<unsigned int>>( []( Logger &_logger, const std::vector<unsigned int> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<std::int8_t>>( []( Logger &_logger, const std::vector<std::int8_t> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<std::int32_t>>( []( Logger &_logger, const std::vector<std::int32_t> &_input ) noexcept { _logger << _input; } ),
+    add<std::vector<std::uint32_t>>( []( Logger &_logger, const std::vector<std::uint32_t> &_input ) noexcept { _logger << _input; } ),
     add<std::vector<std::size_t>>( []( Logger &_logger, const std::vector<std::size_t> &_input ) noexcept { _logger << _input; } ),
     add<std::vector<float>>( []( Logger &_logger, const std::vector<float> &_input ) noexcept { _logger << _input; } ),
     add<std::vector<double>>( []( Logger &_logger, const std::vector<double> &_input ) noexcept { _logger << _input; } ),

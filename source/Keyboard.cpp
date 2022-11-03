@@ -29,6 +29,7 @@
  */
 
 /* c header */
+#include <cstdint> // std::int32_t
 #include <cstring> // strerror_r
 
 /* stl header */
@@ -72,8 +73,8 @@ namespace vx::keyboard {
     KeyMap keyMap;
     GetKeys( keyMap );
 
-    int index = kVK_CapsLock >> 5;
-    int shift = kVK_CapsLock & 31;
+    std::int32_t index = kVK_CapsLock >> 5;
+    std::int32_t shift = kVK_CapsLock & 31;
 
     isActive = ( ( keyMap[ index ].bigEndianValue >> shift ) & 1 ) != 0;
   #else
@@ -92,11 +93,11 @@ namespace vx::keyboard {
     XCloseDisplay( display );
   #else
     /* Variant 2 ioctl */
-    const int descriptor = ::open( "/dev/console", O_RDONLY | O_NOCTTY );
+    const std::int32_t descriptor = ::open( "/dev/console", O_RDONLY | O_NOCTTY );
     if ( descriptor == -1 ) {
 
-      constexpr int len = 128;
-      std::vector<char> buffer( len );
+      constexpr std::int32_t len = 128;
+      std::vector<std::int8_t> buffer( len );
       std::cout << "Unable to open console port: /dev/console. Error: " << strerror_r( errno, buffer.data(), buffer.size() ) << std::endl;
     }
     std::int64_t result = 0;

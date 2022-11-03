@@ -28,6 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint>
+
 /* cppunit header */
 #ifdef __clang__
   #pragma clang diagnostic push
@@ -57,7 +60,7 @@ using ::testing::Test;
 #endif
 namespace vx {
 
-  TEST( Size, Simple_int ) {
+  TEST( Size, Simple_int32_t ) {
 
     Size size( 5, 5 );
     Size size2( 5, 5 );
@@ -71,8 +74,8 @@ namespace vx {
     EXPECT_TRUE( sizeNull.null() );
 
     /* Type check direct */
-    EXPECT_EQ( typeid( size.width() ), typeid( int ) );
-    EXPECT_EQ( typeid( size.height() ), typeid( int ) );
+    EXPECT_EQ( typeid( size.width() ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( size.height() ), typeid( std::int32_t ) );
 
     /* Setter */
     size.setWidth( 10 );
@@ -253,7 +256,8 @@ namespace vx {
   #pragma clang diagnostic pop
 #endif
 
-int main( int argc, char **argv ) {
+std::int32_t main( std::int32_t argc,
+                   char **argv ) {
 
   InitGoogleTest( &argc, argv );
   return RUN_ALL_TESTS();

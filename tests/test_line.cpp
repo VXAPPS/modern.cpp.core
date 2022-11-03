@@ -28,6 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* cppunit header */
 #ifdef __clang__
   #pragma clang diagnostic push
@@ -57,7 +60,7 @@ using ::testing::Test;
 #endif
 namespace vx {
 
-  TEST( Line, Simple_int ) {
+  TEST( Line, Simple_int32_t ) {
 
     Line line( Point( 5, 5 ), Point( 10, 10 ) );
     Line lineWithoutPoints( 5, 5, 5, 5 );
@@ -68,10 +71,10 @@ namespace vx {
     EXPECT_TRUE( lineWithoutPoints.null() );
 
     /* Type check direct */
-    EXPECT_EQ( typeid( line.x1() ), typeid( int ) );
-    EXPECT_EQ( typeid( line.y1() ), typeid( int ) );
-    EXPECT_EQ( typeid( line.x2() ), typeid( int ) );
-    EXPECT_EQ( typeid( line.y2() ), typeid( int ) );
+    EXPECT_EQ( typeid( line.x1() ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( line.y1() ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( line.x2() ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( line.y2() ), typeid( std::int32_t ) );
 
     /* Values direct */
     EXPECT_EQ( line.x1(), 5 );
@@ -89,10 +92,10 @@ namespace vx {
     EXPECT_EQ( line.dy(), 5 );
 
     /* Type check from points */
-    EXPECT_EQ( typeid( line.point1().x() ), typeid( int ) );
-    EXPECT_EQ( typeid( line.point1().y() ), typeid( int ) );
-    EXPECT_EQ( typeid( line.point2().x() ), typeid( int ) );
-    EXPECT_EQ( typeid( line.point2().y() ), typeid( int ) );
+    EXPECT_EQ( typeid( line.point1().x() ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( line.point1().y() ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( line.point2().x() ), typeid( std::int32_t ) );
+    EXPECT_EQ( typeid( line.point2().y() ), typeid( std::int32_t ) );
 
     /* Values from points */
     EXPECT_EQ( line.point1().x(), 5 );
@@ -256,7 +259,8 @@ namespace vx {
   #pragma clang diagnostic pop
 #endif
 
-int main( int argc, char **argv ) {
+std::int32_t main( std::int32_t argc,
+                   char **argv ) {
 
   InitGoogleTest( &argc, argv );
   return RUN_ALL_TESTS();

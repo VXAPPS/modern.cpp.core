@@ -28,6 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* stl header */
 #include <iostream>
 
@@ -38,11 +41,12 @@
 /* local header */
 #include "Item.h"
 
-constexpr int intervallSeconds = 1;
-constexpr int secondsToMilliseconds = 100;
-constexpr int exitIntervall = 30;
+constexpr std::int32_t intervallSeconds = 1;
+constexpr std::int32_t secondsToMilliseconds = 100;
+constexpr std::int32_t exitIntervall = 30;
 
-static void process( vx::SharedQueue<Item *> &_queue, int _threadId ) {
+static void process( vx::SharedQueue<Item *> &_queue,
+                     std::int32_t _threadId ) {
 
   std::cout << "Start Thread: " << _threadId << std::endl;
   while ( true ) {
@@ -60,17 +64,17 @@ static void process( vx::SharedQueue<Item *> &_queue, int _threadId ) {
   std::cout << "Ended Thread: " << _threadId << std::endl;
 }
 
-int main() {
+std::int32_t main() {
 
-  int intervall {};
+  std::int32_t intervall {};
 
   vx::SharedQueue<Item *> queue {};
 
-  const unsigned int threadCount = std::max( 1U, std::thread::hardware_concurrency() );
+  const std::uint32_t threadCount = std::max( 1U, std::thread::hardware_concurrency() );
   std::vector<std::jthread> threads {};
   threads.reserve( threadCount );
 
-  for ( unsigned int i = 0; i < threadCount; ++i ) {
+  for ( std::uint32_t i = 0; i < threadCount; ++i ) {
 
     threads.emplace_back( process, std::ref( queue ), i );
   }
@@ -111,7 +115,7 @@ int main() {
   }
 
   /* Send STOP to finish all threads */
-  for ( unsigned int thread = 0; thread < threads.size(); ++thread ) {
+  for ( std::uint32_t thread = 0; thread < threads.size(); ++thread ) {
 
     try {
 

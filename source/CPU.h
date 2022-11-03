@@ -30,6 +30,9 @@
 
 #pragma once
 
+/* c header */
+#include <cstdint> // std::uint32_t
+
 /* stl header */
 #include <array>
 
@@ -67,44 +70,44 @@ namespace vx {
      * @param _leaf   Leaf register.
      * @param _subleaf   Subleaf of register.
      */
-    explicit CPU( unsigned int _leaf = 1,
-                  unsigned int _subleaf = 0 ) noexcept;
+    explicit CPU( std::uint32_t _leaf = 1,
+                  std::uint32_t _subleaf = 0 ) noexcept;
 
     /**
      * @brief Return stepping of CPU.
      * @return Stepping of CPU.
      */
-    [[nodiscard]] inline unsigned int stepping() const noexcept { return m_leaf[ std::to_underlying( Register::EAX ) ] & 15U; }
+    [[nodiscard]] inline std::uint32_t stepping() const noexcept { return m_leaf[ std::to_underlying( Register::EAX ) ] & 15U; }
 
     /**
      * @brief Return model of CPU.
      * @return Model of CPU.
      */
-    [[nodiscard]] inline unsigned int model() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 4U ) & 15U; }
+    [[nodiscard]] inline std::uint32_t model() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 4U ) & 15U; }
 
     /**
      * @brief Return family of CPU.
      * @return Family of CPU.
      */
-    [[nodiscard]] inline unsigned int family() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 8U ) & 15U; }
+    [[nodiscard]] inline std::uint32_t family() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 8U ) & 15U; }
 
     /**
      * @brief Return type of CPU.
      * @return Type of CPU.
      */
-    [[nodiscard]] inline unsigned int type() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 12U ) & 3U; }
+    [[nodiscard]] inline std::uint32_t type() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 12U ) & 3U; }
 
     /**
      * @brief Return extended model of CPU.
      * @return Extended model of CPU.
      */
-    [[nodiscard]] inline unsigned int extendedModel() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 16U ) & 15U; }
+    [[nodiscard]] inline std::uint32_t extendedModel() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 16U ) & 15U; }
 
     /**
      * @brief Return extended family of CPU.
      * @return Extended family of CPU.
      */
-    [[nodiscard]] inline unsigned int extendedFamily() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 20U ) & 255U; }
+    [[nodiscard]] inline std::uint32_t extendedFamily() const noexcept { return ( m_leaf[ std::to_underlying( Register::EAX ) ] >> 20U ) & 255U; }
 
     /**
      * @brief Does CPU support SMX?
@@ -140,45 +143,45 @@ namespace vx {
      * @brief Returns maximum size of enclave.
      * @return Maximum enclave size.
      */
-    [[nodiscard]] inline unsigned int maximumEnclaveSize() const noexcept { return m_sgxLeaf[ std::to_underlying( Register::EDX ) ] & 255U; }
+    [[nodiscard]] inline std::uint32_t maximumEnclaveSize() const noexcept { return m_sgxLeaf[ std::to_underlying( Register::EDX ) ] & 255U; }
 
     /**
      * @brief Returns maximum size of enclave.
      * @return Maximum enclave size.
      */
-    [[nodiscard]] inline unsigned int maximumEnclaveSize64() const noexcept { return ( m_sgxLeaf[ std::to_underlying( Register::EDX ) ] >> 8U ) & 255U; }
+    [[nodiscard]] inline std::uint32_t maximumEnclaveSize64() const noexcept { return ( m_sgxLeaf[ std::to_underlying( Register::EDX ) ] >> 8U ) & 255U; }
 
     /**
      * @brief Return EAX id.
      * @return The EAX id.
      */
-    [[nodiscard]] inline unsigned int eax() const noexcept { return m_currentLeaf[ std::to_underlying( Register::EAX ) ]; }
+    [[nodiscard]] inline std::uint32_t eax() const noexcept { return m_currentLeaf[ std::to_underlying( Register::EAX ) ]; }
 
     /**
      * @brief Return EBX id.
      * @return The EBX id.
      */
-    [[nodiscard]] inline unsigned int ebx() const noexcept { return m_currentLeaf[ std::to_underlying( Register::EBX ) ]; }
+    [[nodiscard]] inline std::uint32_t ebx() const noexcept { return m_currentLeaf[ std::to_underlying( Register::EBX ) ]; }
 
     /**
      * @brief Return ECX id.
      * @return The ECX id.
      */
-    [[nodiscard]] inline unsigned int ecx() const noexcept { return m_currentLeaf[ std::to_underlying( Register::ECX ) ]; }
+    [[nodiscard]] inline std::uint32_t ecx() const noexcept { return m_currentLeaf[ std::to_underlying( Register::ECX ) ]; }
 
     /**
      * @brief Return EDX id.
      * @return The EDX id.
      */
-    [[nodiscard]] inline unsigned int edx() const noexcept { return m_currentLeaf[ std::to_underlying( Register::EDX ) ]; }
+    [[nodiscard]] inline std::uint32_t edx() const noexcept { return m_currentLeaf[ std::to_underlying( Register::EDX ) ]; }
 
     /**
      * @brief Request a special register.
      * @param _leaf   Leaf register.
      * @param _subleaf   Subleaf of register.
      */
-    void updateNativeId( unsigned int _leaf = 1,
-                         unsigned int _subleaf = 0 ) noexcept;
+    void updateNativeId( std::uint32_t _leaf = 1,
+                         std::uint32_t _subleaf = 0 ) noexcept;
 
   private:
     /**

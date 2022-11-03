@@ -50,10 +50,10 @@
 namespace vx {
 
   /** Flush duration in milliseconds */
-  constexpr int flushDurationMs = 150;
+  constexpr std::int32_t flushDurationMs = 150;
 
   /** Buffer size to read std out */
-  constexpr int bufferSize = 1024;
+  constexpr std::int32_t bufferSize = 1024;
 
   Serial::Serial( const std::string &_path,
                   Baudrate _baudrate ) noexcept {

@@ -28,6 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* stl header */
 #include <format>
 #include <iostream>
@@ -64,12 +67,12 @@ private:
   std::string_view m_something {};
 };
 
-int main() {
+std::int32_t main() {
 
   vx::logger::Configuration::instance().setAvoidLogBelow( vx::logger::Severity::Verbose );
 
-  constexpr int aInt = 17;
-  constexpr int bInt = 12;
+  constexpr std::int32_t aInt = 17;
+  constexpr std::int32_t bInt = 12;
   constexpr double magic = 1.123;
   const std::string test = "blub";
   const char *chr = "test_chr";
@@ -89,13 +92,13 @@ int main() {
   const std::list<std::string> list { "abc", "def", "ghj" };
   logWarning() << list;
 
-  const std::map<int, std::string> map { { 3, "abc" }, { 1, "def" }, { 2, "ghj" } };
+  const std::map<std::int32_t, std::string> map { { 3, "abc" }, { 1, "def" }, { 2, "ghj" } };
   logError() << map;
 
-  const std::unordered_map<int, std::string_view> umap { { 3, "abc" }, { 1, "def" }, { 2, "ghj" } };
+  const std::unordered_map<std::int32_t, std::string_view> umap { { 3, "abc" }, { 1, "def" }, { 2, "ghj" } };
   logFatal() << umap;
 
-  const std::tuple<int, std::string, std::string_view> tuple { 1, "abc", "def" };
+  const std::tuple<std::int32_t, std::string, std::string_view> tuple { 1, "abc", "def" };
   logInfo() << tuple;
 
   const std::tuple tuple2 { 1, "abc", "def" };
@@ -103,14 +106,14 @@ int main() {
 
   logVerbose() << std::make_pair( 1, "hello" );
 
-  logDebug() << std::make_any<int>( 1 ) << std::make_any<double>( 1.234 ) << std::make_any<std::string>( "hello" );
+  logDebug() << std::make_any<std::int32_t>( 1 ) << std::make_any<double>( 1.234 ) << std::make_any<std::string>( "hello" );
 
   const std::any blubAny = 1;
   const std::any helo = std::make_any<std::string>( "hello" );
   logDebug() << blubAny << helo << std::make_any<std::vector<int>>( { 1, 2, 3, 4 } );
 
   using namespace std::literals;
-  const std::unordered_map<int, std::string_view> testsv { { 2, "ghj"sv }, { 1, "def"sv }, { 3, "abc"sv } };
+  const std::unordered_map<std::int32_t, std::string_view> testsv { { 2, "ghj"sv }, { 1, "def"sv }, { 3, "abc"sv } };
   (void)testsv;
 
   logInfo() << MyClass( "Blub" );
@@ -120,7 +123,7 @@ int main() {
   anyList.emplace_back( std::make_any<std::vector<int>>( { 1, 2, 3, 4 } ) );
   logWarning() << anyList;
 
-  const std::set<int> set { 1, 2, 3, 3 };
+  const std::set<std::int32_t> set { 1, 2, 3, 3 };
   logError() << set;
 
   constexpr double magicArr1 = 1.23;
@@ -131,10 +134,10 @@ int main() {
   const std::array<double, 4> arr { magicArr1, magicArr2, magicArr3, magicArr4 };
   logFatal() << arr;
 
-  const std::variant<int, double> variant { magicArr3 };
+  const std::variant<std::int32_t, double> variant { magicArr3 };
   logInfo() << variant;
 
-  constexpr int theAnswerOfEverything = 42;
+  constexpr std::int32_t theAnswerOfEverything = 42;
   logFatal() << std::format( "The answer is {}.", theAnswerOfEverything );
 
   constexpr double someDouble = 4.2;

@@ -56,7 +56,7 @@ namespace vx::demangle {
      * -2: mangled_name is not a valid name under the C++ ABI mangling rules.
      * -3: One of the arguments is invalid.
      * */
-    int status = -4;
+    std::int32_t status = -4;
 
     const std::unique_ptr<char, void ( * )( char * )> res {
 
