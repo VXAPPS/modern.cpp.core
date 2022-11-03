@@ -63,13 +63,13 @@ namespace vx {
                      Function _function ) noexcept {
 
       m_clear = false;
-      std::jthread thread( [ &, _delay, _function ]() {
-        if ( this->m_clear ) {
+      std::jthread thread( [ &_clear = m_clear, _delay, _function ]() {
+        if ( _clear ) {
 
           return;
         }
         std::this_thread::sleep_for( std::chrono::milliseconds( _delay ) );
-        if ( this->m_clear ) {
+        if ( _clear ) {
 
           return;
         }
@@ -89,15 +89,15 @@ namespace vx {
                       Function _function ) noexcept {
 
       m_clear = false;
-      std::jthread thread( [ &, _interval, _function ]() {
+      std::jthread thread( [ &_clear = m_clear, _interval, _function ]() {
         while ( true ) {
 
-          if ( this->m_clear ) {
+          if ( _clear ) {
 
             return;
           }
           std::this_thread::sleep_for( std::chrono::milliseconds( _interval ) );
-          if ( this->m_clear ) {
+          if ( _clear ) {
 
             return;
           }
