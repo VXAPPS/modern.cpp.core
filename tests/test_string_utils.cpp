@@ -167,12 +167,11 @@ namespace vx {
     EXPECT_EQ( result, "54686520616e737765722069732034322e" );
   }
 
-#if defined( __has_feature )
-  #if __has_feature( address_sanitizer )
-  __attribute__( ( no_sanitize( "address" ) ) )
-  #endif
+#if defined( __clang__ ) || defined( __GNUC__ )
+  __attribute__( ( no_sanitize_address ) )
 #endif
-  static void badCaseWrongSizeCheck() {
+  static void
+      badCaseWrongSizeCheck() {
 
     unsigned char chrArray[] = "The answer is 42.";
     const unsigned char *chrPointer = chrArray;
