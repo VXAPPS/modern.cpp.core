@@ -169,7 +169,10 @@ namespace vx {
 
 #if defined( __has_feature )
   #if __has_feature( address_sanitizer )
-  __attribute__( ( no_sanitize( "address" ) ) ) static void badCaseWrongSizeCheck() {
+  __attribute__( ( no_sanitize( "address" ) ) )
+  #endif
+#endif
+  static void badCaseWrongSizeCheck() {
 
     unsigned char chrArray[] = "The answer is 42.";
     const unsigned char *chrPointer = chrArray;
@@ -177,8 +180,6 @@ namespace vx {
     /* A sanitizer will found that issue, so this is not useable for regular testing. */
     EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
   }
-  #endif
-#endif
 
   TEST( StringUtils, FromUnsignedChar ) {
 
