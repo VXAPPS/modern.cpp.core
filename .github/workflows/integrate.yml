@@ -227,6 +227,12 @@ jobs:
         run: cmake --build . --config ${{matrix.config}}
 
       - name: Test
+        if: runner.os == 'Windows' || runner.os == 'Linux'
+        working-directory: ${{runner.workspace}}/build
+        run: ctest --output-on-failure -C ${{matrix.config}}
+
+      - name: Test (macOS)
+        if: runner.os == 'macOS'
         working-directory: ${{runner.workspace}}/build
         run: |
             # arm64 mac runner are not able to start the tests: [Unknown system error -86]
