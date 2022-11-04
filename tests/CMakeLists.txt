@@ -40,9 +40,16 @@ target_link_libraries(${PROJECT_NAME}
   GTest::gtest_main
 )
 
+add_test(${PROJECT_NAME} NAME ${PROJECT_NAME})
+
 gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
+
+#set_tests_properties(${PROJECT_NAME} PROPERTIES ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
+if(UNIX)
+  set_property(TEST ${PROJECT_NAME} PROPERTY ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
+endif()
 
 project(test_floating_point)
 

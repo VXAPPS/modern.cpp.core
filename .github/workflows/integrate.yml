@@ -147,13 +147,13 @@ jobs:
           - name: macos-12-xcode-13-x86_64
             os: macos-12
             compiler: xcode
-            version: "13.6"
+            version: "13.4"
             cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=x86_64
 
           - name: macos-12-xcode-13-arm64
             os: macos-12
             compiler: xcode
-            version: "13.6"
+            version: "13.4"
             cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=arm64
 
           - name: macos-12-xcode-14-x86_64
