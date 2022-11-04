@@ -44,12 +44,6 @@ gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
 
-#set_tests_properties(${PROJECT_NAME} PROPERTIES ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
-if(UNIX AND SANITIZER_ADDRESS)
-  add_test(${PROJECT_NAME} ${PROJECT_NAME})
-  set_property(TEST ${PROJECT_NAME} PROPERTY ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
-endif()
-
 project(test_floating_point)
 
 add_executable(${PROJECT_NAME}
@@ -65,11 +59,6 @@ target_link_libraries(${PROJECT_NAME}
 gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
-
-if(UNIX AND SANITIZER_ADDRESS)
-  add_test(${PROJECT_NAME} ${PROJECT_NAME})
-  set_property(TEST ${PROJECT_NAME} PROPERTY ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
-endif()
 
 project(test_format)
 
@@ -92,11 +81,6 @@ gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
 
-if(UNIX AND SANITIZER_ADDRESS)
-  add_test(${PROJECT_NAME} ${PROJECT_NAME})
-  set_property(TEST ${PROJECT_NAME} PROPERTY ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
-endif()
-
 project(test_line)
 
 add_executable(${PROJECT_NAME}
@@ -112,11 +96,6 @@ target_link_libraries(${PROJECT_NAME}
 gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
-
-if(UNIX AND SANITIZER_ADDRESS)
-  add_test(${PROJECT_NAME} ${PROJECT_NAME})
-  set_property(TEST ${PROJECT_NAME} PROPERTY ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
-endif()
 
 project(test_magic_enum)
 
@@ -134,11 +113,6 @@ gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
 
-if(UNIX AND SANITIZER_ADDRESS)
-  add_test(${PROJECT_NAME} ${PROJECT_NAME})
-  set_property(TEST ${PROJECT_NAME} PROPERTY ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
-endif()
-
 project(test_point)
 
 add_executable(${PROJECT_NAME}
@@ -154,11 +128,6 @@ target_link_libraries(${PROJECT_NAME}
 gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
-
-if(UNIX AND SANITIZER_ADDRESS)
-  add_test(${PROJECT_NAME} ${PROJECT_NAME})
-  set_property(TEST ${PROJECT_NAME} PROPERTY ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
-endif()
 
 project(test_rect)
 
@@ -176,11 +145,6 @@ gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
 
-if(UNIX AND SANITIZER_ADDRESS)
-  add_test(${PROJECT_NAME} ${PROJECT_NAME})
-  set_property(TEST ${PROJECT_NAME} PROPERTY ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
-endif()
-
 project(test_size)
 
 add_executable(${PROJECT_NAME}
@@ -196,11 +160,6 @@ target_link_libraries(${PROJECT_NAME}
 gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
-
-if(UNIX AND SANITIZER_ADDRESS)
-  add_test(${PROJECT_NAME} ${PROJECT_NAME})
-  set_property(TEST ${PROJECT_NAME} PROPERTY ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
-endif()
 
 project(test_string_utils)
 
@@ -218,7 +177,8 @@ gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
 
-if(UNIX AND SANITIZER_ADDRESS)
-  add_test(${PROJECT_NAME} ${PROJECT_NAME})
-  set_property(TEST ${PROJECT_NAME} PROPERTY ENVIRONMENT "LD_PRELOAD=${LIBASAN_PATH}")
+message(${LIBASAN_PATH})
+if(UNIX AND SANITIZER_ADDRESS AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  get_property(ALL_TESTS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
+  set_tests_properties(${ALL_TESTS} PROPERTIES ENVIRONMENT LD_PRELOAD=${LIBASAN_PATH})
 endif()
