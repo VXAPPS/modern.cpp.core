@@ -229,9 +229,8 @@ jobs:
       - name: Test
         working-directory: ${{runner.workspace}}/build
         run: |
-            if [ "${{matrix.cmake}}" = "-DCMAKE_OSX_ARCHITECTURES:STRING=arm64" ]; then
-              # arm64 mac runner are not able to start the tests: [Unknown system error -86]
-            else
+            # arm64 mac runner are not able to start the tests: [Unknown system error -86]
+            if [ "${{matrix.cmake}}" != "-DCMAKE_OSX_ARCHITECTURES:STRING=arm64" ]; then
               ctest --output-on-failure -C ${{matrix.config}}
             fi
 
