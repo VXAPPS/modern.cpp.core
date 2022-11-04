@@ -36,6 +36,7 @@ if(HAVE_FORMAT_INCLUDE)
   check_cxx_source_compiles(
     "#include <cstdint>
     #include <format>
+    #include <string>
     std::int32_t main() { std::string nodiscard = std::format( \"The answer is {}.\", 42 ); (void)nodiscard; return 0; }"
     HAVE_FORMAT
   )

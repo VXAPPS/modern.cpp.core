@@ -167,6 +167,19 @@ namespace vx {
     EXPECT_EQ( result, "54686520616e737765722069732034322e" );
   }
 
+#if defined( __has_feature )
+  #if __has_feature( address_sanitizer )
+  __attribute__( ( no_sanitize( "address" ) ) ) static void badCaseWrongSizeCheck() {
+
+    unsigned char chrArray[] = "The answer is 42.";
+    const unsigned char *chrPointer = chrArray;
+
+    /* A sanitizer will found that issue, so this is not useable for regular testing. */
+    EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
+  }
+  #endif
+#endif
+
   TEST( StringUtils, FromUnsignedChar ) {
 
     unsigned char chrArray[] = "The answer is 42.";
@@ -183,8 +196,7 @@ namespace vx {
     EXPECT_EQ( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointerNull, 0 ), std::nullopt );
 
     /* Wrong size check - more than expected. */
-    /* A sanitizer will found that issue, so this is not useable for regular testing. */
-    // EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." ); // NOSONAR sanitizer will break test
+    badCaseWrongSizeCheck();
   }
 }
 #ifdef __clang__

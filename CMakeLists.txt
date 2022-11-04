@@ -30,21 +30,24 @@
 
 cmake_minimum_required(VERSION 3.18)
 
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/policy.cmake)
+update_policy()
+
+# Determine if this is built as a subproject (using add_subdirectory)
+# or if it is the master project.
+if(NOT DEFINED CORE_MASTER_PROJECT)
+  set(CORE_MASTER_PROJECT OFF)
+  if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+    set(CORE_MASTER_PROJECT ON)
+  endif()
+endif()
+
 project(modern.cpp.core VERSION 0.6 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES CXX)
 include(cmake/env.cmake)
 include(cmake/checks.cmake)
 
 # Fetch Content Dependencies
 include(${CMAKE}/fetch/magic_enum.cmake)
-
-# Determine if this is built as a subproject (using add_subdirectory)
-# or if it is the master project.
-if (NOT DEFINED CORE_MASTER_PROJECT)
-  set(CORE_MASTER_PROJECT OFF)
-  if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-    set(CORE_MASTER_PROJECT ON)
-  endif()
-endif()
 
 if(NOT HAVE_RANGES)
   include(${CMAKE}/external/ranges.cmake)
