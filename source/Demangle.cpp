@@ -82,6 +82,10 @@ namespace vx::demangle {
     RE2::GlobalReplace( &result, "struct", "" );
     RE2::GlobalReplace( &result, "__ptr64", "" );
 
+    RE2::GlobalReplace( &result, "enum `private: virtual void __cdecl ", "" );
+    RE2::GlobalReplace( &result, " '::`2'", "" );
+    RE2::GlobalReplace( &result, "(void)", "" );
+
     // LINUX clang and gcc
     RE2::GlobalReplace( &result, "__cxx11::", "" );
 
@@ -91,6 +95,9 @@ namespace vx::demangle {
     // All, after general cleanup
     RE2::GlobalReplace( &result, "std::basic_string<char, std::char_traits<char>, std::allocator<char> >", "std::string" );
     RE2::GlobalReplace( &result, "std::basic_string_view<char, std::char_traits<char> >", "std::string_view" );
+
+    /* Remove space after opening bracket - overall valid */
+    RE2::GlobalReplace( &result, "< ", "<" );
 
     // Remove space before closing bracket - overall valid
     RE2::GlobalReplace( &result, ", >", ">" );
@@ -119,6 +126,9 @@ namespace vx::demangle {
     RE2::GlobalReplace( &result, "int const", "const int " );
     RE2::GlobalReplace( &result, "double const", "const double " );
     RE2::GlobalReplace( &result, "char const", "const char " );
+
+    /* Remove space after opening bracket - overall valid */
+    RE2::GlobalReplace( &result, "< ", "<" );
 
     /* Remove space before closing bracket - overall valid */
     RE2::GlobalReplace( &result, ", >", ">" );
