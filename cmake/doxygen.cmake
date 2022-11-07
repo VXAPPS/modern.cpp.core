@@ -41,6 +41,8 @@ if(DOXYGEN_FOUND)
   # request to configure the file
   configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
 
+  file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/docs/logo.png DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/docs)
+
   if (BUILD_DOC)
     message("Doxygen build started")
 

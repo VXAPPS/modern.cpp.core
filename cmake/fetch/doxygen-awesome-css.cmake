@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2020 Florian Becker <fb@vxapps.com> (VX APPS).
+# Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,45 +28,13 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-cmake_minimum_required(VERSION 3.18)
+include(FetchContent)
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/policy.cmake)
-update_policy()
+FetchContent_Declare(
+  doxygen-awesome-css
+  GIT_REPOSITORY https://github.com/jothepro/doxygen-awesome-css.git
+  GIT_TAG v2.1.0
+  GIT_SHALLOW 1
+)
 
-# Determine if this is built as a subproject (using add_subdirectory)
-# or if it is the master project.
-if(NOT DEFINED CORE_MASTER_PROJECT)
-  set(CORE_MASTER_PROJECT OFF)
-  if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-    set(CORE_MASTER_PROJECT ON)
-  endif()
-endif()
-
-project(modern.cpp.core VERSION 0.6 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES CXX)
-include(cmake/env.cmake)
-include(cmake/checks.cmake)
-
-# Fetch Content Dependencies
-include(${CMAKE}/fetch/doxygen-awesome-css.cmake)
-include(${CMAKE}/fetch/magic_enum.cmake)
-
-if(NOT HAVE_RANGES)
-  include(${CMAKE}/external/ranges.cmake)
-endif()
-include(${CMAKE}/external/re2.cmake)
-add_subdirectory(source)
-
-if(CORE_MASTER_PROJECT)
-  if(NOT HAVE_FORMAT)
-    include(${CMAKE}/external/fmt.cmake)
-  endif()
-  if(CORE_BUILD_EXAMPLES)
-    add_subdirectory(examples)
-  endif()
-  if(CORE_BUILD_TESTS)
-    include(${CMAKE}/external/googletest.cmake)
-    include(GoogleTest)
-    enable_testing()
-    add_subdirectory(tests)
-  endif()
-endif()
+FetchContent_MakeAvailable(doxygen-awesome-css)
