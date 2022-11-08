@@ -243,7 +243,7 @@ jobs:
       - name: Test
         if: runner.os == 'Windows' || runner.os == 'Linux'
         working-directory: ${{runner.workspace}}/build
-        run: ctest --output-on-failure -C ${{matrix.config}} --verbose
+        run: ctest --output-on-failure -C ${{matrix.config}}
 
 #       arm64 mac runner are not able to start the tests: [Unknown system error -86]
       - name: Test (macOS)
@@ -251,7 +251,7 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: |
             if [ "${{matrix.cmake}}" != "-DCMAKE_OSX_ARCHITECTURES:STRING=arm64" ]; then
-              ctest --output-on-failure -C ${{matrix.config}} --verbose
+              ctest --output-on-failure -C ${{matrix.config}}
             fi
 
       - name: Perform CodeQL Analysis
