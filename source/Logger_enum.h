@@ -53,7 +53,11 @@ namespace vx::logger {
 
     if constexpr ( magic_enum::detail::supported<D>::value ) {
 
+#if MAGIC_ENUM_VERSION_MAJOR >= 0 && MAGIC_ENUM_VERSION_MINOR >= 8 && MAGIC_ENUM_VERSION_PATCH <= 1
       if ( const auto name = magic_enum::enum_flags_name<D>( _value ); !name.empty() ) {
+#else
+      if ( const auto name = magic_enum::enum_name<D, magic_enum::as_flags<magic_enum::detail::is_flags_v<D>>>( _value ); !name.empty() ) {
+#endif
 
         _logger.stream() << name;
         return _logger.maybeSpace();
@@ -64,7 +68,8 @@ namespace vx::logger {
   }
 
   template <typename E, magic_enum::detail::enable_if_t<E, int> = 0>
-  inline Logger &operator<<( Logger &_logger, magic_enum::optional<E> _value ) noexcept {
+  inline Logger &operator<<( Logger &_logger,
+                             magic_enum::optional<E> _value ) noexcept {
 
     _value ? _logger << *_value : _logger.stream() << "(nullopt)";
     return _logger.maybeSpace();

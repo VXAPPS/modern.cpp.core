@@ -176,3 +176,20 @@ target_link_libraries(${PROJECT_NAME}
 gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
+
+# clang-11 cannot allocate
+if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
+  string(REPLACE "." ";" VERSION_LIST ${CMAKE_CXX_COMPILER_VERSION})
+  list(GET VERSION_LIST 0 CLANG_VERSION_MAJOR)
+  if(CLANG_VERSION_MAJOR EQUAL 11)
+    get_property(ALL_TESTS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
+    set_tests_properties(${ALL_TESTS} PROPERTIES ENVIRONMENT ASAN_OPTIONS=use_sigaltstack=false)
+  endif()
+endif()
+
+# gcc needs LD_PRELOAD of libasan and ignore link order
+if(SANITIZER_ADDRESS AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  get_property(ALL_TESTS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
+  # set_tests_properties(${ALL_TESTS} PROPERTIES ENVIRONMENT LD_PRELOAD=${LIBASAN_PATH})
+  set_tests_properties(${ALL_TESTS} PROPERTIES ENVIRONMENT ASAN_OPTIONS=verify_asan_link_order=0)
+endif()

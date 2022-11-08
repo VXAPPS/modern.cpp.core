@@ -1,224 +1,121 @@
 #
-# Copyright (C) 2018-2022 by George Cave - gcave@stablecoder.ca
+# Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
+# All rights reserved.
 #
-# Licensed under the Apache License, Version 2.0 (the "License"); you may not
-# use this file except in compliance with the License. You may obtain a copy of
-# the License at
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+# 1. Redistributions of source code must retain the above copyright notice, this
+#    list of conditions and the following disclaimer.
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-# License for the specific language governing permissions and limitations under
-# the License.
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
+#    and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its
+#    contributors may be used to endorse or promote products derived from
+#    this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
 
-include(CheckCXXSourceCompiles)
+include(CheckCXXCompilerFlag)
 
-set(USE_SANITIZER
-    ""
-    CACHE
-      STRING
-      "Compile with a sanitizer. Options are: Address, Memory, MemoryWithOrigins, Undefined, Thread, Leak, 'Address;Undefined', CFI"
-)
+if(UNIX)
+  set(CMAKE_REQUIRED_FLAGS -fsanitize=address)
+  check_cxx_compiler_flag(-fsanitize=address HAVE_ASAN)
 
-function(append value)
-  foreach(variable ${ARGN})
-    set(${variable}
-        "${${variable}} ${value}"
-        PARENT_SCOPE)
-  endforeach(variable)
-endfunction()
+  set(CMAKE_REQUIRED_FLAGS "-fsanitize=cfi -flto")
+  check_cxx_compiler_flag(-fsanitize=cfi HAVE_CFI)
 
-function(append_quoteless value)
-  foreach(variable ${ARGN})
-    set(${variable}
-        ${${variable}} ${value}
-        PARENT_SCOPE)
-  endforeach(variable)
-endfunction()
+  set(CMAKE_REQUIRED_FLAGS -fsanitize=fuzzer)
+  check_cxx_compiler_flag(-fsanitize=fuzzer HAVE_FUZZER)
 
-function(test_san_flags return_var flags)
-  set(QUIET_BACKUP ${CMAKE_REQUIRED_QUIET})
-  set(CMAKE_REQUIRED_QUIET TRUE)
-  unset(${return_var} CACHE)
-  set(FLAGS_BACKUP ${CMAKE_REQUIRED_FLAGS})
-  set(CMAKE_REQUIRED_FLAGS "${flags}")
-  check_cxx_source_compiles("int main() { return 0; }" ${return_var})
-  set(CMAKE_REQUIRED_FLAGS "${FLAGS_BACKUP}")
-  set(CMAKE_REQUIRED_QUIET "${QUIET_BACKUP}")
-endfunction()
+  set(CMAKE_REQUIRED_FLAGS -fsanitize=leak)
+  check_cxx_compiler_flag(-fsanitize=leak HAVE_LSAN)
 
-if(USE_SANITIZER)
+  set(CMAKE_REQUIRED_FLAGS -fsanitize=memory)
+  check_cxx_compiler_flag(-fsanitize=memory HAVE_MSAN)
 
-  unset(SANITIZER_SELECTED_FLAGS)
+  set(CMAKE_REQUIRED_FLAGS -fsanitize=thread)
+  check_cxx_compiler_flag(-fsanitize=thread HAVE_TSAN)
 
-  if(UNIX)
+  set(CMAKE_REQUIRED_FLAGS -fsanitize=undefined)
+  check_cxx_compiler_flag(-fsanitize=undefined HAVE_USAN)
+else()
+  set(CMAKE_REQUIRED_FLAGS /fsanitize=address)
+  check_cxx_compiler_flag(/fsanitize=address HAVE_ASAN)
 
-    append("-fno-omit-frame-pointer" CMAKE_C_FLAGS CMAKE_CXX_FLAGS)
+  set(CMAKE_REQUIRED_FLAGS /fsanitize=fuzzer)
+  check_cxx_compiler_flag(/fsanitize=fuzzer HAVE_FUZZER)
+endif()
 
-    if(uppercase_CMAKE_BUILD_TYPE STREQUAL "DEBUG")
-      append("-O1" CMAKE_C_FLAGS CMAKE_CXX_FLAGS)
+if(HAVE_ASAN)
+  option(SANITIZER_ADDRESS "Build with address sanitizer" ON)
+  if(SANITIZER_ADDRESS)
+    if(UNIX)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer -fsanitize-address-use-after-scope -fno-optimize-sibling-calls")
+      # Maybe it could be required, that LD_PRELOAD is defined
+      # if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+      #   execute_process(COMMAND ${CMAKE_CXX_COMPILER} -print-file-name=libasan.so OUTPUT_VARIABLE LIBASAN_PATH OUTPUT_STRIP_TRAILING_WHITESPACE)
+      # endif()
+    # else()
+      # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /fsanitize=address")
     endif()
-
-    if(USE_SANITIZER MATCHES "([Aa]ddress)")
-      # Optional: -fno-optimize-sibling-calls -fsanitize-address-use-after-scope
-      message(STATUS "Testing with Address sanitizer")
-      set(SANITIZER_ADDR_FLAG "-fsanitize=address")
-      test_san_flags(SANITIZER_ADDR_AVAILABLE ${SANITIZER_ADDR_FLAG})
-      if(SANITIZER_ADDR_AVAILABLE)
-        message(STATUS "  Building with Address sanitizer")
-        append("${SANITIZER_ADDR_FLAG}" SANITIZER_SELECTED_FLAGS)
-
-        if(AFL)
-          append_quoteless(AFL_USE_ASAN=1 CMAKE_C_COMPILER_LAUNCHER
-                           CMAKE_CXX_COMPILER_LAUNCHER)
-        endif()
-      else()
-        message(
-          FATAL_ERROR
-            "Address sanitizer not available for ${CMAKE_CXX_COMPILER}")
-      endif()
-    endif()
-
-    if(USE_SANITIZER MATCHES "([Mm]emory([Ww]ith[Oo]rigins)?)")
-      # Optional: -fno-optimize-sibling-calls -fsanitize-memory-track-origins=2
-      set(SANITIZER_MEM_FLAG "-fsanitize=memory")
-      if(USE_SANITIZER MATCHES "([Mm]emory[Ww]ith[Oo]rigins)")
-        message(STATUS "Testing with MemoryWithOrigins sanitizer")
-        append("-fsanitize-memory-track-origins" SANITIZER_MEM_FLAG)
-      else()
-        message(STATUS "Testing with Memory sanitizer")
-      endif()
-      test_san_flags(SANITIZER_MEM_AVAILABLE ${SANITIZER_MEM_FLAG})
-      if(SANITIZER_MEM_AVAILABLE)
-        if(USE_SANITIZER MATCHES "([Mm]emory[Ww]ith[Oo]rigins)")
-          message(STATUS "  Building with MemoryWithOrigins sanitizer")
-        else()
-          message(STATUS "  Building with Memory sanitizer")
-        endif()
-        append("${SANITIZER_MEM_FLAG}" SANITIZER_SELECTED_FLAGS)
-
-        if(AFL)
-          append_quoteless(AFL_USE_MSAN=1 CMAKE_C_COMPILER_LAUNCHER
-                           CMAKE_CXX_COMPILER_LAUNCHER)
-        endif()
-      else()
-        message(
-          FATAL_ERROR
-            "Memory [With Origins] sanitizer not available for ${CMAKE_CXX_COMPILER}"
-        )
-      endif()
-    endif()
-
-    if(USE_SANITIZER MATCHES "([Uu]ndefined)")
-      message(STATUS "Testing with Undefined Behaviour sanitizer")
-      set(SANITIZER_UB_FLAG "-fsanitize=undefined")
-      if(EXISTS "${BLACKLIST_FILE}")
-        append("-fsanitize-blacklist=${BLACKLIST_FILE}" SANITIZER_UB_FLAG)
-      endif()
-      test_san_flags(SANITIZER_UB_AVAILABLE ${SANITIZER_UB_FLAG})
-      if(SANITIZER_UB_AVAILABLE)
-        message(STATUS "  Building with Undefined Behaviour sanitizer")
-        append("${SANITIZER_UB_FLAG}" SANITIZER_SELECTED_FLAGS)
-
-        if(AFL)
-          append_quoteless(AFL_USE_UBSAN=1 CMAKE_C_COMPILER_LAUNCHER
-                           CMAKE_CXX_COMPILER_LAUNCHER)
-        endif()
-      else()
-        message(
-          FATAL_ERROR
-            "Undefined Behaviour sanitizer not available for ${CMAKE_CXX_COMPILER}"
-        )
-      endif()
-    endif()
-
-    if(USE_SANITIZER MATCHES "([Tt]hread)")
-      message(STATUS "Testing with Thread sanitizer")
-      set(SANITIZER_THREAD_FLAG "-fsanitize=thread")
-      test_san_flags(SANITIZER_THREAD_AVAILABLE ${SANITIZER_THREAD_FLAG})
-      if(SANITIZER_THREAD_AVAILABLE)
-        message(STATUS "  Building with Thread sanitizer")
-        append("${SANITIZER_THREAD_FLAG}" SANITIZER_SELECTED_FLAGS)
-
-        if(AFL)
-          append_quoteless(AFL_USE_TSAN=1 CMAKE_C_COMPILER_LAUNCHER
-                           CMAKE_CXX_COMPILER_LAUNCHER)
-        endif()
-      else()
-        message(
-          FATAL_ERROR "Thread sanitizer not available for ${CMAKE_CXX_COMPILER}"
-        )
-      endif()
-    endif()
-
-    if(USE_SANITIZER MATCHES "([Ll]eak)")
-      message(STATUS "Testing with Leak sanitizer")
-      set(SANITIZER_LEAK_FLAG "-fsanitize=leak")
-      test_san_flags(SANITIZER_LEAK_AVAILABLE ${SANITIZER_LEAK_FLAG})
-      if(SANITIZER_LEAK_AVAILABLE)
-        message(STATUS "  Building with Leak sanitizer")
-        append("${SANITIZER_LEAK_FLAG}" SANITIZER_SELECTED_FLAGS)
-
-        if(AFL)
-          append_quoteless(AFL_USE_LSAN=1 CMAKE_C_COMPILER_LAUNCHER
-                           CMAKE_CXX_COMPILER_LAUNCHER)
-        endif()
-      else()
-        message(
-          FATAL_ERROR "Thread sanitizer not available for ${CMAKE_CXX_COMPILER}"
-        )
-      endif()
-    endif()
-
-    if(USE_SANITIZER MATCHES "([Cc][Ff][Ii])")
-      message(STATUS "Testing with Control Flow Integrity(CFI) sanitizer")
-      set(SANITIZER_CFI_FLAG "-fsanitize=cfi")
-      test_san_flags(SANITIZER_CFI_AVAILABLE ${SANITIZER_CFI_FLAG})
-      if(SANITIZER_CFI_AVAILABLE)
-        message(STATUS "  Building with Control Flow Integrity(CFI) sanitizer")
-        append("${SANITIZER_LEAK_FLAG}" SANITIZER_SELECTED_FLAGS)
-
-        if(AFL)
-          append_quoteless(AFL_USE_CFISAN=1 CMAKE_C_COMPILER_LAUNCHER
-                           CMAKE_CXX_COMPILER_LAUNCHER)
-        endif()
-      else()
-        message(
-          FATAL_ERROR
-            "Control Flow Integrity(CFI) sanitizer not available for ${CMAKE_CXX_COMPILER}"
-        )
-      endif()
-    endif()
-
-    message(STATUS "Sanitizer flags: ${SANITIZER_SELECTED_FLAGS}")
-    test_san_flags(SANITIZER_SELECTED_COMPATIBLE ${SANITIZER_SELECTED_FLAGS})
-    if(SANITIZER_SELECTED_COMPATIBLE)
-      message(STATUS " Building with ${SANITIZER_SELECTED_FLAGS}")
-      append("${SANITIZER_SELECTED_FLAGS}" CMAKE_C_FLAGS CMAKE_CXX_FLAGS)
-    else()
-      message(
-        FATAL_ERROR
-          " Sanitizer flags ${SANITIZER_SELECTED_FLAGS} are not compatible.")
-    endif()
-  elseif(MSVC)
-    if(USE_SANITIZER MATCHES "([Aa]ddress)")
-      message(STATUS "Building with Address sanitizer")
-      append("-fsanitize=address" CMAKE_C_FLAGS CMAKE_CXX_FLAGS)
-
-      if(AFL)
-        append_quoteless(AFL_USE_ASAN=1 CMAKE_C_COMPILER_LAUNCHER
-                         CMAKE_CXX_COMPILER_LAUNCHER)
-      endif()
-    else()
-      message(
-        FATAL_ERROR
-          "This sanitizer not yet supported in the MSVC environment: ${USE_SANITIZER}"
-      )
-    endif()
-  else()
-    message(FATAL_ERROR "USE_SANITIZER is not supported on this platform.")
   endif()
+endif()
 
+if(HAVE_CFI)
+  option(SANITIZER_CFI "Build with control flow integration" OFF)
+  if(SANITIZER_CFI)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=cfi")
+  endif()
+endif()
+
+if(HAVE_FUZZER)
+  option(SANITIZER_FUZZER "Build with fuzzer" ON)
+  if(SANITIZER_FUZZER)
+    if(UNIX)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=fuzzer")
+    # else()
+      # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /fsanitize=fuzzer")
+    endif()
+  endif()
+endif()
+
+if(HAVE_LSAN)
+  option(SANITIZER_LEAK "Build with leak sanitizer" OFF)
+  if(SANITIZER_LEAK)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=leak")
+  endif()
+endif()
+
+if(HAVE_MSAN)
+  option(SANITIZER_MEMORY "Build with memory sanitizer" OFF)
+  if(SANITIZER_MEMORY)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory -fsanitize-memory-track-origins -fno-optimize-sibling-calls")
+  endif()
+endif()
+
+if(HAVE_TSAN)
+  option(SANITIZER_THREAD "Build with thread sanitizer" OFF)
+  if(SANITIZER_THREAD)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=thread")
+  endif()
+endif()
+
+if(HAVE_USAN)
+  option(SANITIZER_UNDEFINED "Build with undefined sanitizer" ON)
+  if(SANITIZER_UNDEFINED)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined")
+  endif()
 endif()

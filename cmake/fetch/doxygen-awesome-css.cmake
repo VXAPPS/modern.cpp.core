@@ -28,41 +28,13 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-include(ExternalProject)
+include(FetchContent)
 
-set(GOOGLETEST_SRC ${CMAKE_BINARY_DIR}/_deps/googletest-src)
-set(GOOGLETEST_INSTALL ${CMAKE_BINARY_DIR}/_deps/googletest-install)
-if (UNIX)
-  set(GOOGLETEST_LIBRARY ${GOOGLETEST_INSTALL}/lib/libgtest.a)
-else()
-  set(GOOGLETEST_LIBRARY ${GOOGLETEST_INSTALL}/lib/gtest.lib)
-endif()
-set(GOOGLETEST_INCLUDE_DIR ${GOOGLETEST_INSTALL}/include)
-
-ExternalProject_Add(googletest
-  PREFIX ${GOOGLETEST_SRC}
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG release-1.12.1
+FetchContent_Declare(
+  doxygen-awesome-css
+  GIT_REPOSITORY https://github.com/jothepro/doxygen-awesome-css.git
+  GIT_TAG v2.1.0
   GIT_SHALLOW 1
-  CMAKE_ARGS
-    -DCMAKE_C_COMPILER:FILEPATH=${CMAKE_C_COMPILER}
-    -DCMAKE_CXX_COMPILER:FILEPATH=${CMAKE_CXX_COMPILER}
-    -DCMAKE_OSX_ARCHITECTURES:STRING=${CMAKE_OSX_ARCHITECTURES}
-    -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
-    -DCMAKE_INSTALL_PREFIX:PATH=${GOOGLETEST_INSTALL}
-    -Dgtest_force_shared_crt=ON
-    -DBUILD_GMOCK=OFF
-  INSTALL_DIR ${GOOGLETEST_INSTALL}
-  BUILD_BYPRODUCTS ${GOOGLETEST_LIBRARY}
-  UPDATE_COMMAND ""
 )
 
-# We cannot use find_library because ExternalProject_Add() is performed at build time.
-# And to please the property INTERFACE_INCLUDE_DIRECTORIES,
-# we make the include directory in advance.
-file(MAKE_DIRECTORY ${GOOGLETEST_INCLUDE_DIR})
-
-add_library(GTest::gtest_main STATIC IMPORTED GLOBAL)
-set_property(TARGET GTest::gtest_main PROPERTY IMPORTED_LOCATION ${GOOGLETEST_LIBRARY})
-set_property(TARGET GTest::gtest_main PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${GOOGLETEST_INCLUDE_DIR})
-add_dependencies(GTest::gtest_main googletest)
+FetchContent_MakeAvailable(doxygen-awesome-css)

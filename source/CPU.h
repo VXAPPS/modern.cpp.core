@@ -59,10 +59,10 @@ namespace vx {
      */
     enum class Register {
 
-      EAX, /** EAX register. */
-      EBX, /** EBX register. */
-      ECX, /** ECX register. */
-      EDX  /** EDX register. */
+      EAX, /**< EAX register. */
+      EBX, /**< EBX register. */
+      ECX, /**< ECX register. */
+      EDX  /**< EDX register. */
     };
 
     /**

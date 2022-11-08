@@ -68,7 +68,8 @@ namespace vx {
 
   TEST( Demangle, Enum ) {
 
-#ifndef _WIN32
+    using namespace std::literals;
+
     enum class Color { RED = 2,
                        BLUE = 4,
                        GREEN = 8 };
@@ -77,21 +78,21 @@ namespace vx {
                          BLUE = 4,
                          GREEN = 8 };
 
-    const std::vector<std::string_view> colorTokens { "vx", "Demangle_Enum_Test", "TestBody()", "Color" };
-    const std::vector<std::string_view> colorUnscopedTokens { "vx", "Demangle_Enum_Test", "TestBody()", "ColorUnscoped" };
+    const std::vector colorTokens { "vx"sv, "Demangle_Enum_Test"sv, "TestBody()"sv, "Color"sv };
+    const std::vector colorUnscopedTokens { "vx"sv, "Demangle_Enum_Test"sv, "TestBody()"sv, "ColorUnscoped"sv };
 
     const std::string result = demangle::simple( typeid( Color ).name() );
-    const std::vector<std::string_view> colorTkens = string_utils::tokenize( result, "::" );
+    const std::vector colorTkens = string_utils::tokenize( result, "::" );
     EXPECT_EQ( colorTkens, colorTokens );
 
     const std::string resultColorUnscoped = demangle::simple( typeid( ColorUnscoped ).name() );
-    const std::vector<std::string_view> colorUnscopedTkens = string_utils::tokenize( resultColorUnscoped, "::" );
+    const std::vector colorUnscopedTkens = string_utils::tokenize( resultColorUnscoped, "::" );
     EXPECT_EQ( colorUnscopedTkens, colorUnscopedTokens );
-#endif
   }
 
   TEST( Demangle, SimpleTypes ) {
 
+    EXPECT_EQ( demangle::abi( typeid( std::uint8_t ).name() ), "unsigned char" );
     EXPECT_EQ( demangle::abi( typeid( std::int32_t ).name() ), "int" );
     EXPECT_EQ( demangle::abi( typeid( float ).name() ), "float" );
     EXPECT_EQ( demangle::abi( typeid( double ).name() ), "double" );
@@ -101,6 +102,11 @@ namespace vx {
   TEST( Demangle, ComplexTypes ) {
 
     EXPECT_EQ( demangle::simple( typeid( std::vector<int> ).name() ), "std::vector<int, std::allocator<int>>" );
+    EXPECT_EQ( demangle::simple( typeid( std::set<int> ).name() ), "std::set<int, std::less<int>, std::allocator<int>>" );
+    EXPECT_EQ( demangle::simple( typeid( std::list<int> ).name() ), "std::list<int, std::allocator<int>>" );
+    EXPECT_EQ( demangle::simple( typeid( std::optional<int> ).name() ), "std::optional<int>" );
+    EXPECT_EQ( demangle::simple( typeid( std::vector<std::string> ).name() ), "std::vector<std::string, std::allocator<std::string>>" );
+    EXPECT_EQ( demangle::simple( typeid( std::vector<std::string_view> ).name() ), "std::vector<std::string_view, std::allocator<std::string_view>>" );
   }
 
   TEST( DemangleExtreme, ComplexTypes ) {
@@ -109,6 +115,8 @@ namespace vx {
     EXPECT_EQ( demangle::extreme( typeid( std::set<int> ).name() ), "std::set<int>" );
     EXPECT_EQ( demangle::extreme( typeid( std::list<int> ).name() ), "std::list<int>" );
     EXPECT_EQ( demangle::extreme( typeid( std::optional<int> ).name() ), "std::optional<int>" );
+    EXPECT_EQ( demangle::extreme( typeid( std::vector<std::string> ).name() ), "std::vector<std::string>" );
+    EXPECT_EQ( demangle::extreme( typeid( std::vector<std::string_view> ).name() ), "std::vector<std::string_view>" );
     EXPECT_EQ( demangle::extreme( typeid( std::tuple<int, std::string, std::string_view> ).name() ), "std::tuple<int, std::string, std::string_view>" );
     EXPECT_EQ( demangle::extreme( typeid( std::tuple<int, char, int> ).name() ), "std::tuple<int, char, int>" );
     EXPECT_EQ( demangle::extreme( typeid( std::tuple<int, const char *, const char *> ).name() ), "std::tuple<int, const char *, const char *>" );
