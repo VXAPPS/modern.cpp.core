@@ -71,6 +71,8 @@ std::int32_t main() {
 
   vx::logger::Configuration::instance().setAvoidLogBelow( vx::logger::Severity::Verbose );
 
+  using namespace std::literals;
+
   constexpr std::int32_t aInt = 17;
   constexpr std::int32_t bInt = 12;
   constexpr double magic = 1.123;
@@ -80,25 +82,25 @@ std::int32_t main() {
   logInfo() << "test" << bInt << test << 1U << magic << chr;
   vx::logger::Logger() << "test2" << aInt;
 
-  const std::vector<std::string> vec { "abc", "def", "ghj" };
+  const std::vector vec { "abc"s, "def"s, "ghj"s };
   logVerbose() << vec;
 
   const std::string *str = nullptr;
   logDebug() << str << false << true << nullptr << 'a';
 
-  const auto blub = std::make_unique<std::string>( "blub2" );
+  const auto blub = std::make_unique<std::string>( "blub2"s );
   logInfo() << "Pointer:" << blub.get();
 
-  const std::list<std::string> list { "abc", "def", "ghj" };
+  const std::list list { "abc"s, "def"s, "ghj"s };
   logWarning() << list;
 
-  const std::map<std::int32_t, std::string> map { { 3, "abc" }, { 1, "def" }, { 2, "ghj" } };
+  const std::map<std::int32_t, std::string> map { { 3, "abc"s }, { 1, "def"s }, { 2, "ghj"s } };
   logError() << map;
 
-  const std::unordered_map<std::int32_t, std::string_view> umap { { 3, "abc" }, { 1, "def" }, { 2, "ghj" } };
+  const std::unordered_map<std::int32_t, std::string_view> umap { { 3, "abc"sv }, { 1, "def"sv }, { 2, "ghj"sv } };
   logFatal() << umap;
 
-  const std::tuple<std::int32_t, std::string, std::string_view> tuple { 1, "abc", "def" };
+  const std::tuple tuple { 1, "abc"s, "def"sv };
   logInfo() << tuple;
 
   const std::tuple tuple2 { 1, "abc", "def" };
@@ -112,7 +114,6 @@ std::int32_t main() {
   const std::any helo = std::make_any<std::string>( "hello" );
   logDebug() << blubAny << helo << std::make_any<std::vector<int>>( { 1, 2, 3, 4 } );
 
-  using namespace std::literals;
   const std::unordered_map<std::int32_t, std::string_view> testsv { { 2, "ghj"sv }, { 1, "def"sv }, { 3, "abc"sv } };
   (void)testsv;
 
@@ -131,7 +132,7 @@ std::int32_t main() {
   constexpr double magicArr3 = 1.25;
   constexpr double magicArr4 = 1.26;
 
-  const std::array<double, 4> arr { magicArr1, magicArr2, magicArr3, magicArr4 };
+  const std::array arr { magicArr1, magicArr2, magicArr3, magicArr4 };
   logFatal() << arr;
 
   const std::variant<std::int32_t, double> variant { magicArr3 };
@@ -168,7 +169,7 @@ std::int32_t main() {
 
   logInfo().stream() << std::format( "int: {0:d}; hex: {0:#x}; oct: {0:#o}; bin: {0:#b}", theAnswerOfEverything );
 
-  const std::optional<std::string> opti = "myOptional";
+  const std::optional opti = "myOptional"s;
   const std::optional<std::string> optiNull = std::nullopt;
   logInfo() << opti << optiNull << std::make_optional<std::vector<char>>( { 'a', 'b', 'c' } );
 

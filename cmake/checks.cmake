@@ -37,7 +37,8 @@ if(HAVE_FORMAT_INCLUDE)
     "#include <cstdint>
     #include <format>
     #include <string>
-    std::int32_t main() { std::string nodiscard = std::format( \"The answer is {}.\", 42 ); (void)nodiscard; return 0; }"
+    #include <tuple>
+    std::int32_t main() { std::ignore = std::format( \"The answer is {}.\", 42 ); return 0; }"
     HAVE_FORMAT
   )
 endif()
@@ -47,7 +48,8 @@ if(HAVE_THREAD_INCLUDE)
   check_cxx_source_compiles(
     "#include <cstdint>
     #include <thread>
-    std::int32_t main() { std::uint32_t nodiscard = std::jthread::hardware_concurrency(); (void)nodiscard; return 0; }"
+    #include <tuple>
+    std::int32_t main() { std::ignore = std::jthread::hardware_concurrency(); return 0; }"
     HAVE_JTHREAD
   )
 endif()
@@ -69,7 +71,8 @@ if(HAVE_SOURCE_LOCATION_INCLUDE)
   check_cxx_source_compiles(
     "#include <cstdint>
     #include <source_location>
-    std::int32_t main() { const std::source_location location = std::source_location::current(); (void)location; return 0; }"
+    #include <tuple>
+    std::int32_t main() { std::ignore = std::source_location::current(); return 0; }"
     HAVE_SOURCE_LOCATION
   )
 endif()
@@ -79,7 +82,7 @@ if(HAVE_SPAN_INCLUDE)
   check_cxx_source_compiles(
     "#include <cstdint>
     #include <span>
-    std::int32_t main(std::int32_t argc, char **argv) { std::span args( argv, static_cast<std::size_t>( argc ) ); (void)args; return 0; }"
+    std::int32_t main( std::int32_t argc, char **argv ) { std::span args( argv, static_cast<std::size_t>( argc ) ); (void)args; return 0; }"
     HAVE_SPAN
   )
 endif()
