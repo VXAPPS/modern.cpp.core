@@ -187,8 +187,9 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
   endif()
 endif()
 
-# gcc needs LD_PRELOAD of libasan
+# gcc needs LD_PRELOAD of libasan and ignore link order
 if(SANITIZER_ADDRESS AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   get_property(ALL_TESTS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
   set_tests_properties(${ALL_TESTS} PROPERTIES ENVIRONMENT LD_PRELOAD=${LIBASAN_PATH})
+  set_tests_properties(${ALL_TESTS} PROPERTIES ENVIRONMENT ASAN_OPTIONS=verify_asan_link_order=0)
 endif()
