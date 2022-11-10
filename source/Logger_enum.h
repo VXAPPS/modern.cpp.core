@@ -40,7 +40,7 @@
 #include "Logger.h"
 
 /**
- * @brief vx (VX APPS) namespace.
+ * @brief vx (VX APPS) logger namespace.
  */
 namespace vx::logger {
 

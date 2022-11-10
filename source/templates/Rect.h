@@ -114,12 +114,28 @@ namespace vx {
 
     [[nodiscard]] constexpr T bottom() const noexcept { return m_y2; }
 
+    /**
+     * @brief Return x coordinate of point.
+     * @return The x coordinate of point.
+     */
     [[nodiscard]] constexpr T x() const noexcept { return m_x1; }
 
+    /**
+     * @brief Return y coordinate of point.
+     * @return The y coordinate of point.
+     */
     [[nodiscard]] constexpr T y() const noexcept { return m_y1; }
 
+    /**
+     * @brief Return width.
+     * @return The width.
+     */
     [[nodiscard]] constexpr T width() const noexcept { return m_x2 - m_x1 + 1; }
 
+    /**
+     * @brief Return height.
+     * @return The height.
+     */
     [[nodiscard]] constexpr T height() const noexcept { return m_y2 - m_y1 + 1; }
 
     inline void setLeft( T _pos ) noexcept { m_x1 = _pos; }
@@ -130,8 +146,16 @@ namespace vx {
 
     inline void setBottom( T _pos ) noexcept { m_y2 = _pos; }
 
+    /**
+     * @brief Set width.
+     * @param _width   The new width.
+     */
     inline void setWidth( T _width ) noexcept { m_x2 = m_x1 + _width - 1; }
 
+    /**
+     * @brief Set height.
+     * @param _height   The new height.
+     */
     inline void setHeight( T _height ) noexcept { m_y2 = m_y2 + _height - 1; }
 
     [[nodiscard]] constexpr Rect<T> operator|( Rect<T> _rectangle ) const noexcept;
@@ -151,6 +175,11 @@ namespace vx {
 
     [[nodiscard]] static constexpr bool compareHeight( Rect<T> _rect1, Rect<T> _rect2 ) noexcept { return floating_point::less( _rect1.height(), _rect2.height() ); }
 
+    /**
+     * @brief Equal operator.
+     * @param _rect   Rect to compare with.
+     * @return True, if the compared rect is equal current rect - otherwise false.
+     */
     [[nodiscard]] constexpr bool operator==( Rect<T> _rect ) const noexcept { return floating_point::equal( m_x1, _rect.m_x1 ) && floating_point::equal( m_y1, _rect.m_y1 ) && floating_point::equal( m_x2, _rect.m_x2 ) && floating_point::equal( m_y2, _rect.m_y2 ); }
 
   private:

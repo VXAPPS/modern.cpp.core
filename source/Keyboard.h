@@ -31,7 +31,7 @@
 #pragma once
 
 /**
- * @brief vx (VX APPS) namespace.
+ * @brief vx (VX APPS) keyboard namespace.
  */
 namespace vx::keyboard {
 

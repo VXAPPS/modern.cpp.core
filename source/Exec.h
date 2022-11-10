@@ -37,7 +37,7 @@
 #include <string>
 
 /**
- * @brief vx (VX APPS) namespace.
+ * @brief vx (VX APPS) exec namespace.
  */
 namespace vx::exec {
 

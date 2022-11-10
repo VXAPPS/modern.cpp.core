@@ -31,7 +31,7 @@
 #pragma once
 
 /* c header */
-#include <cmath> // std::sqrt
+#include <cmath>   // std::sqrt
 #include <cstdint> // std::int32_t
 
 /* stl header */
@@ -85,7 +85,7 @@ namespace vx {
         m_point2( Point<T>( _x2, _y2 ) ) {}
 
     /**
-     * @brief Is this line empty?
+     * @brief Is this line null?
      * @return True, this line has identical points - otherwise false.
      */
     [[nodiscard]] constexpr bool null() const noexcept { return m_point1 == m_point2; }

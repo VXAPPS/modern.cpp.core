@@ -55,7 +55,7 @@
 #include "Logger_container.h"
 
 /**
- * @brief vx (VX APPS) namespace.
+ * @brief vx (VX APPS) logger namespace.
  */
 namespace vx::logger {
 

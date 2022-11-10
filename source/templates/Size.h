@@ -69,18 +69,47 @@ namespace vx {
       : m_width( _width ),
         m_height( _height ) {}
 
+    /**
+     * @brief Is this size null?
+     * @return True, width and height is null - otherwise false.
+     */
     [[nodiscard]] constexpr bool null() const noexcept { return floating_point::equal( m_width, static_cast<T>( 0 ) ) && floating_point::equal( m_height, static_cast<T>( 0 ) ); }
 
+    /**
+     * @brief Is this size empty?
+     * @return True, width and height is one - otherwise false.
+     */
     [[nodiscard]] constexpr bool empty() const noexcept { return floating_point::less( m_width, static_cast<T>( 1 ) ) || floating_point::less( m_height, static_cast<T>( 1 ) ); }
 
+    /**
+     * @brief Return width.
+     * @return The width.
+     */
     [[nodiscard]] constexpr T width() const noexcept { return m_width; }
 
+    /**
+     * @brief Return height.
+     * @return The height.
+     */
     [[nodiscard]] constexpr T height() const noexcept { return m_height; }
 
+    /**
+     * @brief Set width.
+     * @param _width   The new width.
+     */
     inline void setWidth( T _width ) noexcept { m_width = _width; }
 
+    /**
+     * @brief Set height.
+     * @param _height   The new height.
+     */
     inline void setHeight( T _height ) noexcept { m_height = _height; }
 
+    /**
+     * @brief Adding size.
+     * @param _size   Size to add.
+     * @return The calculated new size.
+     */
     constexpr Size<T> &operator+=( Size<T> _size ) noexcept {
 
       m_width += _size.m_width;
@@ -88,6 +117,11 @@ namespace vx {
       return *this;
     }
 
+    /**
+     * @brief Substract size.
+     * @param _size   Size to subtract.
+     * @return The calculated new size.
+     */
     constexpr Size<T> &operator-=( Size<T> _size ) noexcept {
 
       m_width -= _size.m_width;
@@ -95,6 +129,11 @@ namespace vx {
       return *this;
     }
 
+    /**
+     * @brief Equal operator.
+     * @param _size   Size to compare with.
+     * @return True, if the compared size is equal current size - otherwise false.
+     */
     [[nodiscard]] constexpr bool operator==( Size<T> _size ) const noexcept { return floating_point::equal( m_width, _size.m_width ) && floating_point::equal( m_height, _size.m_height ); }
 
   private:

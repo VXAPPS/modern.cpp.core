@@ -44,6 +44,8 @@ endif()
 
 add_library(${PROJECT_NAME}
   ../.github/workflows/integrate.yml
+  ../docs/footer.html
+  ../docs/header.html
   ../README.md
   CPU.cpp
   CPU.h

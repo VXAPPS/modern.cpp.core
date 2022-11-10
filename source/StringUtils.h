@@ -35,7 +35,7 @@
 #include <vector>
 
 /**
- * @brief vx (VX APPS) namespace.
+ * @brief vx (VX APPS) string_utils namespace.
  */
 namespace vx::string_utils {
 

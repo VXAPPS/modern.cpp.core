@@ -39,7 +39,7 @@
 #include <utility>
 
 /**
- * @brief vx (VX APPS) namespace.
+ * @brief vx (VX APPS) floating_point namespace.
  */
 namespace vx::floating_point {
 

@@ -48,7 +48,7 @@
 #include "Singleton.h"
 
 /**
- * @brief vx (VX APPS) namespace.
+ * @brief vx (VX APPS) logger namespace.
  */
 namespace vx::logger {
 
@@ -153,8 +153,16 @@ namespace vx::logger {
 
     Logger &logger() noexcept { return *this; }
 
+    /**
+     * @brief Print char.
+     * @param _input   Char.
+     */
     void printChar( std::int8_t _input ) noexcept;
 
+    /**
+     * @brief Print string.
+     * @param _input   String.
+     */
     void printString( std::string_view _input ) noexcept;
 
     [[nodiscard]] inline bool autoSpace() const noexcept { return m_autoSpace; }

@@ -34,7 +34,7 @@
 #include <string>
 
 /**
- * @brief vx (VX APPS) namespace.
+ * @brief vx (VX APPS) timestamp namespace.
  */
 namespace vx::timestamp {
 
