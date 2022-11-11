@@ -86,6 +86,10 @@ namespace vx::logger {
     Filename  /**< Only the filename. */
   };
 
+  /**
+   * @brief Logger configuration.
+   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
+   */
   class Configuration : public Singleton<Configuration> {
 
   public:
@@ -113,6 +117,10 @@ namespace vx::logger {
     std::string m_filename {};
   };
 
+  /**
+   * @brief Logger class.
+   * @author Florian Becker <fb\@vxapps.com> (VX APPS)
+   */
   class Logger {
 
   public:
@@ -196,18 +204,33 @@ namespace vx::logger {
 
     inline std::ostream &stream() { return m_stream; }
 
+    /**
+     * @brief Logger operator << for bool.
+     * @param _input   Input bool.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( bool _input ) noexcept {
 
       m_stream << ( _input ? "true" : "false" );
       return maybeSpace();
     }
 
+    /**
+     * @brief Logger operator << for std::int8_t.
+     * @param _input   Input std::int8_t.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( std::int8_t _input ) noexcept {
 
       printChar( _input );
       return maybeSpace();
     }
 
+    /**
+     * @brief Logger operator << for std::int32_t.
+     * @param _input   Input std::int32_t.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( std::int32_t _input ) noexcept {
 
       m_stream << _input;
@@ -215,6 +238,11 @@ namespace vx::logger {
     }
 
 #if !defined _MSC_VER || defined _MSC_VER && _MSC_VER >= 1920
+    /**
+     * @brief Logger operator << for std::uint32_t.
+     * @param _input   Input std::uint32_t.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( std::uint32_t _input ) noexcept {
 
       m_stream << _input;
@@ -222,6 +250,11 @@ namespace vx::logger {
     }
 #endif
 
+    /**
+     * @brief Logger operator << for std::size_t.
+     * @param _input   Input std::size_t.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( std::size_t _input ) noexcept {
 
       m_stream << _input;
@@ -229,12 +262,22 @@ namespace vx::logger {
     }
 
 #ifdef __APPLE__
+    /**
+     * @brief Logger operator << for std::int64_t.
+     * @param _input   Input std::int64_t.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( std::int64_t _input ) noexcept {
 
       m_stream << _input;
       return maybeSpace();
     }
 
+    /**
+     * @brief Logger operator << for std::uint64_t.
+     * @param _input   Input std::uint64_t.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( std::uint64_t _input ) noexcept {
 
       m_stream << _input;
@@ -242,6 +285,11 @@ namespace vx::logger {
     }
 #endif
 
+    /**
+     * @brief Logger operator << for float.
+     * @param _input   Input float.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( float _input ) noexcept {
 
       const std::streamsize saveState = m_stream.precision();
@@ -251,6 +299,11 @@ namespace vx::logger {
       return maybeSpace();
     }
 
+    /**
+     * @brief Logger operator << for double.
+     * @param _input   Input double.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( double _input ) noexcept {
 
       const std::streamsize saveState = m_stream.precision();
@@ -260,12 +313,22 @@ namespace vx::logger {
       return maybeSpace();
     }
 
+    /**
+     * @brief Logger operator << for const char *.
+     * @param _input   Input const char *.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( const char *_input ) noexcept {
 
       printString( _input );
       return maybeSpace();
     }
 
+    /**
+     * @brief Logger operator << for std::string_view.
+     * @param _input   Input std::string_view.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( std::string_view _input ) noexcept {
 
       printString( _input );
@@ -273,6 +336,11 @@ namespace vx::logger {
       return maybeSpace();
     }
 
+    /**
+     * @brief Logger operator << for std::string.
+     * @param _input   Input std::string.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( const std::string &_input ) noexcept {
 
       printString( _input );
@@ -300,20 +368,40 @@ namespace vx::logger {
       return maybeSpace();
     }
 
+    /**
+     * @brief Logger operator << for std::time_t.
+     * @param _input   Input std::time_t.
+     * @return Logger with output.
+     */
     Logger &operator<<( std::time_t _input ) noexcept;
 
+    /**
+     * @brief Logger operator << for void *.
+     * @param _input   Input void *.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( const void *_input ) noexcept { // NOSONAR redundant is needed.
 
       _input == nullptr ? m_stream << "(nullptr)" : m_stream << '(' << _input << ')';
       return maybeSpace();
     }
 
+    /**
+     * @brief Logger operator << for std::nullptr_t.
+     * @param _input   Input std::nullptr_t.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( [[maybe_unused]] std::nullptr_t _input ) noexcept {
 
       m_stream << "(nullptr_t)";
       return maybeSpace();
     }
 
+    /**
+     * @brief Logger operator << for std::nullopt_t.
+     * @param _input   Input std::nullopt_t.
+     * @return Logger with output.
+     */
     inline Logger &operator<<( [[maybe_unused]] std::nullopt_t _input ) noexcept {
 
       m_stream << "(nullopt_t)";

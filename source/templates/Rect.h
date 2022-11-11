@@ -100,18 +100,46 @@ namespace vx {
         m_x2( _point.x() + _size.width() - 1 ),
         m_y2( _point.y() + _size.height() - 1 ) {}
 
+    /**
+     * @brief Check if the rect is null.
+     * @return True, if the rect is null - otherwise false.
+     */
     [[nodiscard]] constexpr bool null() const noexcept { return floating_point::equal( m_x2, m_x1 - 1 ) && floating_point::equal( m_y2, m_y1 - 1 ); }
 
+    /**
+     * @brief Check if the rect is empty.
+     * @return True, if the rect is empty - otherwise false.
+     */
     [[nodiscard]] constexpr bool empty() const noexcept { return floating_point::greater( m_x1, m_x2 ) || floating_point::greater( m_y1, m_y2 ); }
 
+    /**
+     * @brief Check if the rect is valid.
+     * @return True, if the rect is valid - otherwise false.
+     */
     [[nodiscard]] constexpr bool valid() const noexcept { return floating_point::less( m_x1, m_x2, true ) && floating_point::less( m_y1, m_y2, true ); }
 
+    /**
+     * @brief Return left coordinate.
+     * @return The left coordinate.
+     */
     [[nodiscard]] constexpr T left() const noexcept { return m_x1; }
 
+    /**
+     * @brief Return top coordinate.
+     * @return The bottom coordinate.
+     */
     [[nodiscard]] constexpr T top() const noexcept { return m_y1; }
 
+    /**
+     * @brief Return right coordinate.
+     * @return The right coordinate.
+     */
     [[nodiscard]] constexpr T right() const noexcept { return m_x2; }
 
+    /**
+     * @brief Return bottom coordinate.
+     * @return The bottom coordinate.
+     */
     [[nodiscard]] constexpr T bottom() const noexcept { return m_y2; }
 
     /**
@@ -138,13 +166,29 @@ namespace vx {
      */
     [[nodiscard]] constexpr T height() const noexcept { return m_y2 - m_y1 + 1; }
 
-    inline void setLeft( T _pos ) noexcept { m_x1 = _pos; }
+    /**
+     * @brief Set left.
+     * @param _left   The new left.
+     */
+    inline void setLeft( T _left ) noexcept { m_x1 = _left; }
 
-    inline void setTop( T _pos ) noexcept { m_y1 = _pos; }
+    /**
+     * @brief Set top.
+     * @param _top   The new top.
+     */
+    inline void setTop( T _top ) noexcept { m_y1 = _top; }
 
-    inline void setRight( T _pos ) noexcept { m_x2 = _pos; }
+    /**
+     * @brief Set right.
+     * @param _right   The new right.
+     */
+    inline void setRight( T _right ) noexcept { m_x2 = _right; }
 
-    inline void setBottom( T _pos ) noexcept { m_y2 = _pos; }
+    /**
+     * @brief Set bottom.
+     * @param _bottom   The new bottom.
+     */
+    inline void setBottom( T _bottom ) noexcept { m_y2 = _bottom; }
 
     /**
      * @brief Set width.
@@ -158,22 +202,61 @@ namespace vx {
      */
     inline void setHeight( T _height ) noexcept { m_y2 = m_y2 + _height - 1; }
 
+    /**
+     * @brief Unite current rect with rect.
+     * @param _rectangle   The rectangle to unite with current rect.
+     * @return The united new rect.
+     */
     [[nodiscard]] constexpr Rect<T> operator|( Rect<T> _rectangle ) const noexcept;
+
+    /**
+     * @brief Intersect current rect with rect.
+     * @param _rectangle   The rectangle to intersect with current rect.
+     * @return The interesected new rest.
+     */
     [[nodiscard]] constexpr Rect<T> operator&( Rect<T> _rectangle ) const noexcept;
+
+    /**
+     * @brief Unite current rect with rect.
+     * @param _rectangle   The rectangle to unite with current rect.
+     * @return The united new rect.
+     */
     [[nodiscard]] constexpr Rect<T> &operator|=( Rect<T> _rectangle ) noexcept;
+
+    /**
+     * @brief Intersect current rect with rect.
+     * @param _rectangle   The rectangle to intersect with current rect.
+     * @return The interesected new rest.
+     */
     [[nodiscard]] constexpr Rect<T> &operator&=( Rect<T> _rectangle ) noexcept;
 
+    /**
+     * @brief Current rect contains rect.
+     * @param _rectangle   Rectangle which is contained by current rect.
+     * @return True, if current rect contains rect - otherwise false.
+     */
     [[nodiscard]] bool contains( Rect<T> _rectangle ) const noexcept;
 
+    /**
+     * @brief Intersect current rect with rect.
+     * @param _rectangle   The rectangle to intersect with current rect.
+     * @return The interesected new rest.
+     */
     [[nodiscard]] constexpr Rect<T> intersected( Rect<T> _rectangle ) const noexcept { return *this & _rectangle; }
 
+    /**
+     * @brief Current rect intersects rect.
+     * @param _rectangle   Rectangle which is intersected by current rect.
+     * @return True, if current rect intersects rect - otherwise false.
+     */
     [[nodiscard]] bool intersects( Rect<T> _rectangle ) const noexcept;
 
+    /**
+     * @brief Unite current rect with rect.
+     * @param _rectangle   The rectangle to unite with current rect.
+     * @return The united new rect.
+     */
     [[nodiscard]] constexpr Rect<T> united( Rect<T> _rectangle ) const noexcept { return *this | _rectangle; }
-
-    [[nodiscard]] static constexpr bool compareWidth( Rect<T> _rect1, Rect<T> _rect2 ) noexcept { return floating_point::less( _rect1.width(), _rect2.width() ); }
-
-    [[nodiscard]] static constexpr bool compareHeight( Rect<T> _rect1, Rect<T> _rect2 ) noexcept { return floating_point::less( _rect1.height(), _rect2.height() ); }
 
     /**
      * @brief Equal operator.
@@ -211,15 +294,45 @@ namespace vx {
   template <typename T>
   Rect( T ) -> Rect<T>;
 
+  /**
+   * @brief Current rect contains rect.
+   * @param _rectangle   Rectangle which is contained by current rect.
+   * @return True, if current rect contains rect - otherwise false.
+   */
   extern template bool Rect<int>::contains( Rect<int> _rectangle ) const noexcept;
 
+  /**
+   * @brief Current rect contains rect.
+   * @param _rectangle   Rectangle which is contained by current rect.
+   * @return True, if current rect contains rect - otherwise false.
+   */
   extern template bool Rect<float>::contains( Rect<float> _rectangle ) const noexcept;
 
+  /**
+   * @brief Current rect contains rect.
+   * @param _rectangle   Rectangle which is contained by current rect.
+   * @return True, if current rect contains rect - otherwise false.
+   */
   extern template bool Rect<double>::contains( Rect<double> _rectangle ) const noexcept;
 
+  /**
+   * @brief Current rect intersects rect.
+   * @param _rectangle   Rectangle which is intersected by current rect.
+   * @return True, if current rect intersects rect - otherwise false.
+   */
   extern template bool Rect<int>::intersects( Rect<int> _rectangle ) const noexcept;
 
+  /**
+   * @brief Current rect intersects rect.
+   * @param _rectangle   Rectangle which is intersected by current rect.
+   * @return True, if current rect intersects rect - otherwise false.
+   */
   extern template bool Rect<float>::intersects( Rect<float> _rectangle ) const noexcept;
 
+  /**
+   * @brief Current rect intersects rect.
+   * @param _rectangle   Rectangle which is intersected by current rect.
+   * @return True, if current rect intersects rect - otherwise false.
+   */
   extern template bool Rect<double>::intersects( Rect<double> _rectangle ) const noexcept;
 }

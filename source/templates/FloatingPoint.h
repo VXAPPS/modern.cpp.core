@@ -149,10 +149,10 @@ namespace vx::floating_point {
     return greater( _value, _min, _orEqual, _equal ) && less( _value, _max, _orEqual, _equal );
   }
 
-  /** Base for default precision factor. */
+  /** @brief Base for default precision factor. */
   constexpr double precisionBase = 10;
 
-  /** Base for rounding. */
+  /** @brief Base for rounding. */
   constexpr double roundBase = 0.5;
 
   /**

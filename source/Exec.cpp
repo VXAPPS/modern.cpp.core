@@ -39,9 +39,10 @@
 
 namespace vx::exec {
 
+  /** @brief Global result of executable. */
   static std::int32_t m_resultCode = 0; // NOSONAR const is not possible here.
 
-  /** Buffer size to read stdout. */
+  /** @brief Buffer size to read stdout. */
   constexpr std::int32_t bufferSize = 128;
 
   void close( std::FILE *_file ) noexcept {

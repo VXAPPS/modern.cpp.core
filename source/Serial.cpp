@@ -49,10 +49,10 @@
 
 namespace vx {
 
-  /** Flush duration in milliseconds */
+  /** @brief Flush duration in milliseconds */
   constexpr std::int32_t flushDurationMs = 150;
 
-  /** Buffer size to read std out */
+  /** @brief Buffer size to read std out */
   constexpr std::int32_t bufferSize = 1024;
 
   Serial::Serial( const std::string &_path,
@@ -120,6 +120,10 @@ namespace vx {
     }
   }
 
+  /**
+   * @brief Return timestamp in milliseconds.
+   * @return Timestamp in milliseconds.
+   */
   static std::chrono::milliseconds timestampMs() noexcept {
 
     return std::chrono::duration_cast<std::chrono::milliseconds>( std::chrono::steady_clock::now().time_since_epoch() );

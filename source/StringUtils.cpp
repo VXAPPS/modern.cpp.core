@@ -51,6 +51,7 @@ namespace std {
 
 namespace vx::string_utils {
 
+  /** @brief Pre definition of to be trimmed characters. */
   constexpr std::string_view trimmed = " \t\n\r\f\v";
 
   std::string &trimRight( std::string &_string,
@@ -101,8 +102,14 @@ namespace vx::string_utils {
     return false;
   }
 
-  constexpr bool bothAreSpaces( char _lhs,
-                                char _rhs ) noexcept { return _lhs == _rhs && _lhs == ' '; }
+  /**
+   * @brief Check if left and right is space.
+   * @param _left   Left character to check.
+   * @param _right   Right character to check.
+   * @return True, if left and right is a space - otherwise false.
+   */
+  constexpr bool bothAreSpaces( char _left,
+                                char _right ) noexcept { return _left == _right && _left == ' '; }
 
   std::string &simplified( std::string &_string ) noexcept {
 

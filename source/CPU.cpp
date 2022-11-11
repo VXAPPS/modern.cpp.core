@@ -41,10 +41,10 @@
 
 namespace vx {
 
-  /** Leaf of extended information. */
+  /** @brief Leaf of extended information. */
   constexpr std::uint32_t extendedLeaf = 7;
 
-  /** Leaf of SGX information. */
+  /** @brief Leaf of SGX information. */
   constexpr std::uint32_t sgxLeaf = 18; // 0x12
 
   CPU::CPU( std::uint32_t _leaf,

@@ -230,11 +230,11 @@ namespace vx {
     return !( t2 < t1 || b2 > b1 );
   }
 
-  template bool Rect<int>::contains( Rect<int> _rectangle ) const noexcept;
+  template bool Rect<int>::contains( Rect<int> ) const noexcept;
 
-  template bool Rect<float>::contains( Rect<float> _rectangle ) const noexcept;
+  template bool Rect<float>::contains( Rect<float> ) const noexcept;
 
-  template bool Rect<double>::contains( Rect<double> _rectangle ) const noexcept;
+  template bool Rect<double>::contains( Rect<double> ) const noexcept;
 
   template <typename T>
   bool Rect<T>::intersects( Rect<T> _rectangle ) const noexcept {
@@ -296,9 +296,9 @@ namespace vx {
     return !( t1 > b2 || t2 > b1 );
   }
 
-  template bool Rect<int>::intersects( Rect<int> _rectangle ) const noexcept;
+  template bool Rect<int>::intersects( Rect<int> ) const noexcept;
 
-  template bool Rect<float>::intersects( Rect<float> _rectangle ) const noexcept;
+  template bool Rect<float>::intersects( Rect<float> ) const noexcept;
 
-  template bool Rect<double>::intersects( Rect<double> _rectangle ) const noexcept;
+  template bool Rect<double>::intersects( Rect<double> ) const noexcept;
 }

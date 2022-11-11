@@ -45,8 +45,8 @@ namespace vx {
 
   public:
     /**
-     * @brief @~english C++11 Singleton thread-safe. @~german C++11 Singleton thread-safe.
-     * @return @~english Singleton of T. @~german Einzige Instanz von T.
+     * @brief C++11 Singleton thread-safe.
+     * @return Singleton of T.
      */
     static T &instance() noexcept {
 
@@ -62,35 +62,35 @@ namespace vx {
     }
 
     /**
-     * @brief @~english Delete copy constructor. @~german Entfernt den kopierenden Konstruktor.
+     * @brief Delete copy constructor.
      */
     Singleton( const Singleton & ) = delete;
 
     /**
-     * @brief @~english Delete move constructor. @~german Entfernt den verschobenen Konstruktor.
+     * @brief Delete move constructor.
      */
     Singleton( Singleton && ) = delete;
 
     /**
-     * @brief @~english Delete copy assign. @~german Entfernt die kopierte Zuweisung.
-     * @return @~english Nothing. @~german Keine Rückgabe.
+     * @brief Delete copy assign.
+     * @return Nothing.
      */
     Singleton &operator=( const Singleton & ) = delete;
 
     /**
-     * @brief @~english Delete move assign. @~german Entfernt die verschobene Zuweisung.
-     * @return @~english Nothing. @~german Keine Rückgabe.
+     * @brief Delete move assign.
+     * @return Nothing.
      */
     Singleton &operator=( Singleton && ) = delete;
 
   protected:
     /**
-     * @brief @~english Default constructor for Singleton. @~german Standardkonstruktur für Singleton.
+     * @brief Default constructor for Singleton.
      */
     Singleton() = default;
 
     /**
-     * @brief @~english Default destructor for Singleton. @~german Standarddestruktor für Singleton.
+     * @brief Default destructor for Singleton.
      */
     ~Singleton() = default;
   };

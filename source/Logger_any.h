@@ -59,6 +59,11 @@
  */
 namespace vx::logger {
 
+  /**
+   * @brief Add visitor.
+   * @param _function   Visitor function.
+   * @return Pair of type and possible visitor.
+   */
   template <typename T, typename Function>
   inline std::pair<const std::type_index, std::function<void( Logger &, const std::any & )>> add( const Function &_function ) noexcept {
 
@@ -77,6 +82,9 @@ namespace vx::logger {
   #pragma clang diagnostic ignored "-Wexit-time-destructors"
   #pragma clang diagnostic ignored "-Wglobal-constructors"
 #endif
+  /**
+   * @brief Map of possible visitors for std::any.
+   */
   const std::unordered_map<std::type_index, std::function<void( Logger &_logger, const std::any & )>> visitors {
 
     add<bool>( []( Logger &_logger, bool _input ) noexcept { _logger << _input; } ),
@@ -125,6 +133,11 @@ namespace vx::logger {
   #pragma clang diagnostic pop
 #endif
 
+  /**
+   * @brief Visit possible visitors.
+   * @param _logger   Logger for a visitor.
+   * @param _any   Type of std::any.
+   */
   inline void visit( Logger &_logger,
                      const std::any &_any ) noexcept {
 
@@ -138,12 +151,22 @@ namespace vx::logger {
     }
   }
 
+  /**
+   * @brief Register new visitor.
+   * @param _function   Visitor function.
+   */
   template <typename T, typename Function>
   inline void registerVisitor( const Function &_function ) noexcept {
 
     visitors.insert( add<T>( _function ) );
   }
 
+  /**
+   * @brief Logger operator << for std::any.
+   * @param _logger   Logger.
+   * @param _input   Input std::any.
+   * @return Logger with output.
+   */
   inline Logger &operator<<( Logger &_logger,
                              const std::any &_input ) noexcept {
 

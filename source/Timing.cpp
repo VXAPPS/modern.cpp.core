@@ -46,7 +46,7 @@ namespace vx {
 
   using timestamp::Precision;
 
-  /** Multiplier from nanoseconds to milliseconds to seconds and vice versa. */
+  /** @brief Multiplier from nanoseconds to milliseconds to seconds and vice versa. */
   constexpr double multiplier = 1000.0;
 
 #ifdef _WIN32_REVIEW

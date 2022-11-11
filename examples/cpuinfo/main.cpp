@@ -37,10 +37,10 @@
 /* modern.cpp.core */
 #include <CPU.h>
 
-/** SGX information leaf. */
+/** @brief SGX information leaf. */
 constexpr std::uint32_t sgxLeaf = 12;
 
-/** Maximum subleafs to read out. */
+/** @brief Maximum subleafs to read out. */
 constexpr std::uint32_t maximumSubLeafs = 10;
 
 std::int32_t main() {
