@@ -42,7 +42,7 @@
 namespace std {
 
 #if !__has_cpp_attribute( __cpp_lib_is_scoped_enum )
-  namespace detail::impl {
+  namespace detail {
 
     template <typename T>
     [[maybe_unused]] decltype( static_cast<void>( sizeof( T ) ), true_type {} ) test_sizable( std::int32_t );
@@ -66,7 +66,7 @@ namespace std {
    * @note https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1048r1.pdf
    */
   template <typename E>
-  struct is_scoped_enum : bool_constant<detail::impl::is_scoped_enum<E>> {};
+  struct is_scoped_enum : bool_constant<detail::is_scoped_enum<E>> {};
 
   /**
    * @brief Return true, if this is an scoped enum.
