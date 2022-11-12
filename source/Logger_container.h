@@ -31,16 +31,13 @@
 #pragma once
 
 /* stl header */
-#include <any>
 #include <array>
 #include <functional>
-#include <iostream>
 #include <list>
 #include <map>
 #include <optional>
 #include <set>
 #include <tuple>
-#include <typeindex>
 #include <unordered_map>
 #include <utility> // std::pair
 #include <variant>
