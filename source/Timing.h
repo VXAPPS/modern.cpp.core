@@ -31,6 +31,9 @@
 #pragma once
 
 /* c header */
+#ifdef _WIN32
+  #include <cstdint> // std::int64_t
+#endif
 #include <ctime>
 
 /* stl header */
@@ -99,6 +102,10 @@ namespace vx {
     /**
      * @brief Clock to calculate the elapsed CPU time.
      */
+#ifdef _WIN32
+    std::int64_t m_cpu {};
+#else
     std::clock_t m_cpu {};
+#endif
   };
 }
