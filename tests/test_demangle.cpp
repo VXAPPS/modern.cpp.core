@@ -31,7 +31,7 @@
 /* c header */
 #include <cstdint> // std::int32_t
 
-/* cppunit header */
+/* gtest header */
 #ifdef __clang__
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Weverything"

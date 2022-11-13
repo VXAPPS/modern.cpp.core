@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* cppunit header */
+/* gtest header */
 #ifdef __clang__
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Weverything"
@@ -44,14 +44,6 @@
 #ifdef __clang__
   #pragma clang diagnostic pop
 #endif
-
-/* stl header */
-#include <list>
-#include <optional>
-#include <vector>
-
-/* modern.cpp.core */
-#include <Demangle.h>
 
 using ::testing::InitGoogleTest;
 using ::testing::Test;

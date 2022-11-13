@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* cppunit header */
+/* gtest header */
 #ifdef __clang__
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Weverything"
