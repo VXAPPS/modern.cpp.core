@@ -54,7 +54,7 @@ namespace vx {
      * @param _linePrefix   Prefix for every line.
      * @param _lineSuffix   Suffix for every line.
      */
-    explicit CSVWriter( std::string_view &_filename,
+    explicit CSVWriter( std::string_view _filename,
                         std::string_view _delimiter = ",",
                         std::string_view _linePrefix = {},
                         std::string_view _lineSuffix = {} ) noexcept

@@ -29,7 +29,7 @@
  */
 
 /* c header */
-#include <cstdint> // std::int32_t
+#include <cstdint> // std::int32_t, std::uint32_t, std::int64_t
 #include <cstring> // strerror_r
 
 /* stl header */
@@ -38,7 +38,14 @@
 #ifdef _MSC_VER
   #include <Windows.h>
 #elif defined __APPLE__
+  #ifdef __clang__
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Welaborated-enum-base"
+  #endif
   #include <Carbon/Carbon.h>
+  #ifdef __clang__
+    #pragma clang diagnostic pop
+  #endif
 #else
   #if 1
     #include <X11/Xlib.h>
@@ -70,13 +77,15 @@ namespace vx::keyboard {
 
   #if 1
     /* Variant 1 Carbon.framework */
-    KeyMap keyMap;
+    KeyMap keyMap {};
     GetKeys( keyMap );
 
-    std::int32_t index = kVK_CapsLock >> 5;
-    std::int32_t shift = kVK_CapsLock & 31;
+    constexpr std::uint32_t five = 5U;
+    constexpr std::uint32_t thirtyone = 31U;
+    std::uint32_t index = kVK_CapsLock >> five;
+    std::uint32_t shift = kVK_CapsLock & thirtyone;
 
-    isActive = ( ( keyMap[ index ].bigEndianValue >> shift ) & 1 ) != 0;
+    isActive = ( ( keyMap[ index ].bigEndianValue >> shift ) & 1U ) != 0;
   #else
     /* Variant 2 CoreGraphics.framework */
     isActive = CGEventSourceKeyState( kCGEventSourceStateHIDSystemState, kVK_CapsLock );

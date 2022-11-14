@@ -37,7 +37,7 @@ namespace vx::string_utils {
 
     if ( const auto *fastCString = CFStringGetCStringPtr( _stringRef, kCFStringEncodingUTF8 ) ) {
 
-      return std::string( fastCString );
+      return { fastCString };
     }
 
     auto utf16length = CFStringGetLength( _stringRef );

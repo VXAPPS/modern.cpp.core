@@ -33,7 +33,7 @@
 
 /* stl header */
 #include <algorithm>
-#include <iostream>
+#include <functional>
 #include <ranges>
 #include <sstream>
 
@@ -44,6 +44,7 @@
 #if defined _MSC_VER && _MSC_VER < 1920
 namespace std {
 
+  using ::isspace;
   using ::tolower;
   using ::toupper;
 }
@@ -51,27 +52,40 @@ namespace std {
 
 namespace vx::string_utils {
 
-  /** @brief Pre definition of to be trimmed characters. */
-  constexpr std::string_view trimmed = " \t\n\r\f\v";
-
   std::string &trimRight( std::string &_string,
                           std::string_view _trim ) noexcept {
 
-    _string.erase( _string.find_last_not_of( _trim.empty() ? trimmed : _trim ) + 1 );
+    auto trimmed_ = [ &_trim ]( auto _chr ) {
+      if ( !_trim.empty() ) {
+
+        return _trim.find( _chr ) != std::string_view::npos;
+      }
+      return !std::isspace( _chr );
+    };
+
+    _string.erase( std::find_if( _string.rbegin(), _string.rend(), trimmed_ ).base(), _string.end() );
     return _string;
   }
 
   std::string &trimLeft( std::string &_string,
                          std::string_view _trim ) noexcept {
 
-    _string.erase( 0, _string.find_first_not_of( _trim.empty() ? trimmed : _trim ) );
+    auto trimmed_ = [ &_trim ]( auto _chr ) {
+      if ( !_trim.empty() ) {
+
+        return _trim.find( _chr ) != std::string_view::npos;
+      }
+      return !std::isspace( _chr );
+    };
+
+    _string.erase( _string.begin(), std::find_if( _string.begin(), _string.end(), trimmed_ ) );
     return _string;
   }
 
   std::string &trim( std::string &_string,
                      std::string_view _trim ) noexcept {
 
-    return trimLeft( trimRight( _string, _trim.empty() ? trimmed : _trim ), _trim.empty() ? trimmed : _trim );
+    return trimLeft( trimRight( _string, _trim ), _trim );
   }
 
   std::string &toLower( std::string &_string ) noexcept {
@@ -109,7 +123,7 @@ namespace vx::string_utils {
    * @return True, if left and right is a space - otherwise false.
    */
   constexpr bool bothAreSpaces( char _left,
-                                char _right ) noexcept { return _left == _right && _left == ' '; }
+                                char _right ) noexcept { return std::equal_to<> {}( _left, _right ) && std::equal_to<> {}( _left, ' ' ); }
 
   std::string &simplified( std::string &_string ) noexcept {
 
@@ -188,7 +202,7 @@ namespace vx::string_utils {
     if ( !_uchr ) { return {}; }
 
     std::basic_string<unsigned char> result = _uchr;
-    return std::make_optional( std::string( std::begin( result ), std::end( result ) ) );
+    return std::make_optional( std::string( std::cbegin( result ), std::cend( result ) ) );
   }
 
   std::optional<std::string> MAYBE_BAD_fromUnsignedChar( const unsigned char *_uchr,

@@ -32,7 +32,14 @@
 #include <string>
 
 /* apple header */
+#ifdef __clang__
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Welaborated-enum-base"
+#endif
 #include <CoreFoundation/CoreFoundation.h>
+#ifdef __clang__
+  #pragma clang diagnostic pop
+#endif
 
 /**
  * @brief vx (VX APPS) namespace.

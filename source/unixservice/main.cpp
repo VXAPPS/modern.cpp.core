@@ -147,12 +147,6 @@ std::int32_t main() {
     ::syslog( LOG_INFO, "Could not close PID lock file %s, exiting with: %s", pidfile.c_str(), _exception.what() );
     std::exit( EXIT_FAILURE );
   }
-  /* bugprone solution */
-  /* catch ( ... ) { // NOSONAR possible alternative solution
-
-    ::syslog( LOG_INFO, "Could not close PID lock file %s, exiting", pidfile.c_str() ); // NOSONAR possible alternative solution
-    std::exit( EXIT_FAILURE ); // NOSONAR possible alternative solution
-  } */
   // DAEMONIZE END
 
   // SERVICE START

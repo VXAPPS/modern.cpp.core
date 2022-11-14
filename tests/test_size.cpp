@@ -60,7 +60,7 @@ using ::testing::Test;
 #endif
 namespace vx {
 
-  TEST( Size, Simple_int32_t ) {
+  TEST( Size, SimpleInt ) {
 
     Size size( 5, 5 );
     Size size2( 5, 5 );
@@ -124,7 +124,7 @@ namespace vx {
     EXPECT_EQ( size.height(), 5 );
   }
 
-  TEST( Size, Simple_float ) {
+  TEST( Size, SimpleFloat ) {
 
     Size size( 5.4F, 5.4F );
     Size size2( 5.4F, 5.4F );
@@ -188,7 +188,7 @@ namespace vx {
     EXPECT_EQ( size.height(), 5.4F );
   }
 
-  TEST( Size, Simple_double ) {
+  TEST( Size, SimpleDouble ) {
 
     Size size( 5.5, 5.5 );
     Size size2( 5.5, 5.5 );

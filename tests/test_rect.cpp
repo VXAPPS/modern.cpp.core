@@ -57,7 +57,7 @@ using ::testing::Test;
 #endif
 namespace vx {
 
-  TEST( Rect, Simple_int32_t ) {
+  TEST( Rect, SimpleInt ) {
 
     Rect rect( 5, 5, 10, 10 );
     Rect rect2( 6, 6, 8, 8 );
@@ -134,7 +134,7 @@ namespace vx {
     EXPECT_EQ( rect.height(), 8 );
   }
 
-  TEST( Rect, Simple_float ) {
+  TEST( Rect, SimpleFloat ) {
 
     Rect rect( 5.4F, 5.4F, 10.4F, 10.4F );
     Rect rect2( 6.4F, 6.4F, 8.4F, 8.4F );
@@ -211,7 +211,7 @@ namespace vx {
     EXPECT_EQ( rect.height(), 8.4F );
   }
 
-  TEST( Rect, Simple_double ) {
+  TEST( Rect, SimpleDouble ) {
 
     Rect rect( 5.5, 5.5, 10.5, 10.5 );
     Rect rect2( 6.5, 6.5, 8.5, 8.5 );

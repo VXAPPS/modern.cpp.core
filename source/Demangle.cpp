@@ -110,10 +110,12 @@ namespace vx::demangle {
 
   std::string extreme( const std::string &_name ) noexcept {
 
+    using namespace std::literals;
+
     std::string result = simple( _name );
 
     /* Everything to cut out until end to simplify the types printed */
-    for ( const std::vector toRemove { "std::less", "std::hash", "std::equal_to", "std::allocator" }; const auto &remove : toRemove ) {
+    for ( const std::vector toRemove { "std::less"sv, "std::hash"sv, "std::equal_to"sv, "std::allocator"sv }; const auto &remove : toRemove ) {
 
       const std::size_t pos = result.find( remove );
       if ( pos != std::string::npos ) {

@@ -60,7 +60,7 @@ using ::testing::Test;
 #endif
 namespace vx {
 
-  TEST( Line, Simple_int32_t ) {
+  TEST( Line, SimpleInt ) {
 
     Line line( Point( 5, 5 ), Point( 10, 10 ) );
     Line lineWithoutPoints( 5, 5, 5, 5 );
@@ -125,7 +125,7 @@ namespace vx {
     EXPECT_EQ( line.y2(), 5 );
   }
 
-  TEST( Line, Simple_float ) {
+  TEST( Line, SimpleFloat ) {
 
     Line line( Point( 5.4F, 5.4F ), Point( 10.4F, 10.4F ) );
     Line lineWithoutPoints( 5.4F, 5.4F, 5.4F, 5.4F );
@@ -190,7 +190,7 @@ namespace vx {
     EXPECT_EQ( line.y2(), 5.4F );
   }
 
-  TEST( Line, Simple_double ) {
+  TEST( Line, SimpleDouble ) {
 
     Line line( Point( 5.5, 5.5 ), Point( 10.5, 10.5 ) );
     Line lineWithoutPoints( 5.5, 5.5, 5.5, 5.5 );

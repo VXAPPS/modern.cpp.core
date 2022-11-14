@@ -57,7 +57,7 @@ using ::testing::Test;
 #endif
 namespace vx {
 
-  TEST( Point, Simple_int32_t ) {
+  TEST( Point, SimpleInt ) {
 
     Point point( 5, 5 );
     Point point2( 5, 5 );
@@ -125,7 +125,7 @@ namespace vx {
     EXPECT_EQ( point.y(), 5 );
   }
 
-  TEST( Point, Simple_float ) {
+  TEST( Point, SimpleFloat ) {
 
     Point point( 5.4F, 5.4F );
     Point point2( 5.4F, 5.4F );
@@ -193,7 +193,7 @@ namespace vx {
     EXPECT_EQ( point.y(), 5.4F );
   }
 
-  TEST( Point, Simple_double ) {
+  TEST( Point, SimpleDouble ) {
 
     Point point( 5.5, 5.5 );
     Point point2( 5.5, 5.5 );

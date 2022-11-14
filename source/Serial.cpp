@@ -31,7 +31,7 @@
 /* c header */
 #include <cerrno>
 #include <cstdio>
-#include <cstring> // strerror
+#include <cstring> // strerror_r
 
 /* system header */
 #include <fcntl.h> // open
@@ -49,17 +49,20 @@
 
 namespace vx {
 
-  /** @brief Flush duration in milliseconds */
+  /** @brief Flush duration in milliseconds. */
   constexpr std::int32_t flushDurationMs = 150;
 
-  /** @brief Buffer size to read std out */
+  /** @brief Buffer size to read std out. */
   constexpr std::int32_t bufferSize = 1024;
 
+  /** @brief Buffer size for errno. */
+  constexpr std::int32_t errnoBufferSize = 128;
+
   Serial::Serial( const std::string &_path,
-                  Baudrate _baudrate ) noexcept {
+                  Baudrate _baudrate ) noexcept
+    : m_descriptor( ::open( _path.c_str(), ( O_RDWR | O_NOCTTY | O_NONBLOCK ) ) ) {
 
     /* Open port, checking for errors */
-    m_descriptor = ::open( _path.c_str(), ( O_RDWR | O_NOCTTY | O_NONBLOCK ) );
     if ( m_descriptor == -1 ) {
 
       logFatal() << "Unable to open serial port:" << _path << "at baud rate:" << std::to_underlying( _baudrate );
@@ -137,7 +140,8 @@ namespace vx {
       const std::string result = read();
       if ( result.empty() ) {
 
-        logError() << "Serial port read() failed. Error:" << std::strerror( errno );
+        std::vector<char> errnoBuffer( errnoBufferSize );
+        logError() << "Serial port read() failed. Error:" << strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
         return false;
       }
     }
@@ -148,7 +152,8 @@ namespace vx {
 
     if ( ::write( m_descriptor, _data.c_str(), _data.size() ) < 0 ) {
 
-      logError() << "Serial port write() failed. Error:" << std::strerror( errno );
+      std::vector<char> errnoBuffer( errnoBufferSize );
+      logError() << "Serial port write() failed. Error:" << strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
       return false;
     }
     return true;
@@ -174,7 +179,8 @@ namespace vx {
     }
     if ( numBytesRead < 0 ) {
 
-      logError() << "Serial port read() failed. Error:" << std::strerror( errno );
+      std::vector<char> errnoBuffer( errnoBufferSize );
+      logError() << "Serial port read() failed. Error:" << strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
       return {};
     }
     return { std::cbegin( buffer ), std::cend( buffer ) };
