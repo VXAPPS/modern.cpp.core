@@ -156,7 +156,7 @@ namespace vx {
   }
 
 #ifdef DEBUG
-  static void enumOutOfRange() {
+  static inline void enumOutOfRange() {
 
     enum class Color { RED = 2,
                        BLUE = 4,

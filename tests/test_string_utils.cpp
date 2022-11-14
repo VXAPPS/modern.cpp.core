@@ -170,8 +170,7 @@ namespace vx {
 #if defined( __clang__ ) || defined( __GNUC__ )
   __attribute__( ( no_sanitize_address ) )
 #endif
-  static void
-      badCaseWrongSizeCheck() {
+  static inline void badCaseWrongSizeCheck() {
 
     unsigned char chrArray[] = "The answer is 42.";
     const unsigned char *chrPointer = chrArray;

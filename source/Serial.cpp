@@ -127,7 +127,7 @@ namespace vx {
    * @brief Return timestamp in milliseconds.
    * @return Timestamp in milliseconds.
    */
-  static std::chrono::milliseconds timestampMs() noexcept {
+  static inline std::chrono::milliseconds timestampMs() noexcept {
 
     return std::chrono::duration_cast<std::chrono::milliseconds>( std::chrono::steady_clock::now().time_since_epoch() );
   }

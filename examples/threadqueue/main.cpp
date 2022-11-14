@@ -45,8 +45,8 @@ constexpr std::int32_t intervallSeconds = 1;
 constexpr std::int32_t secondsToMilliseconds = 100;
 constexpr std::int32_t exitIntervall = 30;
 
-static void process( vx::SharedQueue<Item *> &_queue,
-                     std::int32_t _threadId ) {
+static inline void process( vx::SharedQueue<Item *> &_queue,
+                            std::int32_t _threadId ) {
 
   std::cout << "Start Thread: " << _threadId << std::endl;
   while ( true ) {
