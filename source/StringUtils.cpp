@@ -55,10 +55,10 @@ namespace vx::string_utils {
   std::string &trimRight( std::string &_string,
                           std::string_view _trim ) noexcept {
 
-    auto trimmed_ = [ &_trim ]( auto _chr ) {
+    auto trimmed_ = [ &_trim ]( unsigned char _chr ) {
       if ( !_trim.empty() ) {
 
-        return _trim.find( _chr ) != std::string_view::npos;
+        return _trim.find( static_cast<char>( _chr ) ) != std::string_view::npos;
       }
       return !std::isspace( _chr );
     };
@@ -70,10 +70,10 @@ namespace vx::string_utils {
   std::string &trimLeft( std::string &_string,
                          std::string_view _trim ) noexcept {
 
-    auto trimmed_ = [ &_trim ]( auto _chr ) {
+    auto trimmed_ = [ &_trim ]( unsigned char _chr ) {
       if ( !_trim.empty() ) {
 
-        return _trim.find( _chr ) != std::string_view::npos;
+        return _trim.find( static_cast<char>( _chr ) ) != std::string_view::npos;
       }
       return !std::isspace( _chr );
     };
