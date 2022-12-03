@@ -50,6 +50,7 @@ namespace vx::string_utils {
    * @brief Returns standard string from CFStringRef.
    * @param _stringRef   CFStringRef input.
    * @return Standard string from CFStringRef.
+   * @note This function may throw an exception by the constructor of std::string.
    */
-  std::string fromCFStringRef( CFStringRef _stringRef ) noexcept;
+  std::string fromCFStringRef( CFStringRef _stringRef );
 }

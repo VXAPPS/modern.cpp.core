@@ -103,8 +103,9 @@ namespace vx {
     /**
      * @brief Flush the serial port.
      * @return True, if flushing is successful - otherwise false.
+     * @note This function may throw an exception by the constructor of std::string.
      */
-    [[nodiscard]] bool flush() const noexcept;
+    [[nodiscard]] bool flush() const;
 
     /**
      * @brief Write data to the serial device.
@@ -116,8 +117,9 @@ namespace vx {
     /**
      * @brief Read data from the serial device.
      * @return Data read from the serial device.
+     * @note This function may throw an exception by the constructor of std::string.
      */
-    [[nodiscard]] std::string read() const noexcept;
+    [[nodiscard]] std::string read() const;
 
     /**
      * @brief Descriptor of the current device.

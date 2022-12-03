@@ -82,8 +82,8 @@ namespace vx::keyboard {
 
     constexpr std::uint32_t five = 5U;
     constexpr std::uint32_t thirtyone = 31U;
-    std::uint32_t index = kVK_CapsLock >> five;
-    std::uint32_t shift = kVK_CapsLock & thirtyone;
+    const std::uint32_t index = kVK_CapsLock >> five;
+    const std::uint32_t shift = kVK_CapsLock & thirtyone;
 
     isActive = ( ( keyMap[ index ].bigEndianValue >> shift ) & 1U ) != 0;
   #else

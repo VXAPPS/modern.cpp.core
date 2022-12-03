@@ -33,7 +33,7 @@
 
 namespace vx::string_utils {
 
-  std::string fromCFStringRef( CFStringRef _stringRef ) noexcept {
+  std::string fromCFStringRef( CFStringRef _stringRef ) {
 
     if ( const auto *fastCString = CFStringGetCStringPtr( _stringRef, kCFStringEncodingUTF8 ) ) {
 

@@ -132,7 +132,7 @@ namespace vx {
     return std::chrono::duration_cast<std::chrono::milliseconds>( std::chrono::steady_clock::now().time_since_epoch() );
   }
 
-  bool Serial::flush() const noexcept {
+  bool Serial::flush() const {
 
     const std::chrono::milliseconds startTimestampMs = timestampMs();
     while ( timestampMs().count() - startTimestampMs.count() < flushDurationMs ) {
@@ -140,8 +140,21 @@ namespace vx {
       const std::string result = read();
       if ( result.empty() ) {
 
-        std::vector<char> errnoBuffer( errnoBufferSize );
-        logError() << "Serial port read() failed. Error:" << strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
+        std::vector<char> errnoBuffer {};
+        try {
+
+          errnoBuffer.resize( errnoBufferSize );
+        }
+        catch ( const std::bad_alloc &_exception ) {
+
+          logFatal() << "bad_alloc:" << _exception.what();
+        }
+        catch ( const std::exception &_exception ) {
+
+          logFatal() << _exception.what();
+        }
+        strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
+        logError() << "Serial port read() failed. Error:" << std::string( std::cbegin( errnoBuffer ), std::cend( errnoBuffer ) );
         return false;
       }
     }
@@ -152,14 +165,27 @@ namespace vx {
 
     if ( ::write( m_descriptor, _data.c_str(), _data.size() ) < 0 ) {
 
-      std::vector<char> errnoBuffer( errnoBufferSize );
-      logError() << "Serial port write() failed. Error:" << strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
+      std::vector<char> errnoBuffer {};
+      try {
+
+        errnoBuffer.resize( errnoBufferSize );
+      }
+      catch ( const std::bad_alloc &_exception ) {
+
+        logFatal() << "bad_alloc:" << _exception.what();
+      }
+      catch ( const std::exception &_exception ) {
+
+        logFatal() << _exception.what();
+      }
+      strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
+      logError() << "Serial port write() failed. Error:" << std::string( std::cbegin( errnoBuffer ), std::cend( errnoBuffer ) );
       return false;
     }
     return true;
   }
 
-  std::string Serial::read() const noexcept {
+  std::string Serial::read() const {
 
     std::vector<char> buffer {};
     ssize_t numBytesRead {};
@@ -171,7 +197,7 @@ namespace vx {
     }
     catch ( const std::bad_alloc &_exception ) {
 
-      logFatal() << _exception.what();
+      logFatal() << "bad_alloc:" << _exception.what();
     }
     catch ( const std::exception &_exception ) {
 
@@ -179,8 +205,21 @@ namespace vx {
     }
     if ( numBytesRead < 0 ) {
 
-      std::vector<char> errnoBuffer( errnoBufferSize );
-      logError() << "Serial port read() failed. Error:" << strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
+      std::vector<char> errnoBuffer {};
+      try {
+
+        errnoBuffer.resize( errnoBufferSize );
+      }
+      catch ( const std::bad_alloc &_exception ) {
+
+        logFatal() << "bad_alloc:" << _exception.what();
+      }
+      catch ( const std::exception &_exception ) {
+
+        logFatal() << _exception.what();
+      }
+      strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
+      logError() << "Serial port read() failed. Error:" << std::string( std::cbegin( errnoBuffer ), std::cend( errnoBuffer ) );
       return {};
     }
     return { std::cbegin( buffer ), std::cend( buffer ) };

@@ -72,7 +72,18 @@ std::int32_t main() {
 
   const std::uint32_t threadCount = std::max( 1U, std::thread::hardware_concurrency() );
   std::vector<std::jthread> threads {};
-  threads.reserve( threadCount );
+  try {
+
+    threads.reserve( threadCount );
+  }
+  catch ( const std::bad_alloc &_exception ) {
+
+    std::cout << "bad_alloc: " << _exception.what() << std::endl;
+  }
+  catch ( const std::exception &_exception ) {
+
+    std::cout << _exception.what() << std::endl;
+  }
 
   for ( std::uint32_t i = 0; i < threadCount; ++i ) {
 

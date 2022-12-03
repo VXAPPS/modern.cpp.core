@@ -39,6 +39,7 @@
 #include <sstream>
 
 /* local header */
+#include "FloatingPoint.h"
 #include "Logger.h"
 #include "Timestamp.h"
 #include "Timing.h"
@@ -84,17 +85,8 @@ namespace vx {
 
     auto end = std::chrono::high_resolution_clock::now();
 
-    /* Auto scale from ms to s */
-    std::string literal = "ms";
-    double diff = static_cast<double>( std::chrono::duration_cast<std::chrono::nanoseconds>( end - m_start ).count() ) / multiplier / multiplier;
-    if ( diff > multiplier ) {
-
-      literal = "s";
-      diff = diff / multiplier;
-    }
-
-    std::ostringstream realTime {};
-    realTime << std::setprecision( std::numeric_limits<double>::digits10 ) << diff;
+    const std::chrono::duration<double, std::milli> wall = end - m_start;
+    const std::chrono::duration<double, std::ratio<1, 1>> wallSeconds = end - m_start;
 
     std::ostringstream cpuTime {};
 #ifdef _WIN32
@@ -105,9 +97,23 @@ namespace vx {
     cpuTime << std::setprecision( std::numeric_limits<double>::digits10 ) << static_cast<double>( std::clock() - m_cpu ) / static_cast<double>( CLOCKS_PER_SEC ) * multiplier;
 #endif
 
-    logVerbose().stream() << "------ " << m_action;
-    logVerbose().stream() << "Timestamp: " << timestamp::iso8601( Precision::MicroSeconds );
-    logVerbose().stream() << "Real Time: " << realTime.str() << ' ' << literal;
-    logVerbose().stream() << "CPU Time: " << cpuTime.str() << ' ' << "ms";
+    try {
+
+      logVerbose().stream() << "------ " << m_action;
+      logVerbose().stream() << "Timestamp: " << timestamp::iso8601( Precision::MicroSeconds );
+      if ( floating_point::less( wall.count(), multiplier ) ) {
+
+        logVerbose().stream() << "Wall Time: " << wall.count() << ' ' << "ms";
+      }
+      else {
+
+        logVerbose().stream() << "Wall Time: " << wallSeconds.count() << ' ' << "s";
+      }
+      logVerbose().stream() << " CPU Time: " << cpuTime.str() << ' ' << "ms";
+    }
+    catch ( const std::exception &_exception ) {
+
+      logFatal() << _exception.what();
+    }
   }
 }

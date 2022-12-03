@@ -58,7 +58,7 @@ namespace vx::logger {
 #endif
 
   Logger::Logger( Severity _severity,
-                  const std::source_location &_location ) noexcept
+                  const std::source_location &_location )
     : m_severity( _severity ),
       m_location( _location ),
 #ifdef _WIN32
@@ -134,7 +134,7 @@ namespace vx::logger {
     return timestamp::iso8601( Precision::MicroSeconds );
   }
 
-  std::string Logger::severity( Severity _severity ) const noexcept {
+  std::string Logger::severity( Severity _severity ) const {
 
     std::string result {};
     std::string severity( magic_enum::enum_name( _severity ) );

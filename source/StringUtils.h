@@ -124,10 +124,11 @@ namespace vx::string_utils {
    * @param _separator   Separator for the splitting.
    * @param _split   Split type, default is do not add empty token.
    * @return Splitted list of splits.
+   * @note This function may throw an exception by the constructor of std::string or push_back of std::vector.
    */
   std::vector<std::string_view> tokenize( std::string_view _string,
                                           std::string_view _separator,
-                                          Split _split = Split::SkipEmpty ) noexcept;
+                                          Split _split = Split::SkipEmpty );
 
   /**
    * @brief Returns hex from string.
@@ -140,8 +141,9 @@ namespace vx::string_utils {
    * @brief Returns standard string from unsigned char.
    * @param _uchr   Unsigned char pointer.
    * @return Standard string from unsigned char.
+   * @note This function may throw an exception by the constructor of std::string.
    */
-  [[nodiscard]] std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr ) noexcept;
+  [[nodiscard]] std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr );
 
   /**
    * @brief Returns standard string from unsigned char.
@@ -149,7 +151,8 @@ namespace vx::string_utils {
    * @param _size   Size of unsigned char - will autodetect if empty.
    * @return Standard string from unsigned char.
    * @note This function will use reinterpret_cast if _size is empty.
+   * @note This function may throw an exception by the constructor of std::string.
    */
   [[nodiscard]] std::optional<std::string> MAYBE_BAD_fromUnsignedChar( const unsigned char *_uchr,
-                                                                       std::size_t _size ) noexcept;
+                                                                       std::size_t _size );
 }

@@ -41,6 +41,7 @@
 
 /* local header */
 #include "Demangle.h"
+#include "Logger.h"
 #include "StringUtils.h"
 
 namespace vx::demangle {
@@ -114,14 +115,25 @@ namespace vx::demangle {
 
     std::string result = simple( _name );
 
-    /* Everything to cut out until end to simplify the types printed */
-    for ( const std::vector toRemove { "std::less"sv, "std::hash"sv, "std::equal_to"sv, "std::allocator"sv }; const auto &remove : toRemove ) {
+    try {
 
-      const std::size_t pos = result.find( remove );
-      if ( pos != std::string::npos ) {
+      /* Everything to cut out until end to simplify the types printed */
+      for ( const std::vector toRemove { "std::less"sv, "std::hash"sv, "std::equal_to"sv, "std::allocator"sv }; const auto &remove : toRemove ) {
 
-        result = result.replace( pos, result.size() - 1 - pos, "" );
+        const std::size_t pos = result.find( remove );
+        if ( pos != std::string::npos ) {
+
+          result = result.replace( pos, result.size() - 1 - pos, "" );
+        }
       }
+    }
+    catch ( const std::bad_alloc &_exception ) {
+
+      logFatal() << "bad_alloc:" << _exception.what();
+    }
+    catch ( const std::exception &_exception ) {
+
+      logFatal() << _exception.what();
     }
 
     /* reorder for const type pointer/reference */

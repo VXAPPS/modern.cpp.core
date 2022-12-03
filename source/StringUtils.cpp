@@ -146,7 +146,7 @@ namespace vx::string_utils {
 
   std::vector<std::string_view> tokenize( std::string_view _string,
                                           std::string_view _separator,
-                                          Split _split ) noexcept {
+                                          Split _split ) {
 
     std::vector<std::string_view> result {};
     std::string_view split = _string;
@@ -196,17 +196,17 @@ namespace vx::string_utils {
     return result;
   }
 
-  std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr ) noexcept {
+  std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr ) {
 
     /* nullptr check is mandatory */
     if ( !_uchr ) { return {}; }
 
-    std::basic_string<unsigned char> result = _uchr;
-    return std::make_optional( std::string( std::cbegin( result ), std::cend( result ) ) );
+    const std::basic_string<unsigned char> result = _uchr;
+    return std::make_optional<std::string>( std::cbegin( result ), std::cend( result ) );
   }
 
   std::optional<std::string> MAYBE_BAD_fromUnsignedChar( const unsigned char *_uchr,
-                                                         std::size_t _size ) noexcept {
+                                                         std::size_t _size ) {
 
     /* nullptr check is mandatory */
     if ( !_uchr ) { return {}; }
@@ -221,6 +221,6 @@ namespace vx::string_utils {
       size = strnlen( reinterpret_cast<const char *>( _uchr ), result.size() ); // NOSONAR do not use reinterpret_cast
 #endif
     }
-    return std::make_optional( std::string( _uchr, _uchr + size ) ); // NOSONAR do not use pointer arithmetric
+    return std::make_optional<std::string>( _uchr, _uchr + size ); // NOSONAR do not use pointer arithmetric
   }
 }

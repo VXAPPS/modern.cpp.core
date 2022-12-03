@@ -57,7 +57,7 @@ namespace vx {
     explicit CSVWriter( std::string_view _filename,
                         std::string_view _delimiter = ",",
                         std::string_view _linePrefix = {},
-                        std::string_view _lineSuffix = {} ) noexcept
+                        std::string_view _lineSuffix = {} )
       : m_filename( _filename ),
         m_delimiter( _delimiter ),
         m_linePrefix( _linePrefix ),

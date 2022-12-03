@@ -130,7 +130,7 @@ namespace vx::logger {
      * @param _location   Source location informations.
      */
     explicit Logger( Severity _severity = Severity::Debug,
-                     const std::source_location &_location = std::source_location::current() ) noexcept;
+                     const std::source_location &_location = std::source_location::current() );
 
     /**
      * @brief Default destructor for Logger.
@@ -477,13 +477,34 @@ namespace vx::logger {
     }
 
   private:
+    /**
+     * @brief Automatically sapce next argument.
+     */
     bool m_autoSpace = true;
+
+    /**
+     * @brief Automatically quote strings.
+     */
     bool m_autoQuotes = true;
 
+    /**
+     * @brief Member fpr severity.
+     */
     Severity m_severity = Severity::Debug;
+
+    /**
+     * @brief Member for location path configuration.
+     */
     Path m_locationPath = Path::Filename;
 
+    /**
+     * @brief Member for source location.
+     */
     std::source_location m_location;
+
+    /**
+     * @brief Member for stream.
+     */
     std::ostream m_stream;
 
     /**
@@ -497,7 +518,7 @@ namespace vx::logger {
      * @param _severity   Which severity to generate?
      * @return The formatted severity.
      */
-    std::string severity( Severity _severity ) const noexcept;
+    std::string severity( Severity _severity ) const;
   };
 }
 

@@ -139,7 +139,7 @@ namespace vx::logger {
    * @param _any   Type of std::any.
    */
   inline void visit( Logger &_logger,
-                     const std::any &_any ) noexcept {
+                     const std::any &_any ) {
 
     if ( const auto iterator = visitors.find( std::type_index( _any.type() ) ); iterator != visitors.cend() ) {
 
@@ -168,7 +168,7 @@ namespace vx::logger {
    * @return Logger with output.
    */
   inline Logger &operator<<( Logger &_logger,
-                             const std::any &_input ) noexcept {
+                             const std::any &_input ) {
 
     const bool saveState = _logger.autoSpace();
     visit( _logger.nospace(), _input );
