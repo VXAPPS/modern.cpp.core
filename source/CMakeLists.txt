@@ -43,7 +43,9 @@ if(APPLE)
 endif()
 
 add_library(${PROJECT_NAME}
-  ../.github/workflows/integrate.yml
+  ../.github/workflows/linux.yml
+  ../.github/workflows/macos.yml
+  ../.github/workflows/windows.yml
   ../docs/footer.html
   ../docs/header.html
   ../README.md

@@ -1,0 +1,86 @@
+name: integration
+
+on: [push, pull_request]
+
+jobs:
+
+  Build:
+    name: ${{matrix.name}} (${{matrix.config}})
+    runs-on: ${{matrix.os}}
+
+    env:
+      CMAKE_GENERATOR: Ninja
+
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [
+          windows-2019-msvc2019,
+#          windows-2019-msvc2019-clang,
+          windows-2022-msvc2022
+#          windows-2022-msvc2022-clang
+        ]
+        config: [Debug, Release]
+        include:
+          - name: windows-2019-msvc2019
+            os: windows-2019
+            compiler: cl
+            version: Visual Studio 16 2019
+
+# clang-tools are not installed
+#          - name: windows-2019-msvc2019-clang
+#            os: windows-2019
+#            compiler: cl
+#            version: Visual Studio 16 2019
+#            toolchain: -T clang-cl
+
+          - name: windows-2022-msvc2022
+            os: windows-2022
+            compiler: cl
+            version: Visual Studio 17 2022
+
+# clang-tools are not installed
+#          - name: windows-2022-msvc2022-clang
+#            os: windows-2022
+#            compiler: cl
+#            version: Visual Studio 17 2022
+#            toolchain: -T clang-cl
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Dependencies
+        run: |
+            if ( "${{matrix.compiler}}" -eq "gcc" ) {
+              choco install ninja
+              echo "CC=gcc" >> $Env:GITHUB_ENV
+              echo "CXX=g++" >> $Env:GITHUB_ENV
+            }
+            elseif ( "${{matrix.compiler}}".StartsWith( "clang" ) ) {
+              choco install ninja
+              echo "CC=clang" >> $Env:GITHUB_ENV
+              echo "CXX=clang++" >> $Env:GITHUB_ENV
+            }
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: 'cpp'
+
+      - name: Create Build Environment
+        run: cmake -E make_directory ${{runner.workspace}}/build
+
+      - name: Configure CMake
+        working-directory: ${{runner.workspace}}/build
+        run: cmake $Env:GITHUB_WORKSPACE -G"${{matrix.version}}" ${{matrix.toolchain}} -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}}
+
+      - name: Build
+        working-directory: ${{runner.workspace}}/build
+        run: cmake --build . --config ${{matrix.config}}
+
+      - name: Test
+        working-directory: ${{runner.workspace}}/build
+        run: ctest --output-on-failure -C ${{matrix.config}}
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2

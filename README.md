@@ -18,7 +18,7 @@ make -j`nproc`
 - **Serial** - Serial communication class (Not for Windows).
 - **StringUtils** - TrimLeft, TrimRight, Trim, StartsWith, EndsWith, Tokenize, Simplified.
 - **Timestamp** - ISO 8601 timestamp.
-- **Timing** - Measuring time, cpu and real time.
+- **Timing** - Measuring time, cpu and wall time.
 
 ## Templates
 - **Cpp23** - std::is_scoped_enum, std::to_underlying, std::unreachable.
