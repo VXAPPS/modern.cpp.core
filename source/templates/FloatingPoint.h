@@ -71,11 +71,11 @@ namespace vx::floating_point {
     auto factor = static_cast<T>( 1 );
     if ( _equal == Equal::Relative ) {
 
-      factor = std::max( std::abs( _left ), std::abs( _right ) );
+      factor = std::max<T>( std::abs( _left ), std::abs( _right ) );
     }
     else if ( _equal == Equal::Combined ) {
 
-      factor = std::max( { factor, std::abs( _left ), std::abs( _right ) } );
+      factor = std::max<T>( factor, std::max<T>( std::abs( _left ), std::abs( _right ) ) );
     }
     return std::abs( _left - _right ) <= std::numeric_limits<T>::epsilon() * factor;
   }
