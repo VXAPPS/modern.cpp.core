@@ -153,7 +153,7 @@ namespace vx {
 
           logFatal() << _exception.what();
         }
-        strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
+        std::ignore = strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
         logError() << "Serial port read() failed. Error:" << std::string( std::cbegin( errnoBuffer ), std::cend( errnoBuffer ) );
         return false;
       }
@@ -178,7 +178,7 @@ namespace vx {
 
         logFatal() << _exception.what();
       }
-      strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
+      std::ignore = strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
       logError() << "Serial port write() failed. Error:" << std::string( std::cbegin( errnoBuffer ), std::cend( errnoBuffer ) );
       return false;
     }
@@ -218,7 +218,7 @@ namespace vx {
 
         logFatal() << _exception.what();
       }
-      strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
+      std::ignore = strerror_r( errno, errnoBuffer.data(), errnoBuffer.size() );
       logError() << "Serial port read() failed. Error:" << std::string( std::cbegin( errnoBuffer ), std::cend( errnoBuffer ) );
       return {};
     }

@@ -1,4 +1,4 @@
-name: integration
+name: macos
 
 on: [push, pull_request]
 
