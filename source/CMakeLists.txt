@@ -94,8 +94,8 @@ target_compile_definitions(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
   PUBLIC
   ${3RDPARTY_DIR}
-  ${SOURCE_DIR}
-  ${SOURCE_DIR}/templates
+  ${PROJECT_SOURCE_DIR}
+  ${PROJECT_SOURCE_DIR}/templates
 )
 
 if(UNIX AND NOT APPLE)
