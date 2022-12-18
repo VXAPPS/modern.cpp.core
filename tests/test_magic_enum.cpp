@@ -127,12 +127,7 @@ namespace vx {
     /* Bad case */
     /* any value */
     const std::optional colorUnkown = magic_enum::enum_cast<Color>( 7 );
-    /* BUG: https://github.com/Neargye/magic_enum/issues/216 */
-#if MAGIC_ENUM_VERSION_MAJOR >= 0 && MAGIC_ENUM_VERSION_MINOR >= 8 && MAGIC_ENUM_VERSION_PATCH <= 1
-    EXPECT_TRUE( colorUnkown.has_value() );
-#else
     EXPECT_FALSE( colorUnkown.has_value() );
-#endif
 
     constexpr auto colors = magic_enum::enum_values<Color>();
 
@@ -144,12 +139,7 @@ namespace vx {
     EXPECT_EQ( max, 14 );
 
     const std::optional colorMax = magic_enum::enum_cast<Color>( max );
-    /* BUG: https://github.com/Neargye/magic_enum/issues/216 */
-#if MAGIC_ENUM_VERSION_MAJOR >= 0 && MAGIC_ENUM_VERSION_MINOR >= 8 && MAGIC_ENUM_VERSION_PATCH <= 1
-    EXPECT_TRUE( colorMax.has_value() );
-#else
     EXPECT_FALSE( colorMax.has_value() );
-#endif
 
     const std::optional colorMaxPlusOne = magic_enum::enum_cast<Color>( max + 1 );
     EXPECT_FALSE( colorMaxPlusOne.has_value() );
