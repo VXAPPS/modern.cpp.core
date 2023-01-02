@@ -46,6 +46,7 @@ function(make_test target)
   )
 endfunction()
 
+make_test(csv)
 make_test(demangle)
 make_test(floating_point)
 
