@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
+ * Copyright (c) 2023 Florian Becker <fb@vxapps.com> (VX APPS).
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

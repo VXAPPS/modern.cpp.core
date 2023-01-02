@@ -43,8 +43,8 @@ if(NOT DEFINED CORE_MASTER_PROJECT)
 endif()
 
 project(modern.cpp.core VERSION 0.6.1 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES CXX)
-include(cmake/env.cmake)
-include(cmake/checks.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/env.cmake)
+include(${CMAKE}/checks.cmake)
 
 # Fetch Content Dependencies
 include(${CMAKE}/fetch/doxygen-awesome-css.cmake)
