@@ -42,7 +42,7 @@
 #else
   #ifdef __clang__
     #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wreserved-identifier"
+    #pragma clang diagnostic ignored "-Weverything"
   #endif
   #include <jthread.hpp>
   #ifdef __clang__
