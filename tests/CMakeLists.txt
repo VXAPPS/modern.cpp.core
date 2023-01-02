@@ -28,37 +28,26 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-project(test_demangle)
+function(make_test target)
+  project(test_${target})
 
-add_executable(${PROJECT_NAME}
-  ${PROJECT_NAME}.cpp
-)
+  add_executable(${PROJECT_NAME}
+    ${PROJECT_NAME}.cpp
+  )
 
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-  modern.cpp::core
-  GTest::gtest_main
-)
+  target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+    modern.cpp::core
+    GTest::gtest_main
+  )
 
-gtest_add_tests(${PROJECT_NAME}
-  SOURCES ${PROJECT_NAME}.cpp
-)
+  gtest_add_tests(${PROJECT_NAME}
+    SOURCES ${PROJECT_NAME}.cpp
+  )
+endfunction()
 
-project(test_floating_point)
-
-add_executable(${PROJECT_NAME}
-  ${PROJECT_NAME}.cpp
-)
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-  modern.cpp::core
-  GTest::gtest_main
-)
-
-gtest_add_tests(${PROJECT_NAME}
-  SOURCES ${PROJECT_NAME}.cpp
-)
+make_test(demangle)
+make_test(floating_point)
 
 project(test_format)
 
@@ -81,101 +70,12 @@ gtest_add_tests(${PROJECT_NAME}
   SOURCES ${PROJECT_NAME}.cpp
 )
 
-project(test_line)
-
-add_executable(${PROJECT_NAME}
-  ${PROJECT_NAME}.cpp
-)
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-  modern.cpp::core
-  GTest::gtest_main
-)
-
-gtest_add_tests(${PROJECT_NAME}
-  SOURCES ${PROJECT_NAME}.cpp
-)
-
-project(test_magic_enum)
-
-add_executable(${PROJECT_NAME}
-  ${PROJECT_NAME}.cpp
-)
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-  modern.cpp::core
-  GTest::gtest_main
-)
-
-gtest_add_tests(${PROJECT_NAME}
-  SOURCES ${PROJECT_NAME}.cpp
-)
-
-project(test_point)
-
-add_executable(${PROJECT_NAME}
-  ${PROJECT_NAME}.cpp
-)
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-  modern.cpp::core
-  GTest::gtest_main
-)
-
-gtest_add_tests(${PROJECT_NAME}
-  SOURCES ${PROJECT_NAME}.cpp
-)
-
-project(test_rect)
-
-add_executable(${PROJECT_NAME}
-  ${PROJECT_NAME}.cpp
-)
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-  modern.cpp::core
-  GTest::gtest_main
-)
-
-gtest_add_tests(${PROJECT_NAME}
-  SOURCES ${PROJECT_NAME}.cpp
-)
-
-project(test_size)
-
-add_executable(${PROJECT_NAME}
-  ${PROJECT_NAME}.cpp
-)
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-  modern.cpp::core
-  GTest::gtest_main
-)
-
-gtest_add_tests(${PROJECT_NAME}
-  SOURCES ${PROJECT_NAME}.cpp
-)
-
-project(test_string_utils)
-
-add_executable(${PROJECT_NAME}
-  ${PROJECT_NAME}.cpp
-)
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-  modern.cpp::core
-  GTest::gtest_main
-)
-
-gtest_add_tests(${PROJECT_NAME}
-  SOURCES ${PROJECT_NAME}.cpp
-)
+make_test(line)
+make_test(magic_enum)
+make_test(point)
+make_test(rect)
+make_test(size)
+make_test(string_utils)
 
 # clang-11 cannot allocate
 if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")

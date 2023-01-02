@@ -143,7 +143,7 @@ namespace vx::string_utils {
    * @return Standard string from unsigned char.
    * @note This function may throw an exception by the constructor of std::string.
    */
-  [[nodiscard]] std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr );
+  [[nodiscard]] std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr ) noexcept;
 
   /**
    * @brief Returns standard string from unsigned char.
@@ -154,5 +154,5 @@ namespace vx::string_utils {
    * @note This function may throw an exception by the constructor of std::string.
    */
   [[nodiscard]] std::optional<std::string> MAYBE_BAD_fromUnsignedChar( const unsigned char *_uchr,
-                                                                       std::size_t _size );
+                                                                       std::size_t _size ) noexcept;
 }

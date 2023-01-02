@@ -29,21 +29,7 @@
  */
 
 /* gtest header */
-#ifdef __clang__
-  #pragma clang diagnostic push
-  #pragma clang diagnostic ignored "-Weverything"
-#endif
-#ifdef __GNUC__
-  #pragma GCC diagnostic push
-  #pragma GCC diagnostic ignored "-Weffc++"
-#endif
 #include <gtest/gtest.h>
-#ifdef __GNUC__
-  #pragma GCC diagnostic pop
-#endif
-#ifdef __clang__
-  #pragma clang diagnostic pop
-#endif
 
 using ::testing::InitGoogleTest;
 using ::testing::Test;
@@ -63,7 +49,8 @@ namespace vx {
   #pragma clang diagnostic pop
 #endif
 
-int main( int argc, char **argv ) {
+std::int32_t main( std::int32_t argc,
+                   char **argv ) {
 
   InitGoogleTest( &argc, argv );
   return RUN_ALL_TESTS();

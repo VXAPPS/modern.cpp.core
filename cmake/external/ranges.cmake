@@ -38,12 +38,12 @@ ExternalProject_Add(range-v3
   PREFIX ${RANGES_SRC}
   URL https://github.com/ericniebler/range-v3/archive/refs/tags/0.12.0.tar.gz
   URL_HASH SHA512=b8b632b8e0f2a3234ef61813212c237f648cd741e816ca57bd86f82f6459f7d755e2b70361d2aa43847874fb546a31a792ab1c3ba90292818ae7313438dc62d0
-  # DOWNLOAD_EXTRACT_TIMESTAMP OFF
   # GIT_REPOSITORY https://github.com/ericniebler/range-v3.git
   # GIT_TAG 0.12.0
   # GIT_SHALLOW 1
   CMAKE_ARGS
     -DCMAKE_CXX_COMPILER:FILEPATH=${CMAKE_CXX_COMPILER}
+    -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}
     -DCMAKE_OSX_ARCHITECTURES:STRING=${CMAKE_OSX_ARCHITECTURES}
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=${RANGES_INSTALL}
@@ -119,8 +119,12 @@ namespace std {
 
   namespace ranges {
 
+    using ::ranges::all_of\;
+    using ::ranges::distance\;
     using ::ranges::transform\;
     using ::ranges::replace\;
+    using ::ranges::search\;
+    using ::ranges::sort\;
     using ::ranges::unique\;
   }
 }

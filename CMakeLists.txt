@@ -42,7 +42,7 @@ if(NOT DEFINED CORE_MASTER_PROJECT)
   endif()
 endif()
 
-project(modern.cpp.core VERSION 0.6 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES CXX)
+project(modern.cpp.core VERSION 0.6.1 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES CXX)
 include(cmake/env.cmake)
 include(cmake/checks.cmake)
 

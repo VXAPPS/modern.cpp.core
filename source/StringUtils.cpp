@@ -41,14 +41,20 @@
 #include "Logger.h"
 #include "StringUtils.h"
 
-#if defined _MSC_VER && _MSC_VER < 1920
-namespace std {
+namespace std { // NOSONAR
 
+#if defined _MSC_VER && _MSC_VER < 1920
   using ::isspace;
   using ::tolower;
   using ::toupper;
-}
 #endif
+
+#ifdef _WIN32
+  using ::strnlen_s;
+#else
+  using ::strnlen;
+#endif
+}
 
 namespace vx::string_utils {
 
@@ -140,7 +146,6 @@ namespace vx::string_utils {
 
     /* Trim */
     trim( _string );
-
     return _string;
   }
 
@@ -196,17 +201,25 @@ namespace vx::string_utils {
     return result;
   }
 
-  std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr ) {
+  std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr ) noexcept {
 
     /* nullptr check is mandatory */
     if ( !_uchr ) { return {}; }
 
-    const std::basic_string<unsigned char> result = _uchr;
-    return std::make_optional<std::string>( std::cbegin( result ), std::cend( result ) );
+    std::basic_string<unsigned char> string {};
+    try {
+
+      string = _uchr;
+    }
+    catch( const std::exception &_exception ) {
+
+      logFatal() << _exception.what();
+    }
+    return std::make_optional<std::string>( std::cbegin( string ), std::cend( string ) );
   }
 
   std::optional<std::string> MAYBE_BAD_fromUnsignedChar( const unsigned char *_uchr,
-                                                         std::size_t _size ) {
+                                                         std::size_t _size ) noexcept {
 
     /* nullptr check is mandatory */
     if ( !_uchr ) { return {}; }
@@ -214,11 +227,19 @@ namespace vx::string_utils {
     std::size_t size = _size;
     if ( !size ) {
 
-      const std::basic_string<unsigned char> result = _uchr;
+      std::basic_string<unsigned char> string {};
+      try {
+
+        string = _uchr;
+      }
+      catch( const std::exception &_exception ) {
+
+        logFatal() << _exception.what();
+      }
 #ifdef _WIN32
-      size = strnlen_s( reinterpret_cast<const char *>( _uchr ), result.size() ); // NOSONAR do not use reinterpret_cast
+      size = std::strnlen_s( reinterpret_cast<const char *>( _uchr ), string.size() ); // NOSONAR do not use reinterpret_cast
 #else
-      size = strnlen( reinterpret_cast<const char *>( _uchr ), result.size() ); // NOSONAR do not use reinterpret_cast
+      size = std::strnlen( reinterpret_cast<const char *>( _uchr ), string.size() ); // NOSONAR do not use reinterpret_cast
 #endif
     }
     return std::make_optional<std::string>( _uchr, _uchr + size ); // NOSONAR do not use pointer arithmetric
