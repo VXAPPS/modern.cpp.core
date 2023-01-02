@@ -107,10 +107,10 @@ namespace vx {
     EXPECT_EQ( demangle::extreme( typeid( std::tuple<int, char, int> ).name() ), "std::tuple<int, char, int>" );
     EXPECT_EQ( demangle::extreme( typeid( std::tuple<int, const char *, const char *> ).name() ), "std::tuple<int, const char *, const char *>" );
 
-    const std::tuple tuple { 1, "abc", "def" };
+    const std::tuple<int, const char *, const char *> tuple { 1, "abc", "def" };
     EXPECT_EQ( demangle::extreme( typeid( tuple ).name() ), "std::tuple<int, const char *, const char *>" );
 
-    const std::tuple tuple2 { 1, 'a', "def" };
+    const std::tuple<int, char, const char *> tuple2 { 1, 'a', "def" };
     EXPECT_EQ( demangle::extreme( typeid( tuple2 ).name() ), "std::tuple<int, char, const char *>" );
   }
 }

@@ -81,7 +81,11 @@ namespace vx {
     std::remove( "test.csv" );
 
     std::string converted( std::cbegin( dump ), std::cend( dump ) );
+#ifdef _WIN32
+    EXPECT_EQ( converted, "Hans,1.23,Manchester\r\n" );
+#else
     EXPECT_EQ( converted, "Hans,1.23,Manchester\n" );
+#endif
   }
 }
 #ifdef __clang__
