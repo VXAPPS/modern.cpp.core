@@ -103,7 +103,7 @@ std::int32_t main() {
   const std::tuple tuple { 1, "abc"s, "def"sv };
   logInfo() << tuple;
 
-  const std::tuple tuple2 { 1, "abc", "def" };
+  const std::tuple<int, const char *, const char *> tuple2 { 1, "abc", "def" };
   logInfo() << tuple2;
 
   logVerbose() << std::make_pair( 1, "hello" );
