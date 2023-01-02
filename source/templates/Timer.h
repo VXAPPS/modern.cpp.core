@@ -40,7 +40,14 @@
 #ifdef HAVE_JTHREAD
   #include <thread>
 #else
+  #ifdef __clang__
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wreserved-identifier"
+  #endif
   #include <jthread.hpp>
+  #ifdef __clang__
+    #pragma clang diagnostic pop
+  #endif
 #endif
 
 /**

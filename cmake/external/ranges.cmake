@@ -34,6 +34,10 @@ set(RANGES_SRC ${CMAKE_BINARY_DIR}/_deps/ranges-src)
 set(RANGES_INSTALL ${CMAKE_BINARY_DIR}/_deps/ranges-install)
 set(RANGES_INCLUDE_DIR ${RANGES_INSTALL}/include)
 
+if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]" AND UNIX AND NOT APPLE)
+  set(EXTRA_FLAGS -stdlib=libc++)
+endif()
+
 ExternalProject_Add(range-v3
   PREFIX ${RANGES_SRC}
   URL https://github.com/ericniebler/range-v3/archive/refs/tags/0.12.0.tar.gz
@@ -44,6 +48,7 @@ ExternalProject_Add(range-v3
   CMAKE_ARGS
     -DCMAKE_CXX_COMPILER:FILEPATH=${CMAKE_CXX_COMPILER}
     -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}
+    -DCMAKE_CXX_FLAGS=${EXTRA_FLAGS}
     -DCMAKE_OSX_ARCHITECTURES:STRING=${CMAKE_OSX_ARCHITECTURES}
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=${RANGES_INSTALL}
@@ -114,7 +119,7 @@ set(RANGES_ABSTRACT
  #pragma clang diagnostic pop
 #endif
 
-#if defined __clang__ && __clang_major__ <= 10 || defined __GNUC__ && ( __GNUC__ == 10 || __GNUC__ == 9 ) || defined __APPLE__
+#if defined __clang__ || defined __GNUC__ && ( __GNUC__ == 10 || __GNUC__ == 9 ) || defined __APPLE__
 namespace std {
 
   namespace ranges {
