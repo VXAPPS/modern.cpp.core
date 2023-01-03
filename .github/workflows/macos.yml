@@ -15,10 +15,6 @@ jobs:
       fail-fast: false
       matrix:
         name: [
-          macos-11-xcode-12-x86_64,
-          macos-11-xcode-12-arm64,
-          macos-11-xcode-13-x86_64,
-          macos-11-xcode-13-arm64,
           macos-12-xcode-13-x86_64,
           macos-12-xcode-13-arm64,
           macos-12-xcode-14-x86_64,
@@ -26,30 +22,6 @@ jobs:
         ]
         config: [Debug, Release]
         include:
-          - name: macos-11-xcode-12-x86_64
-            os: macos-11
-            compiler: xcode
-            version: "12.5"
-            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=x86_64
-
-          - name: macos-11-xcode-12-arm64
-            os: macos-11
-            compiler: xcode
-            version: "12.5"
-            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=arm64
-
-          - name: macos-11-xcode-13-x86_64
-            os: macos-11
-            compiler: xcode
-            version: "13.2"
-            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=x86_64
-
-          - name: macos-11-xcode-13-arm64
-            os: macos-11
-            compiler: xcode
-            version: "13.2"
-            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=arm64
-
           - name: macos-12-xcode-13-x86_64
             os: macos-12
             compiler: xcode
