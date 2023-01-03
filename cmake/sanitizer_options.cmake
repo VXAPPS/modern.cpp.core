@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
+# Copyright (c) 2023 Florian Becker <fb@vxapps.com> (VX APPS).
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,54 +28,20 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-function(make_test target)
-  project(test_${target})
+if(SANITIZER_ADDRESS)
+  # clang-11 cannot allocate
+  if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
+    string(REPLACE "." ";" VERSION_LIST ${CMAKE_CXX_COMPILER_VERSION})
+    list(GET VERSION_LIST 0 CLANG_VERSION_MAJOR)
+    if(CLANG_VERSION_MAJOR EQUAL 11)
+      get_property(ALL_TESTS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
+      set_tests_properties(${ALL_TESTS} PROPERTIES ENVIRONMENT ASAN_OPTIONS=use_sigaltstack=false)
+    endif()
+  endif()
 
-  add_executable(${PROJECT_NAME}
-    ${PROJECT_NAME}.cpp
-  )
-
-  target_link_libraries(${PROJECT_NAME}
-    PRIVATE
-    modern.cpp::core
-    GTest::gtest_main
-  )
-
-  gtest_add_tests(${PROJECT_NAME}
-    SOURCES ${PROJECT_NAME}.cpp
-  )
-endfunction()
-
-make_test(csv)
-make_test(demangle)
-make_test(floating_point)
-
-project(test_format)
-
-add_executable(${PROJECT_NAME}
-  ${PROJECT_NAME}.cpp
-)
-
-if(NOT HAVE_FORMAT)
-  set(${PROJECT_NAME}_libs fmt::fmt)
+  # gcc needs LD_PRELOAD of libasan and ignore link order
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    get_property(ALL_TESTS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
+    set_tests_properties(${ALL_TESTS} PROPERTIES ENVIRONMENT ASAN_OPTIONS=verify_asan_link_order=0)
+  endif()
 endif()
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-  modern.cpp::core
-  GTest::gtest_main
-  ${${PROJECT_NAME}_libs}
-)
-
-gtest_add_tests(${PROJECT_NAME}
-  SOURCES ${PROJECT_NAME}.cpp
-)
-
-make_test(line)
-make_test(magic_enum)
-make_test(point)
-make_test(rect)
-make_test(size)
-make_test(string_utils)
-
-include(${CMAKE}/sanitizer_options.cmake)
