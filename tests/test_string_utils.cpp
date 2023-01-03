@@ -153,6 +153,9 @@ namespace vx {
     EXPECT_EQ( result, "54686520616e737765722069732034322e" );
   }
 
+#ifdef _WIN32
+  __declspec( no_sanitize_address )
+#endif
 #if defined( __clang__ ) || defined( __GNUC__ )
   __attribute__( ( no_sanitize_address ) )
 #endif
