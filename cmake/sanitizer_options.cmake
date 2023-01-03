@@ -44,4 +44,13 @@ if(SANITIZER_ADDRESS)
     get_property(ALL_TESTS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
     set_tests_properties(${ALL_TESTS} PROPERTIES ENVIRONMENT ASAN_OPTIONS=verify_asan_link_order=0)
   endif()
+
+  if(WIN32)
+    get_property(ALL_TESTS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
+    set_tests_properties(${ALL_TESTS} PROPERTIES ENVIRONMENT ASAN_OPTIONS=windows_hook_rtl_allocators=true)
+
+    # copy runtime library
+    get_filename_component(ASAN_DIR ${CMAKE_CXX_COMPILER} DIRECTORY)
+    file(COPY ${ASAN_DIR}/clang_rt.asan_dbg_dynamic-x86_64.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+  endif()
 endif()
