@@ -39,7 +39,7 @@ else()
 endif()
 set(GOOGLETEST_INCLUDE_DIR ${GOOGLETEST_INSTALL}/include)
 
-ExternalProject_Add(googletest
+ExternalProject_Add(GTest
   PREFIX ${GOOGLETEST_SRC}
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG release-1.12.1
@@ -69,4 +69,4 @@ file(MAKE_DIRECTORY ${GOOGLETEST_INCLUDE_DIR})
 add_library(GTest::gtest_main STATIC IMPORTED GLOBAL)
 set_property(TARGET GTest::gtest_main PROPERTY IMPORTED_LOCATION ${GOOGLETEST_LIBRARY})
 set_property(TARGET GTest::gtest_main PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${GOOGLETEST_INCLUDE_DIR})
-add_dependencies(GTest::gtest_main googletest)
+add_dependencies(GTest::gtest_main GTest)
