@@ -125,19 +125,19 @@ namespace vx {
     constexpr double third = 2.2345678;
     constexpr double fourth = 2.2335678;
 
-    std::pair<double, double> splitted = vx::floating_point::split( first );
+    std::pair<double, double> splitted = floating_point::split( first );
     EXPECT_EQ( splitted.first, 1.0 );
     EXPECT_TRUE( floating_point::equal( splitted.second, 0.23 ) );
 
-    splitted = vx::floating_point::split( second );
+    splitted = floating_point::split( second );
     EXPECT_EQ( splitted.first, 2.0 );
     EXPECT_TRUE( floating_point::equal( splitted.second, 0.2345678 ) );
 
-    splitted = vx::floating_point::split( third );
+    splitted = floating_point::split( third );
     EXPECT_EQ( splitted.first, 2.0 );
     EXPECT_TRUE( floating_point::equal( splitted.second, 0.2345678 ) );
 
-    splitted = vx::floating_point::split( fourth );
+    splitted = floating_point::split( fourth );
     EXPECT_EQ( splitted.first, 2.0 );
     EXPECT_TRUE( floating_point::equal( splitted.second, 0.2335678 ) );
   }
