@@ -47,7 +47,7 @@ set(CMAKE ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 # Project
 set(3RDPARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 
-# Force C++17 or C++20 if available
+# Force C++23 or C++20 if available
 include(CheckCXXCompilerFlag)
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   check_cxx_compiler_flag(/std:c++23 HAVE_FLAG_STD_CXX23)
