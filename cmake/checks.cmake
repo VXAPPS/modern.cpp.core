@@ -28,8 +28,8 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-include(CheckCSourceCompiles)
-include(CheckIncludeFiles)
+include(CheckCXXSourceCompiles)
+include(CheckIncludeFileCXX)
 
 check_include_file_cxx(format HAVE_FORMAT_INCLUDE)
 if(HAVE_FORMAT_INCLUDE)
