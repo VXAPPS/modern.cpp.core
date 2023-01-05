@@ -35,13 +35,14 @@
 
 /* stl header */
 #include <type_traits>
+#include <utility>
 
 /**
  * @brief std (Standard template library) namespace.
  */
 namespace std {
 
-#if !__has_cpp_attribute( __cpp_lib_is_scoped_enum )
+#ifndef __cpp_lib_is_scoped_enum
   namespace detail {
 
     template <typename T>
@@ -76,7 +77,7 @@ namespace std {
   constexpr bool is_scoped_enum_v = is_scoped_enum<E>::value;
 #endif
 
-#if !__has_cpp_attribute( __cpp_lib_to_underlying )
+#ifndef __cpp_lib_to_underlying
   /**
    * @brief Return the underlying value in its correct type of an enumeration.
    * @tparam E   Enum or enum class.
@@ -91,7 +92,7 @@ namespace std {
   }
 #endif
 
-#if !__has_cpp_attribute( __cpp_lib_unreachable )
+#ifndef __cpp_lib_unreachable
   /**
    * @brief Unreachable section is reached.
    * @note https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2816.pdf
