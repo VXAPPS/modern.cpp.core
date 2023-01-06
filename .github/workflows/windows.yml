@@ -16,8 +16,12 @@ jobs:
       matrix:
         name: [
           windows-2019-msvc2019,
+          windows-2019-msvc2019-win32,
+          windows-2019-msvc2019-arm64,
 #          windows-2019-msvc2019-clang,
-          windows-2022-msvc2022
+          windows-2022-msvc2022,
+          windows-2022-msvc2022-win32,
+          windows-2022-msvc2022-arm64
 #          windows-2022-msvc2022-clang
         ]
         config: [Debug, Release]
@@ -26,6 +30,19 @@ jobs:
             os: windows-2019
             compiler: cl
             version: Visual Studio 16 2019
+            architecture: -A x64
+
+          - name: windows-2019-msvc2019-win32
+            os: windows-2019
+            compiler: cl
+            version: Visual Studio 16 2019
+            architecture: -A Win32
+
+          - name: windows-2019-msvc2019-arm64
+            os: windows-2019
+            compiler: cl
+            version: Visual Studio 16 2019
+            architecture: -A ARM64
 
 # clang-tools are not installed
 #          - name: windows-2019-msvc2019-clang
@@ -38,6 +55,19 @@ jobs:
             os: windows-2022
             compiler: cl
             version: Visual Studio 17 2022
+            architecture: -A x64
+
+          - name: windows-2022-msvc2022-win32
+            os: windows-2022
+            compiler: cl
+            version: Visual Studio 17 2022
+            architecture: -A Win32
+
+          - name: windows-2022-msvc2022-arm64
+            os: windows-2022
+            compiler: cl
+            version: Visual Studio 17 2022
+            architecture: -A ARM64
 
 # clang-tools are not installed
 #          - name: windows-2022-msvc2022-clang
@@ -72,7 +102,7 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{runner.workspace}}/build
-        run: cmake $Env:GITHUB_WORKSPACE -G"${{matrix.version}}" ${{matrix.toolchain}} -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}}
+        run: cmake $Env:GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} -G"${{matrix.version}}" ${{matrix.architecture}} ${{matrix.toolchain}}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
@@ -80,7 +110,10 @@ jobs:
 
       - name: Test
         working-directory: ${{runner.workspace}}/build
-        run: ctest --output-on-failure -C ${{matrix.config}}
+        run: |
+            if ( "${{matrix.architecture}}" -ne "-A ARM64" ) {
+              ctest --output-on-failure -C ${{matrix.config}}
+            }
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2

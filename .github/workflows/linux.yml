@@ -84,11 +84,18 @@ jobs:
             compiler: clang
             version: 14
 
+          - name: ubuntu-22.04-clang-15
+            os: ubuntu-22.04
+            compiler: clang
+            version: 15
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Dependencies
         run: |
+            wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+            sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main"
             sudo apt update
             sudo apt install -y ninja-build
 
