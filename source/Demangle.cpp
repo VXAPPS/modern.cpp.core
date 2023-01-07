@@ -95,7 +95,9 @@ namespace vx::demangle {
 
     // All, after general cleanup
     RE2::GlobalReplace( &result, "std::basic_string<char, std::char_traits<char>, std::allocator<char> >", "std::string" );
+    RE2::GlobalReplace( &result, "std::basic_string<char, std::char_traits<char>, std::allocator<char>>", "std::string" );
     RE2::GlobalReplace( &result, "std::basic_string_view<char, std::char_traits<char> >", "std::string_view" );
+    RE2::GlobalReplace( &result, "std::basic_string_view<char, std::char_traits<char>>", "std::string_view" );
 
     /* Remove space after opening bracket - overall valid */
     RE2::GlobalReplace( &result, "< ", "<" );

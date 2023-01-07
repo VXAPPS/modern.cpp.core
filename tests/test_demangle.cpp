@@ -83,6 +83,7 @@ namespace vx {
     EXPECT_EQ( demangle::abi( typeid( float ).name() ), "float" );
     EXPECT_EQ( demangle::abi( typeid( double ).name() ), "double" );
     EXPECT_EQ( demangle::simple( typeid( std::string ).name() ), "std::string" );
+    EXPECT_EQ( demangle::simple( typeid( std::string_view ).name() ), "std::string_view" );
   }
 
   TEST( Demangle, ComplexTypes ) {

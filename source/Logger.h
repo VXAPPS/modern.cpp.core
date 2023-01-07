@@ -250,6 +250,9 @@ namespace vx::logger {
     }
 #endif
 
+#if defined _WIN32 && !defined _WIN64
+    // bad, but we just need to drop that out on 32bit Windows.
+#else
     /**
      * @brief Logger operator << for std::size_t.
      * @param _input   Input std::size_t.
@@ -260,6 +263,7 @@ namespace vx::logger {
       m_stream << _input;
       return maybeSpace();
     }
+#endif
 
 #ifdef __APPLE__
     /**
