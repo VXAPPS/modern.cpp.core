@@ -35,6 +35,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
   set(CMAKE_REQUIRED_FLAGS "-Wno-unreachable-code-return -Wno-zero-as-null-pointer-constant")
 endif()
 find_package(Threads REQUIRED)
+unset(CMAKE_REQUIRED_FLAGS)
 
 # vx::keyboard
 if(UNIX AND NOT APPLE)

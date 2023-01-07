@@ -30,7 +30,7 @@
 
 include(CheckCXXCompilerFlag)
 
-if(UNIX)
+if(UNIX OR CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
   set(CMAKE_REQUIRED_FLAGS -fsanitize=address)
   check_cxx_compiler_flag(-fsanitize=address HAVE_ASAN)
 
@@ -58,6 +58,7 @@ else()
   set(CMAKE_REQUIRED_FLAGS /fsanitize=fuzzer)
   check_cxx_compiler_flag(/fsanitize=fuzzer HAVE_FUZZER)
 endif()
+  unset(CMAKE_REQUIRED_FLAGS)
 
 if(HAVE_ASAN)
   option(SANITIZER_ADDRESS "Build with address sanitizer" ON)

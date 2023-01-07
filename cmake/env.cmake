@@ -49,7 +49,7 @@ set(3RDPARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 
 # Force C++23 or C++20 if available
 include(CheckCXXCompilerFlag)
-if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]" AND WIN32)
   check_cxx_compiler_flag(/std:c++23 HAVE_FLAG_STD_CXX23)
   check_cxx_compiler_flag(/std:c++20 HAVE_FLAG_STD_CXX20)
 else()
