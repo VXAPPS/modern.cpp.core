@@ -51,6 +51,10 @@ if(SANITIZER_ADDRESS)
 
     # copy runtime library
     get_filename_component(ASAN_DIR ${CMAKE_CXX_COMPILER} DIRECTORY)
-    file(COPY ${ASAN_DIR}/clang_rt.asan_dbg_dynamic-x86_64.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+      file(COPY ${ASAN_DIR}/clang_rt.asan_dbg_dynamic-x86.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    else()
+      file(COPY ${ASAN_DIR}/clang_rt.asan_dbg_dynamic-x86_64.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    endif()
   endif()
 endif()

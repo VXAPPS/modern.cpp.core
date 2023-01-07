@@ -63,15 +63,19 @@ namespace vx {
                             [[maybe_unused]] std::uint32_t _subleaf ) noexcept {
 
 #ifdef _MSC_VER
+  #ifdef _M_ARM64
+    /* Not available yet */
+  #else
     std::array<int, 4> currentLeaf {};
     __cpuidex( currentLeaf.data(), static_cast<int>( _leaf ), static_cast<int>( _subleaf ) );
     m_currentLeaf[ std::to_underlying( Register::EAX ) ] = static_cast<std::uint32_t>( currentLeaf[ std::to_underlying( Register::EAX ) ] );
     m_currentLeaf[ std::to_underlying( Register::EBX ) ] = static_cast<std::uint32_t>( currentLeaf[ std::to_underlying( Register::EBX ) ] );
     m_currentLeaf[ std::to_underlying( Register::ECX ) ] = static_cast<std::uint32_t>( currentLeaf[ std::to_underlying( Register::ECX ) ] );
     m_currentLeaf[ std::to_underlying( Register::EDX ) ] = static_cast<std::uint32_t>( currentLeaf[ std::to_underlying( Register::EDX ) ] );
+  #endif
 #else
   #ifdef __aarch64__
-      /* Not available */
+    /* Not available yet */
   #else
     asm volatile( "cpuid"
                   : "=a"( m_currentLeaf[std::to_underlying( Register::EAX )] ),
