@@ -109,12 +109,7 @@ jobs:
               echo "CC=gcc-${{matrix.version}}" >> $GITHUB_ENV
               echo "CXX=g++-${{matrix.version}}" >> $GITHUB_ENV
             else
-#              # Workaround to bringt clang-12 back to work.
-#              if [ "${{matrix.version}}" = "12" ]; then
-#                sudo apt install -y clang-13 lld-13
-#                sudo apt remove -y clang-${{matrix.version}} lld-${{matrix.version}}
-#              fi
-              sudo apt install -y clang clang-${{matrix.version}} lld-${{matrix.version}}
+              sudo apt install -y clang-${{matrix.version}} lld-${{matrix.version}}
               sudo apt install -y libc++-${{matrix.version}}-dev libc++abi-${{matrix.version}}-dev libunwind-${{matrix.version}}-dev
               echo "CC=clang-${{matrix.version}}" >> $GITHUB_ENV
               echo "CXX=clang++-${{matrix.version}}" >> $GITHUB_ENV
