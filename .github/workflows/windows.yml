@@ -18,9 +18,11 @@ jobs:
           windows-2019-msvc2019,
           windows-2019-msvc2019-win32,
           windows-2019-msvc2019-arm64,
+          windows-2019-msvc2019-clang,
           windows-2022-msvc2022,
           windows-2022-msvc2022-win32,
-          windows-2022-msvc2022-arm64
+          windows-2022-msvc2022-arm64,
+          windows-2022-msvc2022-clang
         ]
         config: [Debug, Release]
         include:
@@ -42,6 +44,12 @@ jobs:
             version: Visual Studio 16 2019
             architecture: -A ARM64
 
+          - name: windows-2019-msvc2019-clang
+            os: windows-2019
+            compiler: cl
+            version: Visual Studio 16 2019
+            toolchain: -T clang-cl
+
           - name: windows-2022-msvc2022
             os: windows-2022
             compiler: cl
@@ -60,8 +68,23 @@ jobs:
             version: Visual Studio 17 2022
             architecture: -A ARM64
 
+          - name: windows-2022-msvc2022-clang
+            os: windows-2022
+            compiler: cl
+            version: Visual Studio 17 2022
+            toolchain: -T clang-cl
+
     steps:
       - uses: actions/checkout@v3
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: CLANG64
+          install: >-
+            git
+            base-devel
+          pacboy: >-
+            openssl:p
 
       - name: Dependencies
         run: |
