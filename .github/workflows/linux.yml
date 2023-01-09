@@ -123,6 +123,10 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} ${{matrix.cmake}}
 
+      - name: Logging CMake
+        working-directory: ${{runner.workspace}}/build
+        run: cat CMakeFiles/CMakeOutput.log && CMakeFiles/CMakeError.log
+
       - name: Build
         working-directory: ${{runner.workspace}}/build
         run: cmake --build . --config ${{matrix.config}}
