@@ -77,14 +77,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: msys2/setup-msys2@v2
+      - name: Cache LLVM and Clang
+        id: cache-llvm
+        uses: actions/cache@v2
         with:
-          msystem: CLANG64
-          install: >-
-            git
-            base-devel
-          pacboy: >-
-            openssl:p
+          path: |
+            C:/Program Files/LLVM
+            ./llvm
+          key: llvm-15.0
+
+      - name: Install LLVM and Clang
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: "15.0"
+          cached: ${{ steps.cache-llvm.outputs.cache-hit }}
 
       - name: Dependencies
         run: |
