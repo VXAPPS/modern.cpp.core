@@ -89,6 +89,7 @@ jobs:
               echo "CC=clang" >> $Env:GITHUB_ENV
               echo "CXX=clang++" >> $Env:GITHUB_ENV
             }
+            rmdir /s /q C:\PROGRA~1\POSTGR~1
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
