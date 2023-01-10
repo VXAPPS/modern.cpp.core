@@ -48,7 +48,7 @@ jobs:
             os: windows-2019
             compiler: clang-cl
             version: Ninja
-            toolchain: -T clang-cl
+            toolchain: "-DCMAKE_C_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe -DCMAKE_CXX_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe"
 
           - name: windows-2022-msvc2022
             os: windows-2022
@@ -72,33 +72,31 @@ jobs:
             os: windows-2022
             compiler: clang-cl
             version: Ninja
-            toolchain: -T clang-cl
+            toolchain: "-DCMAKE_C_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe -DCMAKE_CXX_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe"
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Cache LLVM and Clang
-        id: cache-llvm
-        uses: actions/cache@v3
-        with:
-          path: |
-            C:/Program Files/LLVM
-            ./llvm
-          key: llvm-15.0
+#      - name: Cache LLVM and Clang
+#        id: cache-llvm
+#        uses: actions/cache@v3
+#        with:
+#          path: |
+#            C:/Program Files/LLVM
+#            ./llvm
+#          key: llvm-15.0
 
-      - name: Install LLVM and Clang
-        uses: KyleMayes/install-llvm-action@v1
-        with:
-          version: "15.0"
-          cached: ${{ steps.cache-llvm.outputs.cache-hit }}
+#      - name: Install LLVM and Clang
+#        uses: KyleMayes/install-llvm-action@v1
+#        with:
+#          version: "15.0"
+#          cached: ${{ steps.cache-llvm.outputs.cache-hit }}
 
       - name: Dependencies
         run: |
             if ( "${{matrix.compiler}}" -eq "clang-cl" ) {
               choco install ninja -y
               choco install llvm -y
-              echo "CC=C:/Program Files/LLVM/bin/${{matrix.compiler}}.exe" >> $Env:GITHUB_ENV
-              echo "CXX=C:/Program Files/LLVM/bin/${{matrix.compiler}}.exe" >> $Env:GITHUB_ENV
             }
 
       - name: Initialize CodeQL
