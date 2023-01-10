@@ -52,6 +52,12 @@
  */
 namespace vx::logger {
 
+  /**
+   * @brief Logger operator for std::optional.
+   * @param _logger   Logger as input.
+   * @param _optional   Optional to logger.
+   * @return Logger with output.
+   */
   template <typename T>
   Logger &operator<<( Logger &_logger,
                       const std::optional<T> &_optional ) noexcept {
@@ -70,6 +76,12 @@ namespace vx::logger {
     return _logger.maybeSpace();
   }
 
+  /**
+   * @brief Logger operator for std::pair.
+   * @param _logger   Logger as input.
+   * @param _pair   Pair to logger.
+   * @return Logger with output.
+   */
   template <typename Key, typename T>
   Logger &operator<<( Logger &_logger,
                       const std::pair<Key, T> &_pair ) noexcept {
@@ -84,6 +96,12 @@ namespace vx::logger {
     return _logger.maybeSpace();
   }
 
+  /**
+   * @brief Helper function for list.
+   * @param _logger   Logger as input.
+   * @param _list   List type to output.
+   * @return Logger with output.
+   */
   template <typename List>
   Logger &printList( Logger &_logger,
                      const List &_list ) noexcept {
@@ -114,6 +132,12 @@ namespace vx::logger {
     return _logger.maybeSpace();
   }
 
+  /**
+   * @brief Logger operator for std::array.
+   * @param _logger   Logger as input.
+   * @param _array   Array to logger.
+   * @return Logger with output.
+   */
   template <typename T, std::size_t N>
   inline Logger &operator<<( Logger &_logger,
                              const std::array<T, N> &_array ) noexcept {
@@ -121,6 +145,12 @@ namespace vx::logger {
     return printList( _logger, _array );
   }
 
+  /**
+   * @brief Logger operator for std::list.
+   * @param _logger   Logger as input.
+   * @param _list   List to logger.
+   * @return Logger with output.
+   */
   template <typename T, typename Alloc>
   inline Logger &operator<<( Logger &_logger,
                              const std::list<T, Alloc> &_list ) noexcept {
@@ -128,6 +158,12 @@ namespace vx::logger {
     return printList( _logger, _list );
   }
 
+  /**
+   * @brief Logger operator for std::set.
+   * @param _logger   Logger as input.
+   * @param _set   Set to logger.
+   * @return Logger with output.
+   */
   template <typename T, typename Compare, typename Alloc>
   inline Logger &operator<<( Logger &_logger,
                              const std::set<T, Compare, Alloc> &_set ) noexcept {
@@ -135,6 +171,12 @@ namespace vx::logger {
     return printList( _logger, _set );
   }
 
+  /**
+   * @brief Logger operator for std::vector.
+   * @param _logger   Logger as input.
+   * @param _vector   Vector to logger.
+   * @return Logger with output.
+   */
   template <typename T, typename Alloc>
   inline Logger &operator<<( Logger &_logger,
                              const std::vector<T, Alloc> &_vector ) noexcept {
@@ -142,6 +184,12 @@ namespace vx::logger {
     return printList( _logger, _vector );
   }
 
+  /**
+   * @brief Helper function for map.
+   * @param _logger   Logger as input.
+   * @param _map   Map type to output.
+   * @return Logger with output.
+   */
   template <typename T>
   Logger &printMap( Logger &_logger,
                     const T &_map ) noexcept {
@@ -176,6 +224,12 @@ namespace vx::logger {
     return _logger.maybeSpace();
   }
 
+  /**
+   * @brief Logger operator for std::map.
+   * @param _logger   Logger as input.
+   * @param _map   Map to logger.
+   * @return Logger with output.
+   */
   template <typename Key, typename T, typename Compare, typename Alloc>
   inline Logger &operator<<( Logger &_logger,
                              const std::map<Key, T, Compare, Alloc> &_map ) noexcept {
@@ -183,6 +237,12 @@ namespace vx::logger {
     return printMap( _logger, _map );
   }
 
+  /**
+   * @brief Logger operator for std::multimap.
+   * @param _logger   Logger as input.
+   * @param _map   Multi map to logger.
+   * @return Logger with output.
+   */
   template <typename Key, typename T, typename Compare, typename Alloc>
   inline Logger &operator<<( Logger &_logger,
                              const std::multimap<Key, T, Compare, Alloc> &_map ) noexcept {
@@ -190,6 +250,12 @@ namespace vx::logger {
     return printMap( _logger, _map );
   }
 
+  /**
+   * @brief Logger operator for std::unordered_map.
+   * @param _logger   Logger as input.
+   * @param _map   Unordered map to logger.
+   * @return Logger with output.
+   */
   template <typename Key, typename T, typename Compare, typename Alloc>
   inline Logger &operator<<( Logger &_logger,
                              const std::unordered_map<Key, T, Compare, Alloc> &_map ) noexcept {
@@ -197,6 +263,12 @@ namespace vx::logger {
     return printMap( _logger, _map );
   }
 
+  /**
+   * @brief Helper function for tuple.
+   * @param _logger   Logger as input.
+   * @param _tuple   Tuple type to output.
+   * @return Logger with output.
+   */
   template <typename T>
   Logger &printTuple( Logger &_logger,
                       const T &_tuple ) noexcept {
@@ -226,6 +298,12 @@ namespace vx::logger {
     return _logger.maybeSpace();
   }
 
+  /**
+   * @brief Logger operator for std::tuple.
+   * @param _logger   Logger as input.
+   * @param _values   Tuple to logger.
+   * @return Logger with output.
+   */
   template <typename... Ts>
   inline Logger &operator<<( Logger &_logger,
                              const std::tuple<Ts...> &_values ) noexcept {
@@ -233,6 +311,12 @@ namespace vx::logger {
     return printTuple( _logger, _values );
   }
 
+  /**
+   * @brief Helper function for variant.
+   * @param _logger   Logger as input.
+   * @param _variant   Variant type to output.
+   * @return Logger with output.
+   */
   template <typename T>
   Logger &printVariant( Logger &_logger,
                         const T &_variant ) noexcept {
@@ -246,6 +330,12 @@ namespace vx::logger {
     return _logger.maybeSpace();
   }
 
+  /**
+   * @brief Logger operator for std::variant.
+   * @param _logger   Logger as input.
+   * @param _values   Variant to logger.
+   * @return Logger with output.
+   */
   template <typename... Ts>
   inline Logger &operator<<( Logger &_logger,
                              const std::variant<Ts...> &_values ) noexcept {

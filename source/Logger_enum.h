@@ -44,6 +44,12 @@
  */
 namespace vx::logger {
 
+  /**
+   * @brief Logger operator for enumeration.
+   * @param _logger   Logger as input.
+   * @param _value   Enumeration to logger.
+   * @return Logger with output.
+   */
   template <typename E, magic_enum::detail::enable_if_t<E, int> = 0>
   inline Logger &operator<<( Logger &_logger,
                              E _value ) noexcept {
@@ -63,6 +69,12 @@ namespace vx::logger {
     return _logger.maybeSpace();
   }
 
+  /**
+   * @brief Logger operator for enumeration optional.
+   * @param _logger   Logger as input.
+   * @param _value   Enumeration to logger.
+   * @return Logger with output.
+   */
   template <typename E, magic_enum::detail::enable_if_t<E, int> = 0>
   inline Logger &operator<<( Logger &_logger,
                              magic_enum::optional<E> _value ) noexcept {

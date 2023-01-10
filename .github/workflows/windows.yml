@@ -103,6 +103,10 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: cmake --build . --config ${{matrix.config}}
 
+      - name: Documentation
+        working-directory: ${{runner.workspace}}/build
+        run: cmake --build . --target documentation
+
       - name: Test
         if: matrix.architecture != '-A ARM64'
         working-directory: ${{runner.workspace}}/build

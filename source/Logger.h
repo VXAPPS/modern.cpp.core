@@ -93,27 +93,73 @@ namespace vx::logger {
   class Configuration : public Singleton<Configuration> {
 
   public:
+    /**
+     * @brief Get filename.
+     * @return Filename.
+     */
     [[nodiscard]] inline std::string filename() const noexcept { return m_filename; }
 
+    /**
+     * @brief Set filename.
+     * @param _filename   The filename.
+     */
     void setFilename( const std::string &_filename ) noexcept { m_filename = _filename; }
 
+    /**
+     * @brief Is auto space enabled?
+     * @return True, if auto space is enabled - otherwise false.
+     */
     [[nodiscard]] inline bool autoSpace() const noexcept { return m_autoSpace; }
 
+    /**
+     * @brief Set auto space.
+     * @param _autoSpace   True, to enable auto space.
+     */
     inline void setAutoSpace( bool _autoSpace ) noexcept { m_autoSpace = _autoSpace; }
 
+    /**
+     * @brief Is auto quotes enabled?
+     * @return True, auto quotes are enabled - otherwise false.
+     */
     [[nodiscard]] inline bool autoQuotes() const noexcept { return m_autoQuotes; }
 
+    /**
+     * @brief Set auto quotes.
+     * @param _autoQuotes   True, to enable auto quotes.
+     */
     inline void setAutoQuotes( bool _autoQuotes ) noexcept { m_autoQuotes = _autoQuotes; }
 
+    /**
+     * @brief Avoid log below loglevel.
+     * @return Current loglevel.
+     */
     [[nodiscard]] inline Severity avoidLogBelow() const noexcept { return m_avoidLogBelow; }
 
+    /**
+     * @brief Set avoid log below.
+     * @param _severity   Logging below this level will not written.
+     */
     inline void setAvoidLogBelow( Severity _severity ) noexcept { m_avoidLogBelow = _severity; }
 
   private:
+    /**
+     * @brief Member for auto space.
+     */
     bool m_autoSpace = true;
+
+    /**
+     * @brief Member for auto quotes.
+     */
     bool m_autoQuotes = true;
 
+    /**
+     * @brief Member for avoid log level.
+     */
     Severity m_avoidLogBelow = Severity::Warning;
+
+    /**
+     * @brief Member for filename.
+     */
     std::string m_filename {};
   };
 
@@ -159,6 +205,10 @@ namespace vx::logger {
      */
     Logger &operator=( Logger && ) = delete;
 
+    /**
+     * @brief Get logger reference.
+     * @return Logger with output.
+     */
     Logger &logger() noexcept { return *this; }
 
     /**
@@ -173,16 +223,39 @@ namespace vx::logger {
      */
     void printString( std::string_view _input ) noexcept;
 
+    /**
+     * @brief Is auto space enabled?
+     * @return True, if auto space is enabled - otherwise false.
+     */
     [[nodiscard]] inline bool autoSpace() const noexcept { return m_autoSpace; }
 
+    /**
+     * @brief Set auto space.
+     * @param _autoSpace   True, to enable auto space.
+     */
     inline void setAutoSpace( bool _autoSpace ) noexcept { m_autoSpace = _autoSpace; }
 
+    /**
+     * @brief Is auto quotes enabled?
+     * @return True, auto quotes are enabled - otherwise false.
+     */
     [[nodiscard]] inline bool autoQuotes() const noexcept { return m_autoQuotes; }
 
+    /**
+     * @brief Set auto quotes.
+     * @param _autoQuotes   True, to enable auto quotes.
+     */
     inline void setAutoQuotes( bool _autoQuotes ) noexcept { m_autoQuotes = _autoQuotes; }
 
+    /**
+     * @brief Flush the stream.
+     */
     inline void flush() noexcept { m_stream.flush(); }
 
+    /**
+     * @brief Enable auto space and print one.
+     * @return Logger with output.
+     */
     inline Logger &space() noexcept {
 
       m_autoSpace = true;
@@ -190,18 +263,30 @@ namespace vx::logger {
       return *this;
     }
 
+    /**
+     * @brief Disable auto space.
+     * @return Logger with output.
+     */
     inline Logger &nospace() noexcept {
 
       m_autoSpace = false;
       return *this;
     }
 
+    /**
+     * @brief If auto space is enabled print a space.
+     * @return Logger with output.
+     */
     inline Logger &maybeSpace() noexcept {
 
       if ( m_autoSpace ) { m_stream << ' '; }
       return *this;
     }
 
+    /**
+     * @brief Direct access to logging stream.
+     * @return Stream access.
+     */
     inline std::ostream &stream() { return m_stream; }
 
     /**
@@ -351,6 +436,11 @@ namespace vx::logger {
       return maybeSpace();
     }
 
+    /**
+     * @brief Logger operator << for std::chrono::duration.
+     * @param _input   Input std::chrono::duration.
+     * @return Logger with output.
+     */
     template <typename T, typename Ratio = std::ratio<1>>
     inline Logger &operator<<( const std::chrono::duration<T, Ratio> &_input ) noexcept {
 
@@ -412,12 +502,23 @@ namespace vx::logger {
       return maybeSpace();
     }
 
+    /**
+     * @brief Internal print std::tuple.
+     * @param _current   Current tuple position.
+     * @param _tuple   Tuple type input.
+     * @param _size   Tuple size.
+     */
     template <typename Tuple>
     void printTupleReal( [[maybe_unused]] std::size_t _current,
                          [[maybe_unused]] const Tuple &_tuple,
-                         [[maybe_unused]] typename std::tuple_size<Tuple>::type _size ) const noexcept { /* empty */
-    }
+                         [[maybe_unused]] typename std::tuple_size<Tuple>::type _size ) const noexcept { /* empty */ }
 
+    /**
+     * @brief Internal print std::tuple.
+     * @param _current   Current tuple position.
+     * @param _tuple   Tuple type input.
+     * @param _integral   Integral position to access it directly.
+     */
     template <std::size_t _pos, typename Tuple, typename = std::enable_if_t<std::tuple_size<Tuple>::value != _pos>>
     void printTupleReal( std::size_t _current,
                          const Tuple &_tuple,
@@ -435,6 +536,11 @@ namespace vx::logger {
       }
     }
 
+    /**
+     * @brief Output std::tuple.
+     * @param _pos   Starting tuple  position.
+     * @param _tuple   Tuple type input.
+     */
     template <typename Tuple>
     void printTuple( std::size_t _pos,
                      const Tuple &_tuple ) noexcept {
@@ -442,12 +548,23 @@ namespace vx::logger {
       printTupleReal( _pos, _tuple, std::integral_constant<std::size_t, 0>() );
     }
 
+    /**
+     * @brief Internal print std::variant.
+     * @param _current   Current variant position.
+     * @param _variant   Variant type input.
+     * @param _size   Variant size.
+     */
     template <typename Variant>
     void printVariantReal( [[maybe_unused]] std::size_t _current,
                            [[maybe_unused]] const Variant &_variant,
-                           [[maybe_unused]] typename std::variant_size<Variant>::type _size ) const noexcept { /* empty */
-    }
+                           [[maybe_unused]] typename std::variant_size<Variant>::type _size ) const noexcept { /* empty */ }
 
+    /**
+     * @brief Internal print std::variant.
+     * @param _current   Current variant position.
+     * @param _variant   Variant typeinput.
+     * @param _integral   Integral position to access it directly.
+     */
     template <std::size_t _pos, typename Variant, typename = std::enable_if_t<std::variant_size<Variant>::value != _pos>>
     void printVariantReal( std::size_t _current,
                            const Variant &_variant,
@@ -473,6 +590,11 @@ namespace vx::logger {
       }
     }
 
+    /**
+     * @brief Output std::variant.
+     * @param _pos   Starting variant position.
+     * @param _variant   Variant type input.
+     */
     template <typename Variant>
     void printVariant( std::size_t _pos,
                        const Variant &_variant ) noexcept {

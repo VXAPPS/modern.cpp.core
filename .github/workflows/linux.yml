@@ -136,6 +136,10 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: cmake --build . --config ${{matrix.config}}
 
+      - name: Documentation
+        working-directory: ${{runner.workspace}}/build
+        run: cmake --build . --target documentation
+
       - name: Test
         working-directory: ${{runner.workspace}}/build
         run: ctest --output-on-failure -C ${{matrix.config}}
