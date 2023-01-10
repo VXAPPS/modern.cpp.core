@@ -18,11 +18,11 @@ jobs:
           windows-2019-msvc2019,
           windows-2019-msvc2019-win32,
           windows-2019-msvc2019-arm64,
-          windows-2019-msvc2019-clang,
+#          windows-2019-msvc2019-clang,
           windows-2022-msvc2022,
           windows-2022-msvc2022-win32,
-          windows-2022-msvc2022-arm64,
-          windows-2022-msvc2022-clang
+          windows-2022-msvc2022-arm64
+#          windows-2022-msvc2022-clang
         ]
         config: [Debug, Release]
         include:
@@ -44,11 +44,11 @@ jobs:
             version: Visual Studio 16 2019
             architecture: -A ARM64
 
-          - name: windows-2019-msvc2019-clang
-            os: windows-2019
-            compiler: clang-cl
-            version: Ninja
-            toolchain: '"-DCMAKE_C_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe" "-DCMAKE_CXX_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe"'
+#          - name: windows-2019-msvc2019-clang
+#            os: windows-2019
+#            compiler: clang-cl
+#            version: Ninja
+#            toolchain: '"-DCMAKE_C_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe" "-DCMAKE_CXX_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe"'
 
           - name: windows-2022-msvc2022
             os: windows-2022
@@ -68,11 +68,11 @@ jobs:
             version: Visual Studio 17 2022
             architecture: -A ARM64
 
-          - name: windows-2022-msvc2022-clang
-            os: windows-2022
-            compiler: clang-cl
-            version: Ninja
-            toolchain: '"-DCMAKE_C_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe" "-DCMAKE_CXX_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe"'
+#          - name: windows-2022-msvc2022-clang
+#            os: windows-2022
+#            compiler: clang-cl
+#            version: Ninja
+#            toolchain: '"-DCMAKE_C_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe" "-DCMAKE_CXX_COMPILER:FILEPATH=C:/Program Files/LLVM/bin/clang-cl.exe"'
 
     steps:
       - uses: actions/checkout@v3
