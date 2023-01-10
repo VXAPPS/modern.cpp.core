@@ -79,6 +79,7 @@ jobs:
 
       - name: Dependencies
         run: |
+            choco install doxygen -y
             if ( "${{matrix.compiler}}" -eq "clang-cl" ) {
               choco install ninja -y
               choco install llvm -y

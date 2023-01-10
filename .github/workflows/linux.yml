@@ -103,6 +103,7 @@ jobs:
 
             sudo apt update
             sudo apt install -y ninja-build
+            sudo apt install -y doxygen
 
             if [ "${{matrix.compiler}}" = "gcc" ]; then
               sudo apt install -y g++-${{matrix.version}}

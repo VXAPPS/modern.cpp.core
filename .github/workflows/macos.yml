@@ -52,6 +52,7 @@ jobs:
       - name: Dependencies
         run: |
             brew install ninja
+            brew install doxygen
 
             if [ "${{matrix.compiler}}" = "xcode" ]; then
               ls -ls /Applications/
