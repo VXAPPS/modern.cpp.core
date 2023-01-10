@@ -81,13 +81,10 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: cmake --build . --config ${{matrix.config}}
 
-#       arm64 mac runner are not able to start the tests: [Unknown system error -86]
       - name: Test
+        if: matrix.cmake != '-DCMAKE_OSX_ARCHITECTURES:STRING=arm64'
         working-directory: ${{runner.workspace}}/build
-        run: |
-            if [ "${{matrix.cmake}}" != "-DCMAKE_OSX_ARCHITECTURES:STRING=arm64" ]; then
-              ctest --output-on-failure -C ${{matrix.config}}
-            fi
+        run: ctest --output-on-failure -C ${{matrix.config}}
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2

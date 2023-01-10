@@ -46,8 +46,8 @@ jobs:
 
           - name: windows-2019-msvc2019-clang
             os: windows-2019
-            compiler: cl
-            version: Visual Studio 16 2019
+            compiler: clang-cl
+            version: Ninja
             toolchain: -T clang-cl
 
           - name: windows-2022-msvc2022
@@ -70,8 +70,8 @@ jobs:
 
           - name: windows-2022-msvc2022-clang
             os: windows-2022
-            compiler: cl
-            version: Visual Studio 17 2022
+            compiler: clang-cl
+            version: Ninja
             toolchain: -T clang-cl
 
     steps:
@@ -94,15 +94,11 @@ jobs:
 
       - name: Dependencies
         run: |
-            if ( "${{matrix.compiler}}" -eq "gcc" ) {
-              choco install ninja
-              echo "CC=gcc" >> $Env:GITHUB_ENV
-              echo "CXX=g++" >> $Env:GITHUB_ENV
-            }
-            elseif ( "${{matrix.compiler}}".StartsWith( "clang" ) ) {
-              choco install ninja
-              echo "CC=clang" >> $Env:GITHUB_ENV
-              echo "CXX=clang++" >> $Env:GITHUB_ENV
+            if ( "${{matrix.compiler}}" -eq "clang-cl" ) ) {
+              choco install ninja -y
+              choco install llvm -y
+              echo "CC=C:/Program Files/LLVM/bin/${{matrix.compiler}}.exe" >> $Env:GITHUB_ENV
+              echo "CXX=C:/Program Files/LLVM/bin/${{matrix.compiler}}.exe" >> $Env:GITHUB_ENV
             }
 
       - name: Initialize CodeQL
@@ -122,11 +118,9 @@ jobs:
         run: cmake --build . --config ${{matrix.config}}
 
       - name: Test
+        if: matrix.architecture != '-A ARM64'
         working-directory: ${{runner.workspace}}/build
-        run: |
-            if ( "${{matrix.architecture}}" -ne "-A ARM64" ) {
-              ctest --output-on-failure -C ${{matrix.config}}
-            }
+        run: ctest --output-on-failure -C ${{matrix.config}}
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
