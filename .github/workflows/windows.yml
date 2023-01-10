@@ -94,7 +94,7 @@ jobs:
 
       - name: Dependencies
         run: |
-            if ( "${{matrix.compiler}}" -eq "clang-cl" ) ) {
+            if ( "${{matrix.compiler}}" -eq "clang-cl" ) {
               choco install ninja -y
               choco install llvm -y
               echo "CC=C:/Program Files/LLVM/bin/${{matrix.compiler}}.exe" >> $Env:GITHUB_ENV
