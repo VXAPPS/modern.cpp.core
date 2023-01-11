@@ -59,6 +59,7 @@ ExternalProject_Add(fmt
     -DCMAKE_OSX_ARCHITECTURES:STRING=${CMAKE_OSX_ARCHITECTURES}
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=${FMT_INSTALL}
+    -DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}
     -DFMT_MASTER_PROJECT:BOOL=OFF
     -DFMT_INSTALL:BOOL=ON
     -DFMT_PEDANTIC:BOOL=ON
@@ -121,6 +122,7 @@ set(FMT_ABSTRACT
  #pragma GCC diagnostic push
  #pragma GCC diagnostic ignored \"-Weffc++\"
 #endif
+#define FMT_ENFORCE_COMPILE_STRING
 #include <fmt/core.h>
 #ifdef __GNUC__
  #pragma GCC diagnostic pop
