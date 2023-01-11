@@ -140,6 +140,21 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: ctest --output-on-failure -C ${{matrix.config}}
 
+      - name: Coverage
+        if: matrix.compiler == 'clang'
+        working-directory: ${{runner.workspace}}/build/tests
+        run: |
+            llvm-profdata-${{matrix.version}} merge -sparse *.profraw -o coverage.profdata
+            all_tests=$(find . -maxdepth 1 -name 'test_*' -print0 | sed  -e "s:./: -object :g")
+            llvm-cov-${{matrix.version}} show --instr-profile coverage.profdata --format=txt $(echo $all_tests) > coverage.txt
+
+      - name: Archive Coverage
+        if: matrix.compiler == 'clang'
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: ${{runner.workspace}}/build/tests/coverage.txt
+
       - name: Documentation
         working-directory: ${{runner.workspace}}/build
         run: cmake --build . --target documentation

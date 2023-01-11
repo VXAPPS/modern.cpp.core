@@ -105,6 +105,11 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${EXTRA_CXX_FLAGS} -lc++abi -fuse-ld=lld")
   endif()
 
+  if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-instr-generate -fcoverage-mapping")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-instr-generate -fcoverage-mapping")
+  endif()
+
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   include(${CMAKE}/gcc_warnings.cmake)
 
@@ -121,6 +126,11 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra -Weffc++ -Wpedantic")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS_SPACED}")
+
+  if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage -fprofile-arcs -ftest-coverage")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -fprofile-arcs -ftest-coverage")
+  endif()
 
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   include(${CMAKE}/msvc_warnings.cmake)

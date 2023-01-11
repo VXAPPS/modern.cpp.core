@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022 Florian Becker <fb@vxapps.com> (VX APPS).
+# Copyright (c) 2023 Florian Becker <fb@vxapps.com> (VX APPS).
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,57 +28,9 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-function(make_test target)
-  project(test_${target})
-
-  add_executable(${PROJECT_NAME}
-    ${PROJECT_NAME}.cpp
-  )
-
-  target_link_libraries(${PROJECT_NAME}
-    PRIVATE
-    modern.cpp::core
-    GTest::gtest_main
-  )
-
-  gtest_add_tests(${PROJECT_NAME}
-    SOURCES ${PROJECT_NAME}.cpp
-  )
-endfunction()
-
-make_test(csv)
-make_test(demangle)
-make_test(floating_point)
-
-project(test_format)
-
-add_executable(${PROJECT_NAME}
-  ${PROJECT_NAME}.cpp
-)
-
-if(NOT HAVE_FORMAT)
-  set(${PROJECT_NAME}_libs fmt::fmt)
-endif()
-
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-  modern.cpp::core
-  GTest::gtest_main
-  ${${PROJECT_NAME}_libs}
-)
-
-gtest_add_tests(${PROJECT_NAME}
-  SOURCES ${PROJECT_NAME}.cpp
-)
-
-make_test(line)
-make_test(magic_enum)
-make_test(point)
-make_test(rect)
-make_test(size)
-make_test(string_utils)
-
-if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-  include(${CMAKE}/sanitizer_options.cmake)
-  include(${CMAKE}/test_options.cmake)
+if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
+  get_property(ALL_TESTS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
+  foreach(SINGLE_TEST ${ALL_TESTS})
+    set_tests_properties(${SINGLE_TEST} PROPERTIES ENVIRONMENT LLVM_PROFILE_FILE=${CMAKE_CURRENT_BINARY_DIR}/${SINGLE_TEST}.profraw)
+  endforeach()
 endif()
