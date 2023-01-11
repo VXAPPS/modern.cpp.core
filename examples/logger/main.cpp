@@ -139,7 +139,7 @@ std::int32_t main() {
   logInfo() << variant;
 
   constexpr std::int32_t theAnswerOfEverything = 42;
-  logFatal() << std::format( "The answer is {}.", theAnswerOfEverything );
+  logFatal() << std::format( "The answer is {}."sv, theAnswerOfEverything );
 
   constexpr double someDouble = 4.2;
 
@@ -167,7 +167,7 @@ std::int32_t main() {
   constexpr const auto &pathNames = magic_enum::enum_entries<Path>();
   logInfo() << pathNames;
 
-  logInfo().stream() << std::format( "int: {0:d}; hex: {0:#x}; oct: {0:#o}; bin: {0:#b}", theAnswerOfEverything );
+  logInfo().stream() << std::format( "int: {0:d}; hex: {0:#x}; oct: {0:#o}; bin: {0:#b}"sv, theAnswerOfEverything );
 
   const std::optional opti = "myOptional"s;
   const std::optional<std::string> optiNull = std::nullopt;

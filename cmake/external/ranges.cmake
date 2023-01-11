@@ -121,10 +121,10 @@ namespace std {
 
     using ::ranges::all_of\;
     using ::ranges::distance\;
-    using ::ranges::transform\;
     using ::ranges::replace\;
     using ::ranges::search\;
     using ::ranges::sort\;
+    using ::ranges::transform\;
     using ::ranges::unique\;
   }
 }

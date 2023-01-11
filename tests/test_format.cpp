@@ -50,9 +50,9 @@ namespace vx {
 
     using namespace std::literals;
 
-    EXPECT_EQ( std::format( "{}", 1 ), "1" );
-    EXPECT_EQ( std::format( "{}", "Test"sv ), "Test"s );
-    EXPECT_EQ( std::format( "{} {} {}", 1, 2, "3" ), "1 2 3"s );
+    EXPECT_EQ( std::format( "{}"sv, 1 ), "1" );
+    EXPECT_EQ( std::format( "{}"sv, "Test"sv ), "Test"s );
+    EXPECT_EQ( std::format( "{} {} {}"sv, 1, 2, "3" ), "1 2 3"s );
   }
 }
 #ifdef __clang__

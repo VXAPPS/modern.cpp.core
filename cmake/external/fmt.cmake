@@ -122,7 +122,6 @@ set(FMT_ABSTRACT
  #pragma GCC diagnostic push
  #pragma GCC diagnostic ignored \"-Weffc++\"
 #endif
-#define FMT_ENFORCE_COMPILE_STRING
 #include <fmt/core.h>
 #ifdef __GNUC__
  #pragma GCC diagnostic pop
@@ -133,11 +132,17 @@ set(FMT_ABSTRACT
 
 namespace std {
 
- template <typename... T>
- std::string format( fmt::format_string<T...> fmt, T &&...args ) {
+  template <typename... T>
+  std::string format( fmt::format_string<T...> _fmt, T &&..._args ) {
 
-   return fmt::format( fmt, std::forward<T>( args )... )\;
- }
+    return fmt::format( _fmt, std::forward<T>( _args )... )\;
+  }
+
+  template <typename... T>
+  std::string vformat( std::string_view _fmt, T &&..._args ) {
+
+    return fmt::vformat( _fmt, fmt::make_format_args(_args...) )\;
+  }
 }
 "
 )
