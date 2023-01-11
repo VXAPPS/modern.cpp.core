@@ -141,15 +141,15 @@ jobs:
         run: ctest --output-on-failure -C ${{matrix.config}}
 
       - name: Coverage
-        if: matrix.compiler == 'clang'
+        if: matrix.compiler == 'clang' && matrix.config == 'Debug'
         working-directory: ${{runner.workspace}}/build/tests
         run: |
             llvm-profdata-${{matrix.version}} merge -sparse *.profraw -o coverage.profdata
             all_tests=$(find . -maxdepth 1 -name 'test_*' -print0 | sed  -e "s:./: -object :g")
-            llvm-cov-${{matrix.version}} show --instr-profile coverage.profdata --format=txt $(echo $all_tests) > coverage.txt
+            llvm-cov-${{matrix.version}} show --instr-profile coverage.profdata --format=text $(echo $all_tests) > coverage.txt
 
       - name: Archive Coverage
-        if: matrix.compiler == 'clang'
+        if: matrix.compiler == 'clang' && matrix.config == 'Debug'
         uses: actions/upload-artifact@v3
         with:
           name: coverage
