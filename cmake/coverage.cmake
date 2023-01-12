@@ -32,21 +32,19 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
   string(REPLACE "." ";" CLANG_VERSION_LIST ${CMAKE_CXX_COMPILER_VERSION})
   list(GET CLANG_VERSION_LIST 0 CLANG_MAJOR)
   if(APPLE)
-    set(LLVM_PROFDATA_PATH xcrun llvm-profdata)
-    set(LLVM_PROFDATA_PATH_FOUND TRUE)
-    set(LLVM_COV_PATH xcrun llvm-cov)
-    set(LLVM_COV_PATH_FOUND TRUE)
+    set(LLVM_PROFDATA_EXECUTABLE xcrun llvm-profdata)
+    set(LLVM_COV_EXECUTABLE xcrun llvm-cov)
   else()
-    find_program(LLVM_PROFDATA_PATH NAMES llvm-profdata-${CLANG_MAJOR} llvm-profdata)
-    find_program(LLVM_COV_PATH NAMES llvm-cov-${CLANG_MAJOR} llvm-cov)
+    find_program(LLVM_PROFDATA_EXECUTABLE NAMES llvm-profdata-${CLANG_MAJOR} llvm-profdata)
+    find_program(LLVM_COV_EXECUTABLE NAMES llvm-cov-${CLANG_MAJOR} llvm-cov)
   endif()
-  if(LLVM_PROFDATA_PATH_FOUND)
+  if(LLVM_PROFDATA_EXECUTABLE)
     add_custom_target(coverage-merge
-      COMMAND ${LLVM_PROFDATA_PATH} merge --sparse ${CMAKE_CURRENT_BINARY_DIR}/*.profraw -o coverage.profdata
+      COMMAND ${LLVM_PROFDATA_EXECUTABLE} merge --sparse ${CMAKE_CURRENT_BINARY_DIR}/*.profraw -o coverage.profdata
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       COMMENT "Merging coverage data")
 
-    if(LLVM_COV_PATH_FOUND)
+    if(LLVM_COV_EXECUTABLE)
       get_property(TEST_TARGETS DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} PROPERTY BUILDSYSTEM_TARGETS)
       foreach(TEST_TARGET IN LISTS TEST_TARGETS)
         if(TEST_TARGET MATCHES test_*)
@@ -55,20 +53,20 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
       endforeach()
 
       add_custom_target(coverage-report
-        COMMAND ${LLVM_COV_PATH} show --instr-profile=${CMAKE_CURRENT_BINARY_DIR}/coverage.profdata --format=text --Xdemangler=c++filt ${TEST_TARGETS_JOINED} > ${CMAKE_CURRENT_BINARY_DIR}/coverage.clang-${CLANG_MAJOR}.txt
+        COMMAND ${LLVM_COV_EXECUTABLE} show --instr-profile=${CMAKE_CURRENT_BINARY_DIR}/coverage.profdata --format=text --Xdemangler=c++filt ${TEST_TARGETS_JOINED} > ${CMAKE_CURRENT_BINARY_DIR}/coverage.clang-${CLANG_MAJOR}.txt
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generating coverage report"
         DEPENDS coverage-merge)
 
       add_custom_target(coverage
-        COMMAND ${LLVM_COV_PATH} report --instr-profile=${CMAKE_CURRENT_BINARY_DIR}/coverage.profdata ${TEST_TARGETS_JOINED} > ${CMAKE_CURRENT_BINARY_DIR}/coverage.overview.clang-${CLANG_MAJOR}.txt
+        COMMAND ${LLVM_COV_EXECUTABLE} report --instr-profile=${CMAKE_CURRENT_BINARY_DIR}/coverage.profdata ${TEST_TARGETS_JOINED} > ${CMAKE_CURRENT_BINARY_DIR}/coverage.overview.clang-${CLANG_MAJOR}.txt
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generating coverage"
         DEPENDS coverage-report)
     endif()
   endif()
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  find_program(GCOV_PATH gcov)
-  find_program(LCOV_PATH  NAMES lcov lcov.bat lcov.exe lcov.perl)
-  find_program(CPPFILT_PATH NAMES c++filt)
+  find_program(GCOV_EXECUTABLE gcov)
+  find_program(LCOV_EXECUTABLE NAMES lcov lcov.bat lcov.exe lcov.perl)
+  find_program(CPPFILT_EXECUTABLE NAMES c++filt)
 endif()

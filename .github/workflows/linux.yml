@@ -138,7 +138,7 @@ jobs:
 
       - name: Test
         working-directory: ${{runner.workspace}}/build
-        run: ctest --output-on-failure -C ${{matrix.config}}
+        run: ctest --output-on-failure -C ${{matrix.config}} --verbose
 
       - name: Coverage
         if: matrix.compiler == 'clang' && matrix.config == 'Debug'
