@@ -95,30 +95,30 @@ jobs:
 
       - name: Dependencies
         run: |
-            if [ "${{matrix.version}}" = "15" ]; then
-              wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|gpg --dearmor > llvm-snapshot.gpg
-              sudo mv llvm-snapshot.gpg /etc/apt/trusted.gpg.d/
-              sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main"
-            fi
+             if [ "${{matrix.version}}" = "15" ]; then
+               wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|gpg --dearmor > llvm-snapshot.gpg
+               sudo mv llvm-snapshot.gpg /etc/apt/trusted.gpg.d/
+               sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main"
+             fi
 
-            sudo apt update
-            sudo apt install -y ninja-build
-            sudo apt install -y doxygen graphviz
+             sudo apt update
+             sudo apt install -y ninja-build
+             sudo apt install -y doxygen graphviz
 
-            if [ "${{matrix.compiler}}" = "gcc" ]; then
-              sudo apt install -y g++-${{matrix.version}}
-              echo "CC=gcc-${{matrix.version}}" >> $GITHUB_ENV
-              echo "CXX=g++-${{matrix.version}}" >> $GITHUB_ENV
-            else
-              sudo apt install -y clang-${{matrix.version}} lld-${{matrix.version}}
-              sudo apt install -y libc++-${{matrix.version}}-dev libc++abi-${{matrix.version}}-dev
-              # libunwind is new to clang-12, but not a dependency for the initial version
-              if [ "${{matrix.version}}" = "12" ]; then
-                sudo apt install -y libunwind-${{matrix.version}}-dev
-              fi
-              echo "CC=clang-${{matrix.version}}" >> $GITHUB_ENV
-              echo "CXX=clang++-${{matrix.version}}" >> $GITHUB_ENV
-            fi
+             if [ "${{matrix.compiler}}" = "gcc" ]; then
+               sudo apt install -y g++-${{matrix.version}}
+               echo "CC=gcc-${{matrix.version}}" >> $GITHUB_ENV
+               echo "CXX=g++-${{matrix.version}}" >> $GITHUB_ENV
+             else
+               sudo apt install -y clang-${{matrix.version}} lld-${{matrix.version}}
+               sudo apt install -y libc++-${{matrix.version}}-dev libc++abi-${{matrix.version}}-dev
+               # libunwind is new to clang-12, but not a dependency for the initial version
+               if [ "${{matrix.version}}" = "12" ]; then
+                 sudo apt install -y libunwind-${{matrix.version}}-dev
+               fi
+               echo "CC=clang-${{matrix.version}}" >> $GITHUB_ENV
+               echo "CXX=clang++-${{matrix.version}}" >> $GITHUB_ENV
+             fi
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
