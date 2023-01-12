@@ -146,7 +146,7 @@ jobs:
         run: |
             llvm-profdata-${{matrix.version}} merge -sparse *.profraw -o coverage.profdata
             all_tests=$(find . -maxdepth 1 -name 'test_*' -print0 | sed  -e 's:./: --object=:g')
-            llvm-cov-${{matrix.version}} show --instr-profile=coverage.profdata --format=text --Xdemangler=c++filt $(echo $all_tests) ../../source/ > ${{matrix.compiler}}-${{matrix.version}}-coverage.txt
+            llvm-cov-${{matrix.version}} show --instr-profile=coverage.profdata --format=text --Xdemangler=c++filt $(echo $all_tests) ../../source > ${{matrix.compiler}}-${{matrix.version}}-coverage.txt
 
       - name: Archive Coverage
         if: matrix.compiler == 'clang' && matrix.config == 'Debug'
