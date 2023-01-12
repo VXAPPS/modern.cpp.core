@@ -18,8 +18,8 @@ jobs:
           windows-2019-msvc2019-clang,
           windows-2022-msvc2022,
           windows-2022-msvc2022-win32,
-          windows-2022-msvc2022-arm64
-#          windows-2022-msvc2022-clang
+          windows-2022-msvc2022-arm64,
+          windows-2022-msvc2022-clang
         ]
         config: [Debug, Release]
         include:
@@ -66,23 +66,18 @@ jobs:
             version: Visual Studio 17 2022
             architecture: -A ARM64
 
-#          - name: windows-2022-msvc2022-clang
-#            os: windows-2022
-#            compiler: clang-cl
-#            version: Ninja
+          - name: windows-2022-msvc2022-clang
+            os: windows-2022
+            compiler: clang-cl
+            version: Visual Studio 17 2022
+            architecture: -A x64
+            toolchain: -T ClangCl
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Dependencies
-        run: |
-            choco install doxygen.install graphviz -y
-            if ( "${{matrix.compiler}}" -eq "clang-cl" ) {
-              choco install ninja -y
-              choco install llvm -y
-              echo "CC=C:/Program Files/LLVM/bin/${{matrix.compiler}}.exe" >> $env:GITHUB_ENV
-              echo "CXX=C:/Program Files/LLVM/bin/${{matrix.compiler}}.exe" >> $env:GITHUB_ENV
-            }
+        run: choco install doxygen.install graphviz -y
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
