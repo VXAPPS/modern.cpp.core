@@ -79,6 +79,7 @@ make_test(size)
 make_test(string_utils)
 
 if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+  include(${CMAKE}/coverage.cmake)
   include(${CMAKE}/sanitizer_options.cmake)
   include(${CMAKE}/test_options.cmake)
 endif()

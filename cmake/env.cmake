@@ -155,5 +155,5 @@ set(CMAKE_MODULE_PATH ${CMAKE}/modules)
 
 # Includes
 include(${CMAKE}/create_package.cmake)
-include(${CMAKE}/doxygen.cmake)
+include(${CMAKE}/documentation.cmake)
 include(${CMAKE}/find_package.cmake)

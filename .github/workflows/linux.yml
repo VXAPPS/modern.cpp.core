@@ -142,24 +142,17 @@ jobs:
 
       - name: Coverage
         if: matrix.compiler == 'clang' && matrix.config == 'Debug'
-        working-directory: ${{runner.workspace}}/build/tests
-        run: |
-            # llvm-profdata-${{matrix.version}} merge -sparse *.profraw -o coverage.profdata
-            llvm-profdata-${{matrix.version}} merge -sparse *.profraw -o coverage.profdata
-            if [ "${{matrix.version}}" < "12" ]; then
-              all_tests=$(find . -maxdepth 1 -name 'test_*' -print0 | sed  -e "s:./: :g")
-            else
-              all_tests=$(find . -maxdepth 1 -name 'test_*' -print0 | sed  -e "s:./: --object=:g")
-            fi
-            # llvm-cov-${{matrix.version}} show --instr-profile coverage.profdata --format=text -Xdemangler=c++filt $(echo $all_tests) ../../source/* > ${{matrix.compiler}}-${{matrix.version}}-coverage.txt
-            llvm-cov-${{matrix.version}} show --instr-profile=coverage.profdata --format=text --Xdemangler=c++filt $(echo $all_tests) ../../source/* > ${{matrix.compiler}}-${{matrix.version}}-coverage.txt
+        working-directory: ${{runner.workspace}}/build
+        run: cmake --build . --target coverage
 
       - name: Archive Coverage
         if: matrix.compiler == 'clang' && matrix.config == 'Debug'
         uses: actions/upload-artifact@v3
         with:
-          name: coverage
-          path: ${{runner.workspace}}/build/tests/${{matrix.compiler}}-${{matrix.version}}-coverage.txt
+          name: coverage-linux
+          path: |
+                ${{runner.workspace}}/build/tests/coverage-${{matrix.compiler}}-${{matrix.version}}.txt
+                ${{runner.workspace}}/build/tests/coverage-overview-${{matrix.compiler}}-${{matrix.version}}.txt
 
       - name: Documentation
         working-directory: ${{runner.workspace}}/build
