@@ -26,25 +26,25 @@ jobs:
             os: macos-12
             compiler: xcode
             version: "13.4"
-            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=x86_64
+            cmake: x86_64
 
           - name: macos-12-xcode-13-arm64
             os: macos-12
             compiler: xcode
             version: "13.4"
-            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=arm64
+            cmake: arm64
 
           - name: macos-12-xcode-14-x86_64
             os: macos-12
             compiler: xcode
             version: "14.2"
-            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=x86_64
+            cmake: x86_64
 
           - name: macos-12-xcode-14-arm64
             os: macos-12
             compiler: xcode
             version: "14.2"
-            cmake: -DCMAKE_OSX_ARCHITECTURES:STRING=arm64
+            arch: arm64
 
     steps:
       - uses: actions/checkout@v3
@@ -71,30 +71,30 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{runner.workspace}}/build
-        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} ${{matrix.cmake}}
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} -DCMAKE_OSX_ARCHITECTURES:STRING=${{matrix.arch}}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
         run: cmake --build . --config ${{matrix.config}}
 
       - name: Test
-        if: matrix.cmake != '-DCMAKE_OSX_ARCHITECTURES:STRING=arm64'
+        if: matrix.arch != 'arm64'
         working-directory: ${{runner.workspace}}/build
         run: ctest --output-on-failure -C ${{matrix.config}}
 
       - name: Coverage
-        if: matrix.config == 'Debug'
+        if: matrix.config == 'Debug' && matrix.arch != 'arm64'
         working-directory: ${{runner.workspace}}/build
         run: cmake --build . --target coverage
 
       - name: Archive Coverage
-        if: matrix.config == 'Debug'
+        if: matrix.config == 'Debug' && matrix.arch != 'arm64'
         uses: actions/upload-artifact@v3
         with:
           name: coverage-macos
           path: |
-                ${{runner.workspace}}/build/tests/coverage-${{matrix.compiler}}-${{matrix.version}}.txt
-                ${{runner.workspace}}/build/tests/coverage-overview-${{matrix.compiler}}-${{matrix.version}}.txt
+                ${{runner.workspace}}/build/tests/coverage.${{matrix.compiler}}-${{matrix.version}}.txt
+                ${{runner.workspace}}/build/tests/coverage.overview.${{matrix.compiler}}-${{matrix.version}}.txt
 
       - name: Documentation
         working-directory: ${{runner.workspace}}/build

@@ -47,6 +47,6 @@ if(DOXYGEN_FOUND)
   add_custom_target(documentation
     COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    COMMENT "Generating API documentation"
+    COMMENT "Generating documentation"
     VERBATIM)
 endif()

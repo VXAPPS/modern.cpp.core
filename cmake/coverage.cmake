@@ -28,14 +28,6 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-# Check prereqs
-find_program(GCOV_PATH gcov)
-find_program(LCOV_PATH  NAMES lcov lcov.bat lcov.exe lcov.perl)
-#find_program(FASTCOV_PATH NAMES fastcov fastcov.py )
-#find_program(GENHTML_PATH NAMES genhtml genhtml.perl genhtml.bat )
-#find_program(GCOVR_PATH gcovr PATHS ${CMAKE_SOURCE_DIR}/scripts/test)
-find_program(CPPFILT_PATH NAMES c++filt)
-
 if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
   string(REPLACE "." ";" CLANG_VERSION_LIST ${CMAKE_CXX_COMPILER_VERSION})
   list(GET CLANG_VERSION_LIST 0 CLANG_MAJOR)
@@ -50,37 +42,33 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
   endif()
   if(LLVM_PROFDATA_PATH_FOUND)
     add_custom_target(coverage-merge
-      COMMAND ${LLVM_PROFDATA_PATH} merge --sparse ${CMAKE_BINARY_DIR}/tests/*.profraw -o coverage.profdata
-      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/tests
-      COMMENT "Merge coverage data")
+      COMMAND ${LLVM_PROFDATA_PATH} merge --sparse ${CMAKE_CURRENT_BINARY_DIR}/*.profraw -o coverage.profdata
+      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+      COMMENT "Merging coverage data")
 
     if(LLVM_COV_PATH_FOUND)
-      get_property(TEST_TARGETS DIRECTORY "${CMAKE_SOURCE_DIR}/tests" PROPERTY BUILDSYSTEM_TARGETS)
+      get_property(TEST_TARGETS DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} PROPERTY BUILDSYSTEM_TARGETS)
       foreach(TEST_TARGET IN LISTS TEST_TARGETS)
-        if(TEST_TARGET MATCHES "test_*")
-          set(TEST_TARGETS_JOINED ${TEST_TARGETS_JOINED} --object=${TEST_TARGET})
+        if(TEST_TARGET MATCHES test_*)
+          set(TEST_TARGETS_JOINED ${TEST_TARGETS_JOINED} --object=${CMAKE_CURRENT_BINARY_DIR}/${TEST_TARGET})
         endif()
       endforeach()
 
       add_custom_target(coverage-report
-        COMMAND ${LLVM_COV_PATH} show --instr-profile=${CMAKE_BINARY_DIR}/tests/coverage.profdata --format=text --Xdemangler=c++filt ${TEST_TARGETS_JOINED} > ${CMAKE_BINARY_DIR}/tests/coverage-clang-${CLANG_MAJOR}.txt
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/tests
-        COMMENT "Create coverage report"
+        COMMAND ${LLVM_COV_PATH} show --instr-profile=${CMAKE_CURRENT_BINARY_DIR}/coverage.profdata --format=text --Xdemangler=c++filt ${TEST_TARGETS_JOINED} > ${CMAKE_CURRENT_BINARY_DIR}/coverage.clang-${CLANG_MAJOR}.txt
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating coverage report"
         DEPENDS coverage-merge)
 
       add_custom_target(coverage
-        COMMAND ${LLVM_COV_PATH} report --instr-profile=${CMAKE_BINARY_DIR}/tests/coverage.profdata ${TEST_TARGETS_JOINED} > ${CMAKE_BINARY_DIR}/tests/coverage-overview-clang-${CLANG_MAJOR}.txt
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/tests
-        COMMENT "Create coverage report"
+        COMMAND ${LLVM_COV_PATH} report --instr-profile=${CMAKE_CURRENT_BINARY_DIR}/coverage.profdata ${TEST_TARGETS_JOINED} > ${CMAKE_CURRENT_BINARY_DIR}/coverage.overview.clang-${CLANG_MAJOR}.txt
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating coverage"
         DEPENDS coverage-report)
     endif()
   endif()
-#  get_property(ALL_TESTS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
-#  foreach(SINGLE_TEST ${ALL_TESTS})
-#    if(ASAN_OPTIONS)
-#      set_tests_properties(${SINGLE_TEST} PROPERTIES ENVIRONMENT LLVM_PROFILE_FILE=${CMAKE_CURRENT_BINARY_DIR}/${SINGLE_TEST}.profraw ENVIRONMENT ${ASAN_OPTIONS})
-#    else()
-#      set_tests_properties(${SINGLE_TEST} PROPERTIES ENVIRONMENT LLVM_PROFILE_FILE=${CMAKE_CURRENT_BINARY_DIR}/${SINGLE_TEST}.profraw)
-#    endif()
-#  endforeach()
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  find_program(GCOV_PATH gcov)
+  find_program(LCOV_PATH  NAMES lcov lcov.bat lcov.exe lcov.perl)
+  find_program(CPPFILT_PATH NAMES c++filt)
 endif()
