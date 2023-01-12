@@ -40,7 +40,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
   endif()
   if(LLVM_PROFDATA_EXECUTABLE)
     add_custom_target(coverage-merge
-      COMMAND ${LLVM_PROFDATA_EXECUTABLE} merge --sparse ${CMAKE_CURRENT_BINARY_DIR}/*.profraw -o coverage.profdata
+      COMMAND ${LLVM_PROFDATA_EXECUTABLE} merge --sparse --num-threads=${CPU_COUNT} ${CMAKE_CURRENT_BINARY_DIR}/*.profraw --output=coverage.profdata
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       COMMENT "Merging coverage data")
 
