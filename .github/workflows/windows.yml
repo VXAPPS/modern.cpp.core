@@ -44,10 +44,12 @@ jobs:
             version: Visual Studio 16 2019
             architecture: -A ARM64
 
-#          - name: windows-2019-msvc2019-clang
-#            os: windows-2019
-#            compiler: clang-cl
-#            version: Ninja
+          - name: windows-2019-msvc2019-clang
+            os: windows-2019
+            compiler: clang-cl
+            version: Visual Studio 16 2019
+            architecture: -A x64
+            toolchain: -T ClangCl
 
           - name: windows-2022-msvc2022
             os: windows-2022
@@ -95,7 +97,7 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{runner.workspace}}/build
-        run: cmake $Env:GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} -G"${{matrix.version}}" ${{matrix.architecture}} ${{matrix.toolchain}}
+        run: cmake $env:GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} -G"${{matrix.version}}" ${{matrix.architecture}} ${{matrix.toolchain}}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
