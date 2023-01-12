@@ -157,7 +157,3 @@ set(CMAKE_MODULE_PATH ${CMAKE}/modules)
 include(${CMAKE}/create_package.cmake)
 include(${CMAKE}/doxygen.cmake)
 include(${CMAKE}/find_package.cmake)
-
-if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-  include(${CMAKE}/sanitizers.cmake)
-endif()
