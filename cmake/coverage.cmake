@@ -45,12 +45,12 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
     set(LLVM_COV_PATH xcrun llvm-cov)
     set(LLVM_COV_PATH_FOUND TRUE)
   else()
-    find_program(LLVM_PROFDATA_PATH llvm-profdata-${CLANG_MAJOR} llvm-profdata)
-    find_program(LLVM_COV_PATH llvm-cov-${CLANG_MAJOR} llvm-cov)
+    find_program(LLVM_PROFDATA_PATH NAMES llvm-profdata-${CLANG_MAJOR} llvm-profdata)
+    find_program(LLVM_COV_PATH NAMES llvm-cov-${CLANG_MAJOR} llvm-cov)
   endif()
   if(LLVM_PROFDATA_PATH_FOUND)
     add_custom_target(coverage-merge
-      COMMAND ${LLVM_PROFDATA_PATH} merge --sparse *.profraw -o coverage.profdata
+      COMMAND ${LLVM_PROFDATA_PATH} merge --sparse ${CMAKE_BINARY_DIR}/tests/*.profraw -o coverage.profdata
       WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/tests
       COMMENT "Merge coverage data")
 
@@ -63,13 +63,13 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
       endforeach()
 
       add_custom_target(coverage-report
-        COMMAND ${LLVM_COV_PATH} show --instr-profile=coverage.profdata --format=text --Xdemangler=c++filt ${TEST_TARGETS_JOINED} > coverage-clang-${CLANG_MAJOR}.txt
+        COMMAND ${LLVM_COV_PATH} show --instr-profile=${CMAKE_BINARY_DIR}/tests/coverage.profdata --format=text --Xdemangler=c++filt ${TEST_TARGETS_JOINED} > ${CMAKE_BINARY_DIR}/tests/coverage-clang-${CLANG_MAJOR}.txt
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/tests
         COMMENT "Create coverage report"
         DEPENDS coverage-merge)
 
       add_custom_target(coverage
-        COMMAND ${LLVM_COV_PATH} report --instr-profile=coverage.profdata ${TEST_TARGETS_JOINED} > coverage-overview-clang-${CLANG_MAJOR}.txt
+        COMMAND ${LLVM_COV_PATH} report --instr-profile=${CMAKE_BINARY_DIR}/tests/coverage.profdata ${TEST_TARGETS_JOINED} > ${CMAKE_BINARY_DIR}/tests/coverage-overview-clang-${CLANG_MAJOR}.txt
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/tests
         COMMENT "Create coverage report"
         DEPENDS coverage-report)
