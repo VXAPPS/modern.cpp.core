@@ -86,6 +86,8 @@ jobs:
         if: matrix.config == 'Debug' && matrix.architecture != 'arm64'
         working-directory: ${{runner.workspace}}/build
         run: |
+             pwd
+             ls -ls ${{runner.workspace}}/build/
              ls -ls ${{runner.workspace}}/build/tests/
              cmake --build . --target coverage
 
