@@ -130,7 +130,7 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{runner.workspace}}/build
-        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} ${{matrix.cmake}}
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
