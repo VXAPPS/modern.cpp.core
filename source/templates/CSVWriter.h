@@ -69,7 +69,9 @@ namespace vx {
      * @param _first   First value.
      * @param _last   Last value.
      */
+
     template <typename T>
+    // template <std::forward_iterator T>
     void addRowData( T _first,
                      T _last ) const noexcept {
 
