@@ -143,7 +143,6 @@ std::int32_t main() {
     }
   };
 
-  //std::for_each( std::cbegin( threads ), std::cend( threads ), stop );
   /* Send STOP to finish all threads */
   std::ranges::for_each( threads, stop );
 

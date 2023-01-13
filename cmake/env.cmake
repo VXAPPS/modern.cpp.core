@@ -127,11 +127,6 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra -Weffc++ -Wpedantic")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS_SPACED}")
 
-  if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL Debug)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage -fprofile-arcs -ftest-coverage")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -fprofile-arcs -ftest-coverage")
-  endif()
-
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   include(${CMAKE}/msvc_warnings.cmake)
 
