@@ -103,7 +103,7 @@ namespace vx::logger {
      * @brief Set filename.
      * @param _filename   The filename.
      */
-    void setFilename( const std::string &_filename ) noexcept { m_filename = _filename; }
+    void setFilename( std::string_view _filename ) noexcept { m_filename = _filename; }
 
     /**
      * @brief Is auto space enabled?

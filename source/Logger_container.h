@@ -86,7 +86,7 @@ namespace vx::logger {
   Logger &operator<<( Logger &_logger,
                       const std::pair<Key, T> &_pair ) noexcept {
 
-    _logger.stream() << /* demangle::extreme( typeid( _pair ).name() ) << ' ' << */ '{';
+    _logger.stream() << '{';
     const bool saveState = _logger.autoSpace();
     _logger.nospace() << _pair.first;
     _logger.stream() << ',' << ' ';
