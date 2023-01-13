@@ -50,9 +50,13 @@ set(3RDPARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 
 # Force C++23 or C++20 if available
 include(CheckCXXCompilerFlag)
-if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC")
   check_cxx_compiler_flag(/std:c++23 HAVE_FLAG_STD_CXX23)
   check_cxx_compiler_flag(/std:c++20 HAVE_FLAG_STD_CXX20)
+  # Visual Studio 2019 will have clang-12, but cmake do not know how to set the standard for that.
+  if(CMAKE_CXX_COMPILER_ID MATCHES [cC]lang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.0)
+    set(HAVE_FLAG_STD_CXX23 OFF)
+  endif()
 else()
   check_cxx_compiler_flag(-std=c++23 HAVE_FLAG_STD_CXX23)
   check_cxx_compiler_flag(-std=c++2b HAVE_FLAG_STD_CXX2B)
@@ -62,8 +66,8 @@ endif()
 
 # Clang-8 have some issues, that are not repairable
 if(CMAKE_CXX_COMPILER_ID MATCHES [cC]lang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.0)
-  set(HAVE_FLAG_STD_CXX20 0)
-  set(HAVE_FLAG_STD_CXX2A 0)
+  set(HAVE_FLAG_STD_CXX20 OFF)
+  set(HAVE_FLAG_STD_CXX2A OFF)
 endif()
 
 if(HAVE_FLAG_STD_CXX23 OR HAVE_FLAG_STD_CXX2B)
