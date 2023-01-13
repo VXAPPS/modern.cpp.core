@@ -153,7 +153,7 @@ namespace vx {
     EXPECT_EQ( result, "54686520616e737765722069732034322e" );
   }
 
-#ifdef __GNUC__ // GCC, Clang, ICC
+#if defined __GNUC__ || defined __clang__ // GCC, Clang, ICC
   __attribute__( ( no_sanitize_address ) )
 #elif defined _MSC_VER // MSVC
   __declspec( no_sanitize_address )
