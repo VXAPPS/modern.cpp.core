@@ -50,7 +50,7 @@ set(3RDPARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 
 # Force C++23 or C++20 if available
 include(CheckCXXCompilerFlag)
-if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   check_cxx_compiler_flag(/std:c++23 HAVE_FLAG_STD_CXX23)
   check_cxx_compiler_flag(/std:c++20 HAVE_FLAG_STD_CXX20)
 else()
@@ -61,7 +61,7 @@ else()
 endif()
 
 # Clang-8 have some issues, that are not repairable
-if(CMAKE_CXX_COMPILER_ID MATCHES [cC]lang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9)
+if(CMAKE_CXX_COMPILER_ID MATCHES [cC]lang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.0)
   set(HAVE_FLAG_STD_CXX20 0)
   set(HAVE_FLAG_STD_CXX2A 0)
 endif()
@@ -130,7 +130,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -fprofile-arcs -ftest-coverage")
   endif()
 
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   include(${CMAKE}/msvc_warnings.cmake)
 
   foreach(WARNING_FLAG ${WARNING_FLAGS})
