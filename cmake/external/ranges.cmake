@@ -99,19 +99,19 @@ set(RANGES_ABSTRACT
 
 /* ranges-v3 header */
 #ifdef __clang__
- #pragma clang diagnostic push
- #pragma clang diagnostic ignored \"-Weverything\"
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored \"-Weverything\"
 #endif
 #ifdef __GNUC__
- #pragma GCC diagnostic push
- #pragma GCC diagnostic ignored \"-Weffc++\"
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored \"-Weffc++\"
 #endif
 #include <range/v3/all.hpp>
 #ifdef __GNUC__
- #pragma GCC diagnostic pop
+  #pragma GCC diagnostic pop
 #endif
 #ifdef __clang__
- #pragma clang diagnostic pop
+  #pragma clang diagnostic pop
 #endif
 
 #if defined __clang__ || defined __GNUC__ && ( __GNUC__ == 10 || __GNUC__ == 9 ) || defined __APPLE__

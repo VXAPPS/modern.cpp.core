@@ -111,23 +111,24 @@ set(FMT_ABSTRACT
  */
 
 /* stl header */
+#include <string_view>
 #include <utility>
 
 /* fmt header */
 #ifdef __clang__
- #pragma clang diagnostic push
- #pragma clang diagnostic ignored \"-Weverything\"
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored \"-Weverything\"
 #endif
 #ifdef __GNUC__
- #pragma GCC diagnostic push
- #pragma GCC diagnostic ignored \"-Weffc++\"
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored \"-Weffc++\"
 #endif
 #include <fmt/core.h>
 #ifdef __GNUC__
- #pragma GCC diagnostic pop
+  #pragma GCC diagnostic pop
 #endif
 #ifdef __clang__
- #pragma clang diagnostic pop
+  #pragma clang diagnostic pop
 #endif
 
 namespace std {
@@ -141,10 +142,9 @@ namespace std {
   template <typename... T>
   std::string vformat( std::string_view _fmt, T &&..._args ) {
 
-    return fmt::vformat( _fmt, fmt::make_format_args(_args...) )\;
+    return fmt::vformat( _fmt, fmt::make_format_args( _args... ) )\;
   }
-}
-"
+}"
 )
 
 write_file(${FMT_INCLUDE_DIR}/format ${FMT_ABSTRACT})
