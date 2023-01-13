@@ -1,4 +1,4 @@
-name: linux
+name: linux CodeQL
 
 on: [workflow_dispatch]
 

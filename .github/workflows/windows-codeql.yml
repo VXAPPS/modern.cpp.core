@@ -1,4 +1,4 @@
-name: windows
+name: windows CodeQL
 
 on: [workflow_dispatch]
 
