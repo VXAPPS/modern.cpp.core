@@ -120,11 +120,6 @@ jobs:
                echo "CXX=clang++-${{matrix.version}}" >> $GITHUB_ENV
              fi
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: 'cpp'
-
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
 
@@ -157,6 +152,3 @@ jobs:
       - name: Documentation
         working-directory: ${{runner.workspace}}/build
         run: cmake --build . --target documentation
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
