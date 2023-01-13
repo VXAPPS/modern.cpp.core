@@ -145,7 +145,11 @@ namespace vx::string_utils {
     std::ranges::replace( _string, '\v', ' ' );
 
     /* Normalize spaces to just one */
+#if defined _MSC_VER || ( defined __GNUC__ && __GNUC__ >= 10 )
+    const auto newEnd = std::unique( std::cbegin( _string ), std::cend( _string ), bothAreSpaces );
+#else
     const auto newEnd = std::ranges::unique( _string, bothAreSpaces );
+#endif
     _string.erase( newEnd, std::cend( _string ) );
 
     /* Trim */
