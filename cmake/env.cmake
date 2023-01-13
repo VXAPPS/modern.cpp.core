@@ -82,16 +82,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # IPO/LTO
 include(CheckIPOSupported)
-check_ipo_supported(RESULT result OUTPUT output)
-if(result)
-  # It's available, set it for all following items
+check_ipo_supported(RESULT HAVE_IPO_SUPPORT OUTPUT IPO_ERROR)
+if(HAVE_IPO_SUPPORT)
   set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
 else()
-  message(WARNING "IPO is not supported: ${output}")
+  message(WARNING "IPO is not supported: ${IPO_ERROR}")
 endif()
 
 # Warning flags
-# Case insensitive match
 if(CMAKE_CXX_COMPILER_ID MATCHES [cC]lang)
   include(${CMAKE}/clang_warnings.cmake)
 
