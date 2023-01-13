@@ -128,15 +128,11 @@ namespace std {
     using ::ranges::sort\;
     using ::ranges::transform\;
     using ::ranges::unique\;
-  }
 
-  namespace views {
-
-    using ::views::drop\;
-    using ::views::filter\;
-    using ::views::iota\;
-    using ::views::reverse\;
-    using ::views::transform\;
+    using ::ranges::views::drop\;
+    using ::ranges::views::filter\;
+    using ::ranges::views::iota\;
+    using ::ranges::views::reverse\;
   }
 }
 #endif

@@ -69,7 +69,7 @@ namespace vx::string_utils {
       return !std::isspace( static_cast<unsigned char>( _chr ) );
     };
 
-    _string.erase( std::find_if( _string.rbegin(), _string.rend(), trimmed_ ).base(), _string.end() );
+    _string.erase( std::find_if( std::rbegin( _string ), std::rend( _string ), trimmed_ ).base(), _string.end() );
     return _string;
   }
 
@@ -84,7 +84,7 @@ namespace vx::string_utils {
       return !std::isspace( static_cast<unsigned char>( _chr ) );
     };
 
-    _string.erase( _string.begin(), std::find_if( _string.begin(), _string.end(), trimmed_ ) );
+    _string.erase( _string.begin(), std::ranges::find_if( _string, trimmed_ ) );
     return _string;
   }
 
