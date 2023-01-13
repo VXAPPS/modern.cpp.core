@@ -84,7 +84,11 @@ namespace vx::string_utils {
       return !std::isspace( static_cast<unsigned char>( _chr ) );
     };
 
+#if defined _MSC_VER || ( defined __GNUC__ && __GNUC__ >= 10 )
+    _string.erase( _string.begin(), std::find_if( std::begin( _string ), std::end( _string ), trimmed_ ) );
+#else
     _string.erase( _string.begin(), std::ranges::find_if( _string, trimmed_ ) );
+#endif
     return _string;
   }
 
