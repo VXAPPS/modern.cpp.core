@@ -141,7 +141,7 @@ namespace vx::string_utils {
     std::ranges::replace( _string, '\v', ' ' );
 
     /* Normalize spaces to just one */
-    const auto newEnd = std::unique( std::begin( _string ), std::end( _string ), bothAreSpaces );
+    const auto newEnd = std::ranges::unique( _string, bothAreSpaces );
     _string.erase( newEnd, std::cend( _string ) );
 
     /* Trim */
