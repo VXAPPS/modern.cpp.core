@@ -115,7 +115,7 @@ std::int32_t main() {
   logDebug() << blubAny << helo << std::make_any<std::vector<int>>( { 1, 2, 3, 4 } );
 
   const std::unordered_map<std::int32_t, std::string_view> testsv { { 2, "ghj"sv }, { 1, "def"sv }, { 3, "abc"sv } };
-  (void)testsv;
+  std::ignore = testsv;
 
   logInfo() << MyClass( "Blub" );
 

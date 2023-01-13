@@ -32,7 +32,9 @@
 #include <cstdint> // std::int32_t
 
 /* stl header */
+#include <algorithm>
 #include <iostream>
+#include <ranges>
 
 /* modern.cpp.core */
 #include <SharedQueue.h>
@@ -125,9 +127,8 @@ std::int32_t main() {
     }
   }
 
-  /* Send STOP to finish all threads */
-  for ( std::uint32_t thread = 0; thread < threads.size(); ++thread ) {
-
+  const auto stop = [ &queue ]( const std::jthread &_thread ) {
+    std::ignore = _thread;
     try {
 
       queue.push( new Item( "STOP", 0 ) );
@@ -140,7 +141,11 @@ std::int32_t main() {
 
       std::cout << _exception.what() << std::endl;
     }
-  }
+  };
+
+  //std::for_each( std::cbegin( threads ), std::cend( threads ), stop );
+  /* Send STOP to finish all threads */
+  std::ranges::for_each( threads, stop );
 
   /* Wait for threads to be finished */
   for ( auto &thread : threads ) {
