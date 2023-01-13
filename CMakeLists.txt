@@ -28,7 +28,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.18...3.25)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/policy.cmake)
 update_policy()

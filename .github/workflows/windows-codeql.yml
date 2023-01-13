@@ -1,6 +1,6 @@
-name: windows
+name: windows CodeQL
 
-on: [push, pull_request]
+on: [workflow_dispatch]
 
 jobs:
 
@@ -79,6 +79,12 @@ jobs:
       - name: Dependencies
         run: choco install doxygen.install graphviz -y
 
+      - name: Initialize CodeQL
+        if: matrix.compiler != 'clang-cl'
+        uses: github/codeql-action/init@v2
+        with:
+          languages: 'cpp'
+
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
 
@@ -90,11 +96,6 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: cmake --build . --config ${{matrix.config}}
 
-      - name: Test
-        if: matrix.architecture != '-A ARM64'
-        working-directory: ${{runner.workspace}}/build
-        run: ctest --output-on-failure -C ${{matrix.config}}
-
-      - name: Documentation
-        working-directory: ${{runner.workspace}}/build
-        run: cmake --build . --target documentation
+      - name: Perform CodeQL Analysis
+        if: matrix.compiler != 'clang-cl'
+        uses: github/codeql-action/analyze@v2

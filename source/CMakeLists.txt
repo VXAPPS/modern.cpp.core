@@ -43,8 +43,11 @@ if(APPLE)
 endif()
 
 add_library(${PROJECT_NAME}
+  ../.github/workflows/linux-codeql.yml
   ../.github/workflows/linux.yml
+  ../.github/workflows/macos-codeql.yml
   ../.github/workflows/macos.yml
+  ../.github/workflows/windows-codeql.yml
   ../.github/workflows/windows.yml
   ../docs/footer.html
   ../docs/header.html

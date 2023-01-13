@@ -42,7 +42,7 @@ if (WIN32)
   set(EXTRA_CXX_FLAGS "${EXTRA_CXX_FLAGS} /EHsc")
 endif()
 if (UNIX)
-  set(RE2_OS_ARGS "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}")
+  set(RE2_OS_ARGS -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE})
 endif()
 
 ExternalProject_Add(re2
