@@ -121,11 +121,22 @@ namespace std {
 
     using ::ranges::all_of\;
     using ::ranges::distance\;
+    using ::ranges::find_if\;
+    using ::ranges::for_each\;
     using ::ranges::replace\;
     using ::ranges::search\;
     using ::ranges::sort\;
     using ::ranges::transform\;
     using ::ranges::unique\;
+  }
+
+  namespace views {
+
+    using ::views::drop\;
+    using ::views::filter\;
+    using ::views::iota\;
+    using ::views::reverse\;
+    using ::views::transform\;
   }
 }
 #endif
