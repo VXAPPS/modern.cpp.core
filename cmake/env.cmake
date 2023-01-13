@@ -50,7 +50,7 @@ set(3RDPARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 
 # Force C++23 or C++20 if available
 include(CheckCXXCompilerFlag)
-if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]" AND WIN32)
+if(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
   check_cxx_compiler_flag(/std:c++23 HAVE_FLAG_STD_CXX23)
   check_cxx_compiler_flag(/std:c++20 HAVE_FLAG_STD_CXX20)
 else()
@@ -61,7 +61,7 @@ else()
 endif()
 
 # Clang-8 have some issues, that are not repairable
-if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9")
+if(CMAKE_CXX_COMPILER_ID MATCHES [cC]lang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9)
   set(HAVE_FLAG_STD_CXX20 0)
   set(HAVE_FLAG_STD_CXX2A 0)
 endif()
@@ -88,10 +88,9 @@ endif()
 
 # Warning flags
 # Case insensitive match
-if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
+if(CMAKE_CXX_COMPILER_ID MATCHES [cC]lang)
   include(${CMAKE}/clang_warnings.cmake)
 
-  set(WARNING_FLAGS_SPACED "")
   foreach(WARNING_FLAG ${WARNING_FLAGS})
     set(WARNING_FLAGS_SPACED "${WARNING_FLAGS_SPACED} ${WARNING_FLAG}")
   endforeach()
@@ -105,15 +104,14 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${EXTRA_CXX_FLAGS} -lc++abi -fuse-ld=lld")
   endif()
 
-  if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+  if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL Debug)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-instr-generate -fcoverage-mapping")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-instr-generate -fcoverage-mapping")
   endif()
 
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU)
   include(${CMAKE}/gcc_warnings.cmake)
 
-  set(WARNING_FLAGS_SPACED "")
   foreach(WARNING_FLAG ${WARNING_FLAGS})
     set(WARNING_FLAGS_SPACED "${WARNING_FLAGS_SPACED} ${WARNING_FLAG}")
   endforeach()
@@ -127,15 +125,14 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra -Weffc++ -Wpedantic")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS_SPACED}")
 
-  if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+  if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL Debug)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage -fprofile-arcs -ftest-coverage")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -fprofile-arcs -ftest-coverage")
   endif()
 
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL MSVC)
   include(${CMAKE}/msvc_warnings.cmake)
 
-  set(WARNING_FLAGS_SPACED "")
   foreach(WARNING_FLAG ${WARNING_FLAGS})
     set(WARNING_FLAGS_SPACED "${WARNING_FLAGS_SPACED} ${WARNING_FLAG}")
   endforeach()

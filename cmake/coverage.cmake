@@ -28,7 +28,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
+if(CMAKE_CXX_COMPILER_ID MATCHES [cC]lang)
   string(REPLACE "." ";" CLANG_VERSION_LIST ${CMAKE_CXX_COMPILER_VERSION})
   list(GET CLANG_VERSION_LIST 0 CLANG_MAJOR)
   if(APPLE)
@@ -65,7 +65,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
         DEPENDS coverage-report)
     endif()
   endif()
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL GNU)
   find_program(GCOV_EXECUTABLE gcov)
   find_program(LCOV_EXECUTABLE NAMES lcov lcov.bat lcov.exe lcov.perl)
   find_program(CPPFILT_EXECUTABLE NAMES c++filt)

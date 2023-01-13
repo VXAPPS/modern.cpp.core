@@ -39,9 +39,9 @@ else()
 endif()
 set(GOOGLETEST_INCLUDE_DIR ${GOOGLETEST_INSTALL}/include)
 if (UNIX)
-  set(GOOGLETEST_OS_ARGS "-DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}")
+  set(GOOGLETEST_OS_ARGS -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE})
 else()
-  set(GOOGLETEST_OS_ARGS "-Dgtest_force_shared_crt:BOOL=ON")
+  set(GOOGLETEST_OS_ARGS -Dgtest_force_shared_crt:BOOL=ON)
 endif()
 
 ExternalProject_Add(GTest

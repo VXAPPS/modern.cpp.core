@@ -30,7 +30,7 @@
 
 include(CheckCXXCompilerFlag)
 
-if(UNIX OR CMAKE_CXX_COMPILER_ID MATCHES "[cC][lL][aA][nN][gG]")
+if(UNIX OR CMAKE_CXX_COMPILER_ID MATCHES [cC]lang)
   set(CMAKE_REQUIRED_FLAGS -fsanitize=address)
   check_cxx_compiler_flag(-fsanitize=address HAVE_ASAN)
 
