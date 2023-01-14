@@ -192,7 +192,7 @@ namespace vx::string_utils {
   std::string toHex( std::string_view _string ) noexcept {
 
     std::ostringstream stream {};
-    for ( const auto &chr : _string ) {
+    for ( auto chr : _string ) {
 
       stream << std::hex << static_cast<int>( chr );
     }
