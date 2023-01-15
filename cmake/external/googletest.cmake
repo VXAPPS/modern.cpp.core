@@ -32,17 +32,14 @@ include(ExternalProject)
 
 set(GOOGLETEST_SRC ${CMAKE_BINARY_DIR}/_deps/googletest-src)
 set(GOOGLETEST_INSTALL ${CMAKE_BINARY_DIR}/_deps/googletest-install)
-if (UNIX)
+if(UNIX)
   set(GOOGLETEST_LIBRARY ${GOOGLETEST_INSTALL}/lib/libgtest.a)
-else()
-  set(GOOGLETEST_LIBRARY ${GOOGLETEST_INSTALL}/lib/gtest.lib)
-endif()
-set(GOOGLETEST_INCLUDE_DIR ${GOOGLETEST_INSTALL}/include)
-if (UNIX)
   set(GOOGLETEST_OS_ARGS -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE})
 else()
+  set(GOOGLETEST_LIBRARY ${GOOGLETEST_INSTALL}/lib/gtest.lib)
   set(GOOGLETEST_OS_ARGS -Dgtest_force_shared_crt:BOOL=ON)
 endif()
+set(GOOGLETEST_INCLUDE_DIR ${GOOGLETEST_INSTALL}/include)
 
 ExternalProject_Add(GTest
   PREFIX ${GOOGLETEST_SRC}

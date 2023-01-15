@@ -32,7 +32,7 @@ include(ExternalProject)
 
 set(FMT_SRC ${CMAKE_BINARY_DIR}/_deps/fmt-src)
 set(FMT_INSTALL ${CMAKE_BINARY_DIR}/_deps/fmt-install)
-if (UNIX)
+if(UNIX)
   if(CMAKE_BUILD_TYPE STREQUAL Release)
     set(FMT_LIBRARY ${FMT_INSTALL}/lib/libfmt.a)
   else()
