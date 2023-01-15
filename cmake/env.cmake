@@ -81,12 +81,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # IPO/LTO
-include(CheckIPOSupported)
-check_ipo_supported(RESULT HAVE_IPO_SUPPORT OUTPUT IPO_ERROR)
-if(HAVE_IPO_SUPPORT)
-  set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
-else()
-  message(WARNING "IPO is not supported: ${IPO_ERROR}")
+if(CORE_MASTER_PROJECT)
+  include(CheckIPOSupported)
+  check_ipo_supported(RESULT HAVE_IPO_SUPPORT OUTPUT IPO_ERROR)
+  if(HAVE_IPO_SUPPORT)
+    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
+  else()
+    message(WARNING "IPO is not supported: ${IPO_ERROR}")
+  endif()
 endif()
 
 # Warning flags
