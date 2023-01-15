@@ -71,7 +71,7 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{runner.workspace}}/build
-        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} -DCMAKE_OSX_ARCHITECTURES:STRING=${{matrix.architecture}} -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} -DCMAKE_OSX_ARCHITECTURES:STRING=${{matrix.architecture}}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
