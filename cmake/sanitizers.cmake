@@ -29,13 +29,13 @@
 #
 
 # MSVC will not deliver debug sanitizer libraries and fail with _ITERATOR_DEBUG_LEVEL mismatch
-if(CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC" AND CMAKE_CXX_COMPILER_ID MATCHES [cC]lang AND CMAKE_BUILD_TYPE STREQUAL Debug)
+if(CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC" AND CMAKE_CXX_COMPILER_ID MATCHES Clang AND CMAKE_BUILD_TYPE STREQUAL Debug)
   set(SANITIZER_UNDEFINED OFF)
 endif()
 
 include(CheckCXXCompilerFlag)
 
-if(UNIX OR CMAKE_CXX_COMPILER_ID MATCHES [cC]lang)
+if(UNIX OR CMAKE_CXX_COMPILER_ID MATCHES Clang)
   set(CMAKE_REQUIRED_FLAGS -fsanitize=address)
   check_cxx_compiler_flag(-fsanitize=address HAVE_SANITIZER_ADDRESS)
 

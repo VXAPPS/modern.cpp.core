@@ -54,7 +54,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC
   check_cxx_compiler_flag(/std:c++23 HAVE_FLAG_STD_CXX23)
   check_cxx_compiler_flag(/std:c++20 HAVE_FLAG_STD_CXX20)
   # Visual Studio 2019 will have clang-12, but cmake do not know how to set the standard for that.
-  if(CMAKE_CXX_COMPILER_ID MATCHES [cC]lang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.0)
+  if(CMAKE_CXX_COMPILER_ID MATCHES Clang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.0)
     set(HAVE_FLAG_STD_CXX23 OFF)
   endif()
 else()
@@ -65,7 +65,7 @@ else()
 endif()
 
 # Clang-8 have some issues, that are not repairable
-if(CMAKE_CXX_COMPILER_ID MATCHES [cC]lang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.0)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.0)
   set(HAVE_FLAG_STD_CXX20 OFF)
   set(HAVE_FLAG_STD_CXX2A OFF)
 endif()
@@ -92,7 +92,7 @@ if(CORE_MASTER_PROJECT)
 endif()
 
 # Warning flags
-if(CMAKE_CXX_COMPILER_ID MATCHES [cC]lang)
+if(CMAKE_CXX_COMPILER_ID MATCHES Clang)
   include(${CMAKE}/clang_warnings.cmake)
 
   foreach(WARNING_FLAG ${WARNING_FLAGS})
