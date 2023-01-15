@@ -151,5 +151,7 @@ set(CMAKE_MODULE_PATH ${CMAKE}/modules)
 
 # Includes
 include(${CMAKE}/create_package.cmake)
-include(${CMAKE}/documentation.cmake)
+if(CORE_MASTER_PROJECT)
+  include(${CMAKE}/documentation.cmake)
+endif()
 include(${CMAKE}/find_package.cmake)
