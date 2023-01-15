@@ -53,13 +53,13 @@ if(CMAKE_CXX_COMPILER_ID MATCHES Clang)
       endforeach()
 
       add_custom_target(coverage-report
-        COMMAND ${LLVM_COV_EXECUTABLE} show --instr-profile=${CMAKE_CURRENT_BINARY_DIR}/coverage.profdata --format=text --Xdemangler=c++filt ${TEST_TARGETS_JOINED} > ${CMAKE_CURRENT_BINARY_DIR}/coverage.clang-${CLANG_MAJOR}.txt
+        COMMAND ${LLVM_COV_EXECUTABLE} show --instr-profile=${CMAKE_CURRENT_BINARY_DIR}/coverage.profdata --format=text --Xdemangler=c++filt --ignore-filename-regex="test_*|_deps|3rdparty" ${TEST_TARGETS_JOINED} > ${CMAKE_CURRENT_BINARY_DIR}/coverage.clang-${CLANG_MAJOR}.txt
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generating coverage report"
         DEPENDS coverage-merge)
 
       add_custom_target(coverage
-        COMMAND ${LLVM_COV_EXECUTABLE} report --instr-profile=${CMAKE_CURRENT_BINARY_DIR}/coverage.profdata ${TEST_TARGETS_JOINED} > ${CMAKE_CURRENT_BINARY_DIR}/coverage.overview.clang-${CLANG_MAJOR}.txt
+        COMMAND ${LLVM_COV_EXECUTABLE} report --instr-profile=${CMAKE_CURRENT_BINARY_DIR}/coverage.profdata --ignore-filename-regex="test_*|_deps|3rdparty" ${TEST_TARGETS_JOINED} > ${CMAKE_CURRENT_BINARY_DIR}/coverage.overview.clang-${CLANG_MAJOR}.txt
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generating coverage"
         DEPENDS coverage-report)
