@@ -30,28 +30,7 @@
 
 project(modern.cpp.core)
 
-if(UNIX)
-  if(CORE_MASTER_PROJECT)
-    set(${PROJECT_NAME}_source Serial.cpp Serial.h unixservice/main.cpp)
-  else()
-    set(${PROJECT_NAME}_source Serial.cpp Serial.h)
-  endif()
-endif()
-
-if(APPLE)
-  set(${PROJECT_NAME}_source ${${PROJECT_NAME}_source} StringUtils_apple.cpp StringUtils_apple.h)
-endif()
-
 add_library(${PROJECT_NAME}
-  ../.github/workflows/linux-codeql.yml
-  ../.github/workflows/linux.yml
-  ../.github/workflows/macos-codeql.yml
-  ../.github/workflows/macos.yml
-  ../.github/workflows/windows-codeql.yml
-  ../.github/workflows/windows.yml
-  ../docs/footer.html
-  ../docs/header.html
-  ../README.md
   CPU.cpp
   CPU.h
   Demangle.cpp
@@ -65,8 +44,12 @@ add_library(${PROJECT_NAME}
   Logger_any.h
   Logger_container.h
   Logger_enum.h
+  Serial.cpp
+  Serial.h
   StringUtils.cpp
   StringUtils.h
+  StringUtils_apple.cpp
+  StringUtils_apple.h
   Timestamp.cpp
   Timestamp.h
   Timing.cpp
@@ -83,13 +66,21 @@ add_library(${PROJECT_NAME}
   templates/Size.h
   templates/Timer.h
   templates/TypeCheck.h
-  ${${PROJECT_NAME}_source}
-  ${3RDPARTY_DIR}/jthread.hpp
-  ${3RDPARTY_DIR}/source_location.hpp
-  ${3RDPARTY_DIR}/stop_token.hpp
+  unixservice/main.cpp
 )
 
 add_library(modern.cpp::core ALIAS ${PROJECT_NAME})
+
+if(NOT APPLE)
+  set(${PROJECT_NAME}_source ${${PROJECT_NAME}_source} StringUtils_apple.cpp)
+endif()
+if(WIN32)
+  set(${PROJECT_NAME}_source ${${PROJECT_NAME}_source} Serial.cpp)
+endif()
+if(NOT CORE_MASTER_PROJECT OR WIN32)
+  set(${PROJECT_NAME}_source ${${PROJECT_NAME}_source} unixservice/main.cpp)
+endif()
+set_source_files_properties(${${PROJECT_NAME}_source} PROPERTIES HEADER_FILE_ONLY TRUE)
 
 target_compile_definitions(${PROJECT_NAME}
   PUBLIC
@@ -119,4 +110,31 @@ target_link_libraries(${PROJECT_NAME}
   re2::re2
   Threads::Threads # re2 is using them
   ${${PROJECT_NAME}_libs}
+)
+
+add_custom_target(${PROJECT_NAME}_3rdparty
+  SOURCES
+  ${3RDPARTY_DIR}/jthread.hpp
+  ${3RDPARTY_DIR}/source_location.hpp
+  ${3RDPARTY_DIR}/stop_token.hpp
+)
+
+add_custom_target(${PROJECT_NAME}_documentation
+  SOURCES
+  ../docs/corefoundation-doxygen-web.tag.xml
+  ../docs/cppreference-doxygen-web.tag.xml
+  ../docs/Doxyfile.in
+  ../docs/footer.html
+  ../docs/header.html
+  ../README.md
+)
+
+add_custom_target(${PROJECT_NAME}_workflows
+  SOURCES
+  ../.github/workflows/linux-codeql.yml
+  ../.github/workflows/linux.yml
+  ../.github/workflows/macos-codeql.yml
+  ../.github/workflows/macos.yml
+  ../.github/workflows/windows-codeql.yml
+  ../.github/workflows/windows.yml
 )
