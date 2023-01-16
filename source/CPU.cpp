@@ -43,13 +43,11 @@ namespace vx {
 
   /**
    * @brief Leaf of extended information.
-   * @hideinitializer
    */
   constexpr std::uint32_t extendedLeaf = 7;
 
   /**
    * @brief Leaf of SGX information.
-   * @hideinitializer
    */
   constexpr std::uint32_t sgxLeaf = 18; // 0x12
 

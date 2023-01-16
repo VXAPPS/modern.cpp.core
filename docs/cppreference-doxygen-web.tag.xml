@@ -1,8 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <tagfile>
   <compound kind="class">
+    <name>std::abs</name>
+    <filename>cpp/numeric/math/abs</filename>
+  </compound>
+  <compound kind="class">
     <name>std::any</name>
     <filename>cpp/utility/any</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::array</name>
+    <filename>cpp/container/array</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::bad_variant_access</name>
+    <filename>cpp/utility/variant/bad_variant_access</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::chrono::duration</name>
+    <filename>cpp/chrono/duration</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::chrono::time_point</name>
+    <filename>cpp/chrono/time_point</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::chrono::milliseconds</name>
+    <filename>cpp/chrono/duration</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::clock_t</name>
+    <filename>cpp/chrono/c/clock_t</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::conditional_t</name>
+    <filename>cpp/types/conditional</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::condition_variable_any</name>
+    <filename>cpp/thread/condition_variable_any</filename>
   </compound>
   <compound kind="class">
     <name>std::enable_if</name>
@@ -13,8 +49,16 @@
     <filename>cpp/types/enable_if</filename>
   </compound>
   <compound kind="class">
+    <name>std::false_type</name>
+    <filename>cpp/header/type_traits</filename>
+  </compound>
+  <compound kind="class">
     <name>std::FILE</name>
     <filename>cpp/io/c</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::floor</name>
+    <filename>cpp/numeric/math/floor</filename>
   </compound>
   <compound kind="class">
     <name>std::get</name>
@@ -41,6 +85,38 @@
     <filename>cpp/types/integral_constant</filename>
   </compound>
   <compound kind="class">
+    <name>std::is_floating_point_v</name>
+    <filename>cpp/types/is_floating_point</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::is_integral_v</name>
+    <filename>cpp/types/is_integral</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::is_same_v</name>
+    <filename>cpp/types/is_same</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::jthread</name>
+    <filename>cpp/thread/jthread</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::make_pair</name>
+    <filename>cpp/utility/pair/make_pair</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::max</name>
+    <filename>cpp/algorithm/max</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::modf</name>
+    <filename>cpp/numeric/math/modf</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::move</name>
+    <filename>cpp/utility/move</filename>
+  </compound>
+  <compound kind="class">
     <name>std::nullopt_t</name>
     <filename>cpp/types/nullopt_t</filename>
   </compound>
@@ -57,6 +133,72 @@
     <filename>cpp/io/basic_ostream</filename>
   </compound>
   <compound kind="class">
+    <name>std::pow</name>
+    <filename>numeric/complex/pow</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::queue</name>
+    <filename>cpp/container/queue</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::ratio</name>
+    <filename>cpp/numeric/ratio/ratio</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::micro</name>
+    <filename>cpp/numeric/ratio/ratio</filename>
+    <member kind="function">
+      <name>den</name>
+      <anchorfile>cpp/numeric/ratio/ratio</anchorfile>
+      <anchor></anchor>
+    </member>
+    <member kind="function">
+      <name>num</name>
+      <anchorfile>cpp/numeric/ratio/ratio</anchorfile>
+      <anchor></anchor>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>std::milli</name>
+    <filename>cpp/numeric/ratio/ratio</filename>
+    <member kind="function">
+      <name>den</name>
+      <anchorfile>cpp/numeric/ratio/ratio</anchorfile>
+      <anchor></anchor>
+    </member>
+    <member kind="function">
+      <name>num</name>
+      <anchorfile>cpp/numeric/ratio/ratio</anchorfile>
+      <anchor></anchor>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>std::nano</name>
+    <filename>cpp/numeric/ratio/ratio</filename>
+    <member kind="function">
+      <name>den</name>
+      <anchorfile>cpp/numeric/ratio/ratio</anchorfile>
+      <anchor></anchor>
+    </member>
+    <member kind="function">
+      <name>num</name>
+      <anchorfile>cpp/numeric/ratio/ratio</anchorfile>
+      <anchor></anchor>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>std::numeric_limits</name>
+    <filename>cpp/types/numeric_limits</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::shared_lock</name>
+    <filename>cpp/thread/shared_lock</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::shared_mutex</name>
+    <filename>cpp/thread/shared_mutex</filename>
+  </compound>
+  <compound kind="class">
     <name>std::size_t</name>
     <filename>cpp/types/size_t</filename>
   </compound>
@@ -69,23 +211,10 @@
       <anchor></anchor>
     </member>
   </compound>
-  <!-- <member kind="function">
-    <type>T</type>
-    <name>wcscpy</name>
-    <anchorfile>cpp/string/wide/wcscpy</anchorfile>
-    <anchor></anchor>
-    <arglist>(T... args)</arglist>
-  </member> -->
-  <member kind="function">
-    <type>T</type>
-    <name>std::sqrt</name>
-    <anchorfile>cpp/numeric/math/sqrt</anchorfile>
-    <arglist>(T... args)</arglist>
-  </member>
-  <!-- <compound kind="class">
+  <compound kind="class">
     <name>std::sqrt</name>
     <filename>cpp/numeric/math/sqrt</filename>
-  </compound> -->
+  </compound>
   <compound kind="class">
     <name>std::string</name>
     <filename>cpp/string/basic_string</filename>
@@ -95,17 +224,20 @@
     <filename>cpp/string/basic_string_view</filename>
   </compound>
   <compound kind="class">
+    <name>std::this_thread::sleep_for</name>
+    <filename>cpp/thread/sleep_for</filename>
+  </compound>
+  <compound kind="class">
     <name>std::time_t</name>
     <filename>cpp/chrono/c/time_t</filename>
   </compound>
   <compound kind="class">
+    <name>std::true_type</name>
+    <filename>cpp/header/type_traits</filename>
+  </compound>
+  <compound kind="class">
     <name>std::tuple_size</name>
     <filename>cpp/utility/tuple/tuple_size</filename>
-    <!-- <member kind="function">
-      <name>view</name>
-      <anchorfile>cpp/utility/tuple/tuple_size_view</anchorfile>
-      <anchor></anchor>
-    </member> -->
   </compound>
   <compound kind="class">
     <name>std::uint8_t</name>
@@ -124,11 +256,24 @@
     <filename>cpp/types/integer</filename>
   </compound>
   <compound kind="class">
+    <name>std::unique_lock</name>
+    <filename>cpp/thread/unique_lock</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::unique_ptr</name>
+    <filename>cpp/memory/unique_ptr/unique_ptr</filename>
+  </compound>
+  <compound kind="class">
     <name>std::variant</name>
     <filename>cpp/utility/variant</filename>
   </compound>
   <compound kind="class">
     <name>std::variant_size</name>
     <filename>cpp/utility/variant/variant_size</filename>
+    <member kind="function">
+      <name>value</name>
+      <anchorfile>cpp/utility/variant/variant_size_value</anchorfile>
+      <anchor></anchor>
+    </member>
   </compound>
 </tagfile>
