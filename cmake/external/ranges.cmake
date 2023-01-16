@@ -28,6 +28,10 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+if(HAVE_RANGES)
+  return()
+endif()
+
 include(ExternalProject)
 
 set(RANGES_SRC ${CMAKE_BINARY_DIR}/_deps/ranges-src)

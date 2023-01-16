@@ -28,6 +28,10 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+if(NOT CMAKE_CXX_COMPILER_ID MATCHES Clang)
+  return()
+endif()
+
 set(WARNING_FLAGS
 
   # Own parameter
@@ -36,3 +40,21 @@ set(WARNING_FLAGS
   -Wno-c++2a-extensions
   -Wno-padded
 )
+
+foreach(WARNING_FLAG ${WARNING_FLAGS})
+  set(WARNING_FLAGS_SPACED "${WARNING_FLAGS_SPACED} ${WARNING_FLAG}")
+endforeach()
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything -Werror -Weffc++")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS_SPACED}")
+
+if(UNIX AND NOT APPLE)
+  set(EXTRA_CXX_FLAGS -stdlib=libc++)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${EXTRA_CXX_FLAGS}")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${EXTRA_CXX_FLAGS} -lc++abi -fuse-ld=lld")
+endif()
+
+if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL Debug)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-instr-generate -fcoverage-mapping")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-instr-generate -fcoverage-mapping")
+endif()

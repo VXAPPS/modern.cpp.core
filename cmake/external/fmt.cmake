@@ -28,6 +28,10 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+if(HAVE_FORMAT)
+  return()
+endif()
+
 include(ExternalProject)
 
 set(FMT_SRC ${CMAKE_BINARY_DIR}/_deps/fmt-src)
