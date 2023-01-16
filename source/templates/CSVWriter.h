@@ -32,6 +32,9 @@
 
 /* stl header */
 #include <fstream>
+#if __cplusplus >= 202002L
+  #include <iterator>
+#endif
 #include <string>
 #include <string_view>
 
@@ -69,9 +72,11 @@ namespace vx {
      * @param _first   First value.
      * @param _last   Last value.
      */
-
+#if __cplusplus >= 202002L
+    template <std::forward_iterator T>
+#else
     template <typename T>
-    // template <std::forward_iterator T>
+#endif
     void addRowData( T _first,
                      T _last ) const noexcept {
 

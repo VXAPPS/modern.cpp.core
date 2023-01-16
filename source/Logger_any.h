@@ -116,7 +116,7 @@ namespace vx::logger {
     add<std::set<double>>( []( Logger &_logger, const std::set<double> &_input ) noexcept { _logger << _input; } ),
     add<std::set<const char *>>( []( Logger &_logger, const std::set<const char *> &_input ) noexcept { _logger << _input; } ),
     add<std::set<std::string_view>>( []( Logger &_logger, const std::set<std::string_view> &_input ) noexcept { _logger << _input; } ),
-    add<std::set<std::string>>( []( Logger &_logger, const std::set<std::string> &_input ) noexcept { _logger << _input; } ),
+    add<std::set<std::string, std::less<>>>( []( Logger &_logger, const std::set<std::string, std::less<>> &_input ) noexcept { _logger << _input; } ),
     add<std::vector<std::int8_t>>( []( Logger &_logger, const std::vector<std::int8_t> &_input ) noexcept { _logger << _input; } ),
     add<std::vector<std::int32_t>>( []( Logger &_logger, const std::vector<std::int32_t> &_input ) noexcept { _logger << _input; } ),
     add<std::vector<std::uint32_t>>( []( Logger &_logger, const std::vector<std::uint32_t> &_input ) noexcept { _logger << _input; } ),

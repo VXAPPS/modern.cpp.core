@@ -40,7 +40,7 @@
 /**
  * @brief std (Standard template library) namespace.
  */
-namespace std {
+namespace std { // NOSONAR For std integration
 
 #ifndef __cpp_lib_is_scoped_enum
   namespace detail {

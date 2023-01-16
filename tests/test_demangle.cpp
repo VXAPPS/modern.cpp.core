@@ -64,7 +64,7 @@ namespace vx {
                        BLUE = 4,
                        GREEN = 8 };
 
-    enum ColorUnscoped { RED = 2,
+    enum ColorUnscoped { RED = 2, // NOSONAR Just for testing purpose
                          BLUE = 4,
                          GREEN = 8 };
 

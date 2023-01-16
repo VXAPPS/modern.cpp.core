@@ -62,7 +62,9 @@ namespace vx::floating_point {
    * @return True, if _left and _right are equal - otherwise false.
    */
   template <typename T>
-  // requires std::is_floating_point_v<T>
+#if __cplusplus >= 202002L
+  requires std::is_floating_point_v<T> || std::is_integral_v<T>
+#endif
   [[nodiscard]] constexpr bool equal( T _left,
                                       T _right,
                                       Equal _equal = Equal::Absolute ) noexcept {
@@ -91,7 +93,9 @@ namespace vx::floating_point {
    * _orEqual is set to true - otherwise false.
    */
   template <typename T>
-  // requires std::is_floating_point_v<T>
+#if __cplusplus >= 202002L
+  requires std::is_floating_point_v<T> || std::is_integral_v<T>
+#endif
   [[nodiscard]] constexpr bool less( T _left,
                                      T _right,
                                      bool _orEqual = false,
@@ -115,7 +119,9 @@ namespace vx::floating_point {
    * _orEqual is set to true - otherwise false.
    */
   template <typename T>
-  // requires std::is_floating_point_v<T>
+#if __cplusplus >= 202002L
+  requires std::is_floating_point_v<T> || std::is_integral_v<T>
+#endif
   [[nodiscard]] constexpr bool greater( T _left,
                                         T _right,
                                         bool _orEqual = false,
@@ -139,7 +145,9 @@ namespace vx::floating_point {
    * @return True, if _value is between _min and _max _orEqual - otherwise false.
    */
   template <typename T>
-  // requires std::is_floating_point_v<T>
+#if __cplusplus >= 202002L
+  requires std::is_floating_point_v<T> || std::is_integral_v<T>
+#endif
   [[nodiscard]] constexpr bool between( T _value,
                                         T _min,
                                         T _max,
@@ -163,7 +171,9 @@ namespace vx::floating_point {
    * @return The rounded value.
    */
   template <typename T>
-  // requires std::is_floating_point_v<T>
+#if __cplusplus >= 202002L
+  requires std::is_floating_point_v<T> || std::is_integral_v<T>
+#endif
   [[nodiscard]] constexpr T round( T _value,
                                    std::size_t _precision = 2 ) noexcept {
 
@@ -178,7 +188,9 @@ namespace vx::floating_point {
    * @return The integer and decimal places.
    */
   template <typename T>
-  // requires std::is_floating_point_v<T>
+#if __cplusplus >= 202002L
+  requires std::is_floating_point_v<T> || std::is_integral_v<T>
+#endif
   [[nodiscard]] std::pair<T, T> split( T _value ) noexcept {
 
     T integral = 0.0;
