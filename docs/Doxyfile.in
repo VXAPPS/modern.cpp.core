@@ -129,7 +129,7 @@ BRIEF_MEMBER_DESC      = YES
 # brief descriptions will be completely suppressed.
 # The default value is: YES.
 
-REPEAT_BRIEF           = NO
+REPEAT_BRIEF           = YES
 
 # This tag implements a quasi-intelligent brief description abbreviator that is
 # used to form the text in various listings. Each string in this list, if found
@@ -157,7 +157,7 @@ ABBREVIATE_BRIEF       = "The $name class" \
 # description.
 # The default value is: NO.
 
-ALWAYS_DETAILED_SEC    = NO
+ALWAYS_DETAILED_SEC    = YES
 
 # If the INLINE_INHERITED_MEMB tag is set to YES, doxygen will show all
 # inherited members of a class in the documentation of that class as if those
@@ -2373,7 +2373,7 @@ SKIP_FUNCTION_MACROS   = YES
 # the path). If a tag file is not located in the directory in which doxygen is
 # run, you must also specify the path to the tagfile here.
 
-TAGFILES               = docs/cppreference-doxygen-web.tag.xml=https://en.cppreference.com/w/ docs/corefoundation-doxygen-web.tag.xml=https://developer.apple.com/documentation/corefoundation/
+TAGFILES               = docs/cppreference-doxygen-web.tag.xml=https://en.cppreference.com/w/ docs/corefoundation-doxygen-web.tag.xml=https://developer.apple.com/documentation/corefoundation/ docs/magic_enum-doxygen-web.tag.xml=https://github.com/Neargye/
 
 # When a file name is specified after GENERATE_TAGFILE, doxygen will create a
 # tag file that is based on the input files it reads. See section "Linking to
