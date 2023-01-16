@@ -1968,6 +1968,13 @@
     </member>
     <member kind="function">
       <type>T</type>
+      <name>abs</name>
+      <anchorfile>cpp/numeric/math/abs</anchorfile>
+      <anchor></anchor>
+      <arglist>(T... args)</arglist>
+    </member>
+    <member kind="function">
+      <type>T</type>
       <name>asinh</name>
       <anchorfile>cpp/numeric/math/asinh</anchorfile>
       <anchor></anchor>
@@ -6828,6 +6835,18 @@
   <compound kind="class">
     <name>std::string_view</name>
     <filename>cpp/string/basic_string_view</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::any</name>
+    <filename>cpp/utility/any</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::optional</name>
+    <filename>cpp/utility/optional</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::variant</name>
+    <filename>cpp/utility/variant</filename>
   </compound>
   <compound kind="class">
     <name>std::string</name>

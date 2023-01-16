@@ -43,7 +43,6 @@
 #include <vector>
 
 /* local haeder */
-#include "Cpp23.h"
 #include "Logger.h"
 #include "Serial.h"
 
