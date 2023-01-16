@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<tagfile>
+  <compound kind="class">
+    <name>std::any</name>
+    <filename>cpp/utility/any</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::enable_if</name>
+    <filename>cpp/types/enable_if</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::enable_if_t</name>
+    <filename>cpp/types/enable_if</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::FILE</name>
+    <filename>cpp/io/c</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::get</name>
+    <filename>cpp/utility/tuple/get</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::int8_t</name>
+    <filename>cpp/types/integer</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::int16_t</name>
+    <filename>cpp/types/integer</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::int32_t</name>
+    <filename>cpp/types/integer</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::int64_t</name>
+    <filename>cpp/types/integer</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::integral_constant</name>
+    <filename>cpp/types/integral_constant</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::nullopt_t</name>
+    <filename>cpp/types/nullopt_t</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::nullptr_t</name>
+    <filename>cpp/types/nullptr_t</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::optional</name>
+    <filename>cpp/utility/optional</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::ostream</name>
+    <filename>cpp/io/basic_ostream</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::size_t</name>
+    <filename>cpp/types/size_t</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::source_location</name>
+    <filename>cpp/utility/source_location</filename>
+    <member kind="function">
+      <name>current</name>
+      <anchorfile>cpp/utility/source_location/current</anchorfile>
+      <anchor></anchor>
+    </member>
+  </compound>
+  <!-- <member kind="function">
+    <type>T</type>
+    <name>wcscpy</name>
+    <anchorfile>cpp/string/wide/wcscpy</anchorfile>
+    <anchor></anchor>
+    <arglist>(T... args)</arglist>
+  </member> -->
+  <member kind="function">
+    <type>T</type>
+    <name>std::sqrt</name>
+    <anchorfile>cpp/numeric/math/sqrt</anchorfile>
+    <arglist>(T... args)</arglist>
+  </member>
+  <!-- <compound kind="class">
+    <name>std::sqrt</name>
+    <filename>cpp/numeric/math/sqrt</filename>
+  </compound> -->
+  <compound kind="class">
+    <name>std::string</name>
+    <filename>cpp/string/basic_string</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::string_view</name>
+    <filename>cpp/string/basic_string_view</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::time_t</name>
+    <filename>cpp/chrono/c/time_t</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::tuple_size</name>
+    <filename>cpp/utility/tuple/tuple_size</filename>
+    <!-- <member kind="function">
+      <name>view</name>
+      <anchorfile>cpp/utility/tuple/tuple_size_view</anchorfile>
+      <anchor></anchor>
+    </member> -->
+  </compound>
+  <compound kind="class">
+    <name>std::uint8_t</name>
+    <filename>cpp/types/integer</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::uint16_t</name>
+    <filename>cpp/types/integer</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::uint32_t</name>
+    <filename>cpp/types/integer</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::uint64_t</name>
+    <filename>cpp/types/integer</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::variant</name>
+    <filename>cpp/utility/variant</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::variant_size</name>
+    <filename>cpp/utility/variant/variant_size</filename>
+  </compound>
+</tagfile>

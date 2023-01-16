@@ -123,7 +123,7 @@ add_custom_target(${PROJECT_NAME}_documentation
   SOURCES
   ../docs/corefoundation-doxygen-web.tag.xml
   ../docs/cppreference-doxygen-web.tag.xml
-  ../docs/cppreference-doxygen-web.tag2.xml
+  ../docs/cppreference-doxygen-web-outdated-but-complete.tag
   ../docs/Doxyfile.in
   ../docs/footer.html
   ../docs/header.html
