@@ -110,7 +110,7 @@ namespace vx::logger {
     m_autoQuotes ? m_stream << "'" << _input << "'" : m_stream << _input;
   }
 
-  void Logger::printString( std::string_view _input ) noexcept {
+  void Logger::printString( std::string_view _input ) {
 
     m_autoQuotes ? m_stream << std::quoted( _input ) : m_stream << _input;
   }

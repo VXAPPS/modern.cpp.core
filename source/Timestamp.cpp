@@ -42,7 +42,7 @@
 namespace vx::timestamp {
 
   /* get a precise timestamp as a string */
-  std::string iso8601( Precision _precision ) noexcept {
+  std::string iso8601( Precision _precision ) {
 
     struct std::tm currentLocalTime {};
 

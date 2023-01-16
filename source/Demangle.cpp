@@ -46,7 +46,7 @@
 
 namespace vx::demangle {
 
-  std::string abi( const std::string &_name ) noexcept {
+  std::string abi( const std::string &_name ) {
 
     std::string result = _name;
 
@@ -74,7 +74,7 @@ namespace vx::demangle {
     return result;
   }
 
-  std::string simple( const std::string &_name ) noexcept {
+  std::string simple( const std::string &_name ) {
 
     std::string result = abi( _name );
 
@@ -111,7 +111,7 @@ namespace vx::demangle {
     return result;
   }
 
-  std::string extreme( const std::string &_name ) noexcept {
+  std::string extreme( const std::string &_name ) {
 
     using namespace std::literals;
 

@@ -60,7 +60,7 @@ namespace vx::exec {
 #endif
   }
 
-  std::string run( const std::string &_command ) noexcept {
+  std::string run( const std::string &_command ) {
 
     std::array<char, bufferSize> buffer {};
     std::string result {};

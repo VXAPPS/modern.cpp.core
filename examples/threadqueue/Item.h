@@ -40,11 +40,11 @@ class Item {
 
 public:
   explicit Item( std::string _message,
-                 std::int32_t _number ) noexcept
+                 std::int32_t _number )
     : m_message( std::move( _message ) ),
       m_number( _number ) {}
 
-  [[nodiscard]] inline std::string getMessage() const noexcept { return m_message; }
+  [[nodiscard]] inline std::string getMessage() const { return m_message; }
 
   [[nodiscard]] inline std::int32_t getNumber() const noexcept { return m_number; }
 

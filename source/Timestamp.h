@@ -55,5 +55,5 @@ namespace vx::timestamp {
    * @return Timestamp as 'Y-m-dThh:mm:ss.xxxxxxT'
    * @note https://www.w3.org/TR/NOTE-datetime
    */
-  [[nodiscard]] std::string iso8601( Precision _precision = Precision::Seconds ) noexcept;
+  [[nodiscard]] std::string iso8601( Precision _precision = Precision::Seconds );
 }

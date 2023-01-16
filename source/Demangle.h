@@ -43,19 +43,19 @@ namespace vx::demangle {
    * @param _name   Type information.
    * @return The demangled type information.
    */
-  [[nodiscard]] std::string abi( const std::string &_name ) noexcept;
+  [[nodiscard]] std::string abi( const std::string &_name );
 
   /**
    * @brief Demangle a type information, remove namespaces, remove spaces and order const and pointer and reference.
    * @param _name   Type information.
    * @return The demangled type information.
    */
-  [[nodiscard]] std::string simple( const std::string &_name ) noexcept;
+  [[nodiscard]] std::string simple( const std::string &_name );
 
   /**
    * @brief Demangle with demangleSimple() but also remove less, hash, equal_to and allocator information.
    * @param _name   Type information.
    * @return The demangled type information.
    */
-  [[nodiscard]] std::string extreme( const std::string &_name ) noexcept;
+  [[nodiscard]] std::string extreme( const std::string &_name );
 }

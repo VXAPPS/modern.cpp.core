@@ -52,7 +52,7 @@ namespace vx::exec {
    * @param _command   Command to run.
    * @return Return the stdout output.
    */
-  std::string run( const std::string &_command ) noexcept;
+  std::string run( const std::string &_command );
 
   /**
    * @brief Result   Exit code of the command.

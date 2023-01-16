@@ -97,13 +97,13 @@ namespace vx::logger {
      * @brief Get filename.
      * @return Filename.
      */
-    [[nodiscard]] inline std::string filename() const noexcept { return m_filename; }
+    [[nodiscard]] inline std::string filename() const { return m_filename; }
 
     /**
      * @brief Set filename.
      * @param _filename   The filename.
      */
-    void setFilename( std::string_view _filename ) noexcept { m_filename = _filename; }
+    void setFilename( std::string_view _filename ) { m_filename = _filename; }
 
     /**
      * @brief Is auto space enabled?
@@ -221,7 +221,7 @@ namespace vx::logger {
      * @brief Print string.
      * @param _input   String.
      */
-    void printString( std::string_view _input ) noexcept;
+    void printString( std::string_view _input );
 
     /**
      * @brief Is auto space enabled?
