@@ -72,7 +72,7 @@ namespace vx {
      * @param _first   First value.
      * @param _last   Last value.
      */
-#if __cplusplus >= 202002L && defined __clang__ && __clang_major__ > 12
+#if defined __clang__ && __clang_major__ > 12 || __cplusplus >= 202002L
     template <std::forward_iterator T>
 #else
     template <typename T>
