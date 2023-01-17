@@ -127,6 +127,7 @@ add_custom_target(${PROJECT_NAME}_documentation
   ../docs/footer.html
   ../docs/header.html
   ../docs/magic_enum-doxygen-web.tag.xml
+  ../docs/post_doxygen.py
   ../README.md
 )
 
