@@ -63,7 +63,7 @@ else()
   set(CMAKE_REQUIRED_FLAGS /fsanitize=fuzzer)
   check_cxx_compiler_flag(/fsanitize=fuzzer HAVE_SANITIZER_FUZZER)
 endif()
-  unset(CMAKE_REQUIRED_FLAGS)
+unset(CMAKE_REQUIRED_FLAGS)
 
 if(HAVE_SANITIZER_ADDRESS)
   option(SANITIZER_ADDRESS "Build with address sanitizer" ON)

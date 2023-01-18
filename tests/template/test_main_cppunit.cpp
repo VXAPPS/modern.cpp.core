@@ -76,7 +76,7 @@ public:
 #pragma clang diagnostic pop
 #endif
 
-int main() {
+std::int32_t main() {
 
   CppUnit::TextUi::TestRunner runner;
   runner.addTest( Test::suite() );

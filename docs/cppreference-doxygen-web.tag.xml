@@ -61,6 +61,14 @@
     <filename>cpp/types/enable_if</filename>
   </compound>
   <compound kind="class">
+    <name>std::error_category</name>
+    <filename>cpp/error/error_category</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::error_code</name>
+    <filename>cpp/error/error_code</filename>
+  </compound>
+  <compound kind="class">
     <name>std::false_type</name>
     <filename>cpp/header/type_traits</filename>
   </compound>
@@ -107,6 +115,10 @@
   <compound kind="class">
     <name>std::ios::app</name>
     <filename>cpp/io/ios_base/openmode</filename>
+  </compound>
+  <compound kind="class">
+    <name>std::is_error_code_enum</name>
+    <filename>cpp/error/error_code/is_error_code_enum</filename>
   </compound>
   <compound kind="class">
     <name>std::is_floating_point_v</name>

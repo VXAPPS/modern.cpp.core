@@ -43,7 +43,7 @@ folder = sys.argv[1] + "/html"
 # Fix all .html files
 for file in os.listdir(folder):
   if file.endswith('.html'):
-    f = open(os.path.join(folder, file), 'r')
+    f = open(os.path.join(folder, file), 'r', errors='ignore')
     filedata = f.read()
     f.close()
 
@@ -54,8 +54,13 @@ for file in os.listdir(folder):
       if pos == -1:
         break
 
-      replace = filedata.find('.html"', pos + 1)
+      replace = filedata.find('.html"', pos)
       if replace == -1:
+        continue
+
+      # except sqlite functions
+      if 'sqlite' in filedata[pos:replace]:
+        filedata = filedata[:replace+6] + ' target="_blank"' + filedata[replace+6:]
         continue
 
       filedata = filedata[:replace] + '" target="_blank"' + filedata[replace+6:]
@@ -67,7 +72,7 @@ for file in os.listdir(folder):
 # Fix all .js files
 for file in os.listdir(folder):
   if file.endswith('.js'):
-    f = open(os.path.join(folder, file), 'r')
+    f = open(os.path.join(folder, file), 'r', errors='ignore')
     filedata = f.read()
     f.close()
 
@@ -82,7 +87,11 @@ for file in os.listdir(folder):
       if replace == -1:
         continue
 
-      filedata = filedata[:replace] + '"' + filedata[replace+6:]
+      # except sqlite functions
+      if 'sqlite' in filedata[pos:replace]:
+        continue
+
+      filedata = filedata[:replace] + '"' + filedata[replace + 6]
 
     f = open(os.path.join(folder, file),'w')
     f.write(filedata)
