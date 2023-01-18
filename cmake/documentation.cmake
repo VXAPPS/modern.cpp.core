@@ -28,11 +28,9 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-# first we can indicate the documentation build as an option and set it to ON by default
-option(BUILD_DOC "Build documentation" OFF)
-
 # check if Doxygen is installed
 find_package(Doxygen)
+find_program(PYTHON_EXECUTABLE NAMES python3 python)
 
 if(DOXYGEN_FOUND)
   # set input and output files
@@ -51,7 +49,7 @@ if(DOXYGEN_FOUND)
     VERBATIM)
 
   add_custom_target(documentation
-    COMMAND python ${CMAKE_SOURCE_DIR}/docs/post_doxygen.py ${CMAKE_BINARY_DIR}/docs
+    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/post_doxygen.py ${CMAKE_BINARY_DIR}/docs
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     COMMENT "Postprocessing documentation"
     DEPENDS documentation-generation
