@@ -48,6 +48,30 @@ set(CMAKE ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 # Project
 set(3RDPARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty)
 
+# Force C23 or C17 if available
+include(CheckCCompilerFlag)
+if(CMAKE_C_COMPILER_ID STREQUAL "MSVC" OR CMAKE_C_SIMULATE_ID STREQUAL "MSVC")
+  check_c_compiler_flag(/std:c23 HAVE_FLAG_STD_C23)
+  check_c_compiler_flag(/std:c17 HAVE_FLAG_STD_C17)
+  # Visual Studio 2019 will have clang-12, Visual Studio will have clang-15, but cmake do not know how to set the standard for that.
+  if(CMAKE_C_COMPILER_ID MATCHES Clang AND CMAKE_C_COMPILER_VERSION VERSION_LESS 16.0)
+    set(HAVE_FLAG_STD_C23 OFF)
+  endif()
+else()
+  check_c_compiler_flag(-std=c23 HAVE_FLAG_STD_C23)
+  check_c_compiler_flag(-std=c17 HAVE_FLAG_STD_C17)
+endif()
+
+if(HAVE_FLAG_STD_C23)
+  set(CMAKE_C_STANDARD 23)
+elseif(HAVE_FLAG_STD_C17)
+  set(CMAKE_C_STANDARD 17)
+else()
+  set(CMAKE_C_STANDARD 11)
+endif()
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
+
 # Force C++23 or C++20 if available
 include(CheckCXXCompilerFlag)
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC")
@@ -100,8 +124,8 @@ include(${CMAKE}/msvc_warnings.cmake)
 set(CMAKE_MODULE_PATH ${CMAKE}/modules)
 
 # Includes
-include(${CMAKE}/create_package.cmake)
 if(CORE_MASTER_PROJECT)
+  include(${CMAKE}/create_package.cmake)
   include(${CMAKE}/documentation.cmake)
 endif()
 include(${CMAKE}/find_package.cmake)

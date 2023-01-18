@@ -3,7 +3,7 @@
 ## Configuration files for cmake build environment
 
 env.cmake
-Environment variables for ModernCppCore
+Environment variables
 
 doxygen.cmake
 Template for running doxygen - not yet usable
@@ -14,4 +14,4 @@ Overall find package to use these variables in other cmake files
 ## Add environment variables
 
 Open env.cmake and create a new include directory:
-set(MCC_SOURCES_MYSHAREDINCLUDE ${MCC_SOURCES_SHARED}/MySharedInclude)
+set(SOURCES_MYSHAREDINCLUDE ${SOURCES_SHARED}/MySharedInclude)
