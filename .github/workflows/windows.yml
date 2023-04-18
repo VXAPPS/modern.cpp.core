@@ -70,7 +70,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Dependencies
-        run: choco install doxygen.install graphviz -y
+        run: choco install doxygen.install graphviz ninja -y
 
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
