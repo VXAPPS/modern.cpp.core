@@ -28,53 +28,54 @@ jobs:
         include:
           - name: windows-2019-msvc2019
             os: windows-2019
-            compiler: cl.exe
+            compiler: cl
             architecture: x64
 
           - name: windows-2019-msvc2019-win32
             os: windows-2019
-            compiler: cl.exe
-            architecture: Win32
+            compiler: cl
+            architecture: x86
 
           - name: windows-2019-msvc2019-arm64
             os: windows-2019
-            compiler: cl.exe
-            architecture: ARM64
+            compiler: cl
+            architecture: x64_arm64
 
           - name: windows-2019-msvc2019-clang
             os: windows-2019
-            compiler: clang-cl.exe
+            compiler: clang-cl
             architecture: x64
 
           - name: windows-2022-msvc2022
             os: windows-2022
-            compiler: cl.exe
+            compiler: cl
             architecture: x64
 
           - name: windows-2022-msvc2022-win32
             os: windows-2022
-            compiler: cl.exe
-            architecture: Win32
+            compiler: cl
+            architecture: x86
 
           - name: windows-2022-msvc2022-arm64
             os: windows-2022
-            compiler: cl.exe
-            architecture: ARM64
+            compiler: cl
+            architecture: x64_arm64
 
           - name: windows-2022-msvc2022-clang
             os: windows-2022
-            compiler: clang-cl.exe
+            compiler: clang-cl
             architecture: x64
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Configure Visual Studio
-        uses: seanmiddleditch/gha-setup-vsdevenv@master
-#        uses: microsoft/setup-msbuild@v1.1
-        with:
-          arch: ${{matrix.architecture}}
+#        uses: seanmiddleditch/gha-setup-vsdevenv@master
+        uses: microsoft/setup-msbuild@v1.1
+#        with:
+#          arch: ${{matrix.architecture}}
 #          msbuild-architecture: ${{matrix.architecture}}
+        run: vcvarsall.bat ${{matrix.architecture}}
 
       - name: Dependencies
         run: |
@@ -87,7 +88,7 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{runner.workspace}}/build
-        run: cmake $env:GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} -DCMAKE_C_COMPILTER:STRING=${{matrix.compiler}} -DCMAKE_CXX_COMPILTER:STRING=${{matrix.compiler}}
+        run: cmake $env:GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}}
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
