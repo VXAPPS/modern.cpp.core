@@ -75,6 +75,8 @@ jobs:
 #        with:
 #          arch: ${{matrix.architecture}}
 #          msbuild-architecture: ${{matrix.architecture}}
+
+      - name: Configure Visual Studio VARS
         run: vcvarsall.bat ${{matrix.architecture}}
 
       - name: Dependencies
