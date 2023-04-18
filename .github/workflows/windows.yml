@@ -28,50 +28,42 @@ jobs:
         include:
           - name: windows-2019-msvc2019
             os: windows-2019
-            compiler: cl
-            version: Visual Studio 16 2019
+            compiler: cl.exe
             architecture: x64
 
           - name: windows-2019-msvc2019-win32
             os: windows-2019
-            compiler: cl
-            version: Visual Studio 16 2019
+            compiler: cl.exe
             architecture: Win32
 
           - name: windows-2019-msvc2019-arm64
             os: windows-2019
-            compiler: cl
-            version: Visual Studio 16 2019
+            compiler: cl.exe
             architecture: ARM64
 
           - name: windows-2019-msvc2019-clang
             os: windows-2019
-            compiler: clang-cl
-            version: Visual Studio 16 2019
+            compiler: clang-cl.exe
             architecture: x64
 
           - name: windows-2022-msvc2022
             os: windows-2022
-            compiler: cl
-            version: Visual Studio 17 2022
+            compiler: cl.exe
             architecture: x64
 
           - name: windows-2022-msvc2022-win32
             os: windows-2022
-            compiler: cl
-            version: Visual Studio 17 2022
-            architecture: win32
+            compiler: cl.exe
+            architecture: Win32
 
           - name: windows-2022-msvc2022-arm64
             os: windows-2022
-            compiler: cl
-            version: Visual Studio 17 2022
+            compiler: cl.exe
             architecture: ARM64
 
           - name: windows-2022-msvc2022-clang
             os: windows-2022
-            compiler: clang-cl
-            version: Visual Studio 17 2022
+            compiler: clang-cl.exe
             architecture: x64
 
     steps:
