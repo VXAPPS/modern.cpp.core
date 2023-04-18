@@ -77,7 +77,7 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{runner.workspace}}/build
-        run: cmake $env:GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} -DCMAKE_C_COMPILTER:STRING=${{matrix.compiler}} -DCMAKE_CXX_COMPILTER:STRING=${{matrix.compiler}}
+        run: cmake $env:GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE:STRING=${{matrix.config}} -DCMAKE_C_COMPILTER:STRING="${{matrix.compiler}}" -DCMAKE_CXX_COMPILTER:STRING="${{matrix.compiler}}"
 
       - name: Build
         working-directory: ${{runner.workspace}}/build
