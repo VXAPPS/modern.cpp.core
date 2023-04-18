@@ -28,7 +28,7 @@ jobs:
         include:
           - name: windows-2019-msvc2019
             os: windows-2019
-            compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe
+            compiler: cl
             version: Visual Studio 16 2019
 
           - name: windows-2019-msvc2019-win32
@@ -43,7 +43,7 @@ jobs:
 
           - name: windows-2019-msvc2019-clang
             os: windows-2019
-            compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/Llvm/x64/bin/clang-cl.exe
+            compiler: clang-cl
             version: Visual Studio 16 2019
 
           - name: windows-2022-msvc2022
@@ -72,8 +72,10 @@ jobs:
       - name: Dependencies
         run: |
              choco install doxygen.install graphviz ninja -y
+             echo "CC=${{matrix.compiler}}" >> $env:GITHUB_ENV
+             echo "CXX=${{matrix.compiler}}" >> $env:GITHUB_ENV
 
-      - name: Create Build Environment
+      - name: Create Build Environments
         run: cmake -E make_directory ${{runner.workspace}}/build
 
       - name: Configure CMake
