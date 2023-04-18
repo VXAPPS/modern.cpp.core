@@ -116,7 +116,7 @@ namespace vx::string_utils {
    * Default: Space, tabs, return, new line and form feed.
    * @return Simplified string.
    */
-  std::string &simplified( std::string &_string ) noexcept;
+  std::string &simplified( std::string &_string );
 
   /**
    * @brief Tokenize string by separator.
