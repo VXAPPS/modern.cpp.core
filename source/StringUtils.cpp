@@ -135,7 +135,7 @@ namespace vx::string_utils {
   constexpr bool bothAreSpaces( char _left,
                                 char _right ) noexcept { return std::equal_to<> {}( _left, _right ) && std::equal_to<> {}( _left, ' ' ); }
 
-  std::string &simplified( std::string &_string ) noexcept {
+  std::string &simplified( std::string &_string ) {
 
     /* Replace every control with a space */
     std::ranges::replace( _string, '\t', ' ' );
@@ -145,11 +145,7 @@ namespace vx::string_utils {
     std::ranges::replace( _string, '\v', ' ' );
 
     /* Normalize spaces to just one */
-#if defined _MSC_VER || ( defined __GNUC__ && __GNUC__ >= 10 )
     const auto newEnd = std::unique( std::begin( _string ), std::end( _string ), bothAreSpaces );
-#else
-    const auto newEnd = std::ranges::unique( _string, bothAreSpaces );
-#endif
     _string.erase( newEnd, std::cend( _string ) );
 
     /* Trim */
