@@ -78,10 +78,7 @@ jobs:
         env:
           cache-name: cache-choco-packages
         with:
-          path: |
-                C:/Users/runneradmin/AppData/Local/Temp/chocolatey/doxygen.install
-                C:/ProgramData/chocolatey/lib/Graphviz
-                C:/ProgramData/chocolatey/lib/ninja
+          path: C:/Users/runneradmin/AppData/Local/Temp/chocolatey
           key: ${{runner.name}}-build-${{env.cache-name}}
 
       - name: Dependencies
