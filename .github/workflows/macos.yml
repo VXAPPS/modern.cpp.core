@@ -49,6 +49,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Cache Dependencies
+        id: cache-brew
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-brew-packages
+        with:
+          path: $(brew --cache)
+          key: ${{env.cache-name}}
+
       - name: Dependencies
         run: |
              brew install ninja
