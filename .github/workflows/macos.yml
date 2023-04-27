@@ -55,7 +55,7 @@ jobs:
         env:
           cache-name: cache-brew-packages
         with:
-          path: $(brew --cache)
+          path: $(brew --prefix)
           key: ${{env.cache-name}}
 
       - name: Dependencies
