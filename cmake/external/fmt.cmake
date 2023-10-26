@@ -54,7 +54,7 @@ set(FMT_INCLUDE_DIR ${FMT_INSTALL}/include)
 ExternalProject_Add(fmt
   PREFIX ${FMT_SRC}
   GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-  GIT_TAG 9.1.0
+  GIT_TAG 10.1.1
   GIT_SHALLOW 1
   CMAKE_ARGS
     -DCMAKE_CXX_COMPILER:FILEPATH=${CMAKE_CXX_COMPILER}
