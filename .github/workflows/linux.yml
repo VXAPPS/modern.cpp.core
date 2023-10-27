@@ -104,6 +104,7 @@ jobs:
              sudo apt update
              sudo apt install -y ninja-build
              sudo apt install -y doxygen graphviz
+             sudo apt install -y libabsl-dev
 
              if [ "${{matrix.compiler}}" = "gcc" ]; then
                sudo apt install -y g++-${{matrix.version}}

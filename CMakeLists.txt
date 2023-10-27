@@ -28,7 +28,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-cmake_minimum_required(VERSION 3.18...3.25)
+cmake_minimum_required(VERSION 3.18...3.27)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/policy.cmake)
 update_policy()
@@ -42,7 +42,7 @@ if(NOT DEFINED CORE_MASTER_PROJECT)
   endif()
 endif()
 
-project(modern.cpp.core VERSION 0.6.1 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES C CXX)
+project(modern.cpp.core VERSION 0.6.2 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES C CXX)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/env.cmake)
 include(${CMAKE}/checks.cmake)
 if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL Debug)
