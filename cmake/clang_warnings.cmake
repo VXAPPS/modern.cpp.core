@@ -60,6 +60,8 @@ set(WARNING_FLAGS
   -Wno-old-style-cast
   -Wno-missing-noreturn
   -Wno-missing-variable-declarations
+  -Wno-atomic-implicit-seq-cst
+  -Wno-unused-macros
 )
 
 foreach(WARNING_FLAG ${WARNING_FLAGS})
