@@ -39,30 +39,6 @@ set(WARNING_FLAGS
   -Wno-c++98-compat-pedantic # C++11
   -Wno-c++2a-extensions
   -Wno-padded
-
-  # absl dependency
-#  -Wno-c++20-compat
-#  -Wno-tautological-type-limit-compare
-#  -Wno-float-equal
-#  -Wno-double-promotion
-#  -Wno-global-constructors
-#  -Wno-gcc-compat
-#  -Wno-unreachable-code-break
-#  -Wno-switch-enum
-#  -Wno-weak-vtables
-#  -Wno-exit-time-destructors
-#  -Wno-comma
-#  -Wno-thread-safety-negative
-#  -Wno-zero-as-null-pointer-constant
-#  -Wno-format-nonliteral
-#  -Wno-unused-template
-#  -Wno-deprecated
-#  -Wno-old-style-cast
-#  -Wno-missing-noreturn
-#  -Wno-missing-variable-declarations
-#  -Wno-atomic-implicit-seq-cst
-#  -Wno-unused-macros
-#  -Wno-disabled-macro-expansion
 )
 
 foreach(WARNING_FLAG ${WARNING_FLAGS})
