@@ -35,6 +35,7 @@
 
 /* magic_enum */
 #include <magic_enum.hpp>
+#include <magic_enum_flags.hpp>
 
 /* local header */
 #include "Logger.h"
@@ -61,7 +62,7 @@ namespace vx::logger {
 
       if constexpr ( magic_enum::detail::subtype_v<D> == magic_enum::detail::enum_subtype::flags ) {
 
-        if ( const auto name = enum_flags_name<D>( _value ); !name.empty() ) {
+        if ( const auto name = magic_enum::enum_flags_name<D>( _value ); !name.empty() ) {
 
           _logger.stream() << name;
           return _logger.maybeSpace();
