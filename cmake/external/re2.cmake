@@ -44,10 +44,10 @@ if (WIN32)
 endif()
 
 ExternalProject_Add(re2
-  DEPENDS absl::base
+#  DEPENDS absl::base
   PREFIX ${RE2_SRC}
   GIT_REPOSITORY https://github.com/google/re2.git
-  GIT_TAG 2023-11-01
+  GIT_TAG 2023-03-01 # last version without absl
   GIT_SHALLOW 1
   CMAKE_ARGS
     -DCMAKE_CXX_COMPILER:FILEPATH=${CMAKE_CXX_COMPILER}

@@ -50,7 +50,7 @@ if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL Debug)
 endif()
 
 # Fetch Content Dependencies
-include(${CMAKE}/fetch/abseil.cmake)
+#include(${CMAKE}/fetch/abseil.cmake)
 include(${CMAKE}/fetch/doxygen-awesome-css.cmake)
 include(${CMAKE}/fetch/magic_enum.cmake)
 
