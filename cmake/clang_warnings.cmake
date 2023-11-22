@@ -39,12 +39,23 @@ set(WARNING_FLAGS
   -Wno-c++98-compat-pedantic # C++11
   -Wno-c++2a-extensions
   -Wno-padded
+)
+
+set(WARNING_FLAGS_VERSION16
+
+  # Own parameter
   -Wno-unsafe-buffer-usage
 )
 
 foreach(WARNING_FLAG ${WARNING_FLAGS})
   set(WARNING_FLAGS_SPACED "${WARNING_FLAGS_SPACED} ${WARNING_FLAG}")
 endforeach()
+
+if(NOT CMAKE_CXX_COMPILER_ID MATCHES Clang AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 16)
+  foreach(WARNING_FLAG ${WARNING_FLAGS_VERSION16})
+    set(WARNING_FLAGS_SPACED "${WARNING_FLAGS_SPACED} ${WARNING_FLAG}")
+  endforeach()
+endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything -Werror -Weffc++")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS_SPACED}")

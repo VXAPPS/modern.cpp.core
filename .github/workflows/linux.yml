@@ -26,7 +26,9 @@ jobs:
           ubuntu-22.04-clang-12,
           ubuntu-22.04-clang-13,
           ubuntu-22.04-clang-14,
-          ubuntu-22.04-clang-15
+          ubuntu-22.04-clang-15,
+          ubuntu-22.04-clang-16,
+          ubuntu-22.04-clang-17,
         ]
         config: [Debug, Release]
         include:
@@ -90,6 +92,16 @@ jobs:
             compiler: clang
             version: 15
 
+          - name: ubuntu-22.04-clang-16
+            os: ubuntu-22.04
+            compiler: clang
+            version: 16
+
+          - name: ubuntu-22.04-clang-17
+            os: ubuntu-22.04
+            compiler: clang
+            version: 17
+
     steps:
       - uses: actions/checkout@v3
 
@@ -99,6 +111,16 @@ jobs:
                wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|gpg --dearmor > llvm-snapshot.gpg
                sudo mv llvm-snapshot.gpg /etc/apt/trusted.gpg.d/
                sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main"
+             fi
+             if [ "${{matrix.version}}" = "16" ]; then
+               wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|gpg --dearmor > llvm-snapshot.gpg
+               sudo mv llvm-snapshot.gpg /etc/apt/trusted.gpg.d/
+               sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-16 main"
+             fi
+             if [ "${{matrix.version}}" = "17" ]; then
+               wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|gpg --dearmor > llvm-snapshot.gpg
+               sudo mv llvm-snapshot.gpg /etc/apt/trusted.gpg.d/
+               sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-17 main"
              fi
 
              sudo apt update
