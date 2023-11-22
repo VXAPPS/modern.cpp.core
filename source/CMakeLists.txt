@@ -108,6 +108,8 @@ target_link_libraries(${PROJECT_NAME}
   PUBLIC
   magic_enum::magic_enum
   re2::re2
+  absl::raw_hash_set # re2 is using them
+  absl::str_format_internal # re2 is using them
   Threads::Threads # re2 is using them
   ${${PROJECT_NAME}_libs}
 )

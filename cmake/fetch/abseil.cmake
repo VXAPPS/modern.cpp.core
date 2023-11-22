@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2020 Florian Becker <fb@vxapps.com> (VX APPS).
+# Copyright (c) 2023 Florian Becker <fb@vxapps.com> (VX APPS).
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,54 +28,14 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-if(NOT CMAKE_CXX_COMPILER_ID MATCHES Clang)
-  return()
-endif()
+include(FetchContent)
 
-set(WARNING_FLAGS
+set(ABSL_PROPAGATE_CXX_STD ON)
 
-  # Own parameter
-  -Wno-c++98-compat # C++11
-  -Wno-c++98-compat-pedantic # C++11
-  -Wno-c++2a-extensions
-  -Wno-padded
-
-  # absl dependency
-  -Wno-c++20-compat
-  -Wno-tautological-type-limit-compare
-  -Wno-float-equal
-  -Wno-double-promotion
-  -Wno-global-constructors
-  -Wno-gcc-compat
-  -Wno-unreachable-code-break
-  -Wno-switch-enum
-  -Wno-weak-vtables
-  -Wno-exit-time-destructors
-  -Wno-comma
-  -Wno-thread-safety-negative
-  -Wno-zero-as-null-pointer-constant
-  -Wno-format-nonliteral
-  -Wno-unused-template
-  -Wno-deprecated
-  -Wno-old-style-cast
-  -Wno-missing-noreturn
-  -Wno-missing-variable-declarations
+FetchContent_Declare(absl
+  GIT_REPOSITORY https://github.com/abseil/abseil-cpp.git
+  GIT_TAG 20230802.1
+  GIT_SHALLOW 1
 )
 
-foreach(WARNING_FLAG ${WARNING_FLAGS})
-  set(WARNING_FLAGS_SPACED "${WARNING_FLAGS_SPACED} ${WARNING_FLAG}")
-endforeach()
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything -Werror -Weffc++")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS_SPACED}")
-
-if(UNIX AND NOT APPLE)
-  set(EXTRA_CXX_FLAGS -stdlib=libc++)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${EXTRA_CXX_FLAGS}")
-  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${EXTRA_CXX_FLAGS} -lc++abi -fuse-ld=lld")
-endif()
-
-if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL Debug)
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-instr-generate -fcoverage-mapping")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-instr-generate -fcoverage-mapping")
-endif()
+FetchContent_MakeAvailable(absl)
