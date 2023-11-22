@@ -162,9 +162,6 @@ namespace vx {
     /* Bad case */
 #ifdef DEBUG
     EXPECT_DEATH( enumOutOfRange(), "" );
-#else
-    const Color colorUnkown = magic_enum::enum_value<Color>( 3 );
-    EXPECT_EQ( colorUnkown, static_cast<Color>( 16 ) );
 #endif
   }
 

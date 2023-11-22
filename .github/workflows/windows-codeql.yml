@@ -83,7 +83,8 @@ jobs:
 
       - name: Dependencies
         run: |
-             choco install doxygen.install graphviz ninja -y
+             choco install ninja -y
+             choco install doxygen.install graphviz -y
              echo "CC=${{matrix.compiler}}" >> $env:GITHUB_ENV
              echo "CXX=${{matrix.compiler}}" >> $env:GITHUB_ENV
 
