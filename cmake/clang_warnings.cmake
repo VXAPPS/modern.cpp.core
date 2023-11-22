@@ -39,6 +39,7 @@ set(WARNING_FLAGS
   -Wno-c++98-compat-pedantic # C++11
   -Wno-c++2a-extensions
   -Wno-padded
+  -Wno-unsafe-buffer-usage
 )
 
 foreach(WARNING_FLAG ${WARNING_FLAGS})
