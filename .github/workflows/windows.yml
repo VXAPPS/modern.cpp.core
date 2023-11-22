@@ -72,6 +72,15 @@ jobs:
         with:
           arch: ${{matrix.architecture}}
 
+      - name: Cache Dependencies
+        id: cache-choco
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-choco-packages
+        with:
+          path: C:/Users/runneradmin/AppData/Local/Temp/chocolatey
+          key: ${{env.cache-name}}
+
       - name: Dependencies
         run: |
              choco install ninja -y
