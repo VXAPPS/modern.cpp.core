@@ -246,6 +246,6 @@ namespace vx::string_utils {
       size = std::strnlen( reinterpret_cast<const char *>( _uchr ), string.size() ); // NOSONAR do not use reinterpret_cast
 #endif
     }
-    return std::make_optional<std::string>( _uchr, _uchr + size ); // NOSONAR do not use pointer arithmetric
+    return std::make_optional<std::string>( _uchr, _uchr + size ); // NOSONAR do not use pointer arithmetic
   }
 }

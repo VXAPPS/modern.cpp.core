@@ -108,7 +108,7 @@ namespace vx {
 
       m_queue.push( item );
 
-      /* unlock before notificiation to minimize mutex context */
+      /* unlock before notification to minimize mutex context */
       lock.unlock();
 
       /* notify one waiting thread */
@@ -125,7 +125,7 @@ namespace vx {
 
       m_queue.push( std::move( item ) );
 
-      /* unlock before notificiation to minimize mutex context */
+      /* unlock before notification to minimize mutex context */
       lock.unlock();
 
       /* notify one waiting thread */
