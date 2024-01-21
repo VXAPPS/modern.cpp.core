@@ -43,9 +43,9 @@
 /* local header */
 #include "Item.h"
 
-constexpr std::int32_t intervallSeconds = 1;
+constexpr std::int32_t intervalSeconds = 1;
 constexpr std::int32_t secondsToMilliseconds = 100;
-constexpr std::int32_t exitIntervall = 30;
+constexpr std::int32_t exitInterval = 30;
 
 static inline void process( vx::SharedQueue<Item *> &_queue,
                             std::int32_t _threadId ) {
@@ -68,7 +68,7 @@ static inline void process( vx::SharedQueue<Item *> &_queue,
 
 std::int32_t main() {
 
-  std::int32_t intervall {};
+  std::int32_t interval {};
 
   vx::SharedQueue<Item *> queue {};
 
@@ -92,14 +92,14 @@ std::int32_t main() {
     threads.emplace_back( process, std::ref( queue ), i );
   }
 
-  auto intervallTimer = vx::Timer();
+  auto intervalTimer = vx::Timer();
 
-  const auto runOnInterval = [ &intervallTimer, &intervall, &queue ]() {
-    ++intervall;
-    std::cout << "Intervall: " << intervall << std::endl;
+  const auto runOnInterval = [ &intervalTimer, &interval, &queue ]() {
+    ++interval;
+    std::cout << "Interval: " << interval << std::endl;
     try {
 
-      queue.push( new Item( "Attached", intervall ) );
+      queue.push( new Item( "Attached", interval ) );
     }
     catch ( const std::bad_alloc &_exception ) {
 
@@ -110,18 +110,18 @@ std::int32_t main() {
       std::cout << _exception.what() << std::endl;
     }
 
-    if ( intervall >= exitIntervall ) {
+    if ( interval >= exitInterval ) {
 
-      intervallTimer.stop();
+      intervalTimer.stop();
     }
   };
 
-  intervallTimer.setInterval( intervallSeconds * secondsToMilliseconds, runOnInterval );
+  intervalTimer.setInterval( intervalSeconds * secondsToMilliseconds, runOnInterval );
 
   while ( true ) {
 
     /* Leave the app run infinity */
-    if ( !intervallTimer.isRunning() ) {
+    if ( !intervalTimer.isRunning() ) {
 
       break;
     }

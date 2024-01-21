@@ -109,7 +109,7 @@ namespace vx {
 
     std::string source = "The answer is 42.";
     EXPECT_FALSE( string_utils::endsWith( source, "xyz." ) );
-    EXPECT_FALSE( string_utils::endsWith( source, "is fourty-two." ) );
+    EXPECT_FALSE( string_utils::endsWith( source, "is forty-two." ) );
     EXPECT_TRUE( string_utils::endsWith( source, "is 42." ) );
     EXPECT_TRUE( string_utils::endsWith( source, "2." ) );
 
@@ -163,7 +163,7 @@ namespace vx {
     unsigned char chrArray[] = "The answer is 42."; // NOSONAR Just for testing purpose
     const unsigned char *chrPointer = chrArray;
 
-    /* A sanitizer will found that issue, so this is not useable for regular testing. */
+    /* A sanitizer will found that issue, so this is not usable for regular testing. */
     EXPECT_NE( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 17 + 10 ), "The answer is 42." );
   }
 

@@ -78,7 +78,7 @@ namespace vx {
     EXPECT_EQ( initializer.width(), 10 );
     EXPECT_EQ( initializer.height(), 10 );
 
-    /* comparision */
+    /* comparison */
     EXPECT_TRUE( size == size3 );
     EXPECT_FALSE( size == size2 );
     EXPECT_FALSE( size == sizeNull );
@@ -142,7 +142,7 @@ namespace vx {
     EXPECT_EQ( initializer.width(), 10.4F );
     EXPECT_EQ( initializer.height(), 10.4F );
 
-    /* comparision */
+    /* comparison */
     EXPECT_TRUE( size == size3 );
     EXPECT_FALSE( size == size2 );
     EXPECT_FALSE( size == sizeNull );
@@ -206,7 +206,7 @@ namespace vx {
     EXPECT_EQ( initializer.width(), 10.5 );
     EXPECT_EQ( initializer.height(), 10.5 );
 
-    /* comparision */
+    /* comparison */
     EXPECT_TRUE( size == size3 );
     EXPECT_FALSE( size == size2 );
     EXPECT_FALSE( size == sizeNull );

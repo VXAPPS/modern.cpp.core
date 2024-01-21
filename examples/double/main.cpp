@@ -148,17 +148,17 @@ std::int32_t main() {
   /* split */
   std::cout << "----- Split" << std::endl;
 
-  std::pair<double, double> splitted = vx::floating_point::split( first );
-  std::cout << "split " << first << " result: " << splitted.first << " " << splitted.second << std::endl;
+  std::pair<double, double> separated = vx::floating_point::split( first );
+  std::cout << "split " << first << " result: " << separated.first << " " << separated.second << std::endl;
 
-  splitted = vx::floating_point::split( second );
-  std::cout << "split " << second << " result: " << splitted.first << " " << splitted.second << std::endl;
+  separated = vx::floating_point::split( second );
+  std::cout << "split " << second << " result: " << separated.first << " " << separated.second << std::endl;
 
-  splitted = vx::floating_point::split( third );
-  std::cout << "split " << third << " result: " << splitted.first << " " << splitted.second << std::endl;
+  separated = vx::floating_point::split( third );
+  std::cout << "split " << third << " result: " << separated.first << " " << separated.second << std::endl;
 
-  splitted = vx::floating_point::split( fourth );
-  std::cout << "split " << fourth << " result: " << splitted.first << " " << splitted.second << std::endl;
+  separated = vx::floating_point::split( fourth );
+  std::cout << "split " << fourth << " result: " << separated.first << " " << separated.second << std::endl;
 
   return EXIT_SUCCESS;
 }

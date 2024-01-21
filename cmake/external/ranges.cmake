@@ -143,4 +143,4 @@ namespace std {
 "
 )
 
-write_file(${RANGES_INCLUDE_DIR}/ranges ${RANGES_ABSTRACT})
+file(WRITE ${RANGES_INCLUDE_DIR}/ranges ${RANGES_ABSTRACT})

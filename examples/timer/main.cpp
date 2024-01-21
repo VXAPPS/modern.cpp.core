@@ -37,30 +37,30 @@
 /* modern.cpp.core */
 #include <Timer.h>
 
-constexpr std::int32_t intervallSeconds = 1;
+constexpr std::int32_t intervalSeconds = 1;
 constexpr std::int32_t secondsToMilliseconds = 1000;
 constexpr std::int32_t exitSeconds = 15;
 
 std::int32_t main() {
 
-  std::int32_t intervall = 1;
-  auto intervallTimer = vx::Timer();
+  std::int32_t interval = 1;
+  auto intervalTimer = vx::Timer();
 
-  const auto runOnInterval = [ &intervallTimer, &intervall ]() {
-    std::cout << "Intervall: " << intervall << std::endl;
-    intervall++;
-    if ( intervall >= exitSeconds ) {
+  const auto runOnInterval = [ &intervalTimer, &interval ]() {
+    std::cout << "Interval: " << interval << std::endl;
+    interval++;
+    if ( interval >= exitSeconds ) {
 
-      intervallTimer.stop();
+      intervalTimer.stop();
     }
   };
 
-  intervallTimer.setInterval( intervallSeconds * secondsToMilliseconds, runOnInterval );
+  intervalTimer.setInterval( intervalSeconds * secondsToMilliseconds, runOnInterval );
 
   while ( true ) {
 
     /* Leave the app run infinity */
-    if ( !intervallTimer.isRunning() ) {
+    if ( !intervalTimer.isRunning() ) {
 
       break;
     }

@@ -110,17 +110,17 @@ jobs:
              if [ "${{matrix.version}}" = "15" ]; then
                wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|gpg --dearmor > llvm-snapshot.gpg
                sudo mv llvm-snapshot.gpg /etc/apt/trusted.gpg.d/
-               sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main"
+               sudo apt-add-repository "deb https://apt.llvm.org/jammy/ llvm-toolchain-jammy-15 main"
              fi
              if [ "${{matrix.version}}" = "16" ]; then
                wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|gpg --dearmor > llvm-snapshot.gpg
                sudo mv llvm-snapshot.gpg /etc/apt/trusted.gpg.d/
-               sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-16 main"
+               sudo apt-add-repository "deb https://apt.llvm.org/jammy/ llvm-toolchain-jammy-16 main"
              fi
              if [ "${{matrix.version}}" = "17" ]; then
                wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|gpg --dearmor > llvm-snapshot.gpg
                sudo mv llvm-snapshot.gpg /etc/apt/trusted.gpg.d/
-               sudo apt-add-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-17 main"
+               sudo apt-add-repository "deb https://apt.llvm.org/jammy/ llvm-toolchain-jammy-17 main"
              fi
 
              sudo apt update

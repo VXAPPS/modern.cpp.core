@@ -97,7 +97,7 @@ std::int32_t main() {
 
     ::close( pos );
   }
-  /* Alternative, some times it is needed not to close all file descriptors */
+  /* Alternative, sometimes it is needed not to close all file descriptors */
   // ::close( STDIN_FILENO ); // NOSONAR possible alternative solution
   // ::close( STDOUT_FILENO ); // NOSONAR possible alternative solution
   // ::close( STDERR_FILENO ); // NOSONAR possible alternative solution
@@ -132,7 +132,7 @@ std::int32_t main() {
   if ( !currentPid.empty() && currentPid != str ) {
 
     /* Couldn't open lock file */
-    ::syslog( LOG_INFO, "Service allready running as PID %s, exiting", currentPid.c_str() );
+    ::syslog( LOG_INFO, "Service already running as PID %s, exiting", currentPid.c_str() );
     std::exit( EXIT_FAILURE );
   }
 
@@ -150,7 +150,7 @@ std::int32_t main() {
   // DAEMONIZE END
 
   // SERVICE START
-  /* Daemon-specific intialization should go here */
+  /* Daemon-specific initialization should go here */
 
   // SERVICE END
 

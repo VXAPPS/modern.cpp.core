@@ -125,21 +125,21 @@ namespace vx {
     constexpr double third = 2.2345678;
     constexpr double fourth = 2.2335678;
 
-    std::pair<double, double> splitted = floating_point::split( first );
-    EXPECT_EQ( splitted.first, 1.0 );
-    EXPECT_TRUE( floating_point::equal( splitted.second, 0.23 ) );
+    std::pair<double, double> separated = floating_point::split( first );
+    EXPECT_EQ( separated.first, 1.0 );
+    EXPECT_TRUE( floating_point::equal( separated.second, 0.23 ) );
 
-    splitted = floating_point::split( second );
-    EXPECT_EQ( splitted.first, 2.0 );
-    EXPECT_TRUE( floating_point::equal( splitted.second, 0.2345678 ) );
+    separated = floating_point::split(second );
+    EXPECT_EQ( separated.first, 2.0 );
+    EXPECT_TRUE( floating_point::equal( separated.second, 0.2345678 ) );
 
-    splitted = floating_point::split( third );
-    EXPECT_EQ( splitted.first, 2.0 );
-    EXPECT_TRUE( floating_point::equal( splitted.second, 0.2345678 ) );
+    separated = floating_point::split(third );
+    EXPECT_EQ( separated.first, 2.0 );
+    EXPECT_TRUE( floating_point::equal( separated.second, 0.2345678 ) );
 
-    splitted = floating_point::split( fourth );
-    EXPECT_EQ( splitted.first, 2.0 );
-    EXPECT_TRUE( floating_point::equal( splitted.second, 0.2335678 ) );
+    separated = floating_point::split(fourth );
+    EXPECT_EQ( separated.first, 2.0 );
+    EXPECT_TRUE( floating_point::equal( separated.second, 0.2335678 ) );
   }
 }
 #ifdef __clang__

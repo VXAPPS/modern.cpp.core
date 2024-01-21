@@ -121,7 +121,7 @@ namespace vx::logger {
       }
       catch ( const std::bad_function_call &_exception ) {
 
-        /* Nothing to do here, the delimeter is not the most important thing here. */
+        /* Nothing to do here, the delimiter is not the most important thing here. */
         logFatal() << "bad_function_call:" << _exception.what();
       }
       const bool saveState = _logger.autoSpace();
@@ -209,7 +209,7 @@ namespace vx::logger {
       }
       catch ( const std::bad_function_call &_exception ) {
 
-        /* Nothing to do here, the delimeter is not the most important thing here. */
+        /* Nothing to do here, the delimiter is not the most important thing here. */
         logFatal() << "bad_function_call:" << _exception.what();
       }
       _logger.stream() << '{';
@@ -289,7 +289,7 @@ namespace vx::logger {
       }
       catch ( const std::bad_function_call &_exception ) {
 
-        /* Nothing to do here, the delimeter is not the most important thing here. */
+        /* Nothing to do here, the delimiter is not the most important thing here. */
         logFatal() << "bad_function_call:" << _exception.what();
       }
       _logger.printTuple( pos, _tuple );

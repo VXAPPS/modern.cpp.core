@@ -42,7 +42,7 @@
 #include <chrono>
 #include <vector>
 
-/* local haeder */
+/* local header */
 #include "Cpp23.h"
 #include "Logger.h"
 #include "Serial.h"

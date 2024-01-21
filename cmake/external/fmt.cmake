@@ -151,4 +151,4 @@ namespace std {
 }"
 )
 
-write_file(${FMT_INCLUDE_DIR}/format ${FMT_ABSTRACT})
+file(WRITE ${FMT_INCLUDE_DIR}/format ${FMT_ABSTRACT})

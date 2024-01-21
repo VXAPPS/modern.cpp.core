@@ -75,11 +75,11 @@ namespace vx {
     EXPECT_EQ( initializer.x(), 10 );
     EXPECT_EQ( initializer.y(), 10 );
 
-    /* Manhatten Length */
+    /* Manhattan Length */
     EXPECT_EQ( point.manhattanLength(), 20 );
     EXPECT_EQ( point2.manhattanLength(), 10 );
 
-    /* comparision */
+    /* comparison */
     EXPECT_TRUE( point == point3 );
     EXPECT_FALSE( point == point2 );
     EXPECT_FALSE( point == pointNull );
@@ -143,11 +143,11 @@ namespace vx {
     EXPECT_EQ( initializer.x(), 10.4F );
     EXPECT_EQ( initializer.y(), 10.4F );
 
-    /* Manhatten Length */
+    /* Manhattan Length */
     EXPECT_EQ( point.manhattanLength(), 20.8F );
     EXPECT_EQ( point2.manhattanLength(), 10.8F );
 
-    /* comparision */
+    /* comparison */
     EXPECT_TRUE( point == point3 );
     EXPECT_FALSE( point == point2 );
     EXPECT_FALSE( point == pointNull );
@@ -211,11 +211,11 @@ namespace vx {
     EXPECT_EQ( initializer.x(), 10.5 );
     EXPECT_EQ( initializer.y(), 10.5 );
 
-    /* Manhatten Length */
+    /* Manhattan Length */
     EXPECT_EQ( point.manhattanLength(), 21. );
     EXPECT_EQ( point2.manhattanLength(), 11. );
 
-    /* comparision */
+    /* comparison */
     EXPECT_TRUE( point == point3 );
     EXPECT_FALSE( point == point2 );
     EXPECT_FALSE( point == pointNull );
