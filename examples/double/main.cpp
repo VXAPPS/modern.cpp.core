@@ -29,11 +29,14 @@
  */
 
 /* c header */
+#include <cstddef> // std::size_t
 #include <cstdint> // std::int32_t
+#include <cstdlib> // EXIT_SUCCESS
 
 /* stl header */
 #include <iostream>
 #include <limits>
+#include <utility> // std::pair
 
 /* modern.cpp.core */
 #include <FloatingPoint.h>

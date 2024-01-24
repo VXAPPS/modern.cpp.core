@@ -28,10 +28,18 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstddef> // std::size_t
+#include <cstdint> // std::int8_t
+#include <ctime> // std::time
+
 /* stl header */
 #include <algorithm>
 #include <iomanip>
 #include <iostream> // std::streambuf, std::cout
+#include <source_location.hpp>
+#include <string>
+#include <string_view>
 #include <sstream>
 
 /* magic enum */

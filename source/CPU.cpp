@@ -31,6 +31,9 @@
 /* c header */
 #include <cstdint> // std::int32_t
 
+/* stl header */
+#include <utility>
+
 /* windows header */
 #ifdef _MSC_VER
   #include <intrin.h>

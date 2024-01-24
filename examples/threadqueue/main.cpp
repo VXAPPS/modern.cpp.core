@@ -30,11 +30,19 @@
 
 /* c header */
 #include <cstdint> // std::int32_t
+#include <cstdlib> // EXIT_SUCCESS
 
 /* stl header */
 #include <algorithm>
+#include <exception>
+#include <functional> // std::ref
 #include <iostream>
+#include <memory>
+#include <new> // std::bad_alloc
 #include <ranges>
+#include <thread>
+#include <tuple>
+#include <vector>
 
 /* modern.cpp.core */
 #include <SharedQueue.h>
@@ -47,23 +55,26 @@ constexpr std::int32_t intervalSeconds = 1;
 constexpr std::int32_t secondsToMilliseconds = 100;
 constexpr std::int32_t exitInterval = 30;
 
-static inline void process( vx::SharedQueue<Item *> &_queue,
-                            std::int32_t _threadId ) {
+namespace {
 
-  std::cout << "Start Thread: " << _threadId << std::endl;
-  while ( true ) {
+  inline void process( vx::SharedQueue<Item *> &_queue,
+                       std::int32_t _threadId ) {
 
-    std::unique_ptr<Item> item { _queue.front() };
-    if ( item && item->getMessage() == "STOP" ) {
+    std::cout << "Start Thread: " << _threadId << std::endl;
+    while ( true ) {
 
-      break;
+      std::unique_ptr<Item> item { _queue.front() };
+      if ( item && item->getMessage() == "STOP" ) {
+
+        break;
+      }
+      if ( item ) {
+
+        std::cout << _threadId << ": received item: " << item->getMessage() << " " << item->getNumber() << std::endl;
+      }
     }
-    if ( item ) {
-
-      std::cout << _threadId << ": received item: " << item->getMessage() << " " << item->getNumber() << std::endl;
-    }
+    std::cout << "Ended Thread: " << _threadId << std::endl;
   }
-  std::cout << "Ended Thread: " << _threadId << std::endl;
 }
 
 std::int32_t main() {

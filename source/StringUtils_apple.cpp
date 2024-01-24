@@ -28,6 +28,20 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* stl header */
+#include <string>
+
+/* apple header */
+#ifdef __clang__
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Welaborated-enum-base"
+#endif
+#include <CoreFoundation/CFBase.h>
+#include <CoreFoundation/CFString.h>
+#ifdef __clang__
+  #pragma clang diagnostic pop
+#endif
+
 /* local header */
 #include "StringUtils_apple.h"
 

@@ -30,11 +30,29 @@
 
 /* c header */
 #include <cstdint> // std::int32_t
+#include <cstdlib> // EXIT_SUCCESS
 
 /* stl header */
+#include <any>
+#include <array>
+#include <chrono>
 #include <format>
 #include <iostream>
+#include <list>
+#include <map>
 #include <memory> // std::unique_ptr
+#include <optional>
+#include <set>
+#include <string>
+#include <string_view>
+#include <tuple>
+#include <unordered_map>
+#include <utility> // std::pair
+#include <variant>
+#include <vector>
+
+/* magic enum */
+#include <magic_enum.hpp>
 
 /* modern.cpp.core */
 #include <Logger.h>

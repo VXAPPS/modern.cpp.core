@@ -32,9 +32,11 @@
 
 /* stl header */
 #include <fstream>
+#include <ios>
 #if __cplusplus >= 202002L
   #include <iterator>
 #endif
+#include <ostream>
 #include <string>
 #include <string_view>
 

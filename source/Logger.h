@@ -31,10 +31,14 @@
 #pragma once
 
 /* c header */
+#include <cstddef> // std::size_t
 #include <cstdint> // std::int8_t, std::int32_t
+#include <ctime>
 
 /* stl header */
 #include <chrono>
+#include <ios>
+#include <limits>
 #include <optional>
 #include <ostream>
 #include <ratio>
@@ -42,6 +46,7 @@
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <type_traits>
 #include <variant>
 
 /* local header */

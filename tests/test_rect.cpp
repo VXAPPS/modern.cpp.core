@@ -28,6 +28,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
+/* stl header */
+#include <utility>
+
 /* gtest header */
 #include <gtest/gtest.h>
 

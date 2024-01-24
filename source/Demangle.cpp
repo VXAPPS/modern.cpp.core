@@ -29,12 +29,19 @@
  */
 
 /* c header */
+#include <cstdint> // std::int32_t
+#include <cstdlib> // std::free
 #ifndef _WIN32
   #include <cxxabi.h>
 #endif
 
 /* stl header */
+#include <exception>
 #include <memory>
+#include <new> // std::bad_alloc
+#include <string>
+#include <string_view>
+#include <vector>
 
 /* re2 header */
 #include <re2/re2.h>

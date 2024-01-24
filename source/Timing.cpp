@@ -33,10 +33,18 @@
   #include <Windows.h>
 #endif
 
+/* c header */
+#include <ctime>
+
 /* stl header */
+#include <chrono>
+#include <exception>
 #include <iomanip>
 #include <iostream>
+#include <limits>
+#include <ratio>
 #include <sstream>
+#include <string_view>
 
 /* local header */
 #include "FloatingPoint.h"

@@ -31,11 +31,16 @@
 /* c header */
 #include <cstdint> // std::int32_t
 
+/* stl header */
+#include <utility> // std::move
+
 /* gtest header */
 #include <gtest/gtest.h>
 
 /* modern.cpp.core */
+#include <FloatingPoint.h>
 #include <Line.h>
+#include <Point.h>
 
 using ::testing::InitGoogleTest;
 using ::testing::Test;

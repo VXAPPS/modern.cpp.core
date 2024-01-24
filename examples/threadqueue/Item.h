@@ -35,6 +35,7 @@
 
 /* stl header */
 #include <string>
+#include <utility> // std::move
 
 class Item {
 

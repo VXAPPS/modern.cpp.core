@@ -31,6 +31,10 @@
 /* c header */
 #include <cstdint> // std::int32_t
 
+/* stl headeer */
+#include <string>
+#include <string_view>
+
 /* gtest header */
 #include <gtest/gtest.h>
 

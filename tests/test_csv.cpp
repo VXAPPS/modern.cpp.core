@@ -32,6 +32,16 @@
 #include <cstdint> // std::int32_t
 #include <cstdio> // std::remove
 
+/* stl header */
+#include <fstream>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+#include <iterator>
+#include <string>
+#include <string_view>
+#include <vector>
+
 /* gtest header */
 #include <gtest/gtest.h>
 

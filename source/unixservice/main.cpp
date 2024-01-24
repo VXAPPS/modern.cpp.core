@@ -30,15 +30,17 @@
 
 /* c header */
 #include <cstdint>
+#include <cstdlib> // std::exit, EXIT_SUCCESS, EXIT_FAILURE
 
 /* system header */
 #include <sys/stat.h>
-#include <syslog.h>
+#include <sys/syslog.h>
 #include <unistd.h>
 
 /* stl header */
 #include <filesystem>
 #include <fstream>
+#include <ios>
 #include <sstream>
 #include <string>
 

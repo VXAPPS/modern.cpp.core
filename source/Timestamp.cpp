@@ -28,11 +28,18 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <ctime>
+
 /* stl header */
 #include <chrono>
+#include <exception>
 #include <iomanip>
 #include <iostream>
+#include <ratio>
 #include <sstream>
+#include <string>
+#include <utility>
 
 /* local header */
 #include "Cpp23.h"

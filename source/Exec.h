@@ -31,6 +31,7 @@
 #pragma once
 
 /* c header */
+#include <cstdint> // std::int32_t
 #include <cstdio> // std::FILE
 
 /* stl header */

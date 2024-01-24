@@ -43,7 +43,7 @@ BraceWrapping:
   SplitEmptyRecord: 'false'
   SplitEmptyNamespace: 'false'
   
-  BreakBeforeConceptDeclarations: Always
+BreakBeforeConceptDeclarations: Always
 BreakBeforeTernaryOperators: 'true'
 BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon

@@ -28,6 +28,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+#include <cstdio> // fprintf, printf
+#include <cstdlib> // EXIT_FAILURE
+
 /* stl header */
 #include <iostream>
 #ifdef HAVE_SPAN

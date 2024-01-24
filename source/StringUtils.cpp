@@ -29,13 +29,21 @@
  */
 
 /* c header */
+#include <cctype> // std::isspace
 #include <cstring>
 
 /* stl header */
 #include <algorithm>
+#include <exception>
 #include <functional>
+#include <ios>
+#include <iterator>
+#include <optional>
 #include <ranges>
 #include <sstream>
+#include <string>
+#include <string_view>
+#include <vector>
 
 /* local header */
 #include "Logger.h"

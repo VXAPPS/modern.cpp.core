@@ -30,10 +30,14 @@
 
 /* c header */
 #include <cstdint> // std::int32_t, std::uint32_t, std::int64_t
-#include <cstring> // strerror_r
+#ifdef __linux__
+  #include <cstring> // strerror_r
+#endif
 
 /* stl header */
-#include <vector>
+#ifdef __linux__
+  #include <vector>
+#endif
 
 #ifdef _MSC_VER
   #include <Windows.h>

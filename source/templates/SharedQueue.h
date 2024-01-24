@@ -30,6 +30,9 @@
 
 #pragma once
 
+/* c header */
+#include <cstddef> // std::size_t
+
 /* stl header */
 #include <condition_variable>
 #include <mutex>

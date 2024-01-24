@@ -29,7 +29,11 @@
  */
 
 /* c header */
+#include <cstddef> // std::size_t
 #include <cstdint> // std::int32_t
+
+/* stl header */
+#include <utility> // std::pair
 
 /* gtest header */
 #include <gtest/gtest.h>

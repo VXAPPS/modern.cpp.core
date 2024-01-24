@@ -28,19 +28,31 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+#include <cstdio> // std::gets, std::FILE, pclose, popen
+
+/* system header */
+#ifndef _MSC_VER
+  #include <sys/wait.h>
+#endif
+
 /* stl header */
 #include <array>
 #include <iostream>
 #include <memory>
-#include <sstream>
+#include <string>
 
 /* local header */
 #include "Exec.h"
 
 namespace vx::exec {
 
-  /** @brief Global result of executable. */
-  static std::int32_t m_resultCode = 0; // NOSONAR const is not possible here.
+  namespace {
+
+    /** @brief Global result of executable. */
+    std::int32_t m_resultCode = 0; // NOSONAR const is not possible here.
+  }
 
   /** @brief Buffer size to read stdout. */
   constexpr std::int32_t bufferSize = 128;

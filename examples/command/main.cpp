@@ -30,23 +30,28 @@
 
 /* c header */
 #include <cstdint> // std::int32_t
+#include <cstdlib> // EXIT_SUCCESS
 
 /* stl header */
 #include <iostream>
+#include <string>
 
 /* modern.cpp.core */
 #include <Exec.h>
 
-static void checkResult( std::int32_t _code,
-                         const std::string &_pipe ) {
+namespace {
 
-  std::string result = "EXIT_SUCCESS";
-  if ( _code != EXIT_SUCCESS ) {
+  void checkResult( std::int32_t _code,
+                    const std::string &_pipe ) {
 
-    result = "EXIT_FAILURE";
+    std::string result = "EXIT_SUCCESS";
+    if ( _code != EXIT_SUCCESS ) {
+
+      result = "EXIT_FAILURE";
+    }
+    std::cout << "'" << _pipe << "'" << std::endl;
+    std::cout << "Result: " << result << std::endl;
   }
-  std::cout << "'" << _pipe << "'" << std::endl;
-  std::cout << "Result: " << result << std::endl;
 }
 
 std::int32_t main() {

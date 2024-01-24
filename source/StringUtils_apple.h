@@ -36,7 +36,7 @@
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Welaborated-enum-base"
 #endif
-#include <CoreFoundation/CoreFoundation.h>
+#include <CoreFoundation/CFBase.h>
 #ifdef __clang__
   #pragma clang diagnostic pop
 #endif

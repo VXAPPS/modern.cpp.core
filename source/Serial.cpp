@@ -30,6 +30,7 @@
 
 /* c header */
 #include <cerrno>
+#include <cstdint> // std::int32_t
 #include <cstdio>
 #include <cstring> // strerror_r
 
@@ -40,6 +41,11 @@
 
 /* stl header */
 #include <chrono>
+#include <exception>
+#include <new> // std::bad_alloc
+#include <string>
+#include <tuple>
+#include <utility>
 #include <vector>
 
 /* local header */

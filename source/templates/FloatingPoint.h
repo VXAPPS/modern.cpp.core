@@ -36,6 +36,7 @@
 
 /* stl header */
 #include <algorithm>
+#include <limits>
 #include <utility>
 
 /**

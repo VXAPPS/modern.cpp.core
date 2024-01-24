@@ -30,6 +30,7 @@
 
 /* c header */
 #include <cstdint> // std::int32_t
+#include <cstdlib> // EXIT_SUCCESS
 
 /* stl header */
 #include <iostream>

@@ -28,8 +28,17 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* c header */
+#include <cstdint> // std::int32_t
+
 /* gtest header */
 #include <gtest/gtest.h>
+
+/* stl header */
+#include <optional>
+#include <string>
+#include <string_view>
+#include <vector>
 
 /* modern.cpp.core */
 #include <StringUtils.h>
@@ -158,7 +167,7 @@ namespace vx {
 #elif defined _MSC_VER // MSVC
   __declspec( no_sanitize_address )
 #endif
-  static inline void badCaseWrongSizeCheck() {
+  inline void badCaseWrongSizeCheck() {
 
     unsigned char chrArray[] = "The answer is 42."; // NOSONAR Just for testing purpose
     const unsigned char *chrPointer = chrArray;

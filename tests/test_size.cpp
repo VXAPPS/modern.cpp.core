@@ -31,6 +31,9 @@
 /* c header */
 #include <cstdint> // std::int32_t
 
+/* stl header */
+#include <utility>
+
 /* gtest header */
 #include <gtest/gtest.h>
 

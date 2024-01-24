@@ -37,6 +37,10 @@
 /* stl header */
 #include <list>
 #include <optional>
+#include <set>
+#include <string>
+#include <string_view>
+#include <tuple>
 #include <vector>
 
 /* modern.cpp.core */

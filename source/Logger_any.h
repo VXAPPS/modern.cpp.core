@@ -31,27 +31,24 @@
 #pragma once
 
 /* c header */
+#include <cstddef> // std::size_t
 #include <cstdint> // std::int8_t, std::int32_t
 
 /* stl header */
 #include <any>
-#include <array>
 #include <functional>
 #include <list>
-#include <map>
-#include <optional>
 #include <set>
 #include <string>
 #include <string_view>
-#include <tuple>
 #include <typeindex>
 #include <unordered_map>
 #include <utility> // std::pair
-#include <variant>
 #include <vector>
 
 /* local header */
 #include "Demangle.h"
+#include "Logger.h"
 #include "Logger_container.h"
 
 /**

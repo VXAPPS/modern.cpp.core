@@ -31,6 +31,7 @@
 #pragma once
 
 /* stl header */
+#include <type_traits> // std::false_type, std::true_type
 #include <variant>
 
 /**

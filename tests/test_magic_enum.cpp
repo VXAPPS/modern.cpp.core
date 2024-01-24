@@ -35,7 +35,12 @@
 #include <gtest/gtest.h>
 
 /* stl header */
+#include <iterator>
 #include <numeric>
+#include <optional>
+#include <string_view>
+#include <type_traits>
+#include <utility>
 
 /* magic enum */
 #include <magic_enum.hpp>

@@ -31,7 +31,7 @@
 #pragma once
 
 /* stl header */
-#include <optional>
+#include <type_traits>
 
 /* magic_enum */
 #include <magic_enum.hpp>

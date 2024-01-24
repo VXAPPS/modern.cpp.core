@@ -35,12 +35,17 @@
 
 /* stl header */
 #include <array>
+#ifdef __cpp_lib_to_underlying
+  #include <utility> // std::underlaying
+#endif
 
 /* magic enum */
 #include <magic_enum.hpp>
 
 /* local header */
-#include "Cpp23.h"
+#ifndef __cpp_lib_to_underlying
+  #include "Cpp23.h"
+#endif
 
 /**
  * @brief vx (VX APPS) namespace.

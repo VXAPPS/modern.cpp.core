@@ -30,9 +30,7 @@
 
 /* c header */
 #include <cstdint> // std::int32_t
-
-/* stl header */
-#include <iostream>
+#include <cstdlib> // EXIT_SUCCESS
 
 /* modern.cpp.core */
 #include <Logger.h>
