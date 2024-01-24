@@ -57,6 +57,7 @@ if(SANITIZER_ADDRESS)
     if(CMAKE_SIZEOF_VOID_P EQUAL 4)
       file(COPY ${ASAN_DIR}/clang_rt.asan_dbg_dynamic-i386.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     else()
+      file(COPY ${ASAN_DIR}/clang_rt.asan_dynamic-x86_64.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR}) # newest visual studio 2022 version seams to have an issue and requires release version
       file(COPY ${ASAN_DIR}/clang_rt.asan_dbg_dynamic-x86_64.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     endif()
   endif()
