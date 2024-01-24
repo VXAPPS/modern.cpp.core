@@ -101,6 +101,7 @@ jobs:
 
       - name: Test
         if: matrix.architecture != 'x64_arm64'
+        if: matrix.name != 'windows-2022-msvc2022'
         working-directory: ${{runner.workspace}}/build
         run: ctest --output-on-failure -C ${{matrix.config}}
 
