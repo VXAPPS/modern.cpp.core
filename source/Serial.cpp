@@ -30,12 +30,13 @@
 
 /* c header */
 #include <cerrno>
+#include <cstddef> // std::size_t
 #include <cstdint> // std::int32_t
 #include <cstdio>
 #include <cstring> // strerror_r
 
 /* system header */
-#include <fcntl.h> // open
+#include <sys/fcntl.h> // open
 #include <termios.h>
 #include <unistd.h> // write, read, close
 
@@ -129,13 +130,16 @@ namespace vx {
     }
   }
 
-  /**
-   * @brief Return timestamp in milliseconds.
-   * @return Timestamp in milliseconds.
-   */
-  static inline std::chrono::milliseconds timestampMs() noexcept {
+  namespace {
 
-    return std::chrono::duration_cast<std::chrono::milliseconds>( std::chrono::steady_clock::now().time_since_epoch() );
+    /**
+     * @brief Return timestamp in milliseconds.
+     * @return Timestamp in milliseconds.
+     */
+    inline std::chrono::milliseconds timestampMs() noexcept {
+
+      return std::chrono::duration_cast<std::chrono::milliseconds>( std::chrono::steady_clock::now().time_since_epoch() );
+    }
   }
 
   bool Serial::flush() const {

@@ -66,7 +66,7 @@ namespace vx::logger {
 
     return {
 
-      std::type_index( typeid( T ) ),
+      std::type_index( static_cast<std::type_index>( typeid( T ) ) ),
       [ function = _function ]( Logger &_logger,
                                 [[maybe_unused]] const std::any &_any ) {
         function( _logger, std::any_cast<const T &>( _any ) );
