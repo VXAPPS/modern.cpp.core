@@ -93,7 +93,7 @@ namespace vx {
      */
     T front() noexcept {
 
-      std::unique_lock<std::shared_mutex> lock( m_mutex );
+      std::unique_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template reduction not possible.
       m_condition.wait( lock, [ this ] { return !m_queue.empty(); } );
 
       T tmp = m_queue.front();
@@ -107,7 +107,7 @@ namespace vx {
      */
     void push( const T &item ) noexcept {
 
-      std::unique_lock<std::shared_mutex> lock( m_mutex );
+      std::unique_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template reduction not possible.
 
       m_queue.push( item );
 
@@ -124,7 +124,7 @@ namespace vx {
      */
     void push( T &&item ) noexcept {
 
-      std::unique_lock<std::shared_mutex> lock( m_mutex );
+      std::unique_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template reduction not possible.
 
       m_queue.push( std::move( item ) );
 
@@ -141,7 +141,7 @@ namespace vx {
      */
     std::size_t size() const noexcept {
 
-      std::shared_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction
+      std::shared_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction.
 
       std::size_t size = m_queue.size();
 
@@ -155,7 +155,7 @@ namespace vx {
      */
     bool empty() const noexcept {
 
-      std::shared_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction
+      std::shared_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction.
 
       bool empty = m_queue.empty();
 

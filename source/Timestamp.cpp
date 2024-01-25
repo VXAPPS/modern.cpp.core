@@ -107,7 +107,7 @@ namespace vx::timestamp {
       nowSs << offset.str();
       result = nowSs.str();
     }
-    catch ( const std::exception &_exception ) {
+    catch ( const std::exception &_exception ) { // NOSONAR fallback for every exeption.
 
       logFatal() << _exception.what();
     }

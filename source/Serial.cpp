@@ -159,7 +159,7 @@ namespace vx {
 
           logFatal() << "bad_alloc:" << _exception.what();
         }
-        catch ( const std::exception &_exception ) {
+        catch ( const std::exception &_exception ) { // NOSONAR fallback for every exeption.
 
           logFatal() << _exception.what();
         }
@@ -184,7 +184,7 @@ namespace vx {
 
         logFatal() << "bad_alloc:" << _exception.what();
       }
-      catch ( const std::exception &_exception ) {
+      catch ( const std::exception &_exception ) { // NOSONAR fallback for every exeption.
 
         logFatal() << _exception.what();
       }
@@ -209,7 +209,7 @@ namespace vx {
 
       logFatal() << "bad_alloc:" << _exception.what();
     }
-    catch ( const std::exception &_exception ) {
+    catch ( const std::exception &_exception ) { // NOSONAR fallback for every exeption.
 
       logFatal() << _exception.what();
     }
@@ -224,7 +224,7 @@ namespace vx {
 
         logFatal() << "bad_alloc:" << _exception.what();
       }
-      catch ( const std::exception &_exception ) {
+      catch ( const std::exception &_exception ) { // NOSONAR fallback for every exeption.
 
         logFatal() << _exception.what();
       }

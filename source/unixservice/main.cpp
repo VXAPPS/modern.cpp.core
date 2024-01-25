@@ -100,9 +100,9 @@ std::int32_t main() {
     ::close( pos );
   }
   /* Alternative, sometimes it is needed not to close all file descriptors */
-  // ::close( STDIN_FILENO ); // NOSONAR possible alternative solution
-  // ::close( STDOUT_FILENO ); // NOSONAR possible alternative solution
-  // ::close( STDERR_FILENO ); // NOSONAR possible alternative solution
+  // ::close( STDIN_FILENO ); // NOSONAR possible alternative solution.
+  // ::close( STDOUT_FILENO ); // NOSONAR possible alternative solution.
+  // ::close( STDERR_FILENO ); // NOSONAR possible alternative solution.
 
   /* Ensure only one copy */
   std::ostringstream ostream {};

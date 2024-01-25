@@ -93,7 +93,7 @@ std::int32_t main() {
 
     std::cout << "bad_alloc: " << _exception.what() << std::endl;
   }
-  catch ( const std::exception &_exception ) {
+  catch ( const std::exception &_exception ) { // NOSONAR fallback for every exeption.
 
     std::cout << _exception.what() << std::endl;
   }
@@ -116,7 +116,7 @@ std::int32_t main() {
 
       std::cout << "bad_alloc: " << _exception.what() << std::endl;
     }
-    catch ( const std::exception &_exception ) {
+    catch ( const std::exception &_exception ) { // NOSONAR fallback for every exeption.
 
       std::cout << _exception.what() << std::endl;
     }
@@ -148,7 +148,7 @@ std::int32_t main() {
 
       std::cout << "bad_alloc: " << _exception.what() << std::endl;
     }
-    catch ( const std::exception &_exception ) {
+    catch ( const std::exception &_exception ) { // NOSONAR fallback for every exeption.
 
       std::cout << _exception.what() << std::endl;
     }

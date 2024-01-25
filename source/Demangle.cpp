@@ -69,7 +69,7 @@ namespace vx::demangle {
     const std::unique_ptr<char, void ( * )( char * )> res {
 
       abi::__cxa_demangle( _name.c_str(), nullptr, nullptr, &status ),
-      []( char *_toFree ) { std::free( _toFree ); }
+      []( char *_toFree ) { std::free( _toFree ); } // NOSONAR raii is nor possible here.
     };
 
     if ( status == 0 ) {
@@ -140,7 +140,7 @@ namespace vx::demangle {
 
       logFatal() << "bad_alloc:" << _exception.what();
     }
-    catch ( const std::exception &_exception ) {
+    catch ( const std::exception &_exception ) { // NOSONAR fallback for every exeption.
 
       logFatal() << _exception.what();
     }

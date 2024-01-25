@@ -169,7 +169,7 @@ namespace vx {
 #endif
   inline void badCaseWrongSizeCheck() {
 
-    unsigned char chrArray[] = "The answer is 42."; // NOSONAR Just for testing purpose
+    unsigned char chrArray[] = "The answer is 42."; // NOSONAR just for testing purpose.
     const unsigned char *chrPointer = chrArray;
 
     /* A sanitizer will found that issue, so this is not usable for regular testing. */
@@ -178,7 +178,7 @@ namespace vx {
 
   TEST( StringUtils, FromUnsignedChar ) {
 
-    unsigned char chrArray[] = "The answer is 42."; // NOSONAR Just for testing purpose
+    unsigned char chrArray[] = "The answer is 42."; // NOSONAR just for testing purpose.
     const unsigned char *chrPointer = chrArray;
     EXPECT_EQ( string_utils::fromUnsignedChar( chrPointer ), "The answer is 42." );
     EXPECT_EQ( string_utils::MAYBE_BAD_fromUnsignedChar( chrPointer, 0 ), "The answer is 42." );

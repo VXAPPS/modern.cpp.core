@@ -49,7 +49,7 @@
 #include "Logger.h"
 #include "StringUtils.h"
 
-namespace std { // NOSONAR
+namespace std { // NOSONAR for std integration.
 
 #if defined _MSC_VER && _MSC_VER < 1920
   using ::isspace;
@@ -249,11 +249,11 @@ namespace vx::string_utils {
         logFatal() << _exception.what();
       }
 #ifdef _WIN32
-      size = std::strnlen_s( reinterpret_cast<const char *>( _uchr ), string.size() ); // NOSONAR do not use reinterpret_cast
+      size = std::strnlen_s( reinterpret_cast<const char *>( _uchr ), string.size() ); // NOSONAR do not use reinterpret_cast.
 #else
-      size = std::strnlen( reinterpret_cast<const char *>( _uchr ), string.size() ); // NOSONAR do not use reinterpret_cast
+      size = std::strnlen( reinterpret_cast<const char *>( _uchr ), string.size() ); // NOSONAR do not use reinterpret_cast.
 #endif
     }
-    return std::make_optional<std::string>( _uchr, _uchr + size ); // NOSONAR do not use pointer arithmetic
+    return std::make_optional<std::string>( _uchr, _uchr + size ); // NOSONAR do not use pointer arithmetic.
   }
 }

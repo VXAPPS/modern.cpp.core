@@ -122,7 +122,7 @@ namespace vx {
      */
     inline void stop() noexcept {
 
-      const std::unique_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction
+      const std::unique_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction.
       m_clear = true;
     }
 
@@ -132,7 +132,7 @@ namespace vx {
      */
     [[nodiscard]] inline bool isRunning() const noexcept {
 
-      const std::shared_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction
+      const std::shared_lock<std::shared_mutex> lock( m_mutex ); // NOSONAR template argument deduction.
       return !m_clear;
     }
 

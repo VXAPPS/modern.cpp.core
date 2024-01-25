@@ -316,7 +316,7 @@ namespace vx {
 
   TEST( MagicEnum, Checks ) {
 
-    enum ColorUnscoped { RED = 2, // NOSONAR Just for testing purpose
+    enum ColorUnscoped { RED = 2, // NOSONAR just for testing purpose.
                          BLUE = 4,
                          GREEN = 8 };
 
