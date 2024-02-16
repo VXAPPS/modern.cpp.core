@@ -54,7 +54,7 @@ if(CMAKE_C_COMPILER_ID STREQUAL "MSVC" OR CMAKE_C_SIMULATE_ID STREQUAL "MSVC")
   check_c_compiler_flag(/std:c23 HAVE_FLAG_STD_C23)
   check_c_compiler_flag(/std:c17 HAVE_FLAG_STD_C17)
   # Visual Studio 2019 will have clang-12, Visual Studio will have clang-15, but cmake do not know how to set the standard for that.
-  if(CMAKE_C_COMPILER_ID MATCHES Clang AND CMAKE_C_COMPILER_VERSION VERSION_LESS 16.0)
+  if(CMAKE_C_COMPILER_ID MATCHES Clang AND CMAKE_C_COMPILER_VERSION VERSION_LESS 18.0)
     set(HAVE_FLAG_STD_C23 OFF)
   endif()
 else()
