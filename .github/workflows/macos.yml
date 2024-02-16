@@ -47,7 +47,7 @@ jobs:
             architecture: arm64
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Dependencies
         run: |
@@ -84,12 +84,13 @@ jobs:
 
 #      - name: Archive Coverage
 #        if: matrix.config == 'Debug' && matrix.architecture != 'arm64'
-#        uses: actions/upload-artifact@v3
+#        uses: actions/upload-artifact@v4
 #        with:
 #          name: coverage-macos
 #          path: |
 #                ${{runner.workspace}}/build/tests/coverage.${{matrix.compiler}}-${{matrix.version}}.txt
 #                ${{runner.workspace}}/build/tests/coverage.overview.${{matrix.compiler}}-${{matrix.version}}.txt
+#        overwrite: true
 
       - name: Documentation
         working-directory: ${{runner.workspace}}/build

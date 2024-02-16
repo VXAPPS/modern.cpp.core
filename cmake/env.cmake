@@ -32,8 +32,8 @@
 option(CMAKE_VERBOSE_MAKEFILE "Show the complete build commands" OFF)
 
 # possibility to disable build steps
-option(CORE_BUILD_EXAMPLES "Build examples for modern.cpp.core" ON)
-option(CORE_BUILD_TESTS "Build tests for modern.cpp.core" ON)
+option(CORE_BUILD_EXAMPLES "Build examples" ON)
+option(CORE_BUILD_TESTS "Build tests" ON)
 
 # General
 set(CMAKE_TLS_VERIFY TRUE)
@@ -53,7 +53,8 @@ include(CheckCCompilerFlag)
 if(CMAKE_C_COMPILER_ID STREQUAL "MSVC" OR CMAKE_C_SIMULATE_ID STREQUAL "MSVC")
   check_c_compiler_flag(/std:c23 HAVE_FLAG_STD_C23)
   check_c_compiler_flag(/std:c17 HAVE_FLAG_STD_C17)
-  if(CMAKE_C_COMPILER_ID MATCHES Clang)
+  # Visual Studio 2019 will have clang-12, Visual Studio will have clang-15, but cmake do not know how to set the standard for that.
+  if(CMAKE_C_COMPILER_ID MATCHES Clang AND CMAKE_C_COMPILER_VERSION VERSION_LESS 16.0)
     set(HAVE_FLAG_STD_C23 OFF)
   endif()
 else()
@@ -75,8 +76,10 @@ set(CMAKE_C_EXTENSIONS OFF)
 include(CheckCXXCompilerFlag)
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC")
   check_cxx_compiler_flag(/std:c++23 HAVE_FLAG_STD_CXX23)
+  # An issue with visual studio 2019 with fetch project and same settings, so check early
   check_cxx_compiler_flag(/std:c++20 HAVE_FLAG_STD_CXX20)
-  if(CMAKE_CXX_COMPILER_ID MATCHES Clang)
+  # Visual Studio 2019 will have clang-12, but cmake do not know how to set the standard for that.
+  if(CMAKE_CXX_COMPILER_ID MATCHES Clang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.0)
     set(HAVE_FLAG_STD_CXX23 OFF)
   endif()
 else()
@@ -113,7 +116,7 @@ if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL Release)
   endif()
 endif()
 
-# Compiler configuration
+# Warning flags
 include(${CMAKE}/clang_warnings.cmake)
 include(${CMAKE}/gcc_warnings.cmake)
 include(${CMAKE}/msvc_warnings.cmake)

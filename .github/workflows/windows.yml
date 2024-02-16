@@ -67,14 +67,14 @@ jobs:
             architecture: x64
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: ${{matrix.architecture}}
 
       - name: Cache Dependencies
         id: cache-choco
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-choco-packages
         with:

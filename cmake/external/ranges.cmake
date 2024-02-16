@@ -124,6 +124,7 @@ namespace std {
   namespace ranges {
 
     using ::ranges::all_of\;
+    using ::ranges::count\;
     using ::ranges::distance\;
     using ::ranges::find_if\;
     using ::ranges::for_each\;
