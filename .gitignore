@@ -1,3 +1,4 @@
 *.user*
 .scannerwork
 .idea
+*build*
