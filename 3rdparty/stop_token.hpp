@@ -26,11 +26,11 @@ inline void __spin_yield() noexcept {
 // internal types for shared stop state
 //-----------------------------------------------
 
-struct __stop_callback_base {
-  void(*__callback_)(__stop_callback_base*) = nullptr;
+struct ___stop_callback_base {
+  void(*__callback_)(___stop_callback_base*) = nullptr;
 
-  __stop_callback_base* __next_ = nullptr;
-  __stop_callback_base** __prev_ = nullptr;
+  ___stop_callback_base* __next_ = nullptr;
+  ___stop_callback_base** __prev_ = nullptr;
   bool* __isRemoved_ = nullptr;
   std::atomic<bool> __callbackFinishedExecuting_{false};
 
@@ -41,10 +41,10 @@ struct __stop_callback_base {
  protected:
   // it shall only by us who deletes this
   // (workaround for virtual __execute() and destructor)
-  ~__stop_callback_base() = default;
+  ~___stop_callback_base() = default;
 };
 
-struct __stop_state {
+struct ___stop_state {
  public:
   void __add_token_reference() noexcept {
     __state_.fetch_add(__token_ref_increment, std::memory_order_relaxed);
@@ -139,7 +139,7 @@ struct __stop_state {
   }
 
   bool __try_add_callback(
-      __stop_callback_base* __cb,
+      ___stop_callback_base* __cb,
       bool __incrementRefCountIfSuccessful) noexcept {
     std::uint64_t __oldState;
     goto __load_state;
@@ -178,7 +178,7 @@ struct __stop_state {
     return true;
   }
 
-  void __remove_callback(__stop_callback_base* __cb) noexcept {
+  void __remove_callback(___stop_callback_base* __cb) noexcept {
     __lock();
 
     if (__cb->__prev_ != nullptr) {
@@ -299,7 +299,7 @@ struct __stop_state {
   // bits 2-32 - token ref count (31 bits)
   // bits 33-63 - source ref count (31 bits)
   std::atomic<std::uint64_t> __state_{__source_ref_increment};
-  __stop_callback_base* __head_ = nullptr;
+  ___stop_callback_base* __head_ = nullptr;
   std::thread::id __signallingThread_{};
 };
 
@@ -391,13 +391,13 @@ class stop_token {
   template <typename _Callback>
   friend class stop_callback;
 
-  explicit stop_token(__stop_state* __state) noexcept : __state_(__state) {
+  explicit stop_token(___stop_state* __state) noexcept : __state_(__state) {
     if (__state_ != nullptr) {
       __state_->__add_token_reference();
     }
   }
 
-  __stop_state* __state_;
+  ___stop_state* __state_;
 };
 
 
@@ -407,7 +407,7 @@ class stop_token {
 
 class stop_source {
  public:
-  stop_source() : __state_(new __stop_state()) {}
+  stop_source() : __state_(new ___stop_state()) {}
 
   explicit stop_source(nostopstate_t) noexcept : __state_(nullptr) {}
 
@@ -476,7 +476,7 @@ class stop_source {
   }
 
  private:
-  __stop_state* __state_;
+  ___stop_state* __state_;
 };
 
 
@@ -486,7 +486,7 @@ class stop_source {
 
 template <typename _Callback>
 // requires Destructible<_Callback> && Invocable<_Callback>
-class [[nodiscard]] stop_callback : private __stop_callback_base {
+class [[nodiscard]] stop_callback : private ___stop_callback_base {
  public:
   using callback_type = _Callback;
 
@@ -513,7 +513,7 @@ class [[nodiscard]] stop_callback : private __stop_callback_base {
     // requires Constructible<Callback, C>
   explicit stop_callback(stop_token&& __token, _CB&& __cb) noexcept(
       std::is_nothrow_constructible_v<_Callback, _CB>)
-      : __stop_callback_base{[](__stop_callback_base *__that) noexcept {
+      : ___stop_callback_base{[](___stop_callback_base *__that) noexcept {
           static_cast<stop_callback*>(__that)->__execute();
         }},
         __state_(nullptr),
