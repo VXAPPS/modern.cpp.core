@@ -241,6 +241,9 @@ namespace vx::string_utils {
     std::size_t size = _size;
     if ( !size ) {
 
+#if defined __linux__ && defined __clang__ && __clang_major__ >= 18
+      size = std::strlen( reinterpret_cast<const char *>( _uchr ) );
+#else
       std::basic_string<unsigned char> string {};
       try {
 
@@ -250,10 +253,11 @@ namespace vx::string_utils {
 
         logFatal() << _exception.what();
       }
-#ifdef _WIN32
+  #ifdef _WIN32
       size = std::strnlen_s( reinterpret_cast<const char *>( _uchr ), string.size() ); // NOSONAR do not use reinterpret_cast.
-#else
+  #else
       size = std::strnlen( reinterpret_cast<const char *>( _uchr ), string.size() ); // NOSONAR do not use reinterpret_cast.
+  #endif
 #endif
     }
     return std::make_optional<std::string>( _uchr, _uchr + size ); // NOSONAR do not use pointer arithmetic.
