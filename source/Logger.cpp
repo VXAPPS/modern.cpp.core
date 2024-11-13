@@ -150,22 +150,22 @@ namespace vx::logger {
     switch ( _severity ) {
 
       case Severity::Verbose:
-        result += "\x{1b}[37;1m[" + severity + "]\x{1b}[0m";
+        result += "\x1b[37;1m[" + severity + "]\x1b[0m";
         break;
       case Severity::Debug:
-        result += "  \x{1b}[34;1m[" + severity + "]\x{1b}[0m";
+        result += "  \x1b[34;1m[" + severity + "]\x1b[0m";
         break;
       case Severity::Info:
-        result += "   \x{1b}[32;1m[" + severity + "]\x{1b}[0m";
+        result += "   \x1b[32;1m[" + severity + "]\x1b[0m";
         break;
       case Severity::Warning:
-        result += "\x{1b}[33;1m[" + severity + "]\x{1b}[0m";
+        result += "\x1b[33;1m[" + severity + "]\x1b[0m";
         break;
       case Severity::Error:
-        result += "  \x{1b}[31;1m[" + severity + "]\x{1b}[0m";
+        result += "  \x1b[31;1m[" + severity + "]\x1b[0m";
         break;
       case Severity::Fatal:
-        result += "  \x{1b}[41;1m[" + severity + "]\x{1b}[0m";
+        result += "  \x1b[41;1m[" + severity + "]\x1b[0m";
         break;
     }
     return result;

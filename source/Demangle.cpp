@@ -161,7 +161,7 @@ namespace vx::demangle {
 
     /* Try to fix no spaces and comma issues */
     RE2::GlobalReplace( &result, " ,", "," );
-    if ( !result.contains( ", " ) ) {
+    if ( result.find( ", " ) == std::string::npos ) {
 
       RE2::GlobalReplace( &result, ",", ", " );
     }
