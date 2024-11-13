@@ -79,7 +79,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC
   # An issue with visual studio 2019 with fetch project and same settings, so check early
   check_cxx_compiler_flag(/std:c++20 HAVE_FLAG_STD_CXX20)
   # Visual Studio 2019 will have clang-12, but cmake do not know how to set the standard for that.
-  if(CMAKE_CXX_COMPILER_ID MATCHES Clang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.0)
+  if(CMAKE_CXX_COMPILER_ID MATCHES Clang AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 18.0)
     set(HAVE_FLAG_STD_CXX23 OFF)
   endif()
 else()
