@@ -58,7 +58,7 @@ namespace vx {
     /**
      * @brief Default constructor for Rect.
      */
-    constexpr Rect<T>() = default;
+    constexpr Rect() = default;
 
     /**
      * @brief Constructor for Rect.
@@ -67,10 +67,10 @@ namespace vx {
      * @param _width   Width value.
      * @param _height   Height value.
      */
-    constexpr Rect<T>( T _left,
-                       T _top,
-                       T _width,
-                       T _height ) noexcept
+    constexpr Rect( T _left,
+                    T _top,
+                    T _width,
+                    T _height ) noexcept
       : m_x1( _left ),
         m_y1( _top ),
         m_x2( _left + _width - 1 ),
@@ -81,8 +81,8 @@ namespace vx {
      * @param _topleft   Top left point.
      * @param _bottomright   Bottom right point.
      */
-    constexpr Rect<T>( Point<T> _topleft,
-                       Point<T> _bottomright ) noexcept
+    constexpr Rect( Point<T> _topleft,
+                    Point<T> _bottomright ) noexcept
       : m_x1( _topleft.x() ),
         m_y1( _topleft.y() ),
         m_x2( _bottomright.x() ),
@@ -93,8 +93,8 @@ namespace vx {
      * @param _point   Point value.
      * @param _size   Size value.
      */
-    constexpr Rect<T>( Point<T> _point,
-                       Size<T> _size ) noexcept
+    constexpr Rect( Point<T> _point,
+                    Size<T> _size ) noexcept
       : m_x1( _point.x() ),
         m_y1( _point.y() ),
         m_x2( _point.x() + _size.width() - 1 ),

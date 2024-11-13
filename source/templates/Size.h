@@ -57,15 +57,15 @@ namespace vx {
     /**
      * @brief Default constructor for Size.
      */
-    constexpr Size<T>() = default;
+    constexpr Size() = default;
 
     /**
      * @brief Constructor for Size.
      * @param _width   Width value.
      * @param _height   Height value.
      */
-    constexpr Size<T>( T _width,
-                       T _height ) noexcept
+    constexpr Size( T _width,
+                    T _height ) noexcept
       : m_width( _width ),
         m_height( _height ) {}
 

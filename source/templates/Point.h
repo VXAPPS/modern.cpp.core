@@ -58,15 +58,15 @@ namespace vx {
     /**
      * @brief Default constructor for Point.
      */
-    constexpr Point<T>() = default;
+    constexpr Point() = default;
 
     /**
      * @brief Constructor for Point.
      * @param _x   X value.
      * @param _y   Y value.
      */
-    constexpr Point<T>( T _x,
-                        T _y ) noexcept
+    constexpr Point( T _x,
+                     T _y ) noexcept
       : m_x( _x ),
         m_y( _y ) {}
 

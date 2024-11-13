@@ -38,9 +38,9 @@
 #include <iomanip>
 #include <iostream> // std::streambuf, std::cout
 #include <source_location.hpp>
+#include <sstream>
 #include <string>
 #include <string_view>
-#include <sstream>
 
 /* magic enum */
 #include <magic_enum.hpp>

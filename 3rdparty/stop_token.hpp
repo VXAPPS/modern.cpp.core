@@ -496,7 +496,7 @@ class [[nodiscard]] stop_callback : private ___stop_callback_base {
     // requires Constructible<Callback, C>
   explicit stop_callback(const stop_token& __token, _CB&& __cb) noexcept(
       std::is_nothrow_constructible_v<_Callback, _CB>)
-      : __stop_callback_base{[](__stop_callback_base *__that) noexcept {
+      : ___stop_callback_base{[](___stop_callback_base *__that) noexcept {
           static_cast<stop_callback*>(__that)->__execute();
         }},
         __state_(nullptr),
@@ -553,7 +553,7 @@ class [[nodiscard]] stop_callback : private ___stop_callback_base {
 #endif
   }
 
-  __stop_state* __state_;
+  ___stop_state* __state_;
   _Callback __cb_;
 #ifdef SAFE
   std::atomic<bool> __inExecute_{false};

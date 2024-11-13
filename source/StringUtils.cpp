@@ -70,6 +70,7 @@ namespace vx::string_utils {
                           std::string_view _trim ) noexcept {
 
     auto trimmed_ = [ &_trim ]( auto _chr ) {
+
       if ( !_trim.empty() ) {
 
         return _trim.find( _chr ) != std::string_view::npos;
@@ -85,6 +86,7 @@ namespace vx::string_utils {
                          std::string_view _trim ) noexcept {
 
     auto trimmed_ = [ &_trim ]( auto _chr ) {
+
       if ( !_trim.empty() ) {
 
         return _trim.find( _chr ) != std::string_view::npos;
