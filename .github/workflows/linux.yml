@@ -175,7 +175,7 @@ jobs:
         if: matrix.compiler == 'clang' && matrix.config == 'Debug'
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-linux
+          name: coverage-linux,${{matrix.compiler}}-${{matrix.version}}
           path: |
                 ${{runner.workspace}}/build/tests/coverage.${{matrix.compiler}}-${{matrix.version}}.txt
                 ${{runner.workspace}}/build/tests/coverage.overview.${{matrix.compiler}}-${{matrix.version}}.txt
