@@ -24,13 +24,13 @@ jobs:
         ]
         config: [Debug, Release]
         include:
-          - name: macos-13-xcode-15-x86_64
+          - name: macos-13-xcode-14-x86_64
             os: macos-13
             compiler: xcode
             version: "14.3"
             architecture: x86_64
 
-          - name: macos-13-xcode-15-arm64
+          - name: macos-13-xcode-14-arm64
             os: macos-13
             compiler: xcode
             version: "14.3"
