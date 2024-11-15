@@ -1,4 +1,6 @@
 *.user*
 .scannerwork
 .idea
+.cache
+.vscode
 *build*
