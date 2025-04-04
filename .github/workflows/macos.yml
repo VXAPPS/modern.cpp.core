@@ -51,13 +51,13 @@ jobs:
           - name: macos-14-xcode-16-x86_64
             os: macos-14
             compiler: xcode
-            version: "15.4"
+            version: "16.2"
             architecture: x86_64
 
           - name: macos-14-xcode-16-arm64
             os: macos-14
             compiler: xcode
-            version: "15.4"
+            version: "16.2"
             architecture: arm64
 
     steps:
