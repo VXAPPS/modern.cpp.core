@@ -338,6 +338,60 @@ namespace vx {
     EXPECT_TRUE( std::is_scoped_enum_v<Color> );
     EXPECT_FALSE( std::is_scoped_enum_v<int> );
   }
+
+  TEST( MagicEnum, Extend ) {
+
+    enum class QNetworkReply {
+
+      ConnectionRefusedError = 1,
+      RemoteHostClosedError = 2,
+      HostNotFoundError = 3,
+      TimeoutError = 4,
+      OperationCanceledError = 5,
+      SslHandshakeFailedError = 6,
+      TemporaryNetworkFailureError = 7,
+      NetworkSessionFailedError = 8,
+      BackgroundRequestNotAllowedError = 9,
+      TooManyRedirectsError = 10,
+      InsecureRedirectError = 11,
+      ProxyConnectionRefusedError = 101,
+      ProxyConnectionClosedError = 102,
+      ProxyNotFoundError = 103,
+      ProxyTimeoutError = 104,
+      ProxyAuthenticationRequiredError = 105,
+      ContentAccessDenied = 201,
+      ContentOperationNotPermittedError = 202,
+      ContentNotFoundError = 203,
+      AuthenticationRequiredError = 204,
+      ContentReSendError = 205,
+      ContentConflictError = 206,
+      ContentGoneError = 207,
+      InternalServerError = 401,
+      OperationNotImplementedError = 402,
+      ServiceUnavailableError = 403,
+      ProtocolUnknownError = 301,
+      ProtocolInvalidOperationError = 302,
+      UnknownNetworkError = 99,
+      UnknownProxyError = 199,
+      UnknownContentError = 299,
+      ProtocolFailure = 399,
+      UnknownServerError = 499
+    };
+
+    const std::optional seven = magic_enum::enum_cast<QNetworkReply>( 7 );
+    EXPECT_TRUE( seven.has_value() );
+
+    /* Default maximum value of magic_enum is 128 - so this test is fale, without configuration */
+    const std::optional threeZeroOne = magic_enum::enum_cast<QNetworkReply>( 301 );
+    EXPECT_FALSE( threeZeroOne.has_value() );
+
+    const std::optional threeOneEight = magic_enum::enum_cast<QNetworkReply>( 318 );
+    EXPECT_FALSE( threeOneEight.has_value() );
+
+    /* Magic_enum gives the name, but cannot handle the id */
+    constexpr auto unkownServerError = magic_enum::enum_name<QNetworkReply::UnknownServerError>();
+    EXPECT_EQ( unkownServerError, "UnknownServerError" );
+  }
 }
 #ifdef __clang__
   #pragma clang diagnostic pop

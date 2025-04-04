@@ -69,7 +69,7 @@ namespace vx::demangle {
     const std::unique_ptr<char, void ( * )( char * )> res {
 
       abi::__cxa_demangle( _name.c_str(), nullptr, nullptr, &status ),
-      []( char *_toFree ) { std::free( _toFree ); } // NOSONAR raii is nor possible here.
+      []( char *_toFree ) { std::free( _toFree ); } // NOSONAR raii is not possible here.
     };
 
     if ( status == 0 ) {

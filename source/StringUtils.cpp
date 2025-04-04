@@ -215,15 +215,15 @@ namespace vx::string_utils {
     return result;
   }
 
-  std::optional<std::string> fromUnsignedChar( const unsigned char *_uchr ) noexcept {
+  std::optional<std::string> MAYBE_BAD_fromUnsignedChar( const unsigned char *_uchr ) noexcept {
 
     /* nullptr check is mandatory */
     if ( !_uchr ) { return {}; }
 
-    std::basic_string<unsigned char> string {};
+    std::string string {};
     try {
 
-      string = _uchr;
+      string = reinterpret_cast<const char *>( _uchr );
     }
     catch( const std::exception &_exception ) {
 
@@ -244,10 +244,10 @@ namespace vx::string_utils {
 #if defined __linux__ && defined __clang__ && __clang_major__ >= 18
       size = std::strlen( reinterpret_cast<const char *>( _uchr ) );
 #else
-      std::basic_string<unsigned char> string {};
+      std::string string {};
       try {
 
-        string = _uchr;
+        string = reinterpret_cast<const char *>( _uchr );
       }
       catch( const std::exception &_exception ) {
 
