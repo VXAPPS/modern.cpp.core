@@ -52,7 +52,7 @@
 #include <vector>
 
 /* magic enum */
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 /* modern.cpp.core */
 #include <Logger.h>

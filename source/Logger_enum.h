@@ -34,8 +34,8 @@
 #include <type_traits>
 
 /* magic_enum */
-#include <magic_enum.hpp>
-#include <magic_enum_flags.hpp>
+#include <magic_enum/magic_enum.hpp>
+#include <magic_enum/magic_enum_flags.hpp>
 
 /* local header */
 #include "Logger.h"

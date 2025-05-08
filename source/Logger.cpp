@@ -43,7 +43,7 @@
 #include <string_view>
 
 /* magic enum */
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 /* local header */
 #include "Logger.h"

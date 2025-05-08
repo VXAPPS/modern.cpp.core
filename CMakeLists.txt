@@ -42,7 +42,7 @@ if(NOT DEFINED CORE_MASTER_PROJECT)
   endif()
 endif()
 
-project(modern.cpp.core VERSION 0.6.3 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES C CXX)
+project(modern.cpp.core VERSION 0.6.4 DESCRIPTION "Modern C++ Core" HOMEPAGE_URL "https://vxapps.com" LANGUAGES C CXX)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/env.cmake)
 include(${CMAKE}/checks.cmake)
 if(CORE_MASTER_PROJECT AND CMAKE_BUILD_TYPE STREQUAL Debug)

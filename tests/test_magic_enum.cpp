@@ -43,7 +43,7 @@
 #include <utility>
 
 /* magic enum */
-#include <magic_enum.hpp>
+#include <magic_enum/magic_enum.hpp>
 
 /* modern.cpp.core */
 #include <Cpp23.h>
