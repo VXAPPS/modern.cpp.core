@@ -50,6 +50,7 @@
 #include "StringUtils.h"
 #include "Timestamp.h"
 
+// TODO(FB): Log over multilines in same Line
 namespace vx::logger {
 
   using timestamp::Precision;

@@ -40,6 +40,11 @@
 class Item {
 
 public:
+  Item( const Item & ) = default;
+  Item( Item && ) = default;
+  Item &operator=( const Item & ) = default;
+  Item &operator=( Item && ) = default;
+
   explicit Item( std::string _message,
                  std::int32_t _number )
     : m_message( std::move( _message ) ),
